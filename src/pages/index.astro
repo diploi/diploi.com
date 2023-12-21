@@ -18,11 +18,14 @@ import arrow from '../images/arrow.svg';
 import pipeline from '../images/pipeline.svg';
 import Flow from '../components/Flow.astro';
 import Video from '../components/Video.astro';
+import Navigation from '../components/Navigation.astro';
 ---
 
 <Layout title="Diploi – Magical Developer Experience">
   <main>
-    <header>
+    <Navigation />
+
+    <article class="hero">
       <Logo />
       <h1><span class="text-gradient">Magical</span> Developer Experience</h1>
       <p>
@@ -50,7 +53,7 @@ import Video from '../components/Video.astro';
         height={1024}
         alt="background graphic representing flow"
       />
-    </header>
+    </article>
 
     <article class="flow">
       <Video />
@@ -214,7 +217,6 @@ import Video from '../components/Video.astro';
     font-size:;
   }
 
-  header,
   article,
   section,
   footer {
@@ -222,7 +224,7 @@ import Video from '../components/Video.astro';
     max-width: 900px;
   }
 
-  header {
+  .hero {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -230,11 +232,11 @@ import Video from '../components/Video.astro';
     min-height: 800px;
   }
 
-  header > :global(svg) {
+  .hero > :global(svg) {
     flex-shrink: 0;
   }
 
-  header > h1 {
+  .hero > h1 {
     margin-bottom: 0;
     font-size: var(--font-header-size);
     font-weight: bold;
@@ -242,17 +244,17 @@ import Video from '../components/Video.astro';
     line-height: 1.2;
   }
 
-  header > p {
+  .hero > p {
     margin-bottom: 64px;
   }
 
-  header > div {
+  .hero > div {
     display: flex;
     gap: 16px;
   }
 
   @media (max-width: 900px) {
-    header > div {
+    .hero > div {
       flex-direction: column;
     }
   }
@@ -472,7 +474,7 @@ import Video from '../components/Video.astro';
     font-size: 1rem;
     font-weight: bold;
     text-decoration: none;
-    border-radius: 10px;
+    border-radius: 12px;
     border: none;
     background-color: var(--color-primary);
     color: #fff;
@@ -489,7 +491,7 @@ import Video from '../components/Video.astro';
     padding: 20px;
     font-size: 1rem;
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
     background-color: rgba(0, 0, 0, 0.1);
     color: white;
   }

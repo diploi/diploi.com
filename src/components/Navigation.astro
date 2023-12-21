@@ -1,0 +1,46 @@
+---
+import { House, CreditCard } from '@phosphor-icons/react';
+
+const pathname = Astro.url.pathname;
+
+const isHome = pathname === '/';
+const isPricing = pathname === '/pricing';
+---
+
+<header>
+  <nav>
+    <a href="/" data-selected={`${isHome}`}
+      ><House weight={isHome ? 'fill' : 'regular'} /> Home</a
+    >
+    <a href="/pricing" data-selected={`${isPricing}`}
+      ><CreditCard weight={isPricing ? 'fill' : 'regular'} /> Pricing</a
+    >
+  </nav>
+</header>
+
+<style>
+  header {
+    position: absolute;
+  }
+
+  nav {
+    display: flex;
+    gap: 16px;
+  }
+
+  nav > a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 18px 4px 14px;
+    text-decoration: none;
+    background-color: transparent;
+    color: #fff;
+    border-radius: 64px;
+  }
+
+  nav > a[data-selected='true'] {
+    background-color: #fff;
+    color: var(--color-grey);
+  }
+</style>

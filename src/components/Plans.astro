@@ -1,0 +1,387 @@
+---
+import { CheckCircle, Plus, Info } from '@phosphor-icons/react';
+---
+
+<ul role="list" class="list">
+  <!-- Entry -->
+  <li class="card free">
+    <ul>
+      <li>
+        <h2>Free Trial</h2>
+      </li>
+      <li>
+        <p class="price">
+          0,02<small>€</small>
+          <span class="help">/ running deployment / hour</span>
+        </p>
+        <hr />
+        <p class="price resource">
+          Resource Usage
+          <span class="help">/ CPU / RAM / disk / transfer / hour</span>
+        </p>
+        <div class="overlay">
+          <div class="help credit">
+            <p class="price">
+              50<small>€</small>
+            </p>
+            <p>&nbsp;of Free Credits</p>
+          </div>
+          <div class="help">
+            Same pricing as Pro, trial is free as long as credits last.
+            Remaining credit will transfer to Pro when upgraded.
+          </div>
+        </div>
+      </li>
+      <li>
+        <ul class="features">
+          <li><CheckCircle size={16} weight="bold" /> Everything in Pro</li>
+          <li><Plus size={16} weight="bold" /> No credit-card required</li>
+          <li><Plus size={16} weight="bold" /> No restrictions</li>
+        </ul>
+      </li>
+      <li>
+        <a class="button">Get Started</a>
+      </li>
+    </ul>
+  </li>
+
+  <!-- Pro -->
+  <li class="card">
+    <ul>
+      <li>
+        <h2>Pro</h2>
+      </li>
+      <li>
+        <p class="price">
+          0,02<small>€</small>
+          <span class="help">/ running deployment / hour</span>
+        </p>
+        <hr />
+        <p class="price resource">
+          Resource Usage
+          <span class="help">/ CPU / RAM / disk / transfer / hour</span>
+        </p>
+      </li>
+      <li>
+        <ul class="features">
+          <li><Plus size={16} weight="bold" /> Unlimited users</li>
+          <li><Plus size={16} weight="bold" /> All core features</li>
+        </ul>
+      </li>
+      <li>
+        <a class="button">Upgrade to Pro</a>
+      </li>
+    </ul>
+  </li>
+
+  <!-- Enterprise -->
+  <li class="card">
+    <ul>
+      <li>
+        <h2>Enterprise</h2>
+      </li>
+      <li>
+        <p class="quote">Ask for a quote</p>
+        <p class="quote help">
+          Deployment & resource pricing are both negotiable based on your needs
+        </p>
+      </li>
+      <li>
+        <ul class="features">
+          <li><CheckCircle size={16} weight="bold" /> Everything in Pro</li>
+          <li><Plus size={16} weight="bold" /> Custom templates</li>
+          <li><Plus size={16} weight="bold" /> Premium SLA</li>
+          <li><Plus size={16} weight="bold" /> Premium support</li>
+        </ul>
+      </li>
+      <li>
+        <a class="button basic">Contact Us</a>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<style>
+  .list {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    gap: 32px;
+  }
+
+  .list > li {
+    flex: 1;
+  }
+
+  .list > li.gap {
+    flex: 0;
+    flex-basis: 28px;
+  }
+
+  .card {
+    position: relative;
+    display: flex;
+    border-radius: 24px;
+    text-decoration: none;
+    line-height: 1.4;
+    background-color: var(--color-grey);
+    color: white;
+    overflow: hidden;
+  }
+
+  .card.free {
+    background-color: transparent;
+  }
+
+  .card.free::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(
+      -45deg,
+      var(--color-primary),
+      var(--color-secondary)
+    );
+    opacity: 0.3;
+    z-index: -1;
+  }
+
+  .card > ul {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    list-style: none;
+  }
+
+  .card > ul > li {
+    position: relative;
+    padding: 28px 32px;
+  }
+
+  .card > ul > li:nth-of-type(2) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 160px;
+    background-color: #2a2947;
+    border-right: 4px solid var(--color-primary);
+  }
+
+  .card.free > ul > li:nth-of-type(2) {
+    background-color: #2f2865;
+    border-right: none;
+  }
+
+  .card > ul > li:last-of-type {
+    display: flex;
+    align-items: flex-end;
+    flex: 1;
+  }
+
+  .card > ul > li > ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    opacity: 0.8;
+  }
+
+  .card > ul > li > ul > li {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .card > ul > li > ul > li > :global(svg) {
+    opacity: 0.5;
+  }
+
+  .card hr {
+    position: relative;
+    margin: 20px 0;
+    width: 100%;
+    height: 2px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border: none;
+    overflow: visible;
+  }
+
+  .card hr::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #2a2947;
+    border: 3px solid #2a2947;
+    width: 22px;
+    height: 22px;
+    background-size: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='rgba(255, 255, 255, 0.3)' viewBox='0 0 256 256'%3E%3Cpath d='M128,24A104,104,0,1,0,232,128,104.13,104.13,0,0,0,128,24Zm40,112H136v32a8,8,0,0,1-16,0V136H88a8,8,0,0,1,0-16h32V88a8,8,0,0,1,16,0v32h32a8,8,0,0,1,0,16Z'%3E%3C/path%3E%3C/svg%3E");
+  }
+
+  .overlay {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    padding: 0 32px;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      to bottom,
+      rgba(47, 40, 101, 0.85),
+      rgba(47, 40, 101, 1)
+    );
+    box-sizing: border-box;
+    opacity: 1;
+  }
+
+  .overlay .help:not(.credit) {
+    font-size: 0.64rem;
+  }
+
+  .features {
+    font-size: 1rem;
+  }
+
+  .price {
+    margin-top: 0;
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .price.resource {
+    font-size: 1rem;
+  }
+
+  .price > small {
+    font-size: 1rem;
+    opacity: 0.8;
+  }
+
+  .price > .help {
+    display: block;
+    transform: translateY(-6px);
+  }
+
+  .price.resource > .help {
+    transform: translateY(-1px);
+  }
+
+  .help {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.64rem;
+    color: #b6bdc8;
+  }
+
+  .credit {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding: 12px 16px;
+    background-color: #2a2947;
+    border-radius: 6px;
+    border: 2px solid var(--color-primary);
+    color: var(--color-white);
+  }
+
+  .credit > :global(svg) {
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    padding: 4px;
+    background: var(--color-primary);
+    border-radius: 50%;
+  }
+
+  .credit p:not(.price) {
+    flex: 1;
+    margin-top: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    opacity: 0.7;
+  }
+
+  .quote {
+    text-align: center;
+  }
+
+  .quote:not(.help) {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  h2 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    margin: 0;
+    transition: color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  h2::after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: -6px;
+    height: 4px;
+    width: 60px;
+    background-color: var(--color-primary);
+    border-radius: 4px;
+  }
+
+  h2 > small {
+    padding: 4px 8px;
+    font-size: 1rem;
+    background-color: #2a2947;
+    border-radius: 6px;
+  }
+
+  p {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+    font-size: 1rem;
+  }
+
+  .button,
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 20px 24px;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 12px;
+    border: none;
+    background-color: var(--color-primary);
+    color: #fff;
+    user-select: none;
+    cursor: pointer;
+  }
+
+  .button.basic,
+  button.basic {
+    background-color: var(--color-grey);
+  }
+</style>

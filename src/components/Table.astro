@@ -1,0 +1,114 @@
+---
+const pricing = await fetch(
+  'https://tuomas.diploi.dev/api/business/pricing'
+).then((response) => response.json());
+if (pricing.status !== 'ok') {
+  throw new Error(`Failed to load pricing (${pricing.status})`);
+}
+---
+
+<article>
+  <table>
+    <thead>
+      <tr>
+        <th><div class="name"></div></th>
+        <th><div class="cost">Cost</div></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Deployment</td>
+        <td>0,02 € <span class="help">/ deployment / hour</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table>
+    <thead>
+      <tr>
+        <th><div class="name">Instance</div></th>
+        <th><div class="cost">Cost</div></th>
+        <th>Memory</th>
+        <th>vCPU</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>XS</td>
+        <td>0,051 € <span class="help">/ hour</span></td>
+        <td>2 GB</td>
+        <td>2</td>
+      </tr>
+      <tr>
+        <td>S</td>
+        <td>0,051 € <span class="help">/ hour</span></td>
+        <td>2 GB</td>
+        <td>2</td>
+      </tr>
+      <tr>
+        <td>M</td>
+        <td>0,051 € <span class="help">/ hour</span></td>
+        <td>2 GB</td>
+        <td>2</td>
+      </tr>
+      <tr>
+        <td>L</td>
+        <td>0,051 € <span class="help">/ hour</span></td>
+        <td>2 GB</td>
+        <td>2</td>
+      </tr>
+      <tr>
+        <td>XL</td>
+        <td>0,051 € <span class="help">/ hour</span></td>
+        <td>2 GB</td>
+        <td>2</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table>
+    <thead>
+      <tr>
+        <th><div class="name"></div></th>
+        <th><div class="cost">Cost</div></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Storage</td>
+        <td>0,13 € <span class="help">/ GB</span></td>
+      </tr>
+      <tr>
+        <td>Transfer</td>
+        <td>0,13 € <span class="help">/ GB</span></td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+
+<style>
+  article {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  table {
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  table th {
+    text-align: left;
+  }
+
+  .help {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.875rem;
+    color: #b6bdc8;
+  }
+</style>

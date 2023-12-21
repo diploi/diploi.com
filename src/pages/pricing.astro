@@ -1,0 +1,62 @@
+---
+import {
+  Target,
+  CursorClick,
+  PlugsConnected,
+  BookBookmark,
+  SignIn,
+  EnvelopeOpen,
+  Envelope,
+} from '@phosphor-icons/react';
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import Logo from '../components/Logo.astro';
+import Gradient from '../components/Gradient.astro';
+import Chart from '../components/Chart.astro';
+import arrow from '../images/arrow.svg';
+import pipeline from '../images/pipeline.svg';
+import Flow from '../components/Flow.astro';
+import Plans from '../components/Plans.astro';
+import Navigation from '../components/Navigation.astro';
+import Table from '../components/Table.astro';
+---
+
+<Layout title="Diploi – Pricing">
+  <main>
+    <Navigation />
+
+    <Plans />
+
+    <Table />
+  </main>
+
+  <footer>
+    <p>Built with ❤️ by Diploi</p>
+  </footer>
+
+  <Gradient />
+</Layout>
+
+<style>
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    font-size:;
+  }
+
+  footer {
+    margin: auto;
+    margin-top: 128px;
+    font-size: 0.64rem;
+    text-align: center;
+    color: white;
+  }
+
+  footer p {
+    max-width: 100%;
+    opacity: 0.2;
+  }
+</style>
