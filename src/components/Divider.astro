@@ -1,0 +1,29 @@
+<hr />
+
+<style>
+  hr {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    margin: 180px 0;
+    border: none;
+    height: 2px;
+    background-color: var(--color-grey);
+    overflow: visible;
+  }
+
+  hr::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: -100px;
+    left: 0;
+    width: 100%;
+    height: 200px;
+    background-image: url(/starfield.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 1;
+  }
+</style>

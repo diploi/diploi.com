@@ -19,6 +19,7 @@ import pipeline from '../images/pipeline.svg';
 import Flow from '../components/Flow.astro';
 import Video from '../components/Video.astro';
 import Navigation from '../components/Navigation.astro';
+import Divider from '../components/Divider.astro';
 ---
 
 <Layout title="Diploi – Magical Developer Experience">
@@ -35,15 +36,15 @@ import Navigation from '../components/Navigation.astro';
       <div>
         <a class="button" href="#invite">
           <EnvelopeOpen weight="fill" />
-           Get an Invite →
+          Get an Invite →
         </a>
         <a class="button basic" href="https://docs.diploi.com/">
           <BookBookmark weight="fill" />
-           Documentation →
+          Documentation →
         </a>
         <a class="button basic" href="https://console.diploi.com/">
           <SignIn />
-           Login →
+          Login →
         </a>
       </div>
 
@@ -126,7 +127,7 @@ import Navigation from '../components/Navigation.astro';
       <!-- <Image src={screenshot} width={900} alt="The Diploi dashboard." /> -->
     </article>
 
-    <hr />
+    <Divider />
 
     <article class="statistic">
       <section>
@@ -326,32 +327,6 @@ import Navigation from '../components/Navigation.astro';
     }
   }
 
-  main > hr {
-    position: relative;
-    width: 100%;
-    max-width: 900px;
-    margin: 180px 0;
-    border: none;
-    height: 2px;
-    background-color: var(--color-grey);
-    overflow: visible;
-  }
-
-  main > hr::after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: -100px;
-    left: 0;
-    width: 100%;
-    height: 200px;
-    background-image: url(/starfield.svg);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    opacity: 1;
-  }
-
   .statistic {
     display: flex;
     flex-direction: column;
@@ -463,37 +438,6 @@ import Navigation from '../components/Navigation.astro';
     .callout form {
       flex-direction: column;
     }
-  }
-
-  .button,
-  button {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 20px 24px;
-    font-size: 1rem;
-    font-weight: bold;
-    text-decoration: none;
-    border-radius: 12px;
-    border: none;
-    background-color: var(--color-primary);
-    color: #fff;
-    user-select: none;
-    cursor: pointer;
-  }
-
-  .button.basic,
-  button.basic {
-    background-color: var(--color-grey);
-  }
-
-  input {
-    padding: 20px;
-    font-size: 1rem;
-    border: none;
-    border-radius: 12px;
-    background-color: rgba(0, 0, 0, 0.1);
-    color: white;
   }
 
   footer {

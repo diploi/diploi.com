@@ -155,4 +155,35 @@ const { title } = Astro.props;
       Courier New,
       monospace;
   }
+
+  .button,
+  button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 20px 24px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 12px;
+    border: none;
+    background-color: var(--color-primary);
+    color: #fff;
+    user-select: none;
+    cursor: pointer;
+  }
+
+  .button.basic,
+  button.basic {
+    background-color: var(--color-grey);
+  }
+
+  input {
+    padding: 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 12px;
+    background-color: rgba(0, 0, 0, 0.1);
+    color: white;
+  }
 </style>

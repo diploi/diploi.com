@@ -1,5 +1,19 @@
 ---
-import { CheckCircle, Plus, Info } from '@phosphor-icons/react';
+import { CheckCircle, Plus } from '@phosphor-icons/react';
+
+interface Props {
+  pricing: {
+    deployment: number;
+  };
+}
+
+const { pricing } = Astro.props;
+
+const formatter = new Intl.NumberFormat('fi-FI', {
+  style: 'currency',
+  currency: 'EUR',
+  minimumFractionDigits: 3,
+});
 ---
 
 <ul role="list" class="list">
@@ -11,10 +25,10 @@ import { CheckCircle, Plus, Info } from '@phosphor-icons/react';
       </li>
       <li>
         <p class="price">
-          0,02<small>€</small>
+          {formatter.format(pricing.deployment)}
           <span class="help">/ running deployment / hour</span>
         </p>
-        <hr />
+        <Plus />
         <p class="price resource">
           Resource Usage
           <span class="help">/ CPU / RAM / disk / transfer / hour</span>
@@ -26,10 +40,10 @@ import { CheckCircle, Plus, Info } from '@phosphor-icons/react';
             </p>
             <p>&nbsp;of Free Credits</p>
           </div>
-          <div class="help">
+          <!-- <div class="help">
             Same pricing as Pro, trial is free as long as credits last.
             Remaining credit will transfer to Pro when upgraded.
-          </div>
+          </div> -->
         </div>
       </li>
       <li>
@@ -40,7 +54,7 @@ import { CheckCircle, Plus, Info } from '@phosphor-icons/react';
         </ul>
       </li>
       <li>
-        <a class="button">Get Started</a>
+        <a class="button" href="/#invite">Get Started</a>
       </li>
     </ul>
   </li>
@@ -53,10 +67,10 @@ import { CheckCircle, Plus, Info } from '@phosphor-icons/react';
       </li>
       <li>
         <p class="price">
-          0,02<small>€</small>
+          {formatter.format(pricing.deployment)}
           <span class="help">/ running deployment / hour</span>
         </p>
-        <hr />
+        <Plus />
         <p class="price resource">
           Resource Usage
           <span class="help">/ CPU / RAM / disk / transfer / hour</span>
@@ -69,7 +83,7 @@ import { CheckCircle, Plus, Info } from '@phosphor-icons/react';
         </ul>
       </li>
       <li>
-        <a class="button">Upgrade to Pro</a>
+        <a class="button" href="#contact-us">Upgrade to Pro</a>
       </li>
     </ul>
   </li>
@@ -95,7 +109,7 @@ import { CheckCircle, Plus, Info } from '@phosphor-icons/react';
         </ul>
       </li>
       <li>
-        <a class="button basic">Contact Us</a>
+        <a class="button basic" href="#contact-us">Contact Us</a>
       </li>
     </ul>
   </li>
@@ -104,7 +118,10 @@ import { CheckCircle, Plus, Info } from '@phosphor-icons/react';
 <style>
   .list {
     display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
     margin: 0;
+    margin-top: 128px;
     padding: 0;
     list-style: none;
     gap: 32px;
@@ -122,6 +139,9 @@ import { CheckCircle, Plus, Info } from '@phosphor-icons/react';
   .card {
     position: relative;
     display: flex;
+    width: 380px;
+    min-width: 380px;
+    max-width: 380px;
     border-radius: 24px;
     text-decoration: none;
     line-height: 1.4;
@@ -172,12 +192,13 @@ import { CheckCircle, Plus, Info } from '@phosphor-icons/react';
     align-items: center;
     text-align: center;
     min-height: 160px;
-    background-color: #2a2947;
-    border-right: 4px solid var(--color-primary);
+    /* background-color: #2a2947; */
+    background-color: rgba(0, 0, 0, 0.2);
+    /* border-right: 4px solid var(--color-primary); */
   }
 
   .card.free > ul > li:nth-of-type(2) {
-    background-color: #2f2865;
+    /* background-color: #2f2865; */
     border-right: none;
   }
 
@@ -185,6 +206,10 @@ import { CheckCircle, Plus, Info } from '@phosphor-icons/react';
     display: flex;
     align-items: flex-end;
     flex: 1;
+  }
+
+  .card > ul > li > svg {
+    opacity: 0.5;
   }
 
   .card > ul > li > ul {
@@ -204,31 +229,6 @@ import { CheckCircle, Plus, Info } from '@phosphor-icons/react';
     opacity: 0.5;
   }
 
-  .card hr {
-    position: relative;
-    margin: 20px 0;
-    width: 100%;
-    height: 2px;
-    background-color: rgba(255, 255, 255, 0.3);
-    border: none;
-    overflow: visible;
-  }
-
-  .card hr::after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #2a2947;
-    border: 3px solid #2a2947;
-    width: 22px;
-    height: 22px;
-    background-size: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='rgba(255, 255, 255, 0.3)' viewBox='0 0 256 256'%3E%3Cpath d='M128,24A104,104,0,1,0,232,128,104.13,104.13,0,0,0,128,24Zm40,112H136v32a8,8,0,0,1-16,0V136H88a8,8,0,0,1,0-16h32V88a8,8,0,0,1,16,0v32h32a8,8,0,0,1,0,16Z'%3E%3C/path%3E%3C/svg%3E");
-  }
-
   .overlay {
     position: absolute;
     display: flex;
@@ -240,13 +240,29 @@ import { CheckCircle, Plus, Info } from '@phosphor-icons/react';
     padding: 0 32px;
     width: 100%;
     height: 100%;
-    background: linear-gradient(
+    background-color: rgba(0, 0, 0, 0.1);
+    /* background: linear-gradient(
       to bottom,
       rgba(47, 40, 101, 0.85),
       rgba(47, 40, 101, 1)
-    );
+    ); */
     box-sizing: border-box;
     opacity: 1;
+  }
+
+  .overlay::before {
+    content: '';
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(../images/blur.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 70%;
+    filter: blur(45px);
   }
 
   .overlay .help:not(.credit) {
@@ -294,10 +310,12 @@ import { CheckCircle, Plus, Info } from '@phosphor-icons/react';
     margin-top: 8px;
     margin-bottom: 8px;
     padding: 12px 16px;
-    background-color: #2a2947;
+    background-color: var(--color-secondary);
     border-radius: 6px;
-    border: 2px solid var(--color-primary);
+    /* border: 2px solid var(--color-primary); */
     color: var(--color-white);
+
+    transform: scale(1.1) rotate(-8deg);
   }
 
   .credit > :global(svg) {
@@ -309,12 +327,15 @@ import { CheckCircle, Plus, Info } from '@phosphor-icons/react';
     border-radius: 50%;
   }
 
+  .credit p {
+    opacity: 1;
+  }
+
   .credit p:not(.price) {
     flex: 1;
     margin-top: 0;
     font-family: 'Montserrat', sans-serif;
     font-size: 1rem;
-    opacity: 0.7;
   }
 
   .quote {
@@ -363,25 +384,12 @@ import { CheckCircle, Plus, Info } from '@phosphor-icons/react';
 
   .button,
   button {
-    display: flex;
     justify-content: center;
-    align-items: center;
-    gap: 8px;
-    padding: 20px 24px;
     width: 100%;
-    font-size: 1rem;
-    font-weight: bold;
-    text-decoration: none;
-    border-radius: 12px;
-    border: none;
-    background-color: var(--color-primary);
-    color: #fff;
-    user-select: none;
-    cursor: pointer;
   }
 
   .button.basic,
   button.basic {
-    background-color: var(--color-grey);
+    background-color: rgba(0, 0, 0, 0.2);
   }
 </style>

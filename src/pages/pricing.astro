@@ -1,34 +1,44 @@
 ---
-import {
-  Target,
-  CursorClick,
-  PlugsConnected,
-  BookBookmark,
-  SignIn,
-  EnvelopeOpen,
-  Envelope,
-} from '@phosphor-icons/react';
-import { Image } from 'astro:assets';
+import { ChatsCircle } from '@phosphor-icons/react';
 import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
-import Logo from '../components/Logo.astro';
 import Gradient from '../components/Gradient.astro';
-import Chart from '../components/Chart.astro';
-import arrow from '../images/arrow.svg';
-import pipeline from '../images/pipeline.svg';
-import Flow from '../components/Flow.astro';
 import Plans from '../components/Plans.astro';
 import Navigation from '../components/Navigation.astro';
 import Table from '../components/Table.astro';
+
+const { pricing } = await fetch(
+  'https://tuomas.diploi.dev/api/business/pricing'
+).then((response) => response.json());
+if (!pricing) {
+  throw new Error(`Failed to load pricing (${pricing.status})`);
+}
 ---
 
 <Layout title="Diploi – Pricing">
   <main>
     <Navigation />
 
-    <Plans />
+    <Plans pricing={pricing} />
 
-    <Table />
+    <hr />
+
+    <Table pricing={pricing} />
+
+    <hr />
+
+    <article id="contact-us" class="callout">
+      <section>
+        <h2><ChatsCircle weight="bold" /> Contact Us</h2>
+        <p>
+          Sign up for a Free Trial invite on our front page! If you're
+          considering our Pro or Enterprise tiers, feel free to reach out to us
+          directly. We're here to answer your questions and assist with
+          upgrading your account.
+        </p>
+
+        <a href="mailto:hello@diploi.com" class="email">hello@diploi.com</a>
+      </section>
+    </article>
   </main>
 
   <footer>
@@ -45,6 +55,65 @@ import Table from '../components/Table.astro';
     align-items: center;
     color: white;
     font-size:;
+  }
+
+  hr {
+    margin: 48px 0;
+    border: none;
+  }
+
+  .callout {
+    position: relative;
+    margin-top: 128px;
+  }
+
+  .callout h2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 0;
+  }
+
+  .callout h2 > svg {
+    fill: url(#gradient-three);
+  }
+
+  .callout::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: -48px;
+    left: -48px;
+    width: calc(100% + 96px);
+    height: calc(100% + 96px);
+    border-radius: 24px;
+    background-image: linear-gradient(
+      -45deg,
+      var(--color-primary),
+      var(--color-secondary)
+    );
+    opacity: 0.1;
+    z-index: -1;
+  }
+
+  .callout form {
+    display: flex;
+    gap: 16px;
+  }
+
+  .email {
+    text-decoration: none;
+    color: var(--color-white);
+  }
+
+  @media (max-width: 900px) {
+    .callout::after {
+      display: none;
+    }
+
+    .callout form {
+      flex-direction: column;
+    }
   }
 
   footer {

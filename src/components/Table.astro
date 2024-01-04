@@ -1,29 +1,63 @@
 ---
-const pricing = await fetch(
-  'https://tuomas.diploi.dev/api/business/pricing'
-).then((response) => response.json());
-if (pricing.status !== 'ok') {
-  throw new Error(`Failed to load pricing (${pricing.status})`);
+interface Props {
+  pricing: {
+    deployment: number;
+    storagePerGiB: number;
+    coreInstancePrice: {
+      name: string;
+      price: number;
+      rootStorageSizeGiB: number;
+      memoryGiB: number;
+      vCpu: number;
+    }[];
+  };
 }
+
+const { pricing } = Astro.props;
+
+const formatter = new Intl.NumberFormat('fi-FI', {
+  style: 'currency',
+  currency: 'EUR',
+  minimumFractionDigits: 3,
+});
+
+const storageFormatter = new Intl.NumberFormat('fi-FI', {
+  style: 'currency',
+  currency: 'EUR',
+  minimumFractionDigits: 5,
+});
 ---
 
 <article>
+  <section>
+    <h2>Resource Costs</h2>
+    <p>
+      You will not be charged for the hours your deployment is stopped. This can
+      be used to cut costs on deployments that don't need to be constantly
+      available.
+    </p>
+  </section>
+
   <table>
     <thead>
       <tr>
         <th><div class="name"></div></th>
         <th><div class="cost">Cost</div></th>
         <th></th>
-        <th></th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>Deployment</td>
-        <td>0,02 € <span class="help">/ deployment / hour</span></td>
+        <td>
+          {formatter.format(pricing.deployment)}
+          <span class="help">/ deployment / hour</span>
+        </td>
       </tr>
     </tbody>
   </table>
+
+  <hr />
 
   <table>
     <thead>
@@ -32,41 +66,27 @@ if (pricing.status !== 'ok') {
         <th><div class="cost">Cost</div></th>
         <th>Memory</th>
         <th>vCPU</th>
+        <th>Disk</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>XS</td>
-        <td>0,051 € <span class="help">/ hour</span></td>
-        <td>2 GB</td>
-        <td>2</td>
-      </tr>
-      <tr>
-        <td>S</td>
-        <td>0,051 € <span class="help">/ hour</span></td>
-        <td>2 GB</td>
-        <td>2</td>
-      </tr>
-      <tr>
-        <td>M</td>
-        <td>0,051 € <span class="help">/ hour</span></td>
-        <td>2 GB</td>
-        <td>2</td>
-      </tr>
-      <tr>
-        <td>L</td>
-        <td>0,051 € <span class="help">/ hour</span></td>
-        <td>2 GB</td>
-        <td>2</td>
-      </tr>
-      <tr>
-        <td>XL</td>
-        <td>0,051 € <span class="help">/ hour</span></td>
-        <td>2 GB</td>
-        <td>2</td>
-      </tr>
+      {
+        pricing.coreInstancePrice.map((core) => (
+          <tr>
+            <td>{core.name}</td>
+            <td>
+              {formatter.format(core.price)} <span class="help">/ hour</span>
+            </td>
+            <td>{core.memoryGiB} GB</td>
+            <td>{core.vCpu}</td>
+            <td>{core.rootStorageSizeGiB} GB</td>
+          </tr>
+        ))
+      }
     </tbody>
   </table>
+
+  <hr />
 
   <table>
     <thead>
@@ -74,18 +94,20 @@ if (pricing.status !== 'ok') {
         <th><div class="name"></div></th>
         <th><div class="cost">Cost</div></th>
         <th></th>
-        <th></th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>Storage</td>
-        <td>0,13 € <span class="help">/ GB</span></td>
+        <td>
+          {storageFormatter.format(pricing.storagePerGiB)}
+          <span class="help">/ GB / hour</span>
+        </td>
       </tr>
-      <tr>
+      <!-- <tr>
         <td>Transfer</td>
         <td>0,13 € <span class="help">/ GB</span></td>
-      </tr>
+      </tr> -->
     </tbody>
   </table>
 </article>
@@ -94,16 +116,42 @@ if (pricing.status !== 'ok') {
   article {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 32px;
+  }
+
+  article > section {
+    max-width: 900px;
   }
 
   table {
     width: 100%;
+    max-width: 1200px;
     table-layout: fixed;
   }
 
   table th {
     text-align: left;
+  }
+
+  table tr > th:first-of-type {
+    width: 180px;
+  }
+
+  @media (max-width: 900px) {
+    table tr > th:first-of-type {
+      width: 130px;
+    }
+  }
+
+  article > hr {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    border: none;
+    height: 2px;
+    background-color: var(--color-grey);
+    overflow: visible;
   }
 
   .help {
