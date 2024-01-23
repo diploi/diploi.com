@@ -1,0 +1,352 @@
+---
+import redisLogo from '../images/redis-logo.svg';
+import postgresLogo from '../images/postgres-logo.png';
+import nodeLogo from '../images/node-logo.png';
+import reactLogo from '../images/react-logo.svg';
+import Divider from './Divider.astro';
+import {
+  ArrowCircleRight,
+  ArrowsLeftRight,
+  Browser,
+  Code,
+  Terminal,
+} from '@phosphor-icons/react';
+
+const deployments = ['Production', 'Staging', 'Dev 1', 'Dev 2'];
+---
+
+<figure class="stucture">
+  <ul>
+    <li class="item">
+      <div>
+        <label>Project</label>
+        <p>My Project</p>
+      </div>
+
+      <ul>
+        {
+          deployments.map((deployment) => (
+            <li class="item">
+              <div>
+                <label>Deployment</label>
+                <p>{deployment}</p>
+              </div>
+
+              <ul>
+                <li class="item">
+                  <div>
+                    <label>App Cluster</label>
+
+                    <figure class="cluster">
+                      <div>
+                        <img alt="redis logo" src={redisLogo.src} />
+                      </div>
+                      <div>
+                        <img alt="postgres logo" src={postgresLogo.src} />
+                      </div>
+                      <div>
+                        <img alt="node.js logo" src={nodeLogo.src} />
+                      </div>
+                      <div>
+                        <img alt="react logo" src={reactLogo.src} />
+                      </div>
+                    </figure>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          ))
+        }
+      </ul>
+    </li>
+  </ul>
+</figure>
+
+<Divider plain />
+
+<figure class="technology">
+  <ul class="user">
+    <li class="item">
+      <div>
+        <Code />
+        <h3>VS Code</h3>
+        <p class="info">
+          Your local VS Code connects to the App Cluster remotely via SSH.
+        </p>
+        <ArrowsLeftRight />
+      </div>
+    </li>
+    <li class="item">
+      <div>
+        <Browser />
+        <h3>Browser</h3>
+        <p class="info">
+          Containers inside the App Cluster can expose HTTP endpoints.
+        </p>
+        <ArrowsLeftRight />
+      </div>
+    </li>
+    <li class="item">
+      <div>
+        <Terminal />
+        <h3>SSH</h3>
+        <p class="info">
+          Secure connection to individual containers inside the App Cluster.
+        </p>
+        <ArrowsLeftRight />
+      </div>
+    </li>
+  </ul>
+
+  <div class="deployment item">
+    <div>
+      <div>
+        <h3>App Cluster</h3>
+        <p class="info">Orchestrates a Kubernetes cluster on a dedicated VM.</p>
+        <p class="info">Can run anything that can be containerized.</p>
+      </div>
+
+      <div class="cluster">
+        <h4>Kubernetes</h4>
+        <div>
+          <img alt="node logo" src={nodeLogo.src} />
+          <p>Node.js API</p>
+        </div>
+        <div>
+          <img alt="react logo" src={reactLogo.src} />
+          <p>React</p>
+        </div>
+        <div>
+          <img alt="postgres logo" src={postgresLogo.src} />
+          <p>PostgreSQL Database</p>
+        </div>
+        <div>
+          <img alt="redis logo" src={redisLogo.src} />
+          <p>Redis Cache</p>
+        </div>
+        <p class="help">+ Any other Docker image</p>
+      </div>
+    </div>
+  </div>
+</figure>
+
+<style>
+  figure {
+    max-width: 900px;
+    margin: 0;
+  }
+
+  h3 {
+    margin: 0;
+    margin-bottom: 6px;
+    font-size: 1rem;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  label {
+    font-size: 0.64rem;
+  }
+
+  .stucture ul {
+    display: flex;
+    gap: 32px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .item > div {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    width: 200px;
+    /* border: 2px solid white; */
+    background-color: var(--color-grey);
+    border-radius: 16px;
+    box-sizing: border-box;
+  }
+
+  .item p {
+    margin: 0;
+  }
+
+  .stucture .item p {
+    opacity: 1;
+  }
+
+  .technology {
+    display: flex;
+    gap: 32px;
+    width: 100%;
+  }
+
+  .technology > ul {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .technology > .deployment {
+    flex: 1;
+  }
+
+  .technology > .deployment > div {
+    width: 100%;
+  }
+
+  .technology .item > div > svg:last-of-type {
+    position: absolute;
+    top: 50%;
+    right: -28px;
+    translate: 0 -50%;
+    color: var(--color-white);
+  }
+
+  .deployment > div {
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 32px;
+    min-height: 100%;
+  }
+
+  .info {
+    font-size: 0.64rem;
+  }
+
+  .cluster {
+    position: relative;
+    margin: 0;
+    width: 100%;
+    aspect-ratio: 1/1;
+
+    scale: 0.9;
+  }
+
+  @keyframes spin {
+    from {
+      rotate: 0deg;
+    }
+    to {
+      rotate: 360deg;
+    }
+  }
+
+  .stucture .cluster > div {
+    --duration: 40s;
+
+    display: flex;
+    position: absolute;
+    width: 32px;
+    aspect-ratio: 1/1;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    /* border: 2px solid white; */
+
+    animation: spin linear infinite var(--duration);
+
+    translate: -120% 0;
+    transform-origin: 170% 50%;
+  }
+
+  .stucture .cluster > div > img {
+    max-width: 100%;
+    max-height: 100%;
+
+    animation: spin linear infinite var(--duration) reverse;
+  }
+
+  .stucture .cluster > div:nth-of-type(2) {
+    translate: 0 -120%;
+    transform-origin: 50% 170%;
+  }
+
+  .stucture .cluster > div:nth-of-type(3) {
+    translate: 120% 0;
+    transform-origin: -70% 50%;
+  }
+
+  .stucture .cluster > div:nth-of-type(4) {
+    translate: 0 120%;
+    transform-origin: 50% -70%;
+  }
+
+  .technology .cluster {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .technology .cluster > div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 14px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+  }
+
+  .technology .cluster > div > img {
+    object-fit: contain;
+    width: 32px;
+    height: 32px;
+  }
+
+  .technology .cluster > div > p {
+  }
+
+  .technology .cluster h4 {
+    margin: 0;
+    margin-top: -12px;
+    margin-bottom: 8px;
+  }
+
+  .cluster::before,
+  .cluster::after {
+    --offset: 1.5px;
+
+    content: '';
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 4px solid var(--color-primary);
+    border-radius: 50%;
+    translate: var(--offset) calc(-1 * var(--offset));
+    transform-origin: calc(50% - var(--offset)) calc(50% + var(--offset));
+
+    box-sizing: border-box;
+
+    animation: spin linear infinite 5s;
+  }
+
+  .cluster::after {
+    border-color: var(--color-secondary);
+    translate: calc(-1 * var(--offset)) var(--offset);
+    transform-origin: calc(50% + var(--offset)) calc(50% - var(--offset));
+  }
+
+  .help {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.64rem;
+    color: #b6bdc8;
+  }
+</style>

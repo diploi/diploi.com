@@ -1,4 +1,10 @@
-<hr />
+---
+interface Props {
+  plain?: boolean;
+}
+---
+
+<hr class:list={[Astro.props.plain && 'plain']} />
 
 <style>
   hr {
@@ -25,5 +31,13 @@
     background-repeat: no-repeat;
     background-position: center;
     opacity: 1;
+  }
+
+  hr.plain {
+    margin: 64px 0;
+  }
+
+  hr.plain::after {
+    content: none;
   }
 </style>
