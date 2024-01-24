@@ -3,12 +3,14 @@ import redisLogo from '../images/redis-logo.svg';
 import postgresLogo from '../images/postgres-logo.png';
 import nodeLogo from '../images/node-logo.png';
 import reactLogo from '../images/react-logo.svg';
+import kubernetesLogo from '../images/kubernetes-logo.svg';
+import dockerLogo from '../images/docker-logo.png';
 import Divider from './Divider.astro';
 import {
-  ArrowCircleRight,
   ArrowsLeftRight,
   Browser,
   Code,
+  DiamondsFour,
   Terminal,
 } from '@phosphor-icons/react';
 
@@ -23,19 +25,21 @@ const deployments = ['Production', 'Staging', 'Dev 1', 'Dev 2'];
         <p>My Project</p>
       </div>
 
-      <ul>
+      <ul class="deployments">
         {
-          deployments.map((deployment) => (
-            <li class="item">
+          deployments.map(deployment => (
+            <li class="item top">
               <div>
                 <label>Deployment</label>
                 <p>{deployment}</p>
               </div>
 
               <ul>
-                <li class="item">
-                  <div>
-                    <label>App Cluster</label>
+                <li class="item bottom">
+                  <div class="background">
+                    <h3>
+                      <DiamondsFour weight="bold" /> App Cluster
+                    </h3>
 
                     <figure class="cluster">
                       <div>
@@ -99,15 +103,19 @@ const deployments = ['Production', 'Staging', 'Dev 1', 'Dev 2'];
   </ul>
 
   <div class="deployment item">
-    <div>
+    <div class="background">
       <div>
-        <h3>App Cluster</h3>
+        <h3><DiamondsFour weight="bold" /> App Cluster</h3>
         <p class="info">Orchestrates a Kubernetes cluster on a dedicated VM.</p>
         <p class="info">Can run anything that can be containerized.</p>
+
+        <ul class="features">
+          <li><img src={kubernetesLogo.src} /> Built on top of Kubernetes</li>
+          <li><img src={dockerLogo.src} /> Runs any Docker image</li>
+        </ul>
       </div>
 
       <div class="cluster">
-        <h4>Kubernetes</h4>
         <div>
           <img alt="node logo" src={nodeLogo.src} />
           <p>Node.js API</p>
@@ -137,9 +145,16 @@ const deployments = ['Production', 'Staging', 'Dev 1', 'Dev 2'];
   }
 
   h3 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     margin: 0;
     margin-bottom: 6px;
     font-size: 1rem;
+  }
+
+  h3 > svg {
+    fill: url(#gradient-two);
   }
 
   ul {
@@ -159,6 +174,11 @@ const deployments = ['Production', 'Staging', 'Dev 1', 'Dev 2'];
     list-style: none;
   }
 
+  .deployments {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
   .item {
     display: flex;
     flex-direction: column;
@@ -176,6 +196,50 @@ const deployments = ['Production', 'Staging', 'Dev 1', 'Dev 2'];
     background-color: var(--color-grey);
     border-radius: 16px;
     box-sizing: border-box;
+  }
+
+  @media (max-width: 480px) {
+    .item > div {
+      width: 100%;
+    }
+
+    .item.top > ul {
+      width: 100%;
+    }
+
+    .item.bottom {
+      width: 100%;
+    }
+
+    .item.bottom > div {
+      align-items: center;
+    }
+
+    .deployments > li {
+      width: 100%;
+    }
+
+    .deployments .cluster {
+      max-width: 200px;
+      max-height: 200px;
+    }
+  }
+
+  .item.top {
+    gap: 8px;
+  }
+
+  .item.top > div {
+    border-radius: 16px 16px 0 0;
+  }
+
+  .item.bottom > div {
+    border-radius: 0 0 16px 16px;
+  }
+
+  .item.bottom h3 {
+    justify-content: center;
+    translate: -3px;
   }
 
   .item p {
@@ -198,12 +262,45 @@ const deployments = ['Production', 'Staging', 'Dev 1', 'Dev 2'];
     gap: 16px;
   }
 
+  @media (max-width: 1000px) {
+    .technology {
+      flex-direction: column-reverse;
+    }
+
+    .technology > ul {
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .technology > ul {
+      flex-direction: column;
+    }
+
+    .technology > ul > li > div {
+      width: 100%;
+    }
+  }
+
   .technology > .deployment {
     flex: 1;
   }
 
   .technology > .deployment > div {
     width: 100%;
+  }
+
+  .background {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='rgba(0,0,0,0.1)' viewBox='0 0 256 256'%3E%3Cpath d='M116.17,107.1h0a16.75,16.75,0,0,0,23.66,0L171.1,75.82a16.72,16.72,0,0,0,0-23.65L139.83,20.89a16.75,16.75,0,0,0-23.66,0L84.9,52.17a16.72,16.72,0,0,0,0,23.65Zm-20-43.62,31.28-31.27a.71.71,0,0,1,1,0l31.28,31.27a.74.74,0,0,1,0,1L128.51,95.79a.72.72,0,0,1-1,0L96.21,64.51A.74.74,0,0,1,96.21,63.48Zm138.9,52.69L203.83,84.89a16.74,16.74,0,0,0-23.65,0L148.9,116.17a16.75,16.75,0,0,0,0,23.66l31.28,31.28h0a16.74,16.74,0,0,0,23.65,0l31.28-31.28A16.75,16.75,0,0,0,235.11,116.17ZM223.8,128.51l-31.28,31.28a.74.74,0,0,1-1,0l-31.28-31.28a.72.72,0,0,1,0-1l31.28-31.28a.74.74,0,0,1,1,0l31.28,31.28A.72.72,0,0,1,223.8,128.51ZM107.1,116.17,75.82,84.89a16.74,16.74,0,0,0-23.65,0L20.89,116.17a16.75,16.75,0,0,0,0,23.66l31.28,31.28h0a16.74,16.74,0,0,0,23.65,0l31.28-31.28A16.75,16.75,0,0,0,107.1,116.17ZM95.79,128.51,64.51,159.79a.74.74,0,0,1-1,0L32.2,128.51a.72.72,0,0,1,0-1L63.48,96.21a.74.74,0,0,1,1,0l31.28,31.28A.72.72,0,0,1,95.79,128.51Zm44,20.39a16.75,16.75,0,0,0-23.66,0L84.9,180.18a16.72,16.72,0,0,0,0,23.65l31.27,31.28h0a16.75,16.75,0,0,0,23.66,0l31.27-31.28a16.72,16.72,0,0,0,0-23.65Zm20,43.62-31.28,31.27a.71.71,0,0,1-1,0L96.21,192.52a.74.74,0,0,1,0-1l31.28-31.28a.72.72,0,0,1,1,0l31.28,31.28A.74.74,0,0,1,159.79,192.52Z'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: -208px -50%;
+  }
+
+  .stucture .background {
+    background-size: 140%;
+    background-position: -77px 20px;
   }
 
   .technology .item > div > svg:last-of-type {
@@ -214,6 +311,12 @@ const deployments = ['Production', 'Staging', 'Dev 1', 'Dev 2'];
     color: var(--color-white);
   }
 
+  @media (max-width: 1000px) {
+    .technology .item > div > svg:last-of-type {
+      display: none;
+    }
+  }
+
   .deployment > div {
     flex-direction: row;
     align-items: flex-start;
@@ -221,11 +324,47 @@ const deployments = ['Production', 'Staging', 'Dev 1', 'Dev 2'];
     min-height: 100%;
   }
 
+  @media (max-width: 700px) {
+    .deployment > div {
+      flex-direction: column;
+    }
+  }
+
+  .deployment .cluster {
+    --border: 8px;
+    --offset: 2.5px;
+    align-self: center;
+  }
+
   .info {
     font-size: 0.64rem;
   }
 
+  .features {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 12px;
+    list-style: none;
+  }
+
+  .features > li {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.64rem;
+  }
+
+  .features > li > img {
+    object-fit: contain;
+    width: 24px;
+    height: 24px;
+  }
+
   .cluster {
+    --border: 4px;
+    --offset: 1.5px;
+
     position: relative;
     margin: 0;
     width: 100%;
@@ -319,8 +458,6 @@ const deployments = ['Production', 'Staging', 'Dev 1', 'Dev 2'];
 
   .cluster::before,
   .cluster::after {
-    --offset: 1.5px;
-
     content: '';
     position: absolute;
     display: block;
@@ -328,7 +465,7 @@ const deployments = ['Production', 'Staging', 'Dev 1', 'Dev 2'];
     left: 0;
     width: 100%;
     height: 100%;
-    border: 4px solid var(--color-primary);
+    border: var(--border) solid var(--color-primary);
     border-radius: 50%;
     translate: var(--offset) calc(-1 * var(--offset));
     transform-origin: calc(50% - var(--offset)) calc(50% + var(--offset));
