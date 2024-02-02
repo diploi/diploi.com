@@ -12,6 +12,7 @@ import {
   Timer,
   AirplaneTilt,
   Gauge,
+  Video as VideoIcon,
 } from '@phosphor-icons/react';
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
@@ -44,13 +45,9 @@ import DiploiStructure from '../components/DiploiStructure.astro';
           <HandWaving weight="fill" />
           Sign up →
         </a>
-        <a class="button basic" href="https://docs.diploi.com/">
-          <BookBookmark weight="fill" />
-          Documentation →
-        </a>
-        <a class="button basic" href="https://console.diploi.com/">
-          <SignIn />
-          Login →
+        <a class="button basic" href="#video">
+          <VideoIcon weight="fill" />
+          Showcase Video →
         </a>
       </div>
 
@@ -109,7 +106,7 @@ import DiploiStructure from '../components/DiploiStructure.astro';
       </ul>
     </article>
 
-    <article class="flow">
+    <article id="video" class="flow">
       <Video />
       <!-- <Flow /> -->
     </article>
@@ -185,7 +182,7 @@ import DiploiStructure from '../components/DiploiStructure.astro';
 
     <article class="callout">
       <section>
-        <h2><AirplaneTakeoff weight="bold" /> Ready to Get Started?</h2>
+        <h2><AirplaneTakeoff weight="bold" /> Get Started</h2>
         <p>
           Sign up using your GitHub account and receive 50 € in free credits to
           explore and experiment with. Development is about to get <span
