@@ -1,0 +1,34 @@
+---
+interface Props {
+  size: 'small' | 'medium' | 'large' | number;
+}
+
+const { size } = Astro.props;
+---
+
+<hr
+  style={typeof size === 'number' ? { margin: `${size}px 0` } : null}
+  class:list={[typeof size === 'string' && size]}
+/>
+
+<style>
+  hr {
+    margin: 0;
+    padding: 0;
+    height: 0;
+    width: 100%;
+    border: none;
+  }
+
+  hr.small {
+    margin: 16px 0;
+  }
+
+  hr.medium {
+    margin: 32px 0;
+  }
+
+  hr.large {
+    margin: 64px 0;
+  }
+</style>

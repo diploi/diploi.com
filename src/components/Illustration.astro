@@ -5,7 +5,6 @@ import nodeLogo from '../images/node-logo.png';
 import reactLogo from '../images/react-logo.svg';
 import kubernetesLogo from '../images/kubernetes-logo.svg';
 import dockerLogo from '../images/docker-logo.png';
-import Divider from './Divider.astro';
 import {
   ArrowsLeftRight,
   Browser,
@@ -14,129 +13,145 @@ import {
   Terminal,
 } from '@phosphor-icons/react';
 
+interface Props {
+  type: 'structure' | 'cluster';
+}
+
 const deployments = ['Production', 'Staging', 'Dev 1', 'Dev 2'];
 ---
 
-<figure class="stucture">
-  <ul>
-    <li class="item">
-      <div>
-        <label>Project</label>
-        <p>My Project</p>
-      </div>
+{
+  Astro.props.type === 'structure' && (
+    <figure class="stucture">
+      <ul>
+        <li class="item">
+          <div>
+            <label>Project</label>
+            <p>My Project</p>
+          </div>
 
-      <ul class="deployments">
-        {
-          deployments.map(deployment => (
-            <li class="item top">
-              <div>
-                <label>Deployment</label>
-                <p>{deployment}</p>
-              </div>
+          <ul class="deployments">
+            {deployments.map((deployment) => (
+              <li class="item top">
+                <div>
+                  <label>Deployment</label>
+                  <p>{deployment}</p>
+                </div>
 
-              <ul>
-                <li class="item bottom">
-                  <div class="background">
-                    <h3>
-                      <DiamondsFour weight="bold" /> App Cluster
-                    </h3>
+                <ul>
+                  <li class="item bottom">
+                    <div class="background">
+                      <h3>
+                        <DiamondsFour weight="bold" /> App Cluster
+                      </h3>
 
-                    <figure class="cluster">
-                      <div>
-                        <img alt="redis logo" src={redisLogo.src} />
-                      </div>
-                      <div>
-                        <img alt="postgres logo" src={postgresLogo.src} />
-                      </div>
-                      <div>
-                        <img alt="node.js logo" src={nodeLogo.src} />
-                      </div>
-                      <div>
-                        <img alt="react logo" src={reactLogo.src} />
-                      </div>
-                    </figure>
-                  </div>
-                </li>
-              </ul>
-            </li>
-          ))
-        }
+                      <figure class="cluster">
+                        <div>
+                          <img alt="redis logo" src={redisLogo.src} />
+                        </div>
+                        <div>
+                          <img alt="postgres logo" src={postgresLogo.src} />
+                        </div>
+                        <div>
+                          <img alt="node.js logo" src={nodeLogo.src} />
+                        </div>
+                        <div>
+                          <img alt="react logo" src={reactLogo.src} />
+                        </div>
+                      </figure>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            ))}
+          </ul>
+        </li>
       </ul>
-    </li>
-  </ul>
-</figure>
+    </figure>
+  )
+}
 
-<Divider plain />
+{
+  Astro.props.type === 'cluster' && (
+    <figure class="technology">
+      <ul class="user">
+        <li class="item">
+          <div>
+            <Code />
+            <h3>VS Code</h3>
+            <p class="info">
+              Your local VS Code connects to the App Cluster remotely via SSH.
+            </p>
+            <ArrowsLeftRight />
+          </div>
+        </li>
+        <li class="item">
+          <div>
+            <Browser />
+            <h3>Browser</h3>
+            <p class="info">
+              Containers inside the App Cluster can expose HTTP endpoints.
+            </p>
+            <ArrowsLeftRight />
+          </div>
+        </li>
+        <li class="item">
+          <div>
+            <Terminal />
+            <h3>SSH</h3>
+            <p class="info">
+              Secure connection to individual containers inside the App Cluster.
+            </p>
+            <ArrowsLeftRight />
+          </div>
+        </li>
+      </ul>
 
-<figure class="technology">
-  <ul class="user">
-    <li class="item">
-      <div>
-        <Code />
-        <h3>VS Code</h3>
-        <p class="info">
-          Your local VS Code connects to the App Cluster remotely via SSH.
-        </p>
-        <ArrowsLeftRight />
-      </div>
-    </li>
-    <li class="item">
-      <div>
-        <Browser />
-        <h3>Browser</h3>
-        <p class="info">
-          Containers inside the App Cluster can expose HTTP endpoints.
-        </p>
-        <ArrowsLeftRight />
-      </div>
-    </li>
-    <li class="item">
-      <div>
-        <Terminal />
-        <h3>SSH</h3>
-        <p class="info">
-          Secure connection to individual containers inside the App Cluster.
-        </p>
-        <ArrowsLeftRight />
-      </div>
-    </li>
-  </ul>
+      <div class="deployment item">
+        <div class="background">
+          <div>
+            <h3>
+              <DiamondsFour weight="bold" /> App Cluster
+            </h3>
+            <p class="info">
+              Orchestrates a Kubernetes cluster on a dedicated VM.
+            </p>
+            <p class="info">Runs anything that can be containerized.</p>
 
-  <div class="deployment item">
-    <div class="background">
-      <div>
-        <h3><DiamondsFour weight="bold" /> App Cluster</h3>
-        <p class="info">Orchestrates a Kubernetes cluster on a dedicated VM.</p>
-        <p class="info">Runs anything that can be containerized.</p>
+            <ul class="features">
+              <li>
+                <img src={kubernetesLogo.src} /> Built on top of Kubernetes
+              </li>
+              <li>
+                <img src={dockerLogo.src} /> Runs any Docker image
+              </li>
+            </ul>
+          </div>
 
-        <ul class="features">
-          <li><img src={kubernetesLogo.src} /> Built on top of Kubernetes</li>
-          <li><img src={dockerLogo.src} /> Runs any Docker image</li>
-        </ul>
-      </div>
-
-      <div class="cluster">
-        <div>
-          <img alt="node logo" src={nodeLogo.src} />
-          <p>Node.js API</p>
+          <div class="cluster">
+            <div>
+              <img alt="node logo" src={nodeLogo.src} />
+              <p>Node.js API</p>
+            </div>
+            <div>
+              <img alt="react logo" src={reactLogo.src} />
+              <p>React</p>
+            </div>
+            <div>
+              <img alt="postgres logo" src={postgresLogo.src} />
+              <p>PostgreSQL Database</p>
+            </div>
+            <div>
+              <img alt="redis logo" src={redisLogo.src} />
+              <p>Redis Cache</p>
+            </div>
+            <p class="help">+ Any other Docker image</p>
+          </div>
         </div>
-        <div>
-          <img alt="react logo" src={reactLogo.src} />
-          <p>React</p>
-        </div>
-        <div>
-          <img alt="postgres logo" src={postgresLogo.src} />
-          <p>PostgreSQL Database</p>
-        </div>
-        <div>
-          <img alt="redis logo" src={redisLogo.src} />
-          <p>Redis Cache</p>
-        </div>
-        <p class="help">+ Any other Docker image</p>
       </div>
-    </div>
-  </div>
-</figure>
+    </figure>
+  )
+}
 
 <style>
   figure {
@@ -164,14 +179,6 @@ const deployments = ['Production', 'Staging', 'Dev 1', 'Dev 2'];
 
   label {
     font-size: 0.64rem;
-  }
-
-  .stucture {
-    margin-top: 64px;
-  }
-
-  .technology {
-    margin-bottom: 64px;
   }
 
   .stucture ul {

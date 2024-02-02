@@ -13,6 +13,7 @@ import {
   AirplaneTilt,
   Gauge,
   Video as VideoIcon,
+  DiamondsFour,
 } from '@phosphor-icons/react';
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
@@ -26,7 +27,8 @@ import Flow from '../components/Flow.astro';
 import Video from '../components/Video.astro';
 import Navigation from '../components/Navigation.astro';
 import Divider from '../components/Divider.astro';
-import DiploiStructure from '../components/DiploiStructure.astro';
+import Illustration from '../components/Illustration.astro';
+import Spacer from '../components/Spacer.astro';
 ---
 
 <Layout title="Diploi – Magical Developer Experience">
@@ -115,13 +117,29 @@ import DiploiStructure from '../components/DiploiStructure.astro';
       <section>
         <h2><Gauge weight="bold" /> Full-Speed Ahead</h2>
         <p>
-          A single SaaS service for managing, developing and hosting your full
-          application. No more context switching, local dependencies or
-          configuration hell. Get into the flow with Diploi.
+          Start out with a development cluster and add more developers, testing
+          and production clusters as your project grows.
         </p>
       </section>
 
-      <DiploiStructure />
+      <Spacer size="small" />
+
+      <Illustration type="structure" />
+
+      <Spacer size="large" />
+
+      <section>
+        <h2><DiamondsFour weight="bold" /> App Cluster</h2>
+        <p>
+          Hosts your full application. It can be a single web server or a
+          complicated setup with databases and microservices. Use our premade
+          templates to run your favourite stack.
+        </p>
+      </section>
+
+      <Spacer size="small" />
+
+      <Illustration type="cluster" />
     </article>
 
     <Divider />
@@ -130,8 +148,8 @@ import DiploiStructure from '../components/DiploiStructure.astro';
       <section>
         <h2><Timer weight="bold" /> Save Time and Resources</h2>
         <p>
-          We measured real-life statistics from an average web development
-          company to show how Diploi accelerates all aspects of development.
+          Real-life statistics from an average web development company. Can you
+          afford to ignore the benefits and possible savings from using Diploi?
         </p>
       </section>
 
@@ -291,8 +309,9 @@ import DiploiStructure from '../components/DiploiStructure.astro';
 
   .quote {
     display: flex;
-    justify-content: center;
-    margin-bottom: 32px;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 48px;
   }
 
   .quote > p {
