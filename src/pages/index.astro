@@ -9,6 +9,9 @@ import {
   Envelope,
   AirplaneTakeoff,
   HandWaving,
+  Timer,
+  AirplaneTilt,
+  Gauge,
 } from '@phosphor-icons/react';
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
@@ -59,40 +62,16 @@ import DiploiStructure from '../components/DiploiStructure.astro';
       />
     </article>
 
-    <article class="flow">
-      <Video />
-      <!-- <Flow /> -->
-
-      <section>
-        <h2>The Problem</h2>
-        <p>
-          We believe developers today are too distracted, not by choice, but due
-          to the inherent complexity of today's systems. Our vision is to allow
-          every developer to effortlessly get into a state of flow, completely
-          free from any disruptions.
-        </p>
-      </section>
+    <article class="quote">
+      <p>
+        We believe developers today are too distracted, not by choice, but due
+        to the inherent complexity of today's systems. Our vision is to allow
+        every developer to effortlessly get into a state of flow, completely
+        free from any disruptions.
+      </p>
     </article>
 
-    <Image
-      class="arrow"
-      src={arrow}
-      height={260}
-      alt="an arrow downwards with the Diploi logo in the middle"
-    />
-
     <article class="features">
-      <section>
-        <h2>Our Solution</h2>
-        <p>
-          A single SaaS service for managing, developing and hosting your full
-          application. No more context switching, local dependencies or
-          configuration hell. Get into the flow with Diploi.
-        </p>
-      </section>
-
-      <DiploiStructure />
-
       <ul>
         <Card title="Consistent">
           <Target
@@ -128,15 +107,31 @@ import DiploiStructure from '../components/DiploiStructure.astro';
           <li>Versatile support for any stack pre-build or custom</li>
         </Card>
       </ul>
+    </article>
 
-      <!-- <Image src={screenshot} width={900} alt="The Diploi dashboard." /> -->
+    <article class="flow">
+      <Video />
+      <!-- <Flow /> -->
+    </article>
+
+    <article class="features">
+      <section>
+        <h2><Gauge weight="bold" /> Full-Speed Ahead</h2>
+        <p>
+          A single SaaS service for managing, developing and hosting your full
+          application. No more context switching, local dependencies or
+          configuration hell. Get into the flow with Diploi.
+        </p>
+      </section>
+
+      <DiploiStructure />
     </article>
 
     <Divider />
 
     <article class="statistic">
       <section>
-        <h2>Full-Speed Ahead</h2>
+        <h2><Timer weight="bold" /> Save Time and Resources</h2>
         <p>
           We measured real-life statistics from an average web development
           company to show how Diploi accelerates all aspects of development.
@@ -228,6 +223,16 @@ import DiploiStructure from '../components/DiploiStructure.astro';
     max-width: 900px;
   }
 
+  h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.6ch;
+  }
+
+  h2 > svg {
+    fill: url(#gradient-three);
+  }
+
   .hero {
     display: flex;
     flex-direction: column;
@@ -285,6 +290,33 @@ import DiploiStructure from '../components/DiploiStructure.astro';
     .pipeline {
       display: none;
     }
+  }
+
+  .quote {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 32px;
+  }
+
+  .quote > p {
+    font-size: 1.17em;
+  }
+
+  .quote > p::before,
+  .quote > p::after {
+    opacity: 0.5;
+  }
+
+  .quote > p::before {
+    content: '“';
+  }
+
+  .quote > p::after {
+    content: '”';
+  }
+
+  .features {
+    margin-bottom: 64px;
   }
 
   .features,
