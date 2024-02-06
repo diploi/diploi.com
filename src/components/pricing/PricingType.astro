@@ -1,0 +1,72 @@
+---
+import PricingToggle from './PricingToggle.astro';
+---
+
+<fieldset data-hours={20 * 8}>
+  <legend>Used for</legend>
+
+  <div>
+    <PricingToggle name="type" value="development" label="Development" />
+    <PricingToggle name="type" value="testing" label="Testing" />
+    <PricingToggle name="type" value="production" label="Production" />
+  </div>
+</fieldset>
+
+<script>
+  const developmentHours = 20 * 8;
+  const testingHours = 20 * 24;
+  const productionHours = 30 * 24;
+
+  const hoursElement = document.querySelector(
+    '[data-hours]'
+  ) as HTMLFieldSetElement;
+
+  const updateHours = () => {
+    const selectedType = (
+      document.querySelector('input[name="type"]:checked') as HTMLInputElement
+    ).value;
+
+    let hours = developmentHours;
+    if (selectedType === 'testing') hours = testingHours;
+    if (selectedType === 'production') hours = productionHours;
+
+    hoursElement.setAttribute('data-hours', `${hours}`);
+
+    document.dispatchEvent(new Event('pricing-update'));
+  };
+
+  document
+    .querySelectorAll('input[name="type"]')
+    .forEach(element => element.addEventListener('change', updateHours));
+
+  (
+    document.querySelector('input[value="development"]') as HTMLInputElement
+  ).checked = true;
+</script>
+
+<style>
+  fieldset {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    max-width: 900px;
+    border: none;
+  }
+
+  legend {
+    display: flex;
+    position: relative;
+    float: left;
+    width: 180px;
+  }
+
+  fieldset > div {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1;
+    gap: 16px;
+  }
+</style>

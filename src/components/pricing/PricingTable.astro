@@ -1,0 +1,260 @@
+---
+import Spacer from '../Spacer.astro';
+import PricingToggle from './PricingToggle.astro';
+
+interface Props {
+  pricing: {
+    deployment: number;
+    storagePerGiB: number;
+    coreInstancePrice: {
+      name: string;
+      price: number;
+      rootStorageSizeGiB: number;
+      memoryGiB: number;
+      vCpu: number;
+    }[];
+  };
+}
+
+const { pricing } = Astro.props;
+
+const formatter = new Intl.NumberFormat('fi-FI', {
+  style: 'currency',
+  currency: 'EUR',
+  minimumFractionDigits: 2,
+});
+---
+
+<table
+  data-selected-cluster-price={pricing.coreInstancePrice[0].price * 20 * 8}
+>
+  <thead>
+    <tr>
+      <th><div class="name">Cluster Size</div></th>
+      <th>Memory</th>
+      <th>vCPU</th>
+      <th><div class="cost">Cost</div></th>
+    </tr>
+  </thead>
+  <tbody>
+    {
+      pricing.coreInstancePrice.map(core => (
+        <tr>
+          <td>
+            <PricingToggle
+              name="size"
+              value={core.name}
+              label={core.name}
+              price={core.price}
+            />
+          </td>
+          <td>{core.memoryGiB} GB</td>
+          <td>{core.vCpu}</td>
+          <td>
+            <span data-cluster-price={core.price}>
+              {formatter.format(core.price)}
+            </span>
+            <span class="help">/ month</span>
+          </td>
+        </tr>
+      ))
+    }
+  </tbody>
+</table>
+
+<Spacer size="small" />
+
+<table>
+  <thead>
+    <tr>
+      <th><div class="name"></div></th>
+      <th colspan="2"><div class="size">Size</div></th>
+      <th><div class="cost"></div></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Storage</td>
+      <td colspan="2">
+        <input id="storage" type="number" value="10" />
+      </td>
+      <td>
+        <span id="storage-price" data-price={pricing.storagePerGiB}>
+          {formatter.format(pricing.storagePerGiB * 10 * 20 * 8)}
+        </span>
+        <span class="help"> / month</span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<Spacer size="small" />
+
+<table>
+  <thead>
+    <tr>
+      <th><div class="name"></div></th>
+      <th colspan="2"></th>
+      <th><div class="cost"></div></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Total</td>
+      <td colspan="2"></td>
+      <td>
+        <span id="total"
+          >{
+            formatter.format(
+              (pricing.storagePerGiB * 10 +
+                pricing.coreInstancePrice[0].price) *
+                20 *
+                8
+            )
+          }</span
+        >
+        <span class="help"> / month</span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<script>
+  const storageInput = document.getElementById('storage') as HTMLInputElement;
+  const storagePriceElement = document.getElementById(
+    'storage-price'
+  ) as HTMLSpanElement;
+  const storagePrice = parseFloat(
+    storagePriceElement.getAttribute('data-price') as string
+  );
+  const totalElement = document.getElementById('total') as HTMLSpanElement;
+
+  const formatter = new Intl.NumberFormat('fi-FI', {
+    style: 'currency',
+    currency: 'EUR',
+    minimumFractionDigits: 2,
+  });
+
+  const getHours = () =>
+    parseInt(
+      document
+        .querySelector('[data-hours]')
+        ?.getAttribute('data-hours') as string
+    );
+
+  const getStoragePrice = () => {
+    let price = parseFloat(storageInput.value) * storagePrice;
+    if (isNaN(price) || price < 0) price = 0;
+    return price;
+  };
+
+  const updateStoragePrice = () => {
+    const hours = getHours();
+    const price = getStoragePrice();
+
+    storagePriceElement.innerHTML = formatter.format(price * hours);
+  };
+
+  const updateClusterPrice = () => {
+    const hours = getHours();
+
+    document.querySelectorAll('[data-cluster-price]').forEach(element => {
+      const clusterPrice = parseFloat(
+        element.getAttribute('data-cluster-price') as string
+      );
+      element.innerHTML = formatter.format(clusterPrice * hours);
+    });
+  };
+
+  updateStoragePrice();
+  updateClusterPrice();
+
+  document.addEventListener('pricing-update', () => {
+    updateStoragePrice();
+    updateClusterPrice();
+  });
+
+  const dispatchUpdateEvent = () =>
+    document.dispatchEvent(new Event('pricing-update'));
+
+  storageInput.addEventListener('input', dispatchUpdateEvent);
+  storageInput.addEventListener('change', dispatchUpdateEvent);
+
+  document
+    .querySelectorAll('input[name="size"]')
+    .forEach(element =>
+      element.addEventListener('change', dispatchUpdateEvent)
+    );
+
+  const handleTotalUpdate = () => {
+    const hours = getHours();
+    const storagePrice = getStoragePrice();
+
+    const clusterPrice = parseFloat(
+      document
+        .querySelector('input[name="size"]:checked')
+        ?.getAttribute('data-price') as string
+    );
+    totalElement.innerHTML = formatter.format(
+      (clusterPrice + storagePrice) * hours
+    );
+  };
+
+  document.addEventListener('pricing-update', handleTotalUpdate);
+
+  (document.querySelector('input[value="XS"]') as HTMLInputElement).checked =
+    true;
+</script>
+
+<style>
+  article {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+  }
+
+  article > section {
+    max-width: 900px;
+  }
+
+  table {
+    width: 100%;
+    max-width: 900px;
+    table-layout: fixed;
+  }
+
+  table th {
+    text-align: left;
+  }
+
+  table tr > th:first-of-type {
+    width: 180px;
+  }
+
+  table td :global(.toggle label) {
+    width: 60px;
+  }
+
+  @media (max-width: 900px) {
+    table tr > th:first-of-type {
+      width: 130px;
+    }
+  }
+
+  article > hr {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    border: none;
+    height: 2px;
+    background-color: var(--color-grey);
+    overflow: visible;
+  }
+
+  .help {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.875rem;
+    color: #b6bdc8;
+  }
+</style>

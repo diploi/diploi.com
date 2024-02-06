@@ -20,7 +20,7 @@ const { pricing } = Astro.props;
 ---
 
 <section>
-  <Toggle />
+  <!-- <Toggle /> -->
 
   <ul role="list" class="list">
     <!-- Entry -->
@@ -114,7 +114,7 @@ const { pricing } = Astro.props;
 
   (toggle as HTMLInputElement).checked = false;
 
-  toggle?.addEventListener('change', (event) => {
+  toggle?.addEventListener('change', event => {
     let hourlyDisplay = 'flex';
     let monthlyDisplay = 'none';
     if ((event.target as HTMLInputElement)?.checked) {
@@ -122,10 +122,10 @@ const { pricing } = Astro.props;
       monthlyDisplay = 'flex';
     }
 
-    hourly.forEach((item) =>
+    hourly.forEach(item =>
       item.setAttribute('style', `display: ${hourlyDisplay}`)
     );
-    monthly.forEach((item) =>
+    monthly.forEach(item =>
       item.setAttribute('style', `display: ${monthlyDisplay}`)
     );
   });

@@ -1,0 +1,60 @@
+---
+interface Props {
+  id?: string;
+  name: string;
+  value: string;
+  label: string;
+  price?: number;
+}
+
+const { id, name, value, label, price } = Astro.props;
+---
+
+<div class="toggle">
+  <input
+    type="radio"
+    id={value || id}
+    name={name}
+    value={value}
+    {...price ? { 'data-price': price } : {}}
+  />
+  <label for={value || id}>{label}</label>
+</div>
+
+<style>
+  .toggle {
+    display: flex;
+  }
+
+  .toggle input {
+    display: none;
+  }
+
+  .toggle label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 14px;
+    background-color: var(--color-grey);
+    border-radius: 16px;
+    cursor: pointer;
+  }
+
+  .toggle label::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 24px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='%23fff' viewBox='0 0 256 256'%3E%3Cpath d='M128,20A108,108,0,1,0,236,128,108.12,108.12,0,0,0,128,20Zm0,192a84,84,0,1,1,84-84A84.09,84.09,0,0,1,128,212Z'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: 100%;
+  }
+
+  .toggle input:checked ~ label {
+    background-color: var(--color-primary);
+  }
+
+  .toggle input:checked ~ label::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='%23fff' viewBox='0 0 256 256'%3E%3Cpath d='M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z'%3E%3C/path%3E%3C/svg%3E");
+  }
+</style>
