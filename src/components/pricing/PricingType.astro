@@ -1,25 +1,39 @@
 ---
+import { Info } from '@phosphor-icons/react';
 import PricingToggle from './PricingToggle.astro';
 ---
 
 <fieldset data-hours={20 * 8}>
   <legend>Used for</legend>
 
-  <div>
+  <div id="type-container" class="development">
     <PricingToggle name="type" value="development" label="Development" />
     <PricingToggle name="type" value="testing" label="Testing" />
     <PricingToggle name="type" value="production" label="Production" />
+    <p class="development help">
+      <Info /> Assuming a developer uses the environment 7 hours / workday.
+    </p>
+    <p class="testing help">
+      <Info /> A test environment needs to run only when needed, we assume 25 % of
+      the time.
+    </p>
+    <p class="production help">
+      <Info /> A production environment will run 24/7.
+    </p>
   </div>
 </fieldset>
 
 <script>
-  const developmentHours = 20 * 8;
-  const testingHours = 20 * 24;
+  const developmentHours = 20 * 7;
+  const testingHours = 180;
   const productionHours = 30 * 24;
 
   const hoursElement = document.querySelector(
     '[data-hours]'
   ) as HTMLFieldSetElement;
+  const typeContainerElement = document.getElementById(
+    'type-container'
+  ) as HTMLDivElement;
 
   const updateHours = () => {
     const selectedType = (
@@ -30,6 +44,7 @@ import PricingToggle from './PricingToggle.astro';
     if (selectedType === 'testing') hours = testingHours;
     if (selectedType === 'production') hours = productionHours;
 
+    typeContainerElement.setAttribute('class', selectedType);
     hoursElement.setAttribute('data-hours', `${hours}`);
 
     document.dispatchEvent(new Event('pricing-update'));
@@ -63,10 +78,40 @@ import PricingToggle from './PricingToggle.astro';
     width: 180px;
   }
 
-  fieldset > div {
+  #type-container {
     display: flex;
     flex-wrap: wrap;
     flex: 1;
     gap: 16px;
+  }
+
+  #type-container > p {
+    display: none;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  #type-container > p > svg {
+    transform: translateY(-1px);
+  }
+
+  #type-container.development .development {
+    display: flex;
+  }
+
+  #type-container.testing .testing {
+    display: flex;
+  }
+
+  #type-container.production .production {
+    display: flex;
+  }
+
+  .help {
+    font-size: 0.64rem;
+    color: #b6bdc8;
   }
 </style>

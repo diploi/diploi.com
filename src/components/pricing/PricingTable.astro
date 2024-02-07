@@ -33,7 +33,7 @@ const formatter = new Intl.NumberFormat('fi-FI', {
       <th><div class="name">Cluster Size</div></th>
       <th>Memory</th>
       <th>vCPU</th>
-      <th><div class="cost">Cost</div></th>
+      <th colspan="2"></th>
     </tr>
   </thead>
   <tbody>
@@ -50,6 +50,10 @@ const formatter = new Intl.NumberFormat('fi-FI', {
           </td>
           <td>{core.memoryGiB} GB</td>
           <td>{core.vCpu}</td>
+          <td>
+            <span>{formatter.format(core.price)}</span>
+            <span class="help">/ hour</span>
+          </td>
           <td>
             <span data-cluster-price={core.price}>
               {formatter.format(core.price)}
@@ -79,7 +83,13 @@ const formatter = new Intl.NumberFormat('fi-FI', {
         <input id="storage" type="number" value="10" />
       </td>
       <td>
-        <span id="storage-price" data-price={pricing.storagePerGiB}>
+        <span id="storage-price-hour">
+          {formatter.format(pricing.storagePerGiB)}
+        </span>
+        <span class="help">/ GB / hour</span>
+      </td>
+      <td>
+        <span id="storage-price-month" data-price={pricing.storagePerGiB}>
           {formatter.format(pricing.storagePerGiB * 10 * 20 * 8)}
         </span>
         <span class="help"> / month</span>
@@ -103,7 +113,17 @@ const formatter = new Intl.NumberFormat('fi-FI', {
       <td>Total</td>
       <td colspan="2"></td>
       <td>
-        <span id="total"
+        <span id="total-hour"
+          >{
+            formatter.format(
+              pricing.storagePerGiB * 10 + pricing.coreInstancePrice[0].price
+            )
+          }</span
+        >
+        <span class="help"> / hour</span>
+      </td>
+      <td>
+        <span id="total-month"
           >{
             formatter.format(
               (pricing.storagePerGiB * 10 +
@@ -121,18 +141,33 @@ const formatter = new Intl.NumberFormat('fi-FI', {
 
 <script>
   const storageInput = document.getElementById('storage') as HTMLInputElement;
-  const storagePriceElement = document.getElementById(
-    'storage-price'
+  const storagePriceHourElement = document.getElementById(
+    'storage-price-hour'
+  ) as HTMLSpanElement;
+  const storagePriceMonthElement = document.getElementById(
+    'storage-price-month'
   ) as HTMLSpanElement;
   const storagePrice = parseFloat(
-    storagePriceElement.getAttribute('data-price') as string
+    storagePriceMonthElement.getAttribute('data-price') as string
   );
-  const totalElement = document.getElementById('total') as HTMLSpanElement;
+
+  const totalHourElement = document.getElementById(
+    'total-hour'
+  ) as HTMLSpanElement;
+  const totalMonthElement = document.getElementById(
+    'total-month'
+  ) as HTMLSpanElement;
 
   const formatter = new Intl.NumberFormat('fi-FI', {
     style: 'currency',
     currency: 'EUR',
     minimumFractionDigits: 2,
+  });
+
+  const formatterLong = new Intl.NumberFormat('fi-FI', {
+    style: 'currency',
+    currency: 'EUR',
+    minimumFractionDigits: 3,
   });
 
   const getHours = () =>
@@ -152,7 +187,8 @@ const formatter = new Intl.NumberFormat('fi-FI', {
     const hours = getHours();
     const price = getStoragePrice();
 
-    storagePriceElement.innerHTML = formatter.format(price * hours);
+    storagePriceHourElement.innerHTML = formatterLong.format(price);
+    storagePriceMonthElement.innerHTML = formatter.format(price * hours);
   };
 
   const updateClusterPrice = () => {
@@ -195,7 +231,11 @@ const formatter = new Intl.NumberFormat('fi-FI', {
         .querySelector('input[name="size"]:checked')
         ?.getAttribute('data-price') as string
     );
-    totalElement.innerHTML = formatter.format(
+
+    totalHourElement.innerHTML = formatterLong.format(
+      clusterPrice + storagePrice
+    );
+    totalMonthElement.innerHTML = formatter.format(
       (clusterPrice + storagePrice) * hours
     );
   };
@@ -204,6 +244,8 @@ const formatter = new Intl.NumberFormat('fi-FI', {
 
   (document.querySelector('input[value="XS"]') as HTMLInputElement).checked =
     true;
+
+  handleTotalUpdate();
 </script>
 
 <style>
@@ -256,5 +298,9 @@ const formatter = new Intl.NumberFormat('fi-FI', {
     font-family: 'Source Sans 3', sans-serif;
     font-size: 0.875rem;
     color: #b6bdc8;
+  }
+
+  input {
+    width: 180px;
   }
 </style>
