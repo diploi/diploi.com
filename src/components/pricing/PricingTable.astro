@@ -215,6 +215,7 @@ const formatter = new Intl.NumberFormat('fi-FI', {
 
   storageInput.addEventListener('input', dispatchUpdateEvent);
   storageInput.addEventListener('change', dispatchUpdateEvent);
+  storageInput.value = '10';
 
   document
     .querySelectorAll('input[name="size"]')
