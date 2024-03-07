@@ -14,21 +14,26 @@ const isPricing = selected === 'pricing';
 
 <header>
   <nav>
-    <a href="/" data-selected={`${isHome}`}>
-      <House weight={isHome ? 'fill' : 'regular'} /> Home
-    </a>
-    <a href="/pricing" data-selected={`${isPricing}`}>
-      <CreditCard weight={isPricing ? 'fill' : 'regular'} /> Pricing
-    </a>
-    <a data-event="documentation_click" href="https://docs.diploi.com/">
-      <BookBookmark /> Documentation
-    </a>
-    <a data-event="blog_click" href="https://dev.to/diploi">
-      <Newspaper /> Blog
-    </a>
-    <a data-event="login_click" href="https://console.diploi.com/login">
-      <SignIn /> Login
-    </a>
+    <input aria-label="is menu open" id="menu" type="checkbox" />
+    <label aria-hidden for="menu"></label>
+
+    <div>
+      <a href="/" data-selected={`${isHome}`}>
+        <House weight={isHome ? 'fill' : 'regular'} /> Home
+      </a>
+      <a href="/pricing" data-selected={`${isPricing}`}>
+        <CreditCard weight={isPricing ? 'fill' : 'regular'} /> Pricing
+      </a>
+      <a data-event="documentation_click" href="https://docs.diploi.com/">
+        <BookBookmark /> Documentation
+      </a>
+      <a data-event="blog_click" href="https://dev.to/diploi">
+        <Newspaper /> Blog
+      </a>
+      <a data-event="login_click" href="https://console.diploi.com/login">
+        <SignIn /> Login / Sign Up
+      </a>
+    </div>
   </nav>
 </header>
 
@@ -44,19 +49,86 @@ const isPricing = selected === 'pricing';
     gap: 16px;
   }
 
-  nav > a {
+  nav > input {
+    display: none;
+  }
+
+  nav > label {
+    display: none;
+    position: fixed;
+    right: 24px;
+    top: 24px;
+    width: 48px;
+    height: 48px;
+    border-radius: 128px;
+    background-color: white;
+    color: black;
+    z-index: 100;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='%23000000' viewBox='0 0 256 256'%3E%3Cpath d='M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z'%3E%3C/path%3E%3C/svg%3E");
+    background-size: 24px;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  nav > input:checked ~ label {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='%23000000' viewBox='0 0 256 256'%3E%3Cpath d='M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z'%3E%3C/path%3E%3C/svg%3E");
+  }
+
+  nav > div {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    z-index: 99;
+  }
+
+  nav > div > a {
     display: flex;
     align-items: center;
     gap: 8px;
     padding: 4px 18px 4px 14px;
     text-decoration: none;
     background-color: transparent;
-    color: #fff;
+    color: white;
     border-radius: 64px;
   }
 
-  nav > a[data-selected='true'] {
-    background-color: #fff;
+  nav > div > a[data-selected='true'] {
+    background-color: white;
     color: var(--color-grey);
+  }
+
+  @media (max-width: 900px) {
+    nav > label {
+      display: block;
+    }
+
+    nav > input:not(:checked) ~ div {
+      display: none;
+    }
+
+    nav > div {
+      position: fixed;
+      flex-direction: column;
+      gap: 0;
+      width: 100%;
+      top: 0;
+      left: 0;
+      padding: 24px;
+      padding-top: calc(24px + 60px);
+      background-color: white;
+      box-sizing: border-box;
+      color: black;
+    }
+
+    nav > div > a {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      color: black;
+    }
+
+    nav > div > a[data-selected='true'] {
+      color: black;
+    }
   }
 </style>
