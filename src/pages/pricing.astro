@@ -6,16 +6,16 @@ import {
   HandWaving,
 } from '@phosphor-icons/react';
 import Layout from '../layouts/Layout.astro';
-import Gradient from '../components/Gradient.astro';
 import Plans from '../components/Plans.astro';
 import Navigation from '../components/Navigation.astro';
 import PricingTable from '../components/pricing/PricingTable.astro';
 import PricingType from '../components/pricing/PricingType.astro';
 import Spacer from '../components/Spacer.astro';
+import Footer from '../components/Footer.astro';
 
 const { pricing } = await fetch(
   'https://console.diploi.com/api/business/pricing'
-).then(response => response.json());
+).then((response) => response.json());
 if (!pricing) {
   throw new Error(`Failed to load pricing (${pricing.status})`);
 }
@@ -88,11 +88,7 @@ if (!pricing) {
     </article>
   </main>
 
-  <footer>
-    <p>Built with ❤️ by Diploi</p>
-  </footer>
-
-  <Gradient />
+  <Footer />
 </Layout>
 
 <style>
@@ -179,18 +175,5 @@ if (!pricing) {
     .callout form {
       flex-direction: column;
     }
-  }
-
-  footer {
-    margin: auto;
-    margin-top: 128px;
-    font-size: 0.64rem;
-    text-align: center;
-    color: white;
-  }
-
-  footer p {
-    max-width: 100%;
-    opacity: 0.5;
   }
 </style>

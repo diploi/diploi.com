@@ -1,0 +1,51 @@
+---
+import nextLogo from '../../images/next-logo.svg';
+import svelteLogo from '../../images/svelte-logo.svg';
+import astroLogo from '../../images/astro-logo.svg';
+import ollamaLogo from '../../images/ollama-logo.png';
+import TemplateCard from './TemplateCard.astro';
+---
+
+<section>
+  <TemplateCard
+    title="Next.js Starter"
+    image={nextLogo}
+    imageAlt="Next.js logo"
+    features={['ToDo app', 'Next.js & React', 'TypeScript', 'PostgreSQL']}
+  />
+  <TemplateCard
+    title="SvelteKit Starter"
+    image={svelteLogo}
+    imageAlt="SvelteKit logo"
+    features={['ToDo app', 'SvelteKit & Svelte', 'TypeScript', 'PostgreSQL']}
+  />
+  <TemplateCard
+    title="Astro Starter"
+    image={astroLogo}
+    imageAlt="Astro"
+    features={['Astro', 'Node.js adapter for SSR', 'TypeScript', 'PostgreSQL']}
+  />
+</section>
+
+<style>
+  section {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 64px;
+    max-width: 1200px;
+  }
+
+  @media (max-width: 1200px) {
+    section {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 64px;
+    }
+  }
+
+  @media (max-width: 900px) {
+    section {
+      grid-template-columns: repeat(1, 1fr);
+      gap: 64px;
+    }
+  }
+</style>

@@ -1,0 +1,78 @@
+---
+import { Package } from '@phosphor-icons/react';
+import { Image } from 'astro:assets';
+
+type Props = {
+  title: string;
+  image?: ImageMetadata;
+  imageAlt?: string;
+  features: string[];
+};
+
+const { title, image, imageAlt, features } = Astro.props;
+---
+
+<article>
+  {
+    image && (
+      <Image
+        alt={imageAlt || 'template logo'}
+        src={image}
+        width={48}
+        height={48}
+      />
+    )
+  }
+  {!image && <Package size={48} style={{ fill: 'url(#gradient-three)' }} />}
+  <h3>{title}</h3>
+  <section>
+    <ul>
+      {features.map((feature) => <li>{feature}</li>)}
+    </ul>
+    <a class="button">Launch Project</a>
+  </section>
+</article>
+
+<style>
+  article {
+    position: relative;
+    padding: 32px;
+    border-radius: 24px;
+    background-color: var(--color-grey);
+    box-shadow:
+      rgba(255, 206, 227, 0.2) 0px 1px 1px 0px inset,
+      rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  }
+
+  article > section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  article h3 {
+    margin: 0;
+  }
+
+  article ul {
+    margin: 0;
+    margin-top: 8px;
+    margin-bottom: 32px;
+    padding: 0;
+    padding-left: 22px;
+    list-style-type: '→';
+    opacity: 0.7;
+  }
+  article ul li {
+    padding-left: 8px;
+  }
+
+  .button {
+    justify-content: center;
+    align-self: stretch;
+  }
+
+  img {
+    object-fit: contain;
+  }
+</style>
