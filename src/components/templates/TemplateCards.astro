@@ -17,6 +17,7 @@ const { filterBySlug } = Astro.props;
       )
       .map((template) => (
         <TemplateCard
+          slug={template.slug}
           title={template.title}
           image={template.image}
           imageAlt={template.imageAlt}
@@ -25,6 +26,21 @@ const { filterBySlug } = Astro.props;
       ))
   }
 </section>
+
+<script>
+  import { launchTemplateWithTryOut } from './utils';
+
+  const launch = (event: Event) => {
+    const button = event.target as HTMLButtonElement;
+    const template = button.getAttribute('data-launch') as string;
+    button.setAttribute('disabled', 'true');
+
+    launchTemplateWithTryOut(template);
+  };
+
+  const buttons = document.querySelectorAll(`[data-launch]`);
+  buttons.forEach((button) => button.addEventListener('click', launch));
+</script>
 
 <style>
   section {
