@@ -1,8 +1,17 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Navigation from '../components/Navigation.astro';
-import TemplateCards from '../components/templates/TemplateCards.astro';
-import Footer from '../components/Footer.astro';
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation.astro';
+import TemplateCards from '../../components/templates/TemplateCards.astro';
+import Footer from '../../components/Footer.astro';
+import { templates } from '../../content/templates';
+
+export function getStaticPaths() {
+  return templates.map((template) => ({ params: { template: template.slug } }));
+}
+
+const { template: slug } = Astro.params;
+
+const template = templates.find((template) => template.slug === slug)!;
 ---
 
 <Layout title="Diploi – Launch a New Project">
@@ -10,15 +19,15 @@ import Footer from '../components/Footer.astro';
     <Navigation />
 
     <article class="hero">
-      <h1>Launch a New Project</h1>
+      <h1>Launch {template.shortTitle}</h1>
       <p>
-        Pick a starter template from below and you will instantly have access to
-        a development environment.
+        Launch a new {template.shortTitle} project and you will instantly have access
+        to a development environment. No login needed.
       </p>
     </article>
 
     <article class="templates">
-      <TemplateCards />
+      <TemplateCards filterBySlug={template.slug} />
     </article>
   </main>
 

@@ -1,71 +1,20 @@
 ---
-import nextLogo from '../../images/next-logo.svg';
-import svelteLogo from '../../images/svelte-logo.svg';
-import astroLogo from '../../images/astro-logo.svg';
-import ollamaLogo from '../../images/ollama-logo.png';
+import { templates } from '../../content/templates';
 import Template from './Template.astro';
 ---
 
 <section>
-  <Template
-    title="Next.js Starter"
-    image={nextLogo}
-    imageAlt="Next.js logo"
-    description="A simple starter ToDo app template implemented with Next.js & React.\nIncludes an optional PostgreSQL database. Features full TypeScript support, out-of-the-box DB connection, HMR support, and much more!"
-    links={[
-      {
-        title: 'Documentation',
-        href: 'https://docs.diploi.com/templates/nextjstodo/',
-      },
-      {
-        title: 'GitHub',
-        href: 'https://github.com/diploi/nextjs-postgresql-template',
-      },
-    ]}
-  />
-  <Template
-    title="SvelteKit Starter"
-    image={svelteLogo}
-    imageAlt="SvelteKit logo"
-    description="A simple starter ToDo app template implemented with SvelteKit.\nIncludes an optional PostgreSQL database. Features full TypeScript support, out-of-the-box DB connection, HMR support, and much more!"
-    links={[
-      {
-        title: 'Documentation',
-        href: 'https://docs.diploi.com/templates/sveltetodo/',
-      },
-      {
-        title: 'GitHub',
-        href: 'https://github.com/diploi/sveltekit-template',
-      },
-    ]}
-  />
-  <Template
-    title="Astro Starter"
-    image={astroLogo}
-    imageAlt="Astro"
-    description="Astro is an all-in-one web framework for building fast, content-focused websites. SSR support with the Node.js adapter is preconfigured.\nOptional PostgreSQL database."
-    links={[
-      {
-        title: 'Astro with PostgreSQL',
-        href: 'https://dev.to/diploi/astro-with-postgresql-1mpf',
-      },
-      {
-        title: 'Documentation',
-        href: 'https://docs.diploi.com/templates/astro/',
-      },
-      {
-        title: 'GitHub',
-        href: 'https://github.com/diploi/astro-template',
-      },
-    ]}
-  />
-  <!-- <Template
-    title="AI Chatbot"
-    image={ollamaLogo}
-    imageAlt="Ollama logo"
-    description="TODO"
-    links={[]}
-  /> -->
+  {
+    templates.map((template) => (
+      <Template
+        title={template.title}
+        image={template.image}
+        imageAlt={template.imageAlt}
+        description={template.description}
+        links={template.links}
+      />
+    ))
+  }
   <Template
     title="And many more!"
     description="Check out all the templates we have to offer by signing up."
