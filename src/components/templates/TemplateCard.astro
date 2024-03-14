@@ -8,9 +8,17 @@ type Props = {
   image?: ImageMetadata;
   imageAlt?: string;
   features: string[];
+  showLearnMore?: boolean;
 };
 
-const { slug, title, image, imageAlt, features } = Astro.props;
+const {
+  slug,
+  title,
+  image,
+  imageAlt,
+  features,
+  showLearnMore = false,
+} = Astro.props;
 ---
 
 <article>
@@ -28,10 +36,17 @@ const { slug, title, image, imageAlt, features } = Astro.props;
   <h3>{title}</h3>
   <section>
     <ul>
-      {features.map(feature => <li>{feature}</li>)}
+      {features.map((feature) => <li>{feature}</li>)}
     </ul>
     <button data-launch={slug}>Launch Project</button>
-    <p class="help"><Info weight="bold" /> No account needed</p>
+    {showLearnMore && <a href={`/launch/${slug}`}>Learn More</a>}
+    {
+      !showLearnMore && (
+        <p class="help">
+          <Info weight="bold" /> No account needed
+        </p>
+      )
+    }
   </section>
 </article>
 
@@ -68,8 +83,33 @@ const { slug, title, image, imageAlt, features } = Astro.props;
     list-style-type: '→';
     opacity: 0.7;
   }
+
   article ul li {
     padding-left: 8px;
+  }
+
+  article a {
+    margin-top: 12px;
+    align-self: center;
+    position: relative;
+    font-size: 0.64rem;
+    text-decoration: none;
+    color: white;
+    transform: translateX(-8px);
+    opacity: 0.5;
+  }
+
+  article a::after {
+    content: '';
+    position: absolute;
+    display: block;
+    top: 50%;
+    right: -1.3em;
+    width: 1em;
+    height: 1em;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='white' viewBox='0 0 256 256'%3E%3Cpath d='M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z'%3E%3C/path%3E%3C/svg%3E");
+    background-size: 100%;
+    transform: translateY(-50%);
   }
 
   button {
