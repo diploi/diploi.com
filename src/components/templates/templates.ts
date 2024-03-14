@@ -1,7 +1,7 @@
-import nextLogo from '../images/next-logo.svg';
-import svelteLogo from '../images/svelte-logo.svg';
-import astroLogo from '../images/astro-logo.svg';
-import ollamaLogo from '../images/ollama-logo.png';
+import nextLogo from '../../images/next-logo.svg';
+import svelteLogo from '../../images/svelte-logo.svg';
+import astroLogo from '../../images/astro-logo.svg';
+import ollamaLogo from '../../images/ollama-logo.png';
 
 export const templates = [
   {

@@ -1,9 +1,19 @@
+---
+type Props = {
+  width?: number;
+};
+
+const { width = 180 } = Astro.props;
+const height = width * 0.29666666;
+---
+
 <svg
   xmlns="http://www.w3.org/2000/svg"
-  width="180"
-  height="53.4"
+  width={width}
+  height={height}
   fill="none"
   viewBox="0 0 445 132"
+  aria-label="Diploi"
 >
   <g clip-path="url(#a)">
     <path

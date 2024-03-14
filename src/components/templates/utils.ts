@@ -20,7 +20,7 @@ export const launchTemplateWithTryOut = async (template: string) => {
 
   const data = await response.json();
   if (data.status === 'ok') {
-    window.location.href = `${CONSOLE_URL}/launch`;
+    window.location.href = `${CONSOLE_URL}/launch/${data.token}`;
   } else {
     // FIXME: This is too ugly...
     alert('Failed to start trial, please try again later...');

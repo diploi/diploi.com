@@ -1,11 +1,11 @@
 ---
-import { templates } from '../../content/templates';
+import { templates } from './templates';
 import Template from './Template.astro';
 ---
 
 <section>
   {
-    templates.map((template) => (
+    templates.map(template => (
       <Template
         title={template.title}
         image={template.image}
@@ -43,3 +43,4 @@ import Template from './Template.astro';
     }
   }
 </style>
+./templates

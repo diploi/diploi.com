@@ -1,6 +1,6 @@
 ---
-import { Package } from '@phosphor-icons/react';
 import { Image } from 'astro:assets';
+import { Info, Package } from '@phosphor-icons/react';
 
 type Props = {
   slug: string;
@@ -28,9 +28,10 @@ const { slug, title, image, imageAlt, features } = Astro.props;
   <h3>{title}</h3>
   <section>
     <ul>
-      {features.map((feature) => <li>{feature}</li>)}
+      {features.map(feature => <li>{feature}</li>)}
     </ul>
     <button data-launch={slug}>Launch Project</button>
+    <p class="help"><Info weight="bold" /> No account needed</p>
   </section>
 </article>
 
@@ -38,6 +39,8 @@ const { slug, title, image, imageAlt, features } = Astro.props;
   article {
     position: relative;
     padding: 32px;
+    padding-top: 40px;
+    padding-bottom: 16px;
     width: 280px;
     border-radius: 24px;
     background-color: var(--color-grey);
@@ -76,5 +79,17 @@ const { slug, title, image, imageAlt, features } = Astro.props;
 
   img {
     object-fit: contain;
+  }
+
+  .help {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    margin-bottom: 0;
+    width: 100%;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.64rem;
+    opacity: 0.5;
   }
 </style>

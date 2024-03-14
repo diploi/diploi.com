@@ -3,15 +3,18 @@ import Layout from '../../layouts/Layout.astro';
 import Navigation from '../../components/Navigation.astro';
 import TemplateCards from '../../components/templates/TemplateCards.astro';
 import Footer from '../../components/Footer.astro';
-import { templates } from '../../content/templates';
+import { templates } from '../../components/templates/templates';
+import Divider from '../../components/Divider.astro';
+import Logo from '../../components/Logo.astro';
+import { CursorClick, PlugsConnected, Target } from '@phosphor-icons/react';
 
 export function getStaticPaths() {
-  return templates.map((template) => ({ params: { template: template.slug } }));
+  return templates.map(template => ({ params: { template: template.slug } }));
 }
 
 const { template: slug } = Astro.params;
 
-const template = templates.find((template) => template.slug === slug)!;
+const template = templates.find(template => template.slug === slug)!;
 ---
 
 <Layout title="Diploi – Launch a New Project">
@@ -19,7 +22,9 @@ const template = templates.find((template) => template.slug === slug)!;
     <Navigation />
 
     <article class="hero">
-      <h1>Launch {template.shortTitle}</h1>
+      <h1>
+        Launch {template.shortTitle}<small>with <Logo width={100} /></small>
+      </h1>
       <p>
         Launch a new {template.shortTitle} project and you will instantly have access
         to a development environment. No login needed.
@@ -28,6 +33,76 @@ const template = templates.find((template) => template.slug === slug)!;
 
     <article class="templates">
       <TemplateCards filterBySlug={template.slug} />
+
+      <section class="info">
+        <h2>{template.title}</h2>
+        <p>
+          {template.description}
+        </p>
+        {
+          template.links.map(link => (
+            <div>
+              <a href={link.href}>{link.title}</a>
+            </div>
+          ))
+        }
+
+        <Divider plain />
+
+        <h2>What is Diploi?</h2>
+        <p>
+          Diploi is the single SaaS service for managing, developing and hosting
+          your full application.
+        </p>
+        <ul>
+          <li>
+            <h3>
+              <Target
+                weight="bold"
+                size={38}
+                style={{ fill: 'url(#gradient-one)' }}
+                slot="icon"
+              /> Consistent
+            </h3>
+            <ul>
+              <li>Consistent environments from development to production</li>
+              <li>Adoptable incrementally - start easy, grow later</li>
+            </ul>
+          </li>
+          <li>
+            <h3>
+              <CursorClick
+                weight="bold"
+                size={38}
+                style={{ fill: 'url(#gradient-two)' }}
+                slot="icon"
+              /> One-Click
+            </h3>
+            <ul>
+              <li>Fast 30 second new developer onboarding</li>
+              <li>One-click environment setup</li>
+              <li>Instantly shareable testing environments</li>
+            </ul>
+          </li>
+          <li>
+            <h3>
+              <PlugsConnected
+                weight="bold"
+                size={38}
+                style={{ fill: 'url(#gradient-three)' }}
+                slot="icon"
+              /> Zero-Install
+            </h3>
+            <ul>
+              <li>Zero-install remote development</li>
+              <li>Versatile support for any stack pre-build or custom</li>
+            </ul>
+          </li>
+        </ul>
+        <div>
+          <a href="/">Learn more</a>
+        </div>
+      </section>
     </article>
   </main>
 
@@ -65,6 +140,18 @@ const template = templates.find((template) => template.slug === slug)!;
     text-align: center;
   }
 
+  .hero > h1 > small {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    font-size: 22px;
+  }
+
+  .hero > h1 > small > svg {
+    height: 24px;
+  }
+
   .hero > p {
     margin-bottom: 0;
     text-align: center;
@@ -98,8 +185,68 @@ const template = templates.find((template) => template.slug === slug)!;
 
   .templates {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    gap: 32px;
     max-width: 1200px;
+    width: 100%;
+  }
+
+  @media (max-width: 900px) {
+    .templates {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .info {
+      max-width: 55ch;
+    }
+  }
+
+  .info {
+    padding: 0 32px;
+  }
+
+  .info a {
+    position: relative;
+    text-decoration: none;
+    color: var(--color-primary);
+  }
+
+  .info a::after {
+    content: '';
+    position: absolute;
+    display: block;
+    top: 50%;
+    right: -1.3rem;
+    width: 1rem;
+    height: 1rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='%236650fa' viewBox='0 0 256 256'%3E%3Cpath d='M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z'%3E%3C/path%3E%3C/svg%3E");
+    background-size: 100%;
+    transform: translateY(-50%);
+  }
+
+  .info > ul {
+    padding: 0;
+    list-style: none;
+  }
+
+  .info > ul h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .info > ul h3 > svg {
+    transform: translate(-2px, -1px);
+  }
+
+  .info > ul ul {
+    list-style-type: '→';
+  }
+
+  .info > ul ul > li {
+    padding-left: 10px;
+    opacity: 0.7;
   }
 </style>

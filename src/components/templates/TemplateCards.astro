@@ -1,5 +1,5 @@
 ---
-import { templates } from '../../content/templates';
+import { templates } from './templates';
 import TemplateCard from './TemplateCard.astro';
 
 type Props = {
@@ -12,10 +12,10 @@ const { filterBySlug } = Astro.props;
 <section>
   {
     templates
-      .filter((template) =>
+      .filter(template =>
         !filterBySlug ? true : template.slug === filterBySlug
       )
-      .map((template) => (
+      .map(template => (
         <TemplateCard
           slug={template.slug}
           title={template.title}
@@ -39,7 +39,7 @@ const { filterBySlug } = Astro.props;
   };
 
   const buttons = document.querySelectorAll(`[data-launch]`);
-  buttons.forEach((button) => button.addEventListener('click', launch));
+  buttons.forEach(button => button.addEventListener('click', launch));
 </script>
 
 <style>
