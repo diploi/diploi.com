@@ -39,8 +39,21 @@ const { filterBySlug } = Astro.props;
     launchTemplateWithTryOut(template);
   };
 
+  const launchMacke = (event: Event) => {
+    const button = event.target as HTMLButtonElement;
+    const template = button.getAttribute('data-launch-macke') as string;
+    button.setAttribute('disabled', 'true');
+
+    launchTemplateWithTryOut(template, 'https://macke.diploi.dev');
+  };
+
   const buttons = document.querySelectorAll(`[data-launch]`);
   buttons.forEach((button) => button.addEventListener('click', launch));
+
+  const buttonsMacke = document.querySelectorAll(`[data-launch-macke]`);
+  buttonsMacke.forEach((button) =>
+    button.addEventListener('click', launchMacke)
+  );
 </script>
 
 <style>

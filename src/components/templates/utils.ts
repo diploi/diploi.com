@@ -1,16 +1,18 @@
 // FIXME: Replace this...
 const CONSOLE_URL = 'https://tuomas.diploi.dev';
 
-export const launchTemplateWithTryOut = async (template: string) => {
+export const launchTemplateWithTryOut = async (
+  template: string,
+  consoleUrl = CONSOLE_URL
+) => {
   const response = await fetch(
-    `${CONSOLE_URL}/api/account/create-anonymous-trial`,
+    `${consoleUrl}/api/account/create-anonymous-trial`,
     {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
       method: 'POST',
-      credentials: 'include',
       body: JSON.stringify({
         template: template,
         token: 'token', // TODO: ??
@@ -20,7 +22,7 @@ export const launchTemplateWithTryOut = async (template: string) => {
 
   const data = await response.json();
   if (data.status === 'ok') {
-    window.location.href = `${CONSOLE_URL}/launch/${data.token}`;
+    window.location.href = `${consoleUrl}/launch/${data.token}`;
   } else {
     // FIXME: This is too ugly...
     alert('Failed to start trial, please try again later...');
