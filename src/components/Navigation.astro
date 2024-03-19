@@ -21,7 +21,11 @@ const isPricing = selected === 'pricing';
       <a href="/" data-selected={`${isHome}`}>
         <House weight={isHome ? 'fill' : 'regular'} /> Home
       </a>
-      <a href="/pricing" data-selected={`${isPricing}`}>
+      <a
+        data-event="pricing_click"
+        href="/pricing"
+        data-selected={`${isPricing}`}
+      >
         <CreditCard weight={isPricing ? 'fill' : 'regular'} /> Pricing
       </a>
       <a data-event="documentation_click" href="https://docs.diploi.com/">
