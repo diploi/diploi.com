@@ -38,8 +38,7 @@ const {
     <ul>
       {features.map((feature) => <li>{feature}</li>)}
     </ul>
-    <button data-launch={slug}>Launch Project (T)</button>
-    <button data-launch-macke={slug}>Launch Project (M)</button>
+    <button data-launch={slug}>Launch Project</button>
     {showLearnMore && <a href={`/launch/${slug}`}>Learn More</a>}
     {
       !showLearnMore && (
