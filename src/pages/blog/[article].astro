@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import {
   AirplaneTakeoff,
   HandWaving,
@@ -13,14 +13,14 @@ import Footer from '../../components/Footer.astro';
 export async function getStaticPaths() {
   const articles = await getCollection('blog');
   return articles.map((article) => ({
-    params: { article: article.slug },
+    params: { article: article.id },
     props: { entry: article },
   }));
 }
 
 const { entry } = Astro.props;
 
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 ---
 
 <Layout title={`Diploi – ${entry.data.title}`}>
@@ -139,6 +139,45 @@ const { Content } = await entry.render();
     img {
       width: 100%;
       border-radius: 12px;
+    }
+
+    a {
+      text-decoration-thickness: 2px;
+      color: white;
+    }
+
+    figure {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin: 40px 0;
+      width: 100%;
+      max-width: 55ch;
+
+      > img {
+        width: 100%;
+        max-width: 400px;
+      }
+
+      > figcaption {
+        font-style: italic;
+        font-size: 16px;
+        opacity: 0.7;
+      }
+    }
+
+    hr {
+      display: flex;
+      justify-content: center;
+      border: none;
+      margin: 40px 0;
+
+      &::before {
+        content: '⁂';
+        color: white;
+        opacity: 0.2;
+      }
     }
   }
 
