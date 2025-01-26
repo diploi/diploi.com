@@ -1,20 +1,202 @@
+---
+import Icon from './Icon.astro'
+import Logo from './Logo.astro'
+---
+
 <footer>
-  <p>Built with ❤️ by Diploi</p>
+  <div>
+    <div class="footer-content">
+      <div class="logo-and-socials">
+        <Logo class="footer-logo" />
+        <div class="socials">
+          <a href="TODO">
+            <Icon name="GithubLogo" class="footer-social-link-icon" />
+          </a>
+          <a href="TODO">
+            <Icon name="DiscordLogo" class="footer-social-link-icon" />
+          </a>
+          <a href="TODO">
+            <Icon name="LinkedinLogo" class="footer-social-link-icon" />
+          </a>
+          <a href="TODO">
+            <Icon name="DevToLogo" class="footer-social-link-icon" />
+          </a>
+        </div>
+      </div>
+      <div class="clickable">
+        <ul class="links">
+          <label>Product</label>
+          <li>
+            <a>Pricing</a>
+          </li>
+          <li>
+            <a>Documentation</a>
+          </li>
+          <li>
+            <a>Blog</a>
+          </li>
+          <li>
+            <a>Login / Sign Up</a>
+          </li>
+        </ul>
+        <address>
+          <label>Contact</label>
+          <p>Kukkaketo 666</p>
+          <p>12345 Helsinki</p>
+          <p>Finland</p>
+          <a href="mailto:info@diploi.com">info@diploi.com</a><br />
+        </address>
+      </div>
+    </div>
+    <div class="bottom">
+      <p class="small">Built with ❤️ by Diploi</p>
+      <p class="small cp">
+        <Icon name="Copyright" size={16} weight="light" />
+        2023 Diploi
+      </p>
+    </div>
+  </div>
 </footer>
 
-<style>
+<style lang="scss">
+  @use '../styles/mixins';
+
+  :global(.footer-logo) {
+    width: 6rem;
+  }
   footer {
+    border-top: 1px solid var(--color-separator);
+    display: flex;
+    flex-direction: column;
     margin: auto;
-    margin-top: 128px;
     width: 100%;
-    max-width: 900px;
-    font-size: 0.64rem;
     text-align: center;
-    color: white;
+    padding: var(--space-xxl);
+    margin-top: var(--space-huge);
+
+    > div {
+      max-width: var(--max-width-page-section);
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    @include mixins.respond-to('tablet') {
+      margin-top: 6rem;
+    }
+
+    p,
+    a {
+      font-weight: 400;
+      color: var(--color-text-primary);
+      font-size: 1rem;
+    }
   }
 
-  footer p {
-    max-width: 100%;
-    opacity: 0.5;
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-huge);
+    justify-content: space-between;
+
+    @include mixins.respond-to('tablet') {
+      justify-content: space-between;
+    }
+  }
+
+  .logo-and-socials {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-l);
+  }
+
+  .socials {
+    display: flex;
+    align-items: center;
+    gap: var(--space-s);
+    > a {
+      display: flex;
+      align-items: center;
+      color: var(--color-text-secondary);
+      padding: var(--space-xs);
+
+      &:hover {
+        color: var(--color-text-primary);
+      }
+
+      svg {
+        fill: currentColor;
+      }
+    }
+  }
+
+  :global(.footer-social-link-icon) {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .clickable {
+    display: flex;
+    gap: 6rem;
+  }
+
+  address {
+    font-style: normal;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
+    align-items: flex-start;
+    text-style: normal;
+    > p {
+      color: var(--color-text-primary);
+    }
+  }
+
+  label {
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.3px;
+    margin-bottom: var(--space-s);
+  }
+
+  .links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-s);
+  }
+
+  .bottom {
+    display: flex;
+    flex-direction: column;
+    color: var(--color-text-secondary);
+    padding-top: var(--space-huge);
+    gap: var(--space-l);
+    text-align: center;
+
+    @include mixins.respond-to('tablet') {
+      flex-direction: row;
+      justify-content: space-between;
+      color: var(--color-text-tertiary);
+    }
+    p {
+      color: inherit;
+      font-size: 0.875rem;
+      text-align: center;
+    }
+
+    > .cp {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: inherit;
+      gap: var(--space-xs);
+      color: var(--color-text-tertiary);
+      > svg {
+        fill: currentColor;
+      }
+    }
   }
 </style>

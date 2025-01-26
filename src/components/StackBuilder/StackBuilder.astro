@@ -1,0 +1,222 @@
+---
+import { Code } from 'astro:components'
+import { shikiTheme } from '../../shiki-theme'
+import { components, addons, mockYaml } from './data'
+import StackBuilderBlockButton from './StackBuilderBlockButton.astro'
+import SubSectionHeader from '../SubSectionHeader.astro'
+
+import { SyntaxHighlighter } from '../react'
+---
+
+<div class="stack-builder">
+  <div class="grid">
+    <div class="header components">
+      <SubSectionHeader
+        title="Components"
+        description="Base blocks of your Stack. All code is editable."
+        class="header-components"
+      />
+    </div>
+    <div class="blocks components">
+      {
+        components.map((component) => (
+          <StackBuilderBlockButton {...component} class="component" />
+        ))
+      }
+    </div>
+    <div class="header addons">
+      <SubSectionHeader
+        title="Add-ons"
+        description="Complementary services. Configurable with config."
+      />
+    </div>
+    <div class="blocks addons">
+      {
+        addons.map((addon) => (
+          <StackBuilderBlockButton {...addon} class="addon" />
+        ))
+      }
+    </div>
+    <article class="code-card">
+      <label>config.yaml</label>
+      <Code
+        wrap
+        code={mockYaml}
+        lang="yaml"
+        class="code"
+        defaultColor={false}
+        theme={shikiTheme}
+      />
+    </article>
+  </div>
+  <div class="ctas">
+    <div>
+      <button class="secondary">Read More</button>
+      <button id="button-launch-stack">Launch Stack</button>
+    </div>
+    <p class="small">Test Diploi for free, no credit card required.</p>
+  </div>
+</div>
+<script>
+  let selectedComponentIds = []
+  let selectedAddonIds = []
+
+  const launchButton = document.getElementById('button-launch-stack')
+  launchButton.disabled = true
+  const buttons = document.querySelectorAll('.stack-builder-button')
+
+  const toggleSelection = (currentSelectedIds: string[], id: string) => {
+    let nextSelectedIds = currentSelectedIds
+
+    if (nextSelectedIds.includes(id)) {
+      nextSelectedIds = nextSelectedIds.filter((blockId) => blockId !== id)
+    } else {
+      nextSelectedIds.push(id)
+    }
+
+    return nextSelectedIds
+  }
+
+  buttons.forEach((button) => {
+    button.addEventListener('click', (event) => {
+      event.preventDefault()
+
+      button.classList.toggle('is-selected')
+
+      const checkbox = button.querySelector('input[type="checkbox"]')
+      if (checkbox) {
+        checkbox.checked = !checkbox.checked
+      }
+
+      const id = button.getAttribute('data-id')
+      const isComponent = button.classList.contains('component')
+      const isAddon = button.classList.contains('addon')
+
+      if (isComponent) {
+        selectedComponentIds = toggleSelection(selectedComponentIds, id)
+      }
+
+      if (isAddon) {
+        selectedAddonIds = toggleSelection(selectedAddonIds, id)
+      }
+
+      launchButton.disabled =
+        selectedComponentIds.length === 0 || selectedAddonIds.length === 0
+
+      console.debug('selectedBlockIds:', selectedBlockIds)
+    })
+  })
+</script>
+
+<style lang="scss">
+  @use '../../styles/mixins';
+
+  .code-card {
+    @include mixins.card-desktop;
+    height: fit-content;
+    grid-area: preview;
+    background-color: var(--color-bg-secondary-20);
+
+    > label {
+      position: absolute;
+      background: var(--color-bg-secondary);
+      top: 0;
+      right: 0;
+      padding: 0 var(--space-s);
+      border-bottom-left-radius: var(--border-radius-medium);
+      line-height: 1.5rem;
+      color: var(--color-text-secondary);
+      font-weight: 400;
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+    }
+    pre {
+      margin: 0 !important;
+      font-size: 0.875rem !important;
+    }
+  }
+
+  .stack-builder {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xxl);
+  }
+
+  .grid {
+    display: flex;
+    flex-direction: column;
+
+    @include mixins.respond-to('tablet') {
+      display: grid;
+      grid-column-gap: var(--space-xxl);
+      grid-row-gap: var(--space-l);
+      grid-template-columns: 1.5fr 1fr;
+      grid-template-areas:
+        'components-header .'
+        'components preview'
+        'addons-header preview'
+        'addons preview';
+    }
+  }
+
+  .header {
+    margin-bottom: var(--space-l);
+    &.components {
+      grid-area: components-header;
+    }
+    &.addons {
+      grid-area: addons-header;
+    }
+
+    @include mixins.respond-to('tablet') {
+      &.components,
+      &.addons {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .blocks {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-l);
+
+    &.components,
+    &.addons {
+      margin-bottom: var(--space-xxl);
+    }
+    &.components {
+      grid-area: components;
+    }
+    &.addons {
+      grid-area: addons;
+    }
+    @include mixins.respond-to('tablet') {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @include mixins.respond-to('laptop') {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .ctas {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+
+    > div {
+      display: flex;
+      gap: var(--space-m);
+    }
+
+    p {
+      max-width: unset;
+    }
+
+    @include mixins.respond-to('tablet') {
+      align-items: center;
+    }
+  }
+</style>

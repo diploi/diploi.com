@@ -1,0 +1,101 @@
+import type { FeatureCard } from '../components'
+
+export const featureCards: FeatureCard[] = [
+  {
+    title: 'Consistent',
+    icon: 'Target',
+    items: [
+      'Consistent environments from development to production',
+      'Straightforward yet powerful user experience',
+      'Adoptable incrementally - start easy, grow later',
+    ],
+  },
+  {
+    title: 'One-Click',
+    icon: 'CursorClick',
+    items: [
+      'Fast 30 second new developer onboarding',
+      'One-click environment setup',
+      'Instantly shareable testing environments',
+    ],
+  },
+  {
+    title: 'Zero-Install',
+    icon: 'PlugsConnected',
+    items: [
+      'Zero-install remote development',
+      'Versatile support for any stack pre-build or custom',
+    ],
+  },
+]
+
+export const content = {
+  pickStack: {
+    step: 1,
+    title: 'Pick Your Stack',
+    highlightedText: 'Stack',
+    description:
+      'Choose from a constantly growing list of technologies to build your ideal stack. We’ll take care of configuring your monorepo.',
+  },
+  develop: {
+    step: 2,
+    title: 'Develop Your App',
+    highlightedText: 'Develop',
+    description:
+      'Zero-install development environments with a single click. Edit your code directly with our powerful Browser IDE, or connect remotely with your favorite IDE.',
+    developerFaqTitle: 'Developer FAQ',
+  },
+  publishApp: {
+    step: 3,
+    title: 'Publish Your App',
+    highlightedText: 'Publish',
+    description:
+      'We take care of the full lifecycle of your app. You can spin up a production or staging environment with a single click.',
+  },
+  timeAndResources: {
+    title: 'Save Time and Resources',
+    highlightedText: 'Time and Resources',
+    description:
+      'These are real-life statistics from a web development company. Can you afford to ignore the benefits and possible savings from using Diploi?',
+  },
+}
+
+export const chart = {
+  newProjectStartUp: {
+    title: 'Starting a new project',
+    description: 'in minutes',
+    bars: [
+      { title: 'Diploi', value: 7 },
+      { title: 'Containerized', value: 115, comparison: 24 },
+      { title: 'Traditional', value: 68, comparison: 14 },
+    ],
+  },
+  developerOnboarding: {
+    title: 'Onboarding a new developer',
+    description: 'in minutes',
+    bars: [
+      { title: 'Diploi', value: 10 },
+      { title: 'Containerized', value: 45, comparison: 4 },
+      { title: 'Traditional', value: 92, comparison: 10 },
+    ],
+  },
+  creatingTestEnvironment: {
+    title: 'Creating a new test environment',
+    description: 'in minutes',
+    bars: [
+      { title: 'Diploi', value: 10 },
+      { title: 'Containerized', value: 62, comparison: 6 },
+      { title: 'Traditional', value: 115, comparison: 11 },
+    ],
+  },
+  updatingProduction: {
+    title: 'Updating production',
+    description: 'in minutes',
+    bars: [
+      { title: 'Diploi', value: 3.5 },
+      { title: 'Containerized', value: 6, comparison: 2 },
+      { title: 'Traditional', value: 16, comparison: 5 },
+    ],
+    max: 16,
+  },
+}

@@ -1,0 +1,29 @@
+---
+type Props = {
+  title: string
+  description?: string
+  class?: string
+}
+
+const { title, description, step, class: className } = Astro.props
+---
+
+<div class:list={['sub-section-header', className]}>
+  <h3 class="heading">
+    {title}
+  </h3>
+  {description && <p>{description}</p>}
+</div>
+
+<style>
+  .sub-section-header {
+    display: flex;
+    gap: 0.5rem;
+    flex-direction: column;
+    > p,
+    .heading {
+      margin-bottom: 0;
+      max-width: 60ch;
+    }
+  }
+</style>

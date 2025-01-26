@@ -1,0 +1,39 @@
+---
+import * as icons from '@phosphor-icons/react'
+import type { IconProps } from '@phosphor-icons/react'
+
+type Props = {
+  name: keyof typeof icons
+  size?: number
+  isGradient?: boolean
+  weight?: IconProps['weight']
+  color?: string
+  class?: string
+}
+const {
+  size = 24,
+  isGradient = false,
+  class: className,
+  weight = 'light',
+  color,
+} = Astro.props
+
+const Icon = icons[Astro.props.name]
+---
+
+<Icon
+  size={size}
+  weight={weight}
+  className={`icon${isGradient ? ' gradient' : ''} ${className}`}
+  color={color}
+/>
+
+<style>
+  .icon {
+    flex-shrink: 0;
+
+    &.gradient {
+      fill: url(#gradient-one);
+    }
+  }
+</style>

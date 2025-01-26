@@ -1,0 +1,28 @@
+---
+import type { FeatureCard } from './types'
+import FeatureListCard from './FeatureListCard.astro'
+
+type Props = {
+  items: FeatureCard[]
+}
+
+const { items } = Astro.props
+---
+
+<div class="feature-cards">
+  {items.map((item) => <FeatureListCard {...item} />)}
+</div>
+
+<style lang="scss">
+  @use '../../styles/mixins';
+  .feature-cards {
+    display: flex;
+    flex-direction: column;
+
+    @include mixins.respond-to('tablet') {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: var(--space-l);
+    }
+  }
+</style>

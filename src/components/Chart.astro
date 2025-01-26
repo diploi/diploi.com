@@ -1,36 +1,52 @@
 ---
-import { Info } from '@phosphor-icons/react';
+import { Info, X } from '@phosphor-icons/react'
+import SubSectionHeader from './SubSectionHeader.astro'
 interface Props {
-  title: string;
-  description?: string;
-  bars: { title: string; value: number; comparison?: number }[];
-  max?: number;
+  title: string
+  description?: string
+  bars: { title: string; value: number; comparison?: number }[]
+  max?: number
 }
 
-const { title, description, bars, max = 120 } = Astro.props;
+const { title, description, bars, max = 120 } = Astro.props
 
-const segmentWidth = (max / 6 / max) * 100;
+const segmentWidth = (max / 6 / max) * 100
 
-const segments = new Array(6)
-  .fill(null)
-  .map((_, index) => segmentWidth * index);
+const segments = new Array(6).fill(null).map((_, index) => segmentWidth * index)
 ---
 
 <figure>
-  <h3>{title}</h3>
-  <p><Info /> {description}</p>
+  <SubSectionHeader title={title} />
+  <p class="faster-mobile">
+    <strong class="text-gradient number">
+      {Math.max(...bars.map((bar) => bar.comparison || 0))}
+    </strong>
+    <X weight="bold" />
+
+    <span class="text">
+      <span>Faster {description}</span>
+    </span>
+  </p>
   <div class="content">
     <div class="graph">
       {
         bars.map(({ title, value, comparison }) => (
           <div class="bar" style={{ width: `${(value / max) * 100}%` }}>
-            <p class="title">{title}</p>
-            {comparison && <p class="comparison">{comparison} × worse</p>}
+            <p class=" small title">{title}</p>
+            {comparison && (
+              <p class="small comparison">
+                {comparison} <X size={12} weight="bold" /> worse
+              </p>
+            )}
           </div>
         ))
       }
+      <div class="segment" style={{ width: `${0}%`, left: `${0}%` }}>
+        <span>0</span>
+      </div>
+
       {
-        segments.map((position) => (
+        segments.map((position, idx) => (
           <div
             class="segment"
             style={{ width: `${segmentWidth}%`, left: `${position}%` }}
@@ -40,15 +56,26 @@ const segments = new Array(6)
         ))
       }
     </div>
-    <p>
-      <strong>{Math.max(...bars.map((bar) => bar.comparison || 0))} ×</strong
-      ><small>faster</small>
+    <p class="faster">
+      <strong class="text-gradient number">
+        {Math.max(...bars.map((bar) => bar.comparison || 0))}<X weight="bold" />
+      </strong>
+      <span class="text">
+        <span>Faster {description}</span>
+      </span>
     </p>
   </div>
 </figure>
 
-<style>
+<style lang="scss">
+  @use '../styles/mixins';
   figure {
+    margin: 0;
+    > :first-child {
+      margin-bottom: var(--space-l);
+    }
+  }
+  :q figure {
     padding: 0;
     margin: 0;
     width: 100%;
@@ -58,46 +85,74 @@ const segments = new Array(6)
     margin: 0;
   }
 
-  figure > p {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    margin: 0;
-    font-size: 0.64rem;
-    transform: translateY(-4px);
-  }
-
   .content {
+    display: grid;
+    grid-gap: var(--space-xxl);
+    grid-template-rows: 1fr auto;
+
+    @include mixins.respond-to('tablet') {
+      display: grid;
+      grid-gap: var(--space-xxl);
+      grid-template-columns: 1fr auto;
+      align-items: center;
+    }
+  }
+
+  .faster-mobile {
     display: flex;
     align-items: center;
-    gap: 76px;
-  }
+    gap: var(--space-s);
+    margin-bottom: var(--space-l);
 
-  .content > p {
-    width: 80px;
-    text-align: center;
-    opacity: 1;
-  }
-
-  @media (max-width: 1000px) {
-    .content {
-      padding-left: 64px;
-      padding-right: 64px;
+    svg {
+      width: 0.75rem;
+      fill: var(--color-text-primary);
     }
-
-    .content > p {
+    @include mixins.respond-to('tablet') {
       display: none;
     }
   }
 
-  .content > p > strong {
-    font-size: 1.25rem;
+  .faster {
+    display: none;
+
+    @include mixins.respond-to('tablet') {
+      display: flex;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .number {
+      display: flex;
+      align-items: baseline;
+      font-weight: 600;
+      font-size: 3.5rem;
+      line-height: 3.5rem;
+
+      > svg {
+        width: 2rem;
+        height: 2rem;
+        transform: translateY(3px);
+        fill: var(--color-text-primary);
+        margin-left: var(--space-xs);
+      }
+    }
+
+    .text {
+      display: flex;
+      gap: var(--space-s);
+      align-items: center;
+    }
+  }
+
+  .content > p {
+    text-align: center;
+    opacity: 1;
   }
 
   .content > p > small {
     display: block;
-    font-size: 0.64rem;
-    opacity: 0.7;
   }
 
   .graph {
@@ -105,18 +160,21 @@ const segments = new Array(6)
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    margin-top: 16px;
-    padding: 16px 0;
+    gap: var(--space-xxl);
+    padding: var(--space-xxl) 0 var(--space-xl) 0;
+    @include mixins.respond-to('tablet') {
+      gap: var(--space-l);
+      padding: var(--space-xl) 0;
+    }
   }
 
   .graph > .bar {
     position: relative;
     display: flex;
     align-items: center;
-    height: 18px;
-    background-color: var(--color-grey);
-    border-radius: 0 32px 32px 0;
+    height: var(--space-xl);
+    background-color: var(--color-bg-secondary);
+    border-radius: 0 var(--border-radius-round) var(--border-radius-round) 0;
   }
 
   .graph > .bar:first-of-type {
@@ -128,36 +186,41 @@ const segments = new Array(6)
   }
 
   .graph > .bar > .title {
-    position: absolute;
-    left: -10px;
     margin: 0;
-    transform: translateX(-100%);
-    font-size: 0.64rem;
+    color: var(--color-text-primary);
+    transform: translateY(-22px);
+    font-size: 0.875rem;
+
+    @include mixins.respond-to('tablet') {
+      transform: translateY(0);
+      padding-left: var(--space-s);
+      font-weight: 500;
+    }
   }
 
   .graph > .bar > .comparison {
     position: absolute;
-    right: -10px;
+    right: var(--space-m);
     margin: 0;
-    transform: translate(100%, 1px);
-    font-size: 0.64rem;
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
   }
 
   .graph > .segment {
     position: absolute;
     top: 0;
     height: 100%;
-    border-right: 1px solid var(--color-grey);
+    border-right: 1px solid var(--color-separator);
     z-index: -1;
   }
 
   .graph > .segment > span {
     position: absolute;
+    color: var(--color-text-tertiary);
     right: -17px;
     bottom: -28px;
     width: 32px;
     text-align: center;
-    font-size: 0.64rem;
-    opacity: 0.3;
   }
 </style>

@@ -1,0 +1,83 @@
+---
+import { Image } from 'astro:assets'
+import Checkbox from '../Checkbox.astro'
+import { TStackBuilderBlock } from './types'
+
+type Props = TStackBuilderBlock & {
+  class: string
+}
+
+const { label, iconSrc, iconAlt, class: className } = Astro.props
+---
+
+<button class:list={['stack-builder-button', className]}>
+  <div class="label">
+    <Image
+      alt={iconAlt}
+      src={iconSrc}
+      decoding="async"
+      loading="lazy"
+      class="icon"
+    />
+
+    {label}
+  </div>
+  <Checkbox />
+</button>
+
+<style lang="scss">
+  @use '../../styles/mixins';
+  .stack-builder-button {
+    @include mixins.gradient-border;
+    padding: var(--space-xl);
+    gap: var(--space-l);
+    justify-content: space-between;
+    @include mixins.gradient-bg;
+    background: var(--color-bg-secondary);
+
+    @include mixins.respond-to('tablet') {
+      padding: var(--space-l);
+    }
+
+    &:hover:not(.is-selected) {
+      background: var(--color-bg-secondary);
+      background-color: var(--color-bg-secondary-hover);
+    }
+
+    &.is-selected {
+      @include mixins.gradient-border(
+        var(--color-accent-primary),
+        var(--color-accent-primary)
+      );
+      background: linear-gradient(
+        to bottom,
+        var(--color-accent-primary-20),
+        transparent
+      );
+
+      background-color: var(--color-bg-secondary);
+
+      &:hover {
+        @include mixins.gradient-border(
+          var(--color-accent-primary),
+          var(--color-accent-primary-hover)
+        );
+        background: linear-gradient(
+          to bottom,
+          var(--color-accent-primary-20),
+          var(--color-bg-secondary-20)
+        );
+      }
+    }
+  }
+
+  .label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-l);
+  }
+  .icon {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+</style>

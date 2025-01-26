@@ -1,0 +1,75 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import GlobalStyles from '../../components/GlobalStyles.astro'
+
+import Hero from '../landing/sections/Hero.astro'
+import { Canvas, Lifecycle } from '../../components/react'
+
+import {
+  Navigation,
+  DeveloperFaq,
+  StackBuilder,
+  FeatureMasonry,
+  FeatureCards,
+  GetStarted,
+  Footer,
+  Section,
+  SubSection,
+  GlobalStyles,
+  Sparkle,
+  Chart,
+  SparkleElement,
+  ImpactMetric,
+  EffortlessDevelopment,
+} from '../../components'
+
+import { featureCards, chart, content } from '../../content'
+---
+
+<GlobalStyles />
+<Layout title="Diploi – Magical Developer Experience">
+  <Navigation />
+  <main class="main-landing">
+    <Hero />
+    <Section {...content.pickStack}>
+      <StackBuilder />
+    </Section>
+    <hr />
+    <Section {...content.develop}>
+      <EffortlessDevelopment
+        title="Effortless Development"
+        description="Develop remotely with Diploi using our fast browser IDE, or connect your own over SSH"
+        points={[
+          'Zero-install Browser IDE',
+          'Local VS Code remote',
+          'SSH connection',
+        ]}
+      />
+      <FeatureMasonry />
+      <SubSection title={content.develop.developerFaqTitle}>
+        <DeveloperFaq />
+      </SubSection>
+    </Section>
+    <hr />
+    <Section {...content.publishApp}>
+      <Lifecycle client:load />
+    </Section>
+    <hr />
+    <Section {...content.timeAndResources}>
+      <Chart {...chart.newProjectStartUp} />
+      <Chart {...chart.developerOnboarding} />
+      <Chart {...chart.creatingTestEnvironment} />
+      <Chart {...chart.updatingProduction} />
+      <ImpactMetric
+        prefix="This means, that on average, Diploi saves"
+        metric="300h"
+        suffix="for every developer, every year."
+      />
+      <FeatureCards items={featureCards} />
+    </Section>
+    <Section>
+      <GetStarted />
+    </Section>
+  </main>
+</Layout>
+<Footer />

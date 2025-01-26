@@ -1,139 +1,208 @@
 ---
-import { House, CreditCard, SignIn, Newspaper } from '@phosphor-icons/react';
-import { BookBookmark } from '@phosphor-icons/react/dist/ssr';
+import { House, CreditCard, SignIn, Newspaper } from '@phosphor-icons/react'
+import { BookBookmark } from '@phosphor-icons/react/dist/ssr'
+
+import Logo from './Logo.astro'
 
 interface Props {
-  selected?: 'home' | 'pricing' | 'blog';
+  selected?: 'home' | 'pricing' | 'blog'
 }
 
-const { selected } = Astro.props;
+const { selected } = Astro.props
 
-const isHome = selected === 'home';
-const isPricing = selected === 'pricing';
-const isBlog = selected === 'blog';
+const isHome = selected === 'home'
+const isPricing = selected === 'pricing'
+const isBlog = selected === 'blog'
 ---
 
 <header>
-  <nav>
-    <input aria-label="is menu open" id="menu" type="checkbox" />
-    <label aria-hidden for="menu"></label>
-
-    <div>
+  <div class="content">
+    <div class="logo-container">
       <a href="/" data-selected={`${isHome}`}>
-        <House weight={isHome ? 'fill' : 'regular'} /> Home
-      </a>
-      <a
-        data-event="pricing_click"
-        href="/pricing"
-        data-selected={`${isPricing}`}
-      >
-        <CreditCard weight={isPricing ? 'fill' : 'regular'} /> Pricing
-      </a>
-      <a data-event="documentation_click" href="https://docs.diploi.com/">
-        <BookBookmark /> Documentation
-      </a>
-      <a data-event="blog_click" href="/blog" data-selected={`${isBlog}`}>
-        <Newspaper weight={isBlog ? 'fill' : 'regular'} /> Blog
-      </a>
-      <a data-event="login_click" href="https://console.diploi.com/login">
-        <SignIn /> Login / Sign Up
+        <Logo width={96} />
       </a>
     </div>
-  </nav>
+    <nav>
+      <input aria-label="is menu open" id="menu" type="checkbox" />
+      <label aria-hidden for="menu" id="menu-label"></label>
+
+      <div>
+        <a class="logo-mobile" href="/" data-selected={`${isHome}`}>
+          <Logo width={96} />
+        </a>
+        <a
+          data-event="pricing_click"
+          href="/pricing"
+          data-selected={`${isPricing}`}
+        >
+          <CreditCard weight={isPricing ? 'fill' : 'regular'} /> Pricing
+        </a>
+        <a data-event="documentation_click" href="https://docs.diploi.com/">
+          <BookBookmark />
+          Documentation
+        </a>
+        <a data-event="blog_click" href="/blog" data-selected={`${isBlog}`}>
+          <Newspaper weight={isBlog ? 'fill' : 'regular'} />
+          Blog
+        </a>
+        <a data-event="login_click" href="https://console.diploi.com/login">
+          <SignIn />
+          Login / Sign Up
+        </a>
+      </div>
+    </nav>
+  </div>
 </header>
 
-<style>
+<style lang="scss">
+  @use '../styles/mixins';
+
   header {
-    /* position: absolute; */
+    width: 100vw;
+    position: fixed;
+    display: flex;
+    padding: var(--space-xl) var(--space-xl);
+    top: 0;
+    z-index: var(--z-index-andromeda);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--color-separator);
+
+    @include mixins.respond-to('tablet') {
+      padding: var(--space-l) var(--space-l);
+    }
+
+    .content {
+      position: relative;
+      display: flex;
+      flex-grow: 1;
+      max-width: var(--max-width-page-section);
+      justify-content: space-between;
+      align-items: center;
+      margin: 0 auto;
+    }
+  }
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    left: var(--space-xl);
+    left: 0;
+    @include mixins.respond-to('tablet') {
+      position: absolute;
+    }
+    > a {
+      display: flex;
+    }
   }
 
   nav {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 16px;
+    overflow: hidden;
+    margin-left: auto;
   }
 
-  nav > input {
+  #menu {
     display: none;
   }
 
-  nav > label {
-    display: none;
-    position: fixed;
-    right: 24px;
-    top: 24px;
-    width: 48px;
-    height: 48px;
-    border-radius: 128px;
-    background-color: white;
-    color: black;
-    z-index: 100;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='%23000000' viewBox='0 0 256 256'%3E%3Cpath d='M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z'%3E%3C/path%3E%3C/svg%3E");
-    background-size: 24px;
-    background-position: center;
-    background-repeat: no-repeat;
+  #menu-label {
+    position: sticky;
+    color: var(--color-text-primary);
+    top: var(--space-l);
+    z-index: var(--z-index-andromeda);
+    &::after {
+      content: 'Menu';
+    }
   }
 
-  nav > input:checked ~ label {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='%23000000' viewBox='0 0 256 256'%3E%3Cpath d='M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z'%3E%3C/path%3E%3C/svg%3E");
+  nav > input:checked ~ #menu-label {
+    &::after {
+      content: 'Close';
+    }
+  }
+
+  nav > input:not(:checked) ~ div {
+    display: none;
   }
 
   nav > div {
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    flex-wrap: wrap;
-    gap: 16px;
-    z-index: 99;
+    position: fixed;
+    inset: 0;
+    padding: var(--space-xl);
+    padding-top: var(--space-l);
+    background-color: var(--color-bg);
+    box-sizing: border-box;
+    color: black;
+    height: 100vh;
   }
 
   nav > div > a {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 4px 18px 4px 14px;
-    text-decoration: none;
-    background-color: transparent;
-    color: white;
-    border-radius: 64px;
+    font-size: 1.5rem;
+    padding-top: var(--space-m);
+    gap: var(--space-m);
+    padding-bottom: var(--space-m);
   }
 
-  nav > div > a[data-selected='true'] {
-    background-color: white;
-    color: var(--color-grey);
+  nav > div > .logo-mobile {
+    position: fixed;
+    top: var(--space-xl);
+    padding: 0;
   }
 
-  @media (max-width: 900px) {
-    nav > label {
-      display: block;
+  @media (min-width: 900px) {
+    #menu-label {
+      display: none;
+    }
+    nav {
+      justify-self: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      width: fit-content;
+      background-color: transparent;
     }
 
     nav > input:not(:checked) ~ div {
-      display: none;
+      display: flex;
     }
 
     nav > div {
-      position: fixed;
-      flex-direction: column;
-      gap: 0;
-      width: 100%;
-      top: 0;
-      left: 0;
-      padding: 24px;
-      padding-top: calc(24px + 60px);
-      background-color: white;
-      box-sizing: border-box;
-      color: black;
+      position: static;
+      display: flex;
+      flex-direction: row;
+      height: initial;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: var(--space-s);
+      background-color: transparent;
+      padding: 0;
+
+      & .logo-mobile {
+        display: none;
+      }
+
+      & > a {
+        display: flex;
+        font-size: 1rem;
+        align-items: center;
+        gap: var(--space-s);
+        padding: var(--space-s) var(--space-l);
+        background-color: transparent;
+        border-radius: var(--border-radius-medium);
+        position: relative;
+        text-shadow: #000 0px 0px 8px;
+      }
     }
 
-    nav > div > a {
-      padding-top: 12px;
-      padding-bottom: 12px;
-      color: black;
-    }
-
-    nav > div > a[data-selected='true'] {
-      color: black;
+    nav > div > a[data-selected='true']::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      padding: 1px;
+      border-radius: inherit;
     }
   }
 </style>

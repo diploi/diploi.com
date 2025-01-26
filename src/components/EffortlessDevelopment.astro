@@ -1,0 +1,125 @@
+---
+import { BlobCanvas } from './react'
+import Icon from './Icon.astro'
+type Props = {
+  title: string
+  description: string
+  points: string[]
+}
+
+const { title, description, points } = Astro.props
+---
+
+<div class="effortless-development">
+  <div class="window">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <div class="content">
+    <div>
+      <h3>{title}</h3>
+      <p>{description}</p>
+    </div>
+    <ul>
+      {
+        points.map((point) => (
+          <li>
+            <div>
+              <span>[</span>
+              {point}
+              <span>]</span>
+              <span>...........................................</span>
+            </div>
+            <span class="icon-container">
+              <Icon name="CheckSquare" color="#53B365" weight="regular" />
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+  <BlobCanvas client:load />
+</div>
+
+<style lang="scss">
+  @use '../styles/mixins';
+
+  .effortless-development {
+    @include mixins.gradient-border;
+    @include mixins.gradient-bg;
+    display: flex;
+    flex-direction: column;
+    align-items: top;
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--border-radius-medium);
+  }
+
+  .content {
+    padding: var(--space-xxl) var(--space-huge);
+    padding-bottom: var(--space-huge);
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+
+  .window {
+    display: flex;
+    align-items: center;
+    gap: var(--space-s);
+    padding: var(--space-m);
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-bg-secondary);
+    box-shadow:
+      rgba(0, 0, 0, 0.25) 0px 54px 55px,
+      rgba(0, 0, 0, 0.12) 0px -12px 30px,
+      rgba(0, 0, 0, 0.12) 0px 4px 6px,
+      rgba(0, 0, 0, 0.17) 0px 12px 13px,
+      rgba(0, 0, 0, 0.09) 0px -3px 5px;
+
+    > span {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      background: var(--color-text-tertiary);
+      border-radius: 50%;
+    }
+  }
+
+  ul {
+    margin-top: var(--space-xl);
+    font-family: monospace;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
+
+    li {
+      gap: 0.25rem;
+      display: inline-flex;
+      align-items: end;
+      position: relative;
+      display: grid;
+      grid-template-columns: 352px 1fr;
+      align-items: center;
+      > div {
+        display: block ruby;
+        overflow: hidden;
+        > span {
+          color: var(--color-text-tertiary);
+        }
+      }
+    }
+  }
+
+  .icon-container {
+    padding-left: var(--space-s);
+  }
+
+  .blob-canvas {
+    position: absolute;
+    left: 0;
+    z-index: -1;
+  }
+</style>
+
+<script src="../scripts/blob.ts"></script>

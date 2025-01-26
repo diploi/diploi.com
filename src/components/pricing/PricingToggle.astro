@@ -1,13 +1,13 @@
 ---
 interface Props {
-  id?: string;
-  name: string;
-  value: string;
-  label: string;
-  price?: number;
+  id?: string
+  name: string
+  value: string
+  label: string
+  price?: number
 }
 
-const { id, name, value, label, price } = Astro.props;
+const { id, name, value, label, price } = Astro.props
 ---
 
 <div class="toggle">
@@ -18,7 +18,9 @@ const { id, name, value, label, price } = Astro.props;
     value={value}
     {...price ? { 'data-price': price } : {}}
   />
-  <label for={value || id}>{label}</label>
+  <label for={value || id} class="background-gradient border-gradient"
+    >{label}</label
+  >
 </div>
 
 <style>
@@ -33,11 +35,15 @@ const { id, name, value, label, price } = Astro.props;
   .toggle label {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 12px 14px;
-    background-color: var(--color-grey);
-    border-radius: 16px;
+    gap: var(--space-s);
     cursor: pointer;
+    padding: var(--space-l);
+    color: var(--color-text-primary);
+    width: 100%;
+    outline: none;
+    position: relative;
+    border-radius: var(--border-radius-medium);
+    min-width: 10rem;
   }
 
   .toggle label::before {
@@ -52,6 +58,25 @@ const { id, name, value, label, price } = Astro.props;
 
   .toggle input:checked ~ label {
     background-color: var(--color-primary);
+
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      var(--color-accent-primary-20)
+    );
+    &::before {
+      content: '';
+    }
+    &::after {
+      background: linear-gradient(to bottom, var(--color-primary), transparent);
+      --webkit-mask: linear-gradient(white 0 0) content-box,
+        linear-gradient(white 0 0);
+      mask:
+        linear-gradient(white 0 0) content-box,
+        linear-gradient(white 0 0);
+      --webkit-mask-composite: xor;
+      mask-composite: exclude;
+    }
   }
 
   .toggle input:checked ~ label::before {

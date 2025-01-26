@@ -1,0 +1,22 @@
+---
+import SubSectionHeader from './SubSectionHeader.astro'
+type Props = {
+  title: string
+  description?: string
+  class?: string
+}
+
+const { title, description, step, class: className } = Astro.props
+---
+<div class:list={['sub-section', className]}>
+  <SubSectionHeader title={title} description={description} />
+  <slot />
+</div>
+
+<style>
+  .sub-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-l);
+  }
+</style>
