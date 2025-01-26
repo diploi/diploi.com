@@ -1,0 +1,68 @@
+---
+import type { FeatureCard } from './types'
+import { Target, ArrowRight } from '@phosphor-icons/react'
+import Icon from '../Icon.astro'
+import Card from '../Card.astro'
+
+type Props = TFeatureCard
+
+const { title, items, icon } = Astro.props
+---
+
+<article class="feature-card large">
+  <Icon isGradient name={icon} weight="light" class="feature-card-icon" />
+  <h3>{title}</h3>
+  <ul>
+    {
+      items.map((item) => (
+        <li>
+          <ArrowRight />
+          {item}
+        </li>
+      ))
+    }
+  </ul>
+</article>
+
+<style lang="scss">
+  @use '../../styles/mixins';
+
+  .feature-card {
+    @include mixins.card-mobile;
+
+    @include mixins.respond-to('tablet') {
+      @include mixins.card-desktop;
+    }
+
+    h3 {
+      margin-bottom: var(--space-xl);
+    }
+  }
+
+  :global(.feature-card) {
+    overflow: hidden;
+  }
+
+  :global(.feature-card-icon) {
+    @include mixins.card-bg-icon;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-l);
+  }
+  li {
+    display: flex;
+    align-items: flex-start;
+    font-size: 1.25rem;
+    font-weight: 300;
+    gap: var(--space-l);
+    color: var(--color-text-secondary);
+
+    svg {
+      transform: translateY(4px);
+      fill: var(--color-text-secondary);
+    }
+  }
+</style>

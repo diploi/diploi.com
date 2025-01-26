@@ -1,0 +1,115 @@
+---
+import { SparkleElement } from './SparkleElement'
+
+type Props = {
+  title: string
+  highlightedText?: string
+  description?: string
+  descriptionSuffix?: string
+  descriptionStrong?: string
+  step?: number
+}
+
+const {
+  title,
+  highlightedText,
+  description,
+  descriptionStrong,
+  descriptionSuffix,
+  step,
+} = Astro.props
+
+const hasHighlight = highlightedText && title.includes(highlightedText)
+
+const [beforeHighlight, afterHighlight] = hasHighlight
+  ? title.split(highlightedText)
+  : [title, '']
+
+const hasDescriptionStrong =
+  description && descriptionStrong && description.includes(descriptionStrong)
+const [beforeStrong, afterStrong] = hasDescriptionStrong
+  ? description.split(descriptionStrong)
+  : [description, '']
+---
+
+<div class="section-header">
+  <div class="title">
+    {
+      step && (
+        <SparkleElement sparkleCount={2} minSize={0.25} maxSize={0.75}>
+          <span class="step border-gradient">{step}</span>
+        </SparkleElement>
+      )
+    }
+    <h2 class="heading">
+      {
+        hasHighlight ? (
+          <>
+            <span>{beforeHighlight}</span>
+            <span class="text-gradient">{highlightedText}</span>
+            {afterHighlight}
+          </>
+        ) : (
+          title
+        )
+      }
+    </h2>
+  </div>
+  <p>
+    {
+      hasDescriptionStrong ? (
+        <>
+          {beforeStrong}
+          <strong>{descriptionStrong}</strong>
+          {afterStrong}
+        </>
+      ) : (
+        description
+      )
+    }
+    {descriptionSuffix && <span>{descriptionSuffix}</span>}
+  </p>
+</div>
+
+<style lang="scss">
+  @use '../styles/mixins';
+  .section-header {
+    display: flex;
+    gap: var(--margin-bottom-h2);
+    flex-direction: column;
+    > p {
+      margin-bottom: 0;
+      max-width: 60ch;
+    }
+  }
+  .step {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-primary);
+    flex-shrink: 0;
+    font-size: 1.5rem;
+    font-weight: var(--font-weight-h2);
+    border-radius: 50%;
+    border-bottom-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border-radius: 6px;
+    background-color: var(--color-bg-secondary);
+    width: 2.5rem;
+    height: 2.5rem;
+
+    @include mixins.respond-to('tablet') {
+      width: 2.75rem;
+      height: 2.75rem;
+    }
+  }
+
+  .title {
+    display: flex;
+    align-items: center;
+    gap: var(--space-l);
+    .heading {
+      margin: 0;
+    }
+  }
+</style>

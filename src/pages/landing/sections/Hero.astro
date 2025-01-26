@@ -1,0 +1,227 @@
+---
+import Sparkle from '../../../components/Sparkle.astro'
+import { SparkleElement } from '../../../components'
+import { Canvas, BlobCanvas } from '../../../components/react'
+---
+
+<section class="page-section hero" style="overflow: visible;">
+  <BlobCanvas client:load />
+  <div>
+    <!-- Canvas element for drawing the isometric grid -->
+    <!-- <canvas id="isoCanvas" width="5000" height="5000"></canvas> -->
+    <div class="heading-container">
+      <h1 class="main-heading">
+        <SparkleElement sparkleCount={4} minSize={0.5} maxSize={1.25}>
+          <span class="text-gradient">Magical</span>
+        </SparkleElement> Developer Experience
+      </h1>
+      <p class="subtitle">
+        <span>
+          Manage, develop and host your full application.<br />
+        </span>
+        <span> All in one place. </span>
+      </p>
+    </div>
+    <div class="diploi-container">
+      <div>
+        <Canvas client:load />
+      </div>
+      <span class="shadow"></span>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  @use '../../../styles/mixins';
+  .hero {
+    display: flex;
+    max-width: 100vw;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    height: 100vh;
+    max-height: 1000px;
+    overflow: visible;
+    position: relative;
+    padding: var(--space-huge) 0;
+    transform: translateY(calc(var(--header-height-px) * -1));
+
+    > div {
+      max-width: var(--max-width-page-section);
+      margin: 0 auto;
+      display: grid;
+      align-items: center;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    p {
+      font-size: 1.5rem;
+    }
+  }
+
+  .diploi-container {
+    position: relative;
+    align-self: stretch;
+    aspect-ratio: 1/1;
+    transform: translateX(-180px);
+    > div {
+      animation: moveUpDown 2000ms  infinite;
+      animation-delay: 2000ms;
+    }
+
+    @include mixins.respond-to('desktop') {
+      transform: translateX(-100px);
+    }
+  }
+
+  @keyframes moveUpDown {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(10px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+
+  .heading-container {
+    text-align: left;
+  }
+
+  .main-heading {
+    opacity: 0;
+    animation: fadeIn 1000ms ease 1 forwards;
+    animation-delay: 500ms;
+    line-height: 1.1;
+    font-weight: 600;
+  }
+
+  .subtitle {
+    opacity: 0;
+    animation: fadeIn 1000ms ease 1 forwards;
+    animation-delay: 500ms;
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .main-heading > .text-gradient {
+    position: relative;
+    > .sparkle {
+      width: 0.75rem;
+      height: 0.75rem;
+      position: absolute;
+      top: 0;
+      fill: var(--color-accent-secondary);
+      fill: white;
+    }
+  }
+
+  #isoCanvas {
+    position: absolute;
+    left: 0;
+    z-index: -1;
+  }
+</style>
+
+<!-- Client-side script to draw the isometric grid on the canvas with gradient fills -->
+<script type="text/javascript">
+  ;(function () {
+    const canvas = document.getElementById('isoCanvas')
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+
+    // Grid configuration
+    const GRID_ROWS = 100
+    const GRID_COLS = 100
+    const TILE_WIDTH = 200
+    const TILE_HEIGHT = 100
+
+    /**
+     * Draws a single isometric tile with conditionally visible edges and gradient fill.
+     * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
+     * @param {number} cx - The center x-coordinate of the tile.
+     * @param {number} cy - The center y-coordinate of the tile.
+     * @param {number} tileWidth - The width of the tile.
+     * @param {number} tileHeight - The height of the tile.
+     * @param {boolean[]} visibleEdges - Array of booleans for edges [top→right, right→bottom, bottom→left, left→top].
+     */
+    function drawTile(ctx, cx, cy, tileWidth, tileHeight, visibleEdges) {
+      const halfWidth = tileWidth / 2
+      const halfHeight = tileHeight / 2
+
+      // Calculate the four vertices of the diamond (tile)
+      const top = { x: cx, y: cy - halfHeight }
+      const right = { x: cx + halfWidth, y: cy }
+      const bottom = { x: cx, y: cy + halfHeight }
+      const left = { x: cx - halfWidth, y: cy }
+
+      // Define the tile shape
+      ctx.beginPath()
+      ctx.moveTo(top.x, top.y)
+      ctx.lineTo(right.x, right.y)
+      ctx.lineTo(bottom.x, bottom.y)
+      ctx.lineTo(left.x, left.y)
+      ctx.closePath()
+
+      // Set stroke style for edges
+      ctx.strokeStyle = '#1b1a1c'
+      ctx.lineWidth = 1
+
+      // Draw each edge based on the corresponding flag in visibleEdges
+      if (visibleEdges[0]) {
+        ctx.beginPath()
+        ctx.moveTo(top.x, top.y)
+        ctx.lineTo(right.x, right.y)
+        ctx.stroke()
+      }
+      if (visibleEdges[1]) {
+        ctx.beginPath()
+        ctx.moveTo(right.x, right.y)
+        ctx.lineTo(bottom.x, bottom.y)
+        ctx.stroke()
+      }
+      if (visibleEdges[2]) {
+        ctx.beginPath()
+        ctx.moveTo(bottom.x, bottom.y)
+        ctx.lineTo(left.x, left.y)
+        ctx.stroke()
+      }
+      if (visibleEdges[3]) {
+        ctx.beginPath()
+        ctx.moveTo(left.x, left.y)
+        ctx.lineTo(top.x, top.y)
+        ctx.stroke()
+      }
+    }
+
+    // Loop to draw the grid of isometric tiles with random edge visibility
+    for (let row = 0; row < GRID_ROWS; row++) {
+      for (let col = 0; col < GRID_COLS; col++) {
+        // Compute the center position of each tile
+        const cx = (col - row) * (TILE_WIDTH / 2) + 750
+        const cy = (col + row) * (TILE_HEIGHT / 2) - 750
+
+        // Randomly generate visibility flags for each of the four edges
+        const visibleEdges = [
+          Math.random() < 0.3, // Top → Right edge
+          Math.random() < 0.2, // Right → Bottom edge
+          Math.random() < 0.1, // Bottom → Left edge
+          Math.random() < 0.1, // Left → Top edge
+        ]
+
+        // Draw the tile with randomly visible edges and gradient fill
+        drawTile(ctx, cx, cy, TILE_WIDTH, TILE_HEIGHT, visibleEdges)
+      }
+    }
+  })()
+</script>

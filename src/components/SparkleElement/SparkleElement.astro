@@ -1,0 +1,87 @@
+---
+import { createSparkles } from './lib'
+type Props = {
+  sparkleCount?: number
+  minSize?: number
+  maxSize?: number
+  topMax?: number
+  leftMax?: number
+  topMin?: number
+  leftMin?: number
+  isGradientSparkles?: boolean
+}
+
+const {
+  minSize = 1,
+  maxSize = 1.5,
+  sparkleCount = 6,
+  topMin = 2,
+  topMax = 98,
+  leftMin = -2,
+  leftMax = 98,
+  isGradientSparkles = false,
+} = Astro.props
+
+const sparkles = createSparkles(sparkleCount, minSize, maxSize, 0, 100, 0, 100)
+---
+
+<div class="sparkle-element">
+  <slot />
+  {
+    sparkles.map((sparkle) => (
+      <svg
+        width={`${sparkle.size}`}
+        height={`${sparkle.size}`}
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+        class="sparkle"
+        style={`top: ${sparkle.top}; left: ${sparkle.left}`}
+      >
+        <path
+          d="M16.2482 7.7518L22.693 10.1333L22.698 10.1408C23.0799 10.2814 23.4095 10.5357 23.6423 10.8695C23.8752 11.2033 24 11.6005 24 12.0075C24 12.4145 23.8752 12.8117 23.6423 13.1455C23.4095 13.4793 23.0799 13.7336 22.698 13.8742L16.2482 16.2482L13.8592 22.698C13.7186 23.0799 13.4643 23.4095 13.1305 23.6423C12.7967 23.8752 12.3995 24 11.9925 24C11.5855 24 11.1883 23.8752 10.8545 23.6423C10.5207 23.4095 10.2664 23.0799 10.1258 22.698L7.7518 16.2482L1.30203 13.8592C0.920103 13.7186 0.59049 13.4643 0.357662 13.1305C0.124835 12.7967 0 12.3995 0 11.9925C0 11.5855 0.124835 11.1883 0.357662 10.8545C0.59049 10.5207 0.920103 10.2664 1.30203 10.1258L7.7518 7.7518L10.1408 1.30203C10.2814 0.920103 10.5357 0.59049 10.8695 0.357662C11.2033 0.124835 11.6005 0 12.0075 0C12.4145 0 12.8117 0.124835 13.1455 0.357662C13.4793 0.59049 13.7336 0.920103 13.8742 1.30203L16.2482 7.7518Z"
+          fill={isGradientSparkles ? 'url(#gradient-three)' : 'white'}
+          style={`
+            animation-delay: ${sparkle.delay};
+            animation-duration: ${sparkle.duration}
+          `}
+        />
+      </svg>
+    ))
+  }
+</div>
+
+<style>
+  .sparkle-element {
+    display: inline;
+    position: relative;
+    width: fit-content;
+  }
+
+  .sparkle {
+    display: flex;
+    transform-box: fill-box;
+    transform-origin: center;
+    position: absolute;
+    > path {
+      opacity: 0;
+      animation: sparkle 5000ms linear infinite;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+  }
+
+  @keyframes sparkle {
+    0% {
+      opacity: 0;
+      transform: scale(0) rotateZ(0deg);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1) rotateZ(90deg);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(0) rotateZ(180deg);
+    }
+  }
+</style>

@@ -1,0 +1,59 @@
+---
+import Icon from '../Icon.astro'
+import {
+  Browsers,
+  Key,
+  Code,
+  Terminal,
+  GithubLogo,
+  MagicWand,
+  PuzzlePiece,
+} from '@phosphor-icons/react'
+import type { TFeatureMasonryItem } from './types'
+
+type Props = TFeatureMasonryItem
+
+const { id, title, description, iconName, gridArea, iconColor, icon, color } =
+  Astro.props
+---
+
+<div
+  class="feature-masonry-item"
+  style={{
+    gridArea,
+  }}
+>
+  <Icon name={icon} color={color} weight="light" class="feature-masonry-icon" />
+  <h3>{title}</h3>
+  <p>{description}</p>
+</div>
+
+<style lang="scss">
+  @use '../../styles/mixins';
+
+  .feature-masonry-item {
+    @include mixins.card-mobile;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    break-inside: avoid;
+    overflow: hidden;
+    justify-content: center;
+    position: relative;
+
+    .title-and-description {
+      position: relative;
+      z-index: 1;
+    }
+
+    @include mixins.respond-to('tablet') {
+      @include mixins.card-desktop;
+      min-height: 14rem;
+      text-align: center;
+    }
+  }
+
+  :global(.feature-masonry-icon) {
+    @include mixins.card-bg-icon;
+  }
+</style>

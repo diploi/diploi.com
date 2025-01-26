@@ -1,178 +1,84 @@
 ---
+import Layout from '../layouts/Layout.astro'
+
 import {
-  AirplaneTakeoff,
-  Calculator,
-  ChatsCircle,
-  HandWaving,
-} from '@phosphor-icons/react';
-import Layout from '../layouts/Layout.astro';
-import Plans from '../components/Plans.astro';
-import Navigation from '../components/Navigation.astro';
-import PricingTable from '../components/pricing/PricingTable.astro';
-import PricingType from '../components/pricing/PricingType.astro';
-import Spacer from '../components/Spacer.astro';
-import Footer from '../components/Footer.astro';
+  SectionHeader,
+  Section,
+  Footer,
+  ContactUsCard,
+  GetStarted,
+  Footer,
+  Spacer,
+  PricingType,
+  PricingTable,
+  Navigation,
+  PageTag,
+  Plans,
+} from '../components'
 
 const { pricing } = await fetch(
-  'https://console.diploi.com/api/business/pricing'
-).then((response) => response.json());
+  'https://console.diploi.com/api/business/pricing',
+).then((response) => response.json())
 if (!pricing) {
-  throw new Error(`Failed to load pricing (${pricing.status})`);
+  throw new Error(`Failed to load pricing (${pricing.status})`)
 }
 ---
 
 <Layout title="Diploi – Pricing">
-  <main>
-    <Navigation selected="pricing" />
+  <Navigation selected="pricing" />
+  <main >
+    <Section>
+      <div class="pricing-cards">
+        <div class="title-and-description">
+          <PageTag title="Pricing" />
+          <h2>Find the plan that fits your needs</h2>
+        </div>
+        <Plans pricing={pricing} />
+      </div>
 
-    <Plans pricing={pricing} />
+      <hr />
 
-    <Spacer size="medium" />
+      <Section>
+        <SectionHeader
+          title="Single App Cluster Costs"
+          highlightedText="Single App"
+          description="A single App Cluster will run all the resources your application stack needs, such as webservers, databases, Redis, and more."
+          descriptionSuffix="You will only be charged for the hours your cluster is running."
+        />
 
-    <article>
-      <section>
-        <h2><Calculator weight="bold" /> Single App Cluster Costs</h2>
-        <p>
-          A single App Cluster will run all the resources your application stack
-          needs, such as webservers, databases, Redis, etc.
-          <br />
-          You will only be charged for the hours your cluster is running.
-        </p>
-      </section>
-
-      <Spacer size="small" />
-
-      <PricingType pricing={pricing} />
-
-      <Spacer size="small" />
-
-      <PricingTable pricing={pricing} />
-    </article>
-
-    <hr />
-
-    <!-- <Table pricing={pricing} />
-
-    <hr /> -->
-
-    <article class="callout">
-      <section>
-        <h2><AirplaneTakeoff weight="bold" /> Get Started</h2>
-        <p>
-          Sign up using your GitHub account and receive 50 € in free credits to
-          explore and experiment with. Development is about to get <span
-            class="text-gradient">magical</span
-          >.
-        </p>
-
-        <a
-          data-event="signup_click"
-          class="button"
-          href="https://console.diploi.com/sign-up"
-          ><HandWaving weight="fill" />Sign Up →</a
-        >
-      </section>
-    </article>
-
-    <article id="contact-us" class="callout">
-      <section>
-        <h2><ChatsCircle weight="bold" /> Contact Us</h2>
-        <p>
-          If you're considering our Pro or Enterprise tiers, feel free to reach
-          out to us directly. We're here to answer your questions and assist
-          with upgrading your account.
-        </p>
-
-        <a href="mailto:hello@diploi.com" class="email">hello@diploi.com</a>
-      </section>
-    </article>
+        <PricingType pricing={pricing} />
+        <PricingTable pricing={pricing} />
+      </Section>
+      <hr />
+      <Section>
+        <div class="callout">
+          <GetStarted />
+          <ContactUsCard />
+        </div>
+      </Section>
+    </Section>
   </main>
-
   <Footer />
 </Layout>
 
-<style>
-  main {
+<style lang="scss">
+  @use '../styles/mixins';
+
+  .pricing-cards {
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: white;
-  }
-
-  h2 {
-    display: flex;
-    align-items: center;
-    gap: 0.6ch;
-  }
-
-  h2 > svg {
-    fill: url(#gradient-three);
-  }
-
-  hr {
-    margin: 48px 0;
-    border: none;
+    gap: var(--space-huge);
+    padding-top: var(--space-huge)
   }
 
   .callout {
-    position: relative;
-    margin-top: 128px;
-  }
-
-  .callout h2 {
     display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-top: 0;
-  }
-
-  .callout h2 > svg {
-    fill: url(#gradient-three);
-  }
-
-  .callout::after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: -48px;
-    left: -48px;
-    width: calc(100% + 96px);
-    height: calc(100% + 96px);
-    border-radius: 24px;
-    background-image: linear-gradient(
-      -45deg,
-      var(--color-primary),
-      var(--color-secondary)
-    );
-    opacity: 0.1;
-    z-index: -1;
-  }
-
-  .callout form {
-    display: flex;
-    gap: 16px;
-  }
-
-  .text-gradient {
-    background-image: var(--accent-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-size: 400%;
-    background-position: 0%;
-  }
-
-  .email {
-    text-decoration: none;
-    color: var(--color-white);
-  }
-
-  @media (max-width: 900px) {
-    .callout::after {
-      display: none;
-    }
-
-    .callout form {
-      flex-direction: column;
+    flex-direction: column;
+    gap: var(--space-xxl);
+    @include mixins.respond-to('tablet') {
+      flex-direction: row;
+      gap: var(--space-l);
     }
   }
 </style>

@@ -1,71 +1,53 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { getCollection, render } from 'astro:content'
 import {
   AirplaneTakeoff,
   HandWaving,
   User,
   CalendarBlank,
-} from '@phosphor-icons/react';
-import Layout from '../../layouts/Layout.astro';
-import Navigation from '../../components/Navigation.astro';
-import Footer from '../../components/Footer.astro';
+} from '@phosphor-icons/react'
+import Layout from '../../layouts/Layout.astro'
+import { Navigation, Footer, GetStarted, Section } from '../../components'
 
 export async function getStaticPaths() {
-  const articles = await getCollection('blog');
+  const articles = await getCollection('blog')
   return articles.map((article) => ({
     params: { article: article.id },
     props: { entry: article },
-  }));
+  }))
 }
 
-const { entry } = Astro.props;
+const { entry } = Astro.props
 
-const { Content } = await render(entry);
+const { Content } = await render(entry)
 ---
 
 <Layout title={`Diploi – ${entry.data.title}`}>
+  <Navigation selected="blog" />
   <main>
-    <Navigation selected="blog" />
-
-    <div class="title">
-      <h1 class="text-gradient">{entry.data.title}</h1>
-      <div class="info">
-        <p><User /> {entry.data.author}</p>
-        <p>
-          <CalendarBlank />
-          {
-            new Date(entry.data.timestamp).toLocaleDateString('en-US', {
-              month: 'long',
-              day: 'numeric',
-              year: 'numeric',
-            })
-          }
-        </p>
+    <Section>
+      <div class="title">
+        <h1 class="text-gradient">{entry.data.title}</h1>
+        <div class="info">
+          <p><User /> {entry.data.author}</p>
+          <p>
+            <CalendarBlank />
+            {
+              new Date(entry.data.timestamp).toLocaleDateString('en-US', {
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric',
+              })
+            }
+          </p>
+        </div>
       </div>
-    </div>
+      <article class="article">
+        <Content />
+      </article>
+    </Section>
 
-    <article class="article">
-      <Content />
-    </article>
-
-    <article class="callout">
-      <section>
-        <h2><AirplaneTakeoff weight="bold" /> Get Started</h2>
-        <p>
-          Sign up using your GitHub account and receive 50 € in free credits to
-          explore and experiment with. Development is about to get <span
-            class="text-gradient">magical</span
-          >.
-        </p>
-
-        <a
-          data-event="signup_click"
-          class="button"
-          href="https://console.diploi.com/sign-up"
-          ><HandWaving weight="fill" />Sign Up →</a
-        >
-      </section>
-    </article>
+    <Section><GetStarted /></Section>
   </main>
 
   <Footer />
@@ -108,7 +90,7 @@ const { Content } = await render(entry);
     width: min(300px, 30vw);
     aspect-ratio: 2/1;
     background-image: url(/starfield.svg);
-    background-size: contain;
+    background-size: 50%;
     background-repeat: no-repeat;
     background-position: center;
     z-index: -1;
@@ -131,6 +113,8 @@ const { Content } = await render(entry);
   }
 
   .article {
+    max-width: 768px;
+    margin: 0 auto;
     p:has(img:first-child:last-child) {
       margin: 0;
       opacity: 1;
@@ -141,9 +125,20 @@ const { Content } = await render(entry);
       border-radius: 12px;
     }
 
+    p {
+      max-width: 100%;
+    }
+
     a {
       text-decoration-thickness: 2px;
       color: white;
+      font-size: inherit;
+      text-decoration: underline;
+      color: var(--color-accent-primary-text);
+
+      &:hover {
+        color: var(--color-accent-primary-text-hover);
+      }
     }
 
     figure {

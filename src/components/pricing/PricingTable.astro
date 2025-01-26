@@ -1,62 +1,71 @@
 ---
-import Spacer from '../Spacer.astro';
+import Spacer from '../Spacer.astro'
 
 interface Props {
   pricing: {
-    averageDaysInMonth: number;
-    storagePerGiB: number;
+    averageDaysInMonth: number
+    storagePerGiB: number
     coreInstancePrice: {
-      name: string;
-      price: number;
-      rootStorageSizeGiB: number;
-      memoryGiB: number;
-      vCpu: number;
-    }[];
-  };
+      name: string
+      price: number
+      rootStorageSizeGiB: number
+      memoryGiB: number
+      vCpu: number
+    }[]
+  }
 }
 
-const { pricing } = Astro.props;
+const { pricing } = Astro.props
 
-const { averageDaysInMonth, storagePerGiB } = pricing;
+const { averageDaysInMonth, storagePerGiB } = pricing
 
 const formatter = new Intl.NumberFormat('fi-FI', {
   style: 'currency',
   currency: 'EUR',
   minimumFractionDigits: 2,
-});
+})
 
 const formatterLong = new Intl.NumberFormat('fi-FI', {
   style: 'currency',
   currency: 'EUR',
   minimumFractionDigits: 3,
-});
+})
 ---
 
+<div>
 <table>
+  <colgroup>
+    <col span="1" style="width: 26%" />
+    <col span="1" style="width: 16%;" />
+    <col span="1" style="width: 14%;" />
+    <col span="1" style="width: 22%;" />
+    <col span="1" style="width: 22%;" />
+  </colgroup>
   <thead>
     <tr>
-      <th><div class="name">Cluster Size</div></th>
+      <th>Cluster size</th>
       <th>Memory</th>
       <th>vCPU</th>
-      <th colspan="2"></th>
+      <th>€/hour</th>
+      <th>€/month</th>
     </tr>
   </thead>
   <tbody>
     {
-      pricing.coreInstancePrice.map(core => (
+      pricing.coreInstancePrice.map((core) => (
         <tr>
           <td>{core.name}</td>
           <td>{core.memoryGiB} GB</td>
           <td>{core.vCpu}</td>
           <td>
             <span>{formatterLong.format(core.price)}</span>
-            <span class="help">/ hour</span>
+            <!-- <span class="help">/ hour</span> -->
           </td>
           <td>
             <span data-cluster-price={core.price}>
               {formatter.format(core.price)}
             </span>
-            <span class="help">/ month</span>
+            <!-- <span class="help">/ month</span> -->
           </td>
         </tr>
       ))
@@ -64,128 +73,159 @@ const formatterLong = new Intl.NumberFormat('fi-FI', {
   </tbody>
 </table>
 
-<Spacer size="small" />
+<Spacer size="medium" />
 
 <table>
+  <colgroup>
+    <col span="1" style="width: 26%" />
+    <col span="1" style="width: 30%;" />
+    <col span="1" style="width: 25%;" />
+    <col span="1" style="width: 22%;" />
+  </colgroup>
   <thead>
     <tr>
-      <th><div class="name"></div></th>
-      <th colspan="2"><div class="size">Size</div></th>
-      <th><div class="cost"></div></th>
+      <th></th>
+      <th>Size</th>
+      <th>€/GB/hour</th>
+      <th>€/month</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>Storage</td>
-      <td colspan="2">
+      <td>
         <input id="storage" type="number" value="10" />
       </td>
       <td>
         <span id="storage-price-hour">
           {formatter.format(pricing.storagePerGiB)}
         </span>
-        <span class="help">/ GB / hour</span>
+        <!-- <span class="help">/ GB / hour</span> -->
       </td>
       <td>
         <span id="storage-price-month">
           {
             formatter.format(
-              pricing.storagePerGiB * 10 * averageDaysInMonth * 24
+              pricing.storagePerGiB * 10 * averageDaysInMonth * 24,
             )
           }
         </span>
-        <span class="help"> / month</span>
+        <!-- <span class="help"> / month</span> -->
       </td>
     </tr>
   </tbody>
 </table>
+</div>
 
 <script define:vars={{ averageDaysInMonth, storagePerGiB }}>
-  const storageInput = document.getElementById('storage');
-  const storagePriceHourElement = document.getElementById('storage-price-hour');
+  const storageInput = document.getElementById('storage')
+  const storagePriceHourElement = document.getElementById('storage-price-hour')
   const storagePriceMonthElement = document.getElementById(
-    'storage-price-month'
-  );
+    'storage-price-month',
+  )
 
   const formatter = new Intl.NumberFormat('fi-FI', {
     style: 'currency',
     currency: 'EUR',
     minimumFractionDigits: 2,
-  });
+  })
 
   const formatterLong = new Intl.NumberFormat('fi-FI', {
     style: 'currency',
     currency: 'EUR',
     minimumFractionDigits: 3,
-  });
+  })
 
   const getHours = () =>
     parseFloat(
-      document.querySelector('[data-hours]')?.getAttribute('data-hours')
-    );
+      document.querySelector('[data-hours]')?.getAttribute('data-hours'),
+    )
 
   const getStoragePrice = () => {
-    let price = parseFloat(storageInput.value) * storagePerGiB;
-    if (isNaN(price) || price < 0) price = 0;
-    return price;
-  };
+    let price = parseFloat(storageInput.value) * storagePerGiB
+    if (isNaN(price) || price < 0) price = 0
+    return price
+  }
 
   const updateStoragePrice = () => {
-    const price = getStoragePrice();
+    const price = getStoragePrice()
 
-    storagePriceHourElement.innerHTML = formatterLong.format(price);
+    storagePriceHourElement.innerHTML = formatterLong.format(price)
     storagePriceMonthElement.innerHTML = formatter.format(
-      price * averageDaysInMonth * 24
-    );
-  };
+      price * averageDaysInMonth * 24,
+    )
+  }
 
   const updateClusterPrice = () => {
-    const hours = getHours();
+    const hours = getHours()
 
-    document.querySelectorAll('[data-cluster-price]').forEach(element => {
+    document.querySelectorAll('[data-cluster-price]').forEach((element) => {
       const clusterPrice = parseFloat(
-        element.getAttribute('data-cluster-price')
-      );
-      element.innerHTML = formatter.format(clusterPrice * hours);
-    });
-  };
+        element.getAttribute('data-cluster-price'),
+      )
+      element.innerHTML = formatter.format(clusterPrice * hours)
+    })
+  }
 
-  updateStoragePrice();
-  updateClusterPrice();
+  updateStoragePrice()
+  updateClusterPrice()
 
   document.addEventListener('pricing-update', () => {
-    updateStoragePrice();
-    updateClusterPrice();
-  });
+    updateStoragePrice()
+    updateClusterPrice()
+  })
 
   const dispatchUpdateEvent = () =>
-    document.dispatchEvent(new Event('pricing-update'));
+    document.dispatchEvent(new Event('pricing-update'))
 
-  storageInput.addEventListener('input', dispatchUpdateEvent);
-  storageInput.addEventListener('change', dispatchUpdateEvent);
-  storageInput.value = '10';
+  storageInput.addEventListener('input', dispatchUpdateEvent)
+  storageInput.addEventListener('change', dispatchUpdateEvent)
+  storageInput.value = '10'
 </script>
 
 <style>
-  article {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 32px;
-  }
-
-  article > section {
-    max-width: 900px;
-  }
-
   table {
     width: 100%;
-    max-width: 900px;
     table-layout: fixed;
+    color: var(--color-text-primary);
+    border-collapse: collapse;
+    margin-left: calc(-1 * var(--padding-page-x));
+    width: calc(100% + 2 * var(--padding-page-x));
+
+    @media (min-width: 992px) {
+      width: 100%;
+      margin-left: 0;
+    }
   }
 
   table th {
     text-align: left;
+    font-weight: 400;
+    color: var(--color-text-secondary);
+  }
+
+  th {
+    padding: var(--space-s) var(--space-l);
+  }
+  td {
+    padding: var(--space-l);
+  }
+
+  table tbody tr:nth-of-type(odd) {
+    > td {
+      background-color: var(--color-bg-secondary);
+    }
+
+    @media (min-width: 992px) {
+      td:first-of-type {
+        border-top-left-radius: var(--border-radius-medium);
+        border-bottom-left-radius: var(--border-radius-medium);
+      }
+      td:last-of-type {
+        border-top-right-radius: var(--border-radius-medium);
+        border-bottom-right-radius: var(--border-radius-medium);
+      }
+    }
   }
 
   table tr > th:first-of-type {
@@ -202,23 +242,11 @@ const formatterLong = new Intl.NumberFormat('fi-FI', {
     }
   }
 
-  article > hr {
-    position: relative;
-    width: 100%;
-    margin: 0;
-    border: none;
-    height: 2px;
-    background-color: var(--color-grey);
-    overflow: visible;
-  }
-
-  .help {
-    font-family: 'Source Sans 3', sans-serif;
-    font-size: 0.875rem;
-    color: #b6bdc8;
-  }
 
   input {
-    width: 180px;
+    width: 100%;
+    padding: 0;
+    border-radius: var(--border-radius-medium);
+
   }
 </style>

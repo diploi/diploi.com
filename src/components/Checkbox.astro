@@ -1,0 +1,109 @@
+---
+interface Props {
+  label: string
+  id: string
+  checked?: boolean
+  disabled?: boolean
+}
+const { label, id, checked = false, disabled = false } = Astro.props
+---
+
+<label class="root" for={id}>
+  <input
+    type="checkbox"
+    id={id}
+    class="checkbox-input"
+    checked={checked}
+    disabled={disabled}
+  />
+  <span class="checkbox">
+    <!-- Checkmark SVG -->
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <polyline points="20 6 9 17 4 12"></polyline>
+    </svg>
+  </span>
+  <span class="label">{label}</span>
+</label>
+
+<style lang="scss">
+  .root {
+    --selected-color: var(--color-primary);
+    --checkmark-color: white;
+
+    display: flex;
+    align-items: center;
+    color: var(--color-text-primary);
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    /* Prevent default checkbox from being visible */
+    .checkbox-input {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+      margin: 0;
+    }
+
+    .checkbox {
+      width: 1.25rem;
+      height: 1.25rem;
+      box-shadow: inset 0 0 0 2px var(--color-border);
+      border: none;
+      border-radius: 2px;
+      transition:
+        box-shadow 100ms,
+        background-color 100ms;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 0.5rem;
+      position: relative;
+
+      svg {
+        width: 16px;
+        height: 16px;
+        fill: none;
+        stroke: var(--color-text-primary);
+        stroke-width: 2px;
+        transition:
+          transform 100ms,
+          stroke-dashoffset 100ms;
+        transform-origin: center;
+        transform-box: fill-box;
+        transform: scale(0);
+        stroke-dasharray: 60;
+        stroke-dashoffset: 60;
+      }
+    }
+
+    .label {
+      /* Optional: Style the label text */
+      font-size: 1rem;
+    }
+
+    /* Checked State */
+    .checkbox-input:checked + .checkbox {
+      box-shadow: inset 0 0 0 16px var(--color-primary);
+      background-color: var(--color-primary);
+    }
+
+    .checkbox-input:checked + .checkbox svg {
+      transform: scale(1);
+      stroke-dashoffset: 0;
+      stroke: var(--checkmark-color);
+    }
+
+    /* Focus State */
+    .checkbox-input:focus + .checkbox {
+      outline: 2px solid var(--focus-ring-color);
+      outline-offset: 2px;
+    }
+
+    /* Disabled State */
+    .root input:disabled + .checkbox {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+  }
+</style>

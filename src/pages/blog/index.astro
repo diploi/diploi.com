@@ -1,35 +1,36 @@
 ---
-import { getCollection } from 'astro:content';
-import { AirplaneTakeoff, HandWaving } from '@phosphor-icons/react';
-import Layout from '../../layouts/Layout.astro';
-import Navigation from '../../components/Navigation.astro';
-import Footer from '../../components/Footer.astro';
-import Article from '../../components/blog/Article.astro';
+import { getCollection } from 'astro:content'
+import { AirplaneTakeoff, HandWaving } from '@phosphor-icons/react'
+import Layout from '../../layouts/Layout.astro'
+import Navigation from '../../components/Navigation.astro'
+import Footer from '../../components/Footer.astro'
+import Article from '../../components/blog/Article.astro'
+import { PageTag, Section, GetStarted, SubSection } from '../../components'
 
-const contentArticles = await getCollection('blog');
+const contentArticles = await getCollection('blog')
 
 const devtoArticles = await fetch(
-  'https://dev.to/api/articles?username=diploi&state=all'
+  'https://dev.to/api/articles?username=diploi&state=all',
 ).then(
   (response) =>
     response.json() as Promise<
       {
-        url: string;
-        title: string;
-        description: string;
-        published_timestamp: string;
-        user: { name: string };
+        url: string
+        title: string
+        description: string
+        published_timestamp: string
+        user: { name: string }
       }[]
-    >
-);
+    >,
+)
 if (!devtoArticles) {
-  throw new Error('Failed to load dev.to articles');
+  throw new Error('Failed to load dev.to articles')
 }
 
 console.log(
   'devtoArticles',
-  devtoArticles.map((item) => item.title)
-);
+  devtoArticles.map((item) => item.title),
+)
 
 const articles = [
   ...contentArticles.map((article) => ({
@@ -48,38 +49,25 @@ const articles = [
     author: article.user.name.split(' ')[0],
   })),
 ].sort(
-  (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
-);
+  (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime(),
+)
 ---
 
 <Layout title="Diploi – Blog">
+  <Navigation selected="blog" />
   <main>
-    <Navigation selected="blog" />
+    <Section>
+      <div class="title-and-description">
+        <PageTag title="Blog" />
+        <h2>See what the team has been up to</h2>
+      </div>
 
-    <div class="title">
-      <h1 class="text-gradient">Blog</h1>
-    </div>
-
-    {articles.map((article) => <Article {...article} />)}
-
-    <article class="callout">
-      <section>
-        <h2><AirplaneTakeoff weight="bold" /> Get Started</h2>
-        <p>
-          Sign up using your GitHub account and receive 50 € in free credits to
-          explore and experiment with. Development is about to get <span
-            class="text-gradient">magical</span
-          >.
-        </p>
-
-        <a
-          data-event="signup_click"
-          class="button"
-          href="https://console.diploi.com/sign-up"
-          ><HandWaving weight="fill" />Sign Up →</a
-        >
-      </section>
-    </article>
+        {articles.map((article) => <Article {...article} />)}
+    </Section>
+    <hr />
+    <Section>
+      <GetStarted />
+    </Section>
   </main>
 
   <Footer />
@@ -91,7 +79,11 @@ const articles = [
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: white;
+    margin-top: var(--space-huge);
+  }
+
+  .title-and-description {
+    text-align: center;
   }
 
   .title {
