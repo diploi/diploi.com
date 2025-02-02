@@ -7,10 +7,10 @@ type Props = TStackBuilderBlock & {
   class: string
 }
 
-const { label, iconSrc, iconAlt, class: className } = Astro.props
+const { label, iconSrc, iconAlt, class: className, id } = Astro.props
 ---
 
-<button class:list={['stack-builder-button', className]}>
+<button class:list={['stack-builder-button', className]} data-id={id}>
   <div class="label">
     <Image
       alt={iconAlt}

@@ -1,0 +1,41 @@
+---
+import Icon from './Icon.astro';
+
+type Props = {
+  href: string;
+  text: string;
+};
+
+const { href, text } = Astro.props;
+---
+
+<a href={href} class="arrow-link">
+  {text}
+  <Icon name="ArrowRight" class="icon" />
+</a>
+
+<style lang="scss">
+  .arrow-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-size: 1.25rem;
+    font-weight: 350;
+    text-decoration: none;
+    color: var(--color-accent-primary-text);
+    width: fit-content;
+    &:hover {
+      color: var(--color-accent-primary-text-hover);
+
+      > svg {
+        transform: translateX(0.25rem);
+      }
+    }
+
+    > svg {
+      width: 1.375rem;
+      fill: currentColor;
+      transition: transform 140ms var(--easing-sine);
+    }
+  }
+</style>

@@ -1,6 +1,6 @@
 ---
-import { Plus, Minus } from '@phosphor-icons/react'
-import { developerFaqItems } from './data'
+import { Plus, Minus } from '@phosphor-icons/react';
+import { developerFaqItems } from './data';
 ---
 
 <div class="developer-faq">
@@ -8,9 +8,9 @@ import { developerFaqItems } from './data'
     developerFaqItems.map((item) => (
       <label class="developer-faq-item" for={item.id}>
         <div class="question">
-          <Plus size={32} weight="bold" className="plus" />
-          <Minus size={32} weight="bold" className="minus" />
-          <h4 class="question-title">{item.question}</h4>
+          <Plus size={24} weight="regular" className="plus" />
+          <Minus size={24} weight="regular" className="minus" />
+          <h3 class="question-title">{item.question}</h3>
         </div>
         <input class="checkbox" type="checkbox" id={item.id} />
         <p class="answer">{item.answer}</p>
@@ -28,6 +28,8 @@ import { developerFaqItems } from './data'
     margin-right: calc(var(--main-padding-x) * -1);
 
     @include mixins.respond-to('tablet') {
+      @include mixins.card-desktop;
+      padding: 0;
       margin-left: 0;
       margin-right: 0;
       border-radius: var(--border-radius-medium);
@@ -75,10 +77,11 @@ import { developerFaqItems } from './data'
       display: flex;
       align-items: center;
       gap: var(--space-l);
-      padding: var(--space-xl) var(--space-xl);
+      padding: var(--space-l) var(--space-l);
 
       .question-title {
         user-select: none;
+        margin: 0;
       }
 
       > svg {
@@ -99,7 +102,7 @@ import { developerFaqItems } from './data'
 
     .answer {
       display: none;
-      padding-left: calc(var(--space-l) + 3.75rem);
+      padding-left: calc(var(--space-l) + 3rem);
       padding-right: var(--space-xl);
       padding-bottom: var(--space-xl);
     }

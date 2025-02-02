@@ -11,26 +11,31 @@ import type { TStackBuilderBlock } from './types'
 
 export const components: TStackBuilderBlock[] = [
   {
+    id: 'reactVite',
     label: 'React + Vite',
     iconSrc: reactLogo,
     iconAlt: 'React logo',
   },
   {
+    id: 'next',
     label: 'Next.js',
     iconSrc: nextLogo,
     iconAlt: 'Next.js logo',
   },
   {
+    id: 'svelteKit',
     label: 'SvelteKit',
     iconSrc: svelteLogo,
     iconAlt: 'SvelteKit logo',
   },
   {
+    id: 'astro',
     label: 'Astro',
     iconSrc: astroLogo,
     iconAlt: 'Astro logo',
   },
   {
+    id: 'laravel',
     label: 'Laravel',
     iconSrc: laravelLogo,
     iconAlt: 'Laravel logo',
@@ -39,21 +44,25 @@ export const components: TStackBuilderBlock[] = [
 
 export const addons: TStackBuilderBlock[] = [
   {
+    id: 'postgres',
     label: 'PostgreSQL',
     iconSrc: postgresqlLogo,
     iconAlt: 'PostgreSQL logo',
   },
   {
+    id: 'mongodb',
     label: 'MongoDB',
     iconSrc: mongodbLogo,
     iconAlt: 'MongoDB logo',
   },
   {
+    id: 'elasticsearch',
     label: 'Elasticsearch',
     iconSrc: elasticsearchLogo,
     iconAlt: 'Elasticsearch logo',
   },
   {
+    id: 'redis',
     label: 'Redis',
     iconSrc: redisLogo,
     iconAlt: 'Redis logo',

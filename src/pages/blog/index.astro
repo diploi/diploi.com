@@ -1,13 +1,13 @@
 ---
-import { getCollection } from 'astro:content'
-import { AirplaneTakeoff, HandWaving } from '@phosphor-icons/react'
-import Layout from '../../layouts/Layout.astro'
-import Navigation from '../../components/Navigation.astro'
-import Footer from '../../components/Footer.astro'
-import Article from '../../components/blog/Article.astro'
-import { PageTag, Section, GetStarted, SubSection } from '../../components'
+import { getCollection } from 'astro:content';
+import { AirplaneTakeoff, HandWaving } from '@phosphor-icons/react';
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/Footer.astro';
+import Article from '../../components/blog/Article.astro';
+import { PageTag, Section, GetStarted, SubSection } from '../../components';
 
-const contentArticles = await getCollection('blog')
+const contentArticles = await getCollection('blog');
 
 const devtoArticles = await fetch(
   'https://dev.to/api/articles?username=diploi&state=all',
@@ -15,22 +15,22 @@ const devtoArticles = await fetch(
   (response) =>
     response.json() as Promise<
       {
-        url: string
-        title: string
-        description: string
-        published_timestamp: string
-        user: { name: string }
+        url: string;
+        title: string;
+        description: string;
+        published_timestamp: string;
+        user: { name: string };
       }[]
     >,
-)
+);
 if (!devtoArticles) {
-  throw new Error('Failed to load dev.to articles')
+  throw new Error('Failed to load dev.to articles');
 }
 
 console.log(
   'devtoArticles',
   devtoArticles.map((item) => item.title),
-)
+);
 
 const articles = [
   ...contentArticles.map((article) => ({
@@ -50,26 +50,28 @@ const articles = [
   })),
 ].sort(
   (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime(),
-)
+);
 ---
 
 <Layout title="Diploi – Blog">
   <Navigation selected="blog" />
   <main>
     <Section>
-      <div class="title-and-description">
-        <PageTag title="Blog" />
-        <h2>See what the team has been up to</h2>
+      <div class="content">
+        <div class="title-and-description">
+          <PageTag title="Blog" />
+          <h2>See what the team has been up to</h2>
+        </div>
+        <div class="posts">
+          {articles.map((article) => <Article {...article} />)}
+        </div>
       </div>
-
-        {articles.map((article) => <Article {...article} />)}
     </Section>
     <hr />
     <Section>
       <GetStarted />
     </Section>
   </main>
-
   <Footer />
 </Layout>
 
@@ -79,11 +81,23 @@ const articles = [
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: var(--space-huge);
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-huge);
   }
 
   .title-and-description {
     text-align: center;
+  }
+
+  .posts {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-l);
   }
 
   .title {
@@ -117,67 +131,5 @@ const articles = [
 
     transform: scale(6) rotate(45deg);
     opacity: 0.2;
-  }
-
-  .callout {
-    position: relative;
-    margin-top: 128px;
-  }
-
-  .callout h2 {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-top: 0;
-  }
-
-  .callout h2 > svg {
-    fill: url(#gradient-three);
-  }
-
-  .callout::after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: -48px;
-    left: -48px;
-    width: calc(100% + 96px);
-    height: calc(100% + 96px);
-    border-radius: 24px;
-    background-image: linear-gradient(
-      -45deg,
-      var(--color-primary),
-      var(--color-secondary)
-    );
-    opacity: 0.1;
-    z-index: -1;
-  }
-
-  .callout form {
-    display: flex;
-    gap: 16px;
-  }
-
-  .text-gradient {
-    background-image: var(--accent-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-size: 400%;
-    background-position: 0%;
-  }
-
-  .email {
-    text-decoration: none;
-    color: var(--color-white);
-  }
-
-  @media (max-width: 900px) {
-    .callout::after {
-      display: none;
-    }
-
-    .callout form {
-      flex-direction: column;
-    }
   }
 </style>
