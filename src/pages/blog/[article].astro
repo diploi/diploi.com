@@ -94,7 +94,6 @@ const { Content } = await render(entry)
     background-repeat: no-repeat;
     background-position: center;
     z-index: -1;
-
     transform: translate(-50%, -50%) scale(6) rotate(45deg);
     opacity: 0.2;
   }
@@ -130,25 +129,16 @@ const { Content } = await render(entry)
     }
 
     a {
-      text-decoration-thickness: 2px;
-      color: white;
-      font-size: inherit;
       text-decoration: underline;
-      color: var(--color-accent-primary-text);
-
-      &:hover {
-        color: var(--color-accent-primary-text-hover);
-      }
     }
 
     figure {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 12px;
-      margin: 40px 0;
+      gap: var(--space-m);
+      margin: var(--space-xxl) 0;
       width: 100%;
-      max-width: 55ch;
 
       > img {
         width: 100%;

@@ -15,13 +15,6 @@ export default defineConfig({
     sitemap(),
     mdx(),
   ],
-  vite: {
-    ssr: {
-      // Tells Astro/Vite to bundle the CJS bits of react-responsive-masonry
-      // instead of trying to load them as native ESM
-      noExternal: ['react-responsive-masonry'],
-    },
-  },
   markdown: {
     syntaxHighlight: 'shiki',
     shikiConfig: {

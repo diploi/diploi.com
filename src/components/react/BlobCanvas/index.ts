@@ -1,1 +1,1 @@
-export { BlobCanvas } from './BlobCanvas'
+export { BlobCanvas } from './BlobCanvas';

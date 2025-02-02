@@ -1,9 +1,9 @@
 ---
-import Layout from '../../layouts/Layout.astro'
-import GlobalStyles from '../../components/GlobalStyles.astro'
+import Layout from '../../layouts/Layout.astro';
+import GlobalStyles from '../../components/GlobalStyles.astro';
 
-import Hero from '../landing/sections/Hero.astro'
-import { Canvas, Lifecycle } from '../../components/react'
+import Hero from '../landing/sections/Hero.astro';
+import { Canvas, Lifecycle } from '../../components/react';
 
 import {
   Navigation,
@@ -21,32 +21,24 @@ import {
   SparkleElement,
   ImpactMetric,
   EffortlessDevelopment,
-} from '../../components'
+} from '../../components';
 
-import { featureCards, chart, content } from '../../content'
+import { featureCards, chart, content } from '../../content';
 ---
 
 <GlobalStyles />
 <Layout title="Diploi – Magical Developer Experience">
   <Navigation />
-  <main class="main-landing">
+  <main>
     <Hero />
     <Section {...content.pickStack}>
       <StackBuilder />
     </Section>
     <hr />
     <Section {...content.develop}>
-      <EffortlessDevelopment
-        title="Effortless Development"
-        description="Develop remotely with Diploi using our fast browser IDE, or connect your own over SSH"
-        points={[
-          'Zero-install Browser IDE',
-          'Local VS Code remote',
-          'SSH connection',
-        ]}
-      />
+      <EffortlessDevelopment {...content.develop.effortlessDevelopment} />
       <FeatureMasonry />
-      <SubSection title={content.develop.developerFaqTitle}>
+      <SubSection {...content.develop.developerFaq}>
         <DeveloperFaq />
       </SubSection>
     </Section>
@@ -56,16 +48,12 @@ import { featureCards, chart, content } from '../../content'
     </Section>
     <hr />
     <Section {...content.timeAndResources}>
+      <FeatureCards items={featureCards} />
       <Chart {...chart.newProjectStartUp} />
       <Chart {...chart.developerOnboarding} />
       <Chart {...chart.creatingTestEnvironment} />
       <Chart {...chart.updatingProduction} />
-      <ImpactMetric
-        prefix="This means, that on average, Diploi saves"
-        metric="300h"
-        suffix="for every developer, every year."
-      />
-      <FeatureCards items={featureCards} />
+      <ImpactMetric {...content.timeAndResources.impactMetric} />
     </Section>
     <Section>
       <GetStarted />

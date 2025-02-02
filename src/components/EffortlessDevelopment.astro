@@ -1,13 +1,13 @@
 ---
-import { BlobCanvas } from './react'
-import Icon from './Icon.astro'
+import { BlobCanvas } from './react';
+import Icon from './Icon.astro';
 type Props = {
-  title: string
-  description: string
-  points: string[]
-}
+  title: string;
+  description: string;
+  points: string[];
+};
 
-const { title, description, points } = Astro.props
+const { title, description, points } = Astro.props;
 ---
 
 <div class="effortless-development">
@@ -57,10 +57,13 @@ const { title, description, points } = Astro.props
   }
 
   .content {
-    padding: var(--space-xxl) var(--space-huge);
-    padding-bottom: var(--space-huge);
+    padding: var(--space-xl);
     position: relative;
     background-color: rgba(0, 0, 0, 0.2);
+    @include mixins.respond-to('tablet') {
+      padding: var(--space-xxl) var(--space-huge);
+      padding-bottom: var(--space-huge);
+    }
   }
 
   .window {
@@ -99,8 +102,12 @@ const { title, description, points } = Astro.props
       align-items: end;
       position: relative;
       display: grid;
-      grid-template-columns: 352px 1fr;
+      grid-template-columns: auto auto;
       align-items: center;
+
+      @include mixins.respond-to('tablet') {
+      grid-template-columns: 352px 1fr;
+      }
       > div {
         display: block ruby;
         overflow: hidden;
@@ -113,6 +120,7 @@ const { title, description, points } = Astro.props
 
   .icon-container {
     padding-left: var(--space-s);
+    padding: 0;
   }
 
   .blob-canvas {
@@ -121,5 +129,3 @@ const { title, description, points } = Astro.props
     z-index: -1;
   }
 </style>
-
-<script src="../scripts/blob.ts"></script>

@@ -1,11 +1,12 @@
 ---
-import { Code } from 'astro:components'
-import { shikiTheme } from '../../shiki-theme'
-import { components, addons, mockYaml } from './data'
-import StackBuilderBlockButton from './StackBuilderBlockButton.astro'
-import SubSectionHeader from '../SubSectionHeader.astro'
+import { Code } from 'astro:components';
+import { shikiTheme } from '../../shiki-theme';
+import { components, addons, mockYaml } from './data';
+import StackBuilderBlockButton from './StackBuilderBlockButton.astro';
+import SubSectionHeader from '../SubSectionHeader.astro';
+import ArrowLink from '../ArrowLink.astro';
 
-import { SyntaxHighlighter } from '../react'
+import { SyntaxHighlighter } from '../react';
 ---
 
 <div class="stack-builder">
@@ -17,12 +18,15 @@ import { SyntaxHighlighter } from '../react'
         class="header-components"
       />
     </div>
-    <div class="blocks components">
-      {
-        components.map((component) => (
-          <StackBuilderBlockButton {...component} class="component" />
-        ))
-      }
+    <div class="blocks-container components">
+      <div class="blocks components">
+        {
+          components.map((component) => (
+            <StackBuilderBlockButton {...component} class="component" />
+          ))
+        }
+      </div>
+      <ArrowLink href="TODO" text="Read More" />
     </div>
     <div class="header addons">
       <SubSectionHeader
@@ -30,12 +34,15 @@ import { SyntaxHighlighter } from '../react'
         description="Complementary services. Configurable with config."
       />
     </div>
-    <div class="blocks addons">
-      {
-        addons.map((addon) => (
-          <StackBuilderBlockButton {...addon} class="addon" />
-        ))
-      }
+    <div class="blocks-container addons">
+      <div class="blocks addons">
+        {
+          addons.map((addon) => (
+            <StackBuilderBlockButton {...addon} class="addon" />
+          ))
+        }
+      </div>
+      <ArrowLink href="TODO" text="Read More" />
     </div>
     <article class="code-card">
       <label>config.yaml</label>
@@ -50,62 +57,85 @@ import { SyntaxHighlighter } from '../react'
     </article>
   </div>
   <div class="ctas">
-    <div>
-      <button class="secondary">Read More</button>
-      <button id="button-launch-stack">Launch Stack</button>
-    </div>
+    <button id="button-launch-stack">Launch Stack</button>
     <p class="small">Test Diploi for free, no credit card required.</p>
   </div>
 </div>
 <script>
-  let selectedComponentIds = []
-  let selectedAddonIds = []
+  let selectedComponentIds = [];
+  let selectedAddonIds = [];
 
-  const launchButton = document.getElementById('button-launch-stack')
-  launchButton.disabled = true
-  const buttons = document.querySelectorAll('.stack-builder-button')
+  const launchButton = document.getElementById('button-launch-stack');
+  launchButton.disabled = true;
+  const buttons = document.querySelectorAll('.stack-builder-button');
 
-  const toggleSelection = (currentSelectedIds: string[], id: string) => {
-    let nextSelectedIds = currentSelectedIds
+  const defaultComponentId = 'reactVite';
+  const defaultAddonId = 'postgres';
 
-    if (nextSelectedIds.includes(id)) {
-      nextSelectedIds = nextSelectedIds.filter((blockId) => blockId !== id)
-    } else {
-      nextSelectedIds.push(id)
+  const defaultComponentButton = document.querySelector(
+    `.stack-builder-button.component[data-id="${defaultComponentId}"]`
+  );
+  if (defaultComponentButton) {
+    defaultComponentButton.classList.add('is-selected');
+    const checkbox = defaultComponentButton.querySelector('input[type="checkbox"]');
+    if (checkbox) {
+      checkbox.checked = true;
     }
-
-    return nextSelectedIds
+    selectedComponentIds.push(defaultComponentId);
   }
+
+  const defaultAddonButton = document.querySelector(
+    `.stack-builder-button.addon[data-id="${defaultAddonId}"]`
+  );
+  if (defaultAddonButton) {
+    defaultAddonButton.classList.add('is-selected');
+    const checkbox = defaultAddonButton.querySelector('input[type="checkbox"]');
+    if (checkbox) {
+      checkbox.checked = true;
+    }
+    selectedAddonIds.push(defaultAddonId);
+  }
+
+  launchButton.disabled =
+    selectedComponentIds.length === 0 || selectedAddonIds.length === 0;
+
+  const toggleSelection = (currentSelectedIds, id) => {
+    let nextSelectedIds = currentSelectedIds;
+    if (nextSelectedIds.includes(id)) {
+      nextSelectedIds = nextSelectedIds.filter((blockId) => blockId !== id);
+    } else {
+      nextSelectedIds.push(id);
+    }
+    return nextSelectedIds;
+  };
 
   buttons.forEach((button) => {
     button.addEventListener('click', (event) => {
-      event.preventDefault()
+      event.preventDefault();
 
-      button.classList.toggle('is-selected')
+      button.classList.toggle('is-selected');
 
-      const checkbox = button.querySelector('input[type="checkbox"]')
+      const checkbox = button.querySelector('input[type="checkbox"]');
       if (checkbox) {
-        checkbox.checked = !checkbox.checked
+        checkbox.checked = !checkbox.checked;
       }
 
-      const id = button.getAttribute('data-id')
-      const isComponent = button.classList.contains('component')
-      const isAddon = button.classList.contains('addon')
+      const id = button.getAttribute('data-id');
+      const isComponent = button.classList.contains('component');
+      const isAddon = button.classList.contains('addon');
 
       if (isComponent) {
-        selectedComponentIds = toggleSelection(selectedComponentIds, id)
+        selectedComponentIds = toggleSelection(selectedComponentIds, id);
       }
 
       if (isAddon) {
-        selectedAddonIds = toggleSelection(selectedAddonIds, id)
+        selectedAddonIds = toggleSelection(selectedAddonIds, id);
       }
 
       launchButton.disabled =
-        selectedComponentIds.length === 0 || selectedAddonIds.length === 0
-
-      console.debug('selectedBlockIds:', selectedBlockIds)
-    })
-  })
+        selectedComponentIds.length === 0 || selectedAddonIds.length === 0;
+    });
+  });
 </script>
 
 <style lang="scss">
@@ -176,21 +206,24 @@ import { SyntaxHighlighter } from '../react'
     }
   }
 
+  .blocks-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    &.components {
+      grid-area: components;
+      margin-bottom: var(--space-xxl);
+    }
+    &.addons {
+      grid-area: addons;
+    }
+  }
+
   .blocks {
     display: flex;
     flex-direction: column;
     gap: var(--space-l);
 
-    &.components,
-    &.addons {
-      margin-bottom: var(--space-xxl);
-    }
-    &.components {
-      grid-area: components;
-    }
-    &.addons {
-      grid-area: addons;
-    }
     @include mixins.respond-to('tablet') {
       display: grid;
       grid-template-columns: repeat(2, 1fr);

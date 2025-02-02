@@ -81,16 +81,18 @@
   }
 
   &:hover {
-    background-color: var(--color-bg-secondary) !important;
     @include mixins.gradient-border(var(--color-accent-primary));
+    position: absolute; // Don't remove!!! Keep under mixin
+    background-color: var(--color-bg-secondary) !important;
     background: linear-gradient(
       to bottom,
       var(--color-accent-primary-20),
       transparent
     );
-    position: absolute;
   }
 }
+
+
 
 .pointIcon {
   position: absolute;
@@ -112,8 +114,6 @@
   z-index: -1;
   background-color: var(--color-accent-primary);
   filter: blur(20px) saturate(1.5);
-  transition: all 300ms ease-out;
-  transition-delay: 200ms;
 }
 
 .pointIconCurrent {

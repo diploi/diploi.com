@@ -1,18 +1,18 @@
 ---
-import { House, CreditCard, SignIn, Newspaper } from '@phosphor-icons/react'
-import { BookBookmark } from '@phosphor-icons/react/dist/ssr'
+import { House, CreditCard, SignIn, Newspaper } from '@phosphor-icons/react';
+import { BookBookmark } from '@phosphor-icons/react/dist/ssr';
 
-import Logo from './Logo.astro'
+import Logo from './Logo.astro';
 
 interface Props {
-  selected?: 'home' | 'pricing' | 'blog'
+  selected?: 'home' | 'pricing' | 'blog';
 }
 
-const { selected } = Astro.props
+const { selected } = Astro.props;
 
-const isHome = selected === 'home'
-const isPricing = selected === 'pricing'
-const isBlog = selected === 'blog'
+const isHome = selected === 'home';
+const isPricing = selected === 'pricing';
+const isBlog = selected === 'blog';
 ---
 
 <header>
@@ -26,7 +26,7 @@ const isBlog = selected === 'blog'
       <input aria-label="is menu open" id="menu" type="checkbox" />
       <label aria-hidden for="menu" id="menu-label"></label>
 
-      <div>
+      <div class="links">
         <a class="logo-mobile" href="/" data-selected={`${isHome}`}>
           <Logo width={96} />
         </a>
@@ -37,13 +37,13 @@ const isBlog = selected === 'blog'
         >
           <CreditCard weight={isPricing ? 'fill' : 'regular'} /> Pricing
         </a>
-        <a data-event="documentation_click" href="https://docs.diploi.com/">
-          <BookBookmark />
-          Documentation
-        </a>
         <a data-event="blog_click" href="/blog" data-selected={`${isBlog}`}>
           <Newspaper weight={isBlog ? 'fill' : 'regular'} />
           Blog
+        </a>
+        <a data-event="documentation_click" href="https://docs.diploi.com/">
+          <BookBookmark />
+          Documentation
         </a>
         <a data-event="login_click" href="https://console.diploi.com/login">
           <SignIn />
@@ -61,7 +61,8 @@ const isBlog = selected === 'blog'
     width: 100vw;
     position: fixed;
     display: flex;
-    padding: var(--space-xl) var(--space-xl);
+    padding: var(--space-l) var(--space-xl);
+    min-height: var(--header-height-px);
     top: 0;
     z-index: var(--z-index-andromeda);
     backdrop-filter: blur(8px);
@@ -138,19 +139,41 @@ const isBlog = selected === 'blog'
     height: 100vh;
   }
 
-  nav > div > a {
-    display: flex;
+
+  .links {
     align-items: center;
-    font-size: 1.5rem;
-    padding-top: var(--space-m);
-    gap: var(--space-m);
-    padding-bottom: var(--space-m);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: fixed;
+    inset: 0;
+    padding: var(--space-xl);
+    padding-top: var(--space-l);
+    background-color: var(--color-bg);
+    box-sizing: border-box;
+    color: black;
+    height: 100vh;
+
+    > a {
+      display: flex;
+      align-items: center;
+      font-size: 1.5rem;
+      padding-top: var(--space-m);
+      gap: var(--space-m);
+      padding-bottom: var(--space-m);
+      color: var(--color-text-primary);
+      text-decoration: none;
+
+      &:hover {
+        color: var(--color-text-secondary);
+      }
+    }
   }
 
-  nav > div > .logo-mobile {
-    position: fixed;
-    top: var(--space-xl);
-    padding: 0;
+  .logo-mobile {
+    position: absolute;
+    top: var(--space-s);
+    left: var(--space-l);
   }
 
   @media (min-width: 900px) {

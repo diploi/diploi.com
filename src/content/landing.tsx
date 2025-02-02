@@ -1,4 +1,4 @@
-import type { FeatureCard } from '../components'
+import type { FeatureCard } from '../components';
 
 export const featureCards: FeatureCard[] = [
   {
@@ -27,7 +27,7 @@ export const featureCards: FeatureCard[] = [
       'Versatile support for any stack pre-build or custom',
     ],
   },
-]
+];
 
 export const content = {
   pickStack: {
@@ -43,7 +43,20 @@ export const content = {
     highlightedText: 'Develop',
     description:
       'Zero-install development environments with a single click. Edit your code directly with our powerful Browser IDE, or connect remotely with your favorite IDE.',
-    developerFaqTitle: 'Developer FAQ',
+    developerFaq: {
+      title: 'Developer FAQ',
+      description:
+        'Discover quick answers to common developer questions about code storage, performance, and pricing.',
+    },
+    effortlessDevelopment: {
+      title: 'Effortless Development',
+      description: "Develop remotely with Diploi using our fast browser IDE, or connect your own over SSH",
+      points: [
+        'Zero-install Browser IDE',
+        'Local VS Code remote',
+        'SSH connection',
+      ],
+    }
   },
   publishApp: {
     step: 3,
@@ -57,8 +70,13 @@ export const content = {
     highlightedText: 'Time and Resources',
     description:
       'These are real-life statistics from a web development company. Can you afford to ignore the benefits and possible savings from using Diploi?',
+    impactMetric: {
+      prefix: 'This means, that on average, Diploi saves',
+      metric: '300h',
+      suffix: 'for every developer, every year.',
+    },
   },
-}
+};
 
 export const chart = {
   newProjectStartUp: {
@@ -98,4 +116,4 @@ export const chart = {
     ],
     max: 16,
   },
-}
+};
