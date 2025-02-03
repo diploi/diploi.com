@@ -1,6 +1,6 @@
 ---
-import Icon from './Icon.astro'
-import Logo from './Logo.astro'
+import Icon from './Icon.astro';
+import Logo from './Logo.astro';
 ---
 
 <footer>
@@ -9,16 +9,19 @@ import Logo from './Logo.astro'
       <div class="logo-and-socials">
         <Logo class="footer-logo" />
         <div class="socials">
-          <a href="TODO">
+          <a href="https://github.com/diploi">
             <Icon name="GithubLogo" class="footer-social-link-icon" />
           </a>
-          <a href="TODO">
-            <Icon name="DiscordLogo" class="footer-social-link-icon" />
+          <a href="https://bsky.app/profile/diploi.com">
+            <Icon name="Butterfly" class="footer-social-link-icon" />
           </a>
-          <a href="TODO">
+          <!-- <a href="TODO">
+            <Icon name="DiscordLogo" class="footer-social-link-icon" />
+          </a> -->
+          <a href="https://www.linkedin.com/company/diploidev/">
             <Icon name="LinkedinLogo" class="footer-social-link-icon" />
           </a>
-          <a href="TODO">
+          <a href="https://dev.to/diploi">
             <Icon name="DevToLogo" class="footer-social-link-icon" />
           </a>
         </div>
@@ -41,18 +44,21 @@ import Logo from './Logo.astro'
         </ul>
         <address>
           <label>Contact</label>
-          <p>Kukkaketo 666</p>
-          <p>12345 Helsinki</p>
+          <p>Malminkatu 30</p>
+          <p>00100 Helsinki</p>
           <p>Finland</p>
-          <a href="mailto:info@diploi.com">info@diploi.com</a><br />
+          <a href="mailto:info@diploi.com">hello@diploi.com</a><br />
         </address>
       </div>
     </div>
     <div class="bottom">
-      <p class="small">Built with ❤️ by Diploi</p>
+      <p class="small builder">
+        <Icon size="1em" name="Square" weight="bold" />
+        <Icon size="1em" name="Triangle" weight="bold" />
+      </p>
       <p class="small cp">
         <Icon name="Copyright" size={16} weight="light" />
-        2023 Diploi
+        2025 Diploi Oy
       </p>
     </div>
   </div>
@@ -185,6 +191,12 @@ import Logo from './Logo.astro'
       color: inherit;
       font-size: 0.875rem;
       text-align: center;
+    }
+
+    > .builder {
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
     }
 
     > .cp {

@@ -1,5 +1,4 @@
-import type { TFeatureMasonryItem } from './types'
-
+import type { TFeatureMasonryItem } from './types';
 
 const gridArea1 = {
   topLeft: '1/1/4/2',
@@ -9,7 +8,7 @@ const gridArea1 = {
   centerBottom: '5/3/7/2',
   bottomRight: '4/3/7/3',
   topRight: '1/3/4/3',
-}
+};
 
 const gridArea = {
   topLeft: '1/1/1/3',
@@ -17,7 +16,7 @@ const gridArea = {
   center: '2/4/3/3',
   bottomLeft: '2/3/3/0',
   topRight: '1/3/2/3',
-}
+};
 
 export const featureMasonryItems: TFeatureMasonryItem[] = [
   {
@@ -50,8 +49,7 @@ export const featureMasonryItems: TFeatureMasonryItem[] = [
   {
     id: 'logging',
     title: 'Real-Time Logging',
-    description:
-      'Quickly view live logs from all services and debug issues with a single click.',
+    description: 'Quickly view live logs right from your browser.',
     gridArea: gridArea.centerTop,
     color: '#12A594',
     icon: 'Terminal',
@@ -59,8 +57,7 @@ export const featureMasonryItems: TFeatureMasonryItem[] = [
   {
     id: 'git-integration',
     title: 'GitHub Integration',
-    description:
-      'Connect your repo to deploy code directly from GitHub in just one step.',
+    description: 'Automatic Git integration with CI/CD setup. Just push it.',
     gridArea: gridArea.bottomLeft,
     color: '#3E63DD',
     icon: 'GithubLogo',
@@ -69,7 +66,7 @@ export const featureMasonryItems: TFeatureMasonryItem[] = [
     id: 'infrastructure-as-code',
     title: 'Infrastructure as Code',
     description:
-      'Define and manage your App Cluster using IaC tools to automate deployments and config.',
+      'Your entire infrastructure configuration will be stored in a single YAML file.',
     gridArea: gridArea.center,
     color: '#ec609c',
     icon: 'Code',
@@ -78,14 +75,16 @@ export const featureMasonryItems: TFeatureMasonryItem[] = [
     id: 'custom-components',
     title: 'Custom Components',
     description:
-      'Add Docker- or Helm-based components to your monorepo for complete control and easy reuse.',
+      'Add custom components to your monorepo for complete control and easy reuse.',
     gridArea: gridArea.topRight,
     color: '#6E56CF',
     icon: 'PuzzlePiece',
+    showDocker: true,
+    showHelm: true,
   },
-]
+];
 
 export const featureMasonryText = {
   description:
-    'Zero-install development environments with a single click. Edit your code directly with our powerful Browser IDE, or connect remotely with your favorite IDE.',
-}
+    'Zero-install development environments with a single-click. Edit your code directly with our powerful Browser IDE, or connect remotely with your favorite IDE.',
+};
