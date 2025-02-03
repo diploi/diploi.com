@@ -45,31 +45,31 @@ export const content = {
       'Zero-install development environments with a single click. Edit your code directly with our powerful Browser IDE, or connect remotely with your favorite IDE.',
     developerFaq: {
       title: 'Developer FAQ',
-      description:
-        'Discover quick answers to common developer questions about code storage, performance, and pricing.',
+      description: 'Quick answers to common developer questions.',
     },
     effortlessDevelopment: {
       title: 'Effortless Development',
-      description: "Develop remotely with Diploi using our fast browser IDE, or connect your own over SSH",
+      description:
+        'Develop remotely with Diploi using our fast browser IDE, or connect your own over SSH.',
       points: [
         'Zero-install Browser IDE',
         'Local VS Code remote',
         'SSH connection',
       ],
-    }
+    },
   },
   publishApp: {
     step: 3,
     title: 'Publish Your App',
     highlightedText: 'Publish',
     description:
-      'We take care of the full lifecycle of your app. You can spin up a production or staging environment with a single click.',
+      'We take care of the full lifecycle of your app. You can spin up any kind of environment with a single-click.',
   },
   timeAndResources: {
     title: 'Save Time and Resources',
     highlightedText: 'Time and Resources',
     description:
-      'These are real-life statistics from a web development company. Can you afford to ignore the benefits and possible savings from using Diploi?',
+      'These are real-life statistics from a web development company. Can you afford to ignore the benefits and savings from Diploi?',
     impactMetric: {
       prefix: 'This means, that on average, Diploi saves',
       metric: '300h',

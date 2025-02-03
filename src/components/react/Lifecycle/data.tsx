@@ -1,51 +1,46 @@
-// import {
-//   Code,
-//   Shapes,
-//   LinkSimple,
-//   Circuitry,
-//   Infinity,
-//   ArrowsClockwise,
-//   IntersectThree,
-//   AppWindow,
-// } from '@phosphor-icons/react'
+import * as icons from '@phosphor-icons/react';
 
-import * as icons from '@phosphor-icons/react'
 export type LifecyclePoint = {
-  id: string
-  title: string
-  icon: keyof typeof icons
+  id: string;
+  title: string;
+  icon: keyof typeof icons;
   description: string;
-}
+};
 
 export const lifecyclePoints: LifecyclePoint[] = [
   {
     id: 'staging',
-    title: 'Staging environments',
+    title: 'Test Environments',
     icon: 'IntersectThree',
-    description: 'Create and manage staging environments for your application.',
+    description:
+      'Create staging environments to test your application with a single-click.',
   },
   {
     id: 'share',
-    title: 'Share with link',
+    title: 'Share With Link',
     icon: 'LinkSimple',
-    description: 'Share your application with a link and invite your team.',
+    description:
+      'Share access to environments with a web link and invite anyone to test.',
   },
   {
     id: 'cicd',
     title: 'CI/CD',
     icon: 'Infinity',
-    description: 'Automatically deploy your application to all environments.',
+    description:
+      'Automatically configured GitHub actions for easy CI/CD pipelines.',
   },
   {
     id: 'autoupdate',
-    title: 'Automatic updates',
+    title: 'Push to Deploy',
     icon: 'ArrowsClockwise',
-    description: 'Automatically update your application to the latest version.',
+    description:
+      'Automatically update environments with a push, including infrastructure.',
   },
   {
     id: 'start',
-    title: 'Start from endpoint',
+    title: 'Monitor Production',
     icon: 'AppWindow',
-    description: 'Start your application from a specific endpoint.',
+    description:
+      'Single-click access to logs. Easy to read status trees for environment services.',
   },
-]
+];
