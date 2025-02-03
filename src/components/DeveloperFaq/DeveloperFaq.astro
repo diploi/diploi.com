@@ -1,0 +1,110 @@
+---
+import { Plus, Minus } from '@phosphor-icons/react';
+import { developerFaqItems } from './data';
+---
+
+<div class="developer-faq">
+  {
+    developerFaqItems.map((item) => (
+      <label class="developer-faq-item" for={item.id}>
+        <div class="question">
+          <Plus size={24} weight="regular" className="plus" />
+          <Minus size={24} weight="regular" className="minus" />
+          <h3 class="question-title">{item.question}</h3>
+        </div>
+        <input class="checkbox" type="checkbox" id={item.id} />
+        <p class="answer">{item.answer}</p>
+      </label>
+    ))
+  }
+</div>
+
+<style lang="scss">
+  @use '../../styles/mixins';
+
+  .developer-faq {
+    overflow: hidden;
+    margin-left: calc(var(--main-padding-x) * -1);
+    margin-right: calc(var(--main-padding-x) * -1);
+
+    @include mixins.respond-to('tablet') {
+      @include mixins.card-desktop;
+      padding: 0;
+      margin-left: 0;
+      margin-right: 0;
+      border-radius: var(--border-radius-medium);
+    }
+
+    > :not(:last-child) {
+      border-bottom: 1px solid var(--color-separator);
+    }
+  }
+
+  .developer-faq-item {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    &:has(.checkbox:checked) {
+      background-color: var(--color-bg-secondary-20);
+
+      .minus {
+        display: block;
+      }
+
+      .plus {
+        display: none;
+      }
+
+      .answer {
+        display: block;
+      }
+    }
+
+    &:not(:has(.checkbox:checked)) {
+      .question:hover {
+        background-color: var(--color-bg-secondary-20);
+      }
+      .minus {
+        display: none;
+      }
+      .plus {
+        display: block;
+      }
+    }
+
+    .question {
+      display: flex;
+      align-items: center;
+      gap: var(--space-l);
+      padding: var(--space-l) var(--space-l);
+
+      .question-title {
+        user-select: none;
+        margin: 0;
+      }
+
+      > svg {
+        color: var(--color-text-secondary);
+      }
+
+      &:hover {
+        > svg {
+          color: var(--color-text-primary);
+        }
+      }
+    }
+
+    .checkbox {
+      visibility: hidden;
+      display: none;
+    }
+
+    .answer {
+      display: none;
+      padding-left: calc(var(--space-l) + 3rem);
+      padding-right: var(--space-xl);
+      padding-bottom: var(--space-xl);
+    }
+  }
+</style>

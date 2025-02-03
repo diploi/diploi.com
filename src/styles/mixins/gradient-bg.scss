@@ -1,0 +1,7 @@
+@mixin gradient-bg($color: var(--color-bg-secondary-20)) {
+  background: linear-gradient(
+    to top,
+    transparent,
+    $color
+  );
+}

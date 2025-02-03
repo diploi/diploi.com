@@ -1,0 +1,55 @@
+---
+import SectionHeader from './SectionHeader.astro'
+import Sparkle from './Sparkle.astro'
+
+type TProps = {
+  title?: string
+  highlightedText?: string
+  descriptionStrong?: string
+  description: string
+  step?: number
+}
+const { title, highlightedText, description, descriptionStrong, step } =
+  Astro.props
+---
+
+<section class='page-section'>
+  {
+    !!title && (
+      <SectionHeader
+        title={title}
+        highlightedText={highlightedText}
+        description={description}
+        descriptionStrong={descriptionStrong}
+        step={step}
+      />
+    )
+  }
+  <div class="page-section-content">
+    <slot />
+  </div>
+</section>
+
+<style lang="scss">
+  @use '../styles/mixins';
+
+  .page-section {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    max-width: var(--max-width-page-section);
+    margin: 0 auto;
+    width: 100%;
+
+    > .page-section-content {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 4rem;
+
+      @include mixins.respond-to('tablet') {
+        gap: 6rem;
+      }
+    }
+  }
+</style>

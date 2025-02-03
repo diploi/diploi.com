@@ -20,16 +20,16 @@ const { title, description, image, url, timestamp, author } = Astro.props;
 ---
 
 <a target={url.includes('https://') ? '_blank' : undefined} href={url}>
-  <article>
+  <article >
     {image && <Image src={image} alt="Article image" />}
     <h3>
-      {url.includes('https://') ? <ArrowSquareOut /> : <FileText />}
       {title}
+      {url.includes('https://') && <ArrowSquareOut /> }
     </h3>
     <p>{description}</p>
     <footer>
-      <p><User /> {author}</p>
-      <p>
+      <p class='small'><User /> {author}</p>
+      <p class='small'>
         <CalendarBlank />
         {
           new Date(timestamp).toLocaleDateString('en-US', {
@@ -43,21 +43,30 @@ const { title, description, image, url, timestamp, author } = Astro.props;
   </article>
 </a>
 
-<style>
+<style lang="scss">
+  @use '../../styles/mixins';
+
   a {
     display: block;
-    width: 656px;
-    max-width: 100%;
-    margin-bottom: 48px;
+    width: 100%;
+    max-width: 768px;
+    margin: 0 auto;
     text-decoration: none;
     color: white;
+  }
+
+  article {
+    @include mixins.card-desktop;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
   }
 
   img {
     height: 50%;
     width: 100%;
     max-width: 100%;
-    border-radius: 12px;
+    border-radius: var(--border-radius-medium);
     object-fit: cover;
   }
 
@@ -81,8 +90,6 @@ const { title, description, image, url, timestamp, author } = Astro.props;
       display: flex;
       align-items: center;
       gap: 3px;
-      margin: 0;
-      font-size: 0.64rem;
     }
   }
 </style>

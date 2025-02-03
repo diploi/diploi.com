@@ -1,0 +1,23 @@
+.blobCanvas {
+  position: absolute;
+  inset: -16px;
+  color: transparent;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  animation: fadeIn 5000ms ease 1 forwards;
+  animation-delay: 500ms;
+  filter: blur(100px);
+  
+  /* filter: blur(100px); */
+        // filter: 'blur(100px)',
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}

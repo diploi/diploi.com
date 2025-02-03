@@ -1,9 +1,10 @@
 ---
 type Props = {
   width?: number;
+  class?: string;
 };
 
-const { width = 180 } = Astro.props;
+const { width = 180, class: className } = Astro.props;
 const height = width * 0.29666666;
 ---
 
@@ -14,6 +15,7 @@ const height = width * 0.29666666;
   fill="none"
   viewBox="0 0 445 132"
   aria-label="Diploi"
+  class={className}
 >
   <g clip-path="url(#a)">
     <path

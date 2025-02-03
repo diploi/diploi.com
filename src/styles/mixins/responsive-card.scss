@@ -1,0 +1,27 @@
+@use './respond-to';
+@use './gradient-border';
+@use './gradient-bg';
+
+@mixin card-mobile {
+  position: relative;
+  overflow: hidden;
+  margin-left: calc(var(--main-padding-x) * -1);
+  margin-right: calc(var(--main-padding-x) * -1);
+  padding: var(--space-xxl) var(--space-xl);
+  min-height: 8rem;
+}
+
+@mixin card-desktop {
+  position: relative;
+  overflow: hidden;
+  padding: var(--space-xl);
+  border-radius: var(--border-radius-medium);
+  @include gradient-border.gradient-border;
+  @include gradient-bg.gradient-bg;
+  margin-left: 0;
+  margin-right: 0;
+
+  &.large {
+    padding: var(--space-xxl);
+  }
+}

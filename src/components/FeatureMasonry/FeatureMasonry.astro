@@ -1,0 +1,25 @@
+---
+import type { TFeatureMasonryItem } from './types'
+import { featureMasonryItems } from './data'
+import FeatureMasonryItem from './FeatureMasonryItem.astro'
+---
+
+<div class="feature-masonry">
+  {featureMasonryItems.map((item, idx) => <FeatureMasonryItem {...item} />)}
+</div>
+
+<style lang="scss">
+  @use '../../styles/mixins';
+
+  .feature-masonry {
+    display: flex;
+    flex-direction: column;
+
+    @include mixins.respond-to('tablet') {
+      display: grid;
+      column-count: 3;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: var(--space-l);
+    }
+  }
+</style>

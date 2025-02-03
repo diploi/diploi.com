@@ -1,0 +1,56 @@
+---
+import Icon from './Icon.astro'
+import { AirplaneTakeoff, ArrowRight } from '@phosphor-icons/react'
+---
+
+<article class="large">
+  <div class="title-and-description">
+    <h2>
+      <Icon isGradient name="AirplaneTakeoff"  size={48} />
+      Get Started
+    </h2>
+    <p>
+      Sign up using your GitHub account and receive 50 € in free credits to
+      explore and experiment with. Development is about to get
+      <strong class="text-gradient">magical</strong>.
+    </p>
+  </div>
+
+  <a
+    class="button"
+    data-event="signup_click"
+    href="https://console.diploi.com/sign-up"
+    >Sign Up
+    <ArrowRight weight="bold" />
+  </a>
+</article>
+
+<style lang="scss">
+  @use '../styles/mixins';
+
+  article {
+    @include mixins.card-desktop;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xxl);
+
+    @include mixins.respond-to('tablet') {
+      align-items: flex-start;
+    }
+
+    h2 {
+      display: flex;
+      align-items: center;
+      gap: var(--space-l);
+    }
+  }
+
+  .title-and-description {
+    gap: var(--space-xl);
+  }
+
+  .callout form {
+    display: flex;
+    gap: 16px;
+  }
+</style>

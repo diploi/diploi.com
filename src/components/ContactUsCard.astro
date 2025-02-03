@@ -1,0 +1,44 @@
+---
+import { ChatsCircle, ArrowRight } from '@phosphor-icons/react'
+import Icon from './Icon.astro'
+---
+
+<article class="large">
+  <div class="title-and-description">
+    <h2>
+      <Icon isGradient name="ChatsCircle" isGradient size={48} /> Contact Us
+    </h2>
+    <p>
+      If you're considering our Pro or Enterprise tiers, feel free to reach out
+      to us directly. We're here to answer your questions and assist with
+      upgrading your account.
+    </p>
+
+    <a href="mailto:hello@diploi.com" class="email">hello@diploi.com</a>
+  </div>
+</article>
+
+<style lang="scss">
+  @use '../styles/mixins';
+
+  article {
+    @include mixins.card-desktop;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xxl);
+
+    @include mixins.respond-to('tablet') {
+      align-items: flex-start;
+    }
+
+    h2 {
+      display: flex;
+      align-items: center;
+      gap: var(--space-l);
+    }
+  }
+
+  .email {
+    font-size: 1.25rem;
+  }
+</style>

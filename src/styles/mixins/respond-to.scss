@@ -1,0 +1,18 @@
+@use 'sass:map' as map-util;
+
+$breakpoints: (
+  'tablet': 767px,
+  'laptop': 992px,
+  'desktop': 1920px,
+) !default;
+
+@mixin respond-to($breakpoint) {
+  @if map-util.has-key($breakpoints, $breakpoint) {
+    @media (min-width: map-util.get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+        + "Available breakpoints are: #{map-util.keys($breakpoints)}.";
+  }
+}

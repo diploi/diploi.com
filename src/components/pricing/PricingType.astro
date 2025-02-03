@@ -1,26 +1,26 @@
 ---
-import { Info } from '@phosphor-icons/react';
-import PricingToggle from './PricingToggle.astro';
+import { Info } from '@phosphor-icons/react'
+import PricingToggle from './PricingToggle.astro'
 
 interface Props {
   pricing: {
-    averageDaysInMonth: number;
-    averageWorkingDaysInMonth: number;
-    averageWorkingHoursInDay: number;
-  };
+    averageDaysInMonth: number
+    averageWorkingDaysInMonth: number
+    averageWorkingHoursInDay: number
+  }
 }
 
-const { pricing } = Astro.props;
+const { pricing } = Astro.props
 
 const {
   averageDaysInMonth,
   averageWorkingDaysInMonth,
   averageWorkingHoursInDay,
-} = pricing;
+} = pricing
 ---
 
 <fieldset data-hours={20 * 8}>
-  <legend>Used for</legend>
+  <legend>I want to use Diploi for</legend>
 
   <div id="type-container" class="development">
     <PricingToggle name="type" value="development" label="Development" />
@@ -46,59 +46,61 @@ const {
     averageWorkingHoursInDay,
   }}
 >
-  const developmentHours = averageWorkingDaysInMonth * averageWorkingHoursInDay;
-  const testingHours = averageDaysInMonth * 0.25 * 24;
-  const productionHours = averageDaysInMonth * 24;
+  const developmentHours = averageWorkingDaysInMonth * averageWorkingHoursInDay
+  const testingHours = averageDaysInMonth * 0.25 * 24
+  const productionHours = averageDaysInMonth * 24
 
-  const hoursElement = document.querySelector('[data-hours]');
-  const typeContainerElement = document.getElementById('type-container');
+  const hoursElement = document.querySelector('[data-hours]')
+  const typeContainerElement = document.getElementById('type-container')
 
   const updateHours = () => {
     const selectedType = document.querySelector(
-      'input[name="type"]:checked'
-    ).value;
+      'input[name="type"]:checked',
+    ).value
 
-    let hours = developmentHours;
-    if (selectedType === 'testing') hours = testingHours;
-    if (selectedType === 'production') hours = productionHours;
+    let hours = developmentHours
+    if (selectedType === 'testing') hours = testingHours
+    if (selectedType === 'production') hours = productionHours
 
-    typeContainerElement.setAttribute('class', selectedType);
-    hoursElement.setAttribute('data-hours', `${hours}`);
+    typeContainerElement.setAttribute('class', selectedType)
+    hoursElement.setAttribute('data-hours', `${hours}`)
 
-    document.dispatchEvent(new Event('pricing-update'));
-  };
+    document.dispatchEvent(new Event('pricing-update'))
+  }
 
   document
     .querySelectorAll('input[name="type"]')
-    .forEach(element => element.addEventListener('change', updateHours));
+    .forEach((element) => element.addEventListener('change', updateHours))
 
-  document.querySelector('input[value="development"]').checked = true;
+  document.querySelector('input[value="development"]').checked = true
 </script>
 
 <style>
   fieldset {
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
     margin: 0;
     padding: 0;
     width: 100%;
-    max-width: 900px;
     border: none;
   }
 
   legend {
     display: flex;
     position: relative;
-    float: left;
-    width: 180px;
+    margin-bottom: var(--space-s);
+    color: var(--color-text-primary);
   }
 
   #type-container {
     display: flex;
     flex-wrap: wrap;
-    flex: 1;
-    gap: 16px;
+    flex-direction: column;
+    gap: var(--space-l);
+
+    @media (min-width: 768px) {
+      flex-direction: row;
+    }
   }
 
   #type-container > p {
@@ -127,7 +129,7 @@ const {
   }
 
   .help {
-    font-size: 0.64rem;
-    color: #b6bdc8;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
   }
 </style>

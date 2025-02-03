@@ -1,0 +1,105 @@
+---
+import Sparkle from '../../../components/Sparkle.astro';
+import { SparkleElement, Section } from '../../../components';
+import { Canvas, BlobCanvas } from '../../../components/react';
+---
+
+<div class="hero">
+  <div class="blobs">
+    <BlobCanvas client:load />
+  </div>
+  <div class="content">
+    <h1 class="main-heading">
+      <div class="diploi-canvas-container">
+        <Canvas client:load />
+      </div>
+      <SparkleElement sparkleCount={4} minSize={0.5} maxSize={1.25}>
+        <span class="text-gradient">Magical</span>
+      </SparkleElement> Developer Experience
+    </h1>
+    <p class="subtitle">
+      <span>Manage, develop and host full applications.</span>
+    </p>
+    <button>Get Started</button>
+  </div>
+</div>
+
+<style lang="scss">
+  @use '../../../styles/mixins';
+  .hero {
+    display: flex;
+    align-items: center;
+    max-width: 100vw;
+    text-align: center;
+    height: calc(100vh - var(--header-height-px) * 2);
+    max-height: 1000px;
+    position: relative;
+  }
+
+  .blobs {
+    position: absolute;
+    inset: 0;
+    top: calc(var(--header-height-px) * -2);
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+
+    p {
+      margin-bottom: var(--space-xxl);
+      font-size: 1.5rem;
+    }
+    > * {
+      opacity: 0;
+      animation: fadeIn 1000ms ease 1 forwards;
+      animation-delay: 500ms;
+    }
+
+    > button {
+      width: fit-content;
+    }
+  }
+
+  .diploi-canvas-container {
+    position: absolute;
+    inset: 0;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    transform: translate(-50%, -50%);
+    aspect-ratio: 1/1;
+    z-index: -1;
+  }
+
+  .main-heading {
+    line-height: 1.1;
+    font-weight: 600;
+    position: relative;
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes moveUpDown {
+    0% {
+      transform: translate(-50%, -50%) translateY(0px);
+    }
+    50% {
+      transform: translate(-50%, -50%) translateY(16px);
+    }
+    100% {
+      transform: translate(-50%, -50%) translateY(0px);
+    }
+  }
+</style>

@@ -1,17 +1,18 @@
 ---
-import Gradient from '../components/Gradient.astro';
-import icon from '../images/logo-icon.svg';
-import og from '../images/og.png';
+import Gradient from '../components/Gradient.astro'
+import icon from '../images/logo-icon.svg'
+import og from '../images/og.png'
+import GlobalStyles from '../components/GlobalStyles.astro'
 
 interface Props {
-  title: string;
-  description?: string;
+  title: string
+  description?: string
 }
 
 const defaultDescription =
-  'Single SaaS service for managing, developing and hosting your full application.';
+  'Single SaaS service for managing, developing and hosting your full application.'
 
-const { title, description = defaultDescription } = Astro.props;
+const { title, description = defaultDescription } = Astro.props
 ---
 
 <!doctype html>
@@ -34,14 +35,16 @@ const { title, description = defaultDescription } = Astro.props;
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      rel="preload"
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Source+Sans+3:wght@400;700;900&display=swap"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap"
+      rel="stylesheet"
     />
+    <!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /> -->
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital@0;1&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" -->
+    <!--   rel="stylesheet" -->
+    <!-- /> -->
     <noscript>
       <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Source+Sans+3:wght@400;700;900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap"
         rel="stylesheet"
         type="text/css"
       />
@@ -49,12 +52,14 @@ const { title, description = defaultDescription } = Astro.props;
 
     <link rel="sitemap" href="/sitemap-index.xml" />
 
+    <link rel="stylesheet" href="/styles/mixins/breakpoints.scss" />
+
     <meta
       name="google-site-verification"
       content="XopKlvNBmdLaTZtElCt9bkAVDuqrRL-5Ist_6Ecth-o"
     />
   </head>
-  <body>
+  <body class="body">
     <slot />
 
     <Gradient />
@@ -63,107 +68,67 @@ const { title, description = defaultDescription } = Astro.props;
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-182JME5104"
     ></script>
     <script is:inline>
-      window.dataLayer = window.dataLayer || [];
+      window.dataLayer = window.dataLayer || []
       function gtag() {
-        dataLayer.push(arguments);
+        dataLayer.push(arguments)
       }
-      gtag('js', new Date());
-      gtag('config', 'G-182JME5104');
+      gtag('js', new Date())
+      gtag('config', 'G-182JME5104')
     </script>
   </body>
 </html>
 
 <script>
   window.addEventListener('DOMContentLoaded', () => {
-    const targets = document.querySelectorAll('.on-scroll');
+    const targets = document.querySelectorAll('.on-scroll')
 
     const observer = new IntersectionObserver(
-      entries =>
-        entries.forEach(entry => {
+      (entries) =>
+        entries.forEach((entry) => {
           if (
             entry.isIntersecting &&
             entry.target.classList.contains('on-scroll')
           ) {
-            entry.target.classList.remove('on-scroll');
+            entry.target.classList.remove('on-scroll')
 
             setTimeout(() => {
-              entry.target.classList.add('visible');
+              entry.target.classList.add('visible')
 
               setTimeout(() => {
-                entry.target.classList.add('done');
-              }, 2000);
-            }, 500);
+                entry.target.classList.add('done')
+              }, 2000)
+            }, 500)
           }
         }),
       {
         threshold: 0.5,
-      }
-    );
+      },
+    )
 
-    targets.forEach(target => observer.observe(target));
-  });
+    targets.forEach((target) => observer.observe(target))
+  })
 
   window.addEventListener('DOMContentLoaded', () => {
-    const events = document.querySelectorAll('[data-event]');
+    const events = document.querySelectorAll('[data-event]')
 
-    events.forEach(element =>
+    events.forEach((element) =>
       element.addEventListener('click', () => {
         // @ts-ignore
-        gtag('event', element.getAttribute('data-event'));
-      })
-    );
-  });
+        gtag('event', element.getAttribute('data-event'))
+      }),
+    )
+  })
 </script>
+
+<GlobalStyles />
 
 <style is:global>
   :root {
-    --font-body: 'Source Sans 3', sans-serif;
-    --font-header: 'Montserrat', sans-serif;
-
     --font-header-size: 3.052rem;
 
     --color-primary: #6650fa;
     --color-secondary: #ec609c;
     --color-grey: #31363f;
-    --color-background: #202328;
-
-    --accent-gradient: linear-gradient(
-      45deg,
-      var(--color-primary),
-      var(--color-secondary) 30%,
-      white 60%
-    );
-  }
-
-  html {
-    padding: 0;
-    font-size: 150%;
-    font-family: var(--font-body);
-    background-color: var(--color-background);
-  }
-
-  @media (max-width: 900px) {
-    :root {
-      --font-header-size: 2.441rem;
-    }
-
-    html {
-      font-size: 120%;
-    }
-  }
-
-  body {
-    margin: 0;
-    padding: 24px;
-    width: 100%;
-    box-sizing: border-box;
-    overflow-x: hidden;
-    overflow-y: scroll;
-  }
-
-  p {
-    opacity: 0.7;
-    max-width: 55ch;
   }
 
   code {
@@ -176,29 +141,6 @@ const { title, description = defaultDescription } = Astro.props;
       Bitstream Vera Sans Mono,
       Courier New,
       monospace;
-  }
-
-  .button,
-  button {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 20px 24px;
-    font-size: 1rem;
-    font-weight: bold;
-    font-family: var(--font-body);
-    text-decoration: none;
-    border-radius: 12px;
-    border: none;
-    background-color: var(--color-primary);
-    color: #fff;
-    user-select: none;
-    cursor: pointer;
-  }
-
-  .button.basic,
-  button.basic {
-    background-color: var(--color-grey);
   }
 
   input {
