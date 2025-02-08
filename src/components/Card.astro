@@ -10,18 +10,17 @@ const { class: className, isLarge, isCardInMobile = false } = Astro.props
 
 <article
   class:list={[
-    `card-woo`,
+    `card`,
     isLarge && 'large',
     isCardInMobile && 'is-card-in-mobile',
   ]}
 >
-  moi
   <slot />
 </article>
 
-<style>
-  @use '../../styles/mixins';
-  .card-woo {
+<style lang="scss">
+  @use '../styles/mixins';
+  .card {
     @include mixins.card-desktop;
   }
 </style>

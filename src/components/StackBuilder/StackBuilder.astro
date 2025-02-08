@@ -5,8 +5,8 @@ import { components, addons, mockYaml } from './data';
 import StackBuilderBlockButton from './StackBuilderBlockButton.astro';
 import SubSectionHeader from '../SubSectionHeader.astro';
 import ArrowLink from '../ArrowLink.astro';
+import Icon from '../Icon.astro';
 
-import { SyntaxHighlighter } from '../react';
 ---
 
 <div class="stack-builder">
@@ -57,7 +57,16 @@ import { SyntaxHighlighter } from '../react';
     </article>
   </div>
   <div class="ctas">
-    <button id="button-launch-stack">Launch Stack</button>
+    <button id="button-launch-stack" class="secondary" disabled>
+      <span class="blobs"></span>
+      <span class="text">
+        Launch Stack
+
+        <span class="rocket">
+          <Icon name="Rocket"  weight="regular" />
+        </span>
+      </span>
+    </button>
     <p class="small">Try Diploi with a single-click.</p>
   </div>
 </div>
@@ -72,29 +81,31 @@ import { SyntaxHighlighter } from '../react';
   const defaultComponentId = 'reactVite';
   const defaultAddonId = 'postgres';
 
-  const defaultComponentButton = document.querySelector(
-    `.stack-builder-button.component[data-id="${defaultComponentId}"]`
-  );
-  if (defaultComponentButton) {
-    defaultComponentButton.classList.add('is-selected');
-    const checkbox = defaultComponentButton.querySelector('input[type="checkbox"]');
-    if (checkbox) {
-      checkbox.checked = true;
-    }
-    selectedComponentIds.push(defaultComponentId);
-  }
-
-  const defaultAddonButton = document.querySelector(
-    `.stack-builder-button.addon[data-id="${defaultAddonId}"]`
-  );
-  if (defaultAddonButton) {
-    defaultAddonButton.classList.add('is-selected');
-    const checkbox = defaultAddonButton.querySelector('input[type="checkbox"]');
-    if (checkbox) {
-      checkbox.checked = true;
-    }
-    selectedAddonIds.push(defaultAddonId);
-  }
+  <!-- const defaultComponentButton = document.querySelector( -->
+  <!--   `.stack-builder-button.component[data-id="${defaultComponentId}"]`, -->
+  <!-- ); -->
+  <!-- if (defaultComponentButton) { -->
+  <!--   defaultComponentButton.classList.add('is-selected'); -->
+  <!--   const checkbox = defaultComponentButton.querySelector( -->
+  <!--     'input[type="checkbox"]', -->
+  <!--   ); -->
+  <!--   if (checkbox) { -->
+  <!--     checkbox.checked = true; -->
+  <!--   } -->
+  <!--   selectedComponentIds.push(defaultComponentId); -->
+  <!-- } -->
+  <!---->
+  <!-- const defaultAddonButton = document.querySelector( -->
+  <!--   `.stack-builder-button.addon[data-id="${defaultAddonId}"]`, -->
+  <!-- ); -->
+  <!-- if (defaultAddonButton) { -->
+  <!--   defaultAddonButton.classList.add('is-selected'); -->
+  <!--   const checkbox = defaultAddonButton.querySelector('input[type="checkbox"]'); -->
+  <!--   if (checkbox) { -->
+  <!--     checkbox.checked = true; -->
+  <!--   } -->
+  <!--   selectedAddonIds.push(defaultAddonId); -->
+  <!-- } -->
 
   launchButton.disabled =
     selectedComponentIds.length === 0 || selectedAddonIds.length === 0;
@@ -162,7 +173,7 @@ import { SyntaxHighlighter } from '../react';
     }
     pre {
       margin: 0 !important;
-      font-size: 0.875rem !important;
+      font-size: 1rem !important;
     }
   }
 
@@ -170,6 +181,118 @@ import { SyntaxHighlighter } from '../react';
     display: flex;
     flex-direction: column;
     gap: var(--space-xxl);
+  }
+
+  #button-launch-stack {
+    padding-top: var(--space-l);
+    padding-bottom: var(--space-l);
+    font-size: 1.25rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 300ms ease;
+
+    &::after {
+      content: '';
+      opacity: 0;
+      pointer-events: none;
+      position: absolute;
+      inset: 0px;
+      padding: 1px;
+      border-radius: inherit;
+      filter: saturate(2);
+      background: linear-gradient(
+        to right,
+        var(--color-accent-primary),
+        var(--color-accent-secondary)
+      );
+      -webkit-mask:
+        linear-gradient(white 0 0) content-box,
+        linear-gradient(white 0 0);
+      mask:
+        linear-gradient(white 0 0) content-box,
+        linear-gradient(white 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      transition: opacity 300ms ease;
+    }
+
+    .text {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: var(--space-l);
+    }
+    .rocket {
+      display: flex;
+    }
+
+    @keyframes vibrate {
+      0% {
+        transform: translateX(0);
+      }
+      50% {
+        transform: translateX(2px);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+
+    > .blobs {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+        height: 300%;
+        aspect-ratio: 1/1;
+        background-color: red;
+        display: block;
+        border-radius: 50%;
+        opacity: 0.25;
+        filter: blur(30px) saturate(3);
+        animation: anime 16s linear infinite;
+        transform: scale(0);
+        transition: transform 300ms ease;
+      }
+      &::before {
+        left: -50%;
+        background-color: var(--color-accent-primary);
+      }
+      &::after {
+        right: -50%;
+        background-color: var(--color-accent-secondary);
+      }
+    }
+
+    &:not(:disabled) {
+      border-color: transparent;
+      .rocket {
+        animation: vibrate 160ms ease-in-out infinite;
+      }
+      .blobs {
+        &::before,
+        &::after {
+          transform: scale(1);
+        }
+      }
+      &::after {
+        opacity: 1;
+      }
+
+      &:hover {
+        > .blobs {
+          &::before,
+          &::after {
+            transform: scale(1.5);
+          }
+        }
+        background-color: transparent;
+      }
+    }
   }
 
   .grid {

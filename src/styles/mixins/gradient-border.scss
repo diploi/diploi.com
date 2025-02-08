@@ -1,4 +1,4 @@
-@mixin gradient-border($color: var(--color-border), $color-hover: '') {
+@mixin gradient-border($color: var(--color-border), $color-hover: '', $color-end: transparent, $width: 1px) {
   position: relative;
 
   &::after {
@@ -6,9 +6,9 @@
     pointer-events: none;
     position: absolute;
     inset: 0px;
-    padding: 1px;
+    padding: $width;
     border-radius: inherit;
-    background: linear-gradient(to bottom, $color, transparent);
+    background: linear-gradient(to bottom, $color, $color-end);
     -webkit-mask:
       linear-gradient(white 0 0) content-box,
       linear-gradient(white 0 0);
@@ -21,7 +21,7 @@
 
   @if $color-hover != '' {
     &:hover::after {
-      background: linear-gradient(to bottom, $color-hover, transparent);
+      background: linear-gradient(to bottom, $color-hover, $color-end);
       -webkit-mask:
         linear-gradient(white 0 0) content-box,
         linear-gradient(white 0 0);
@@ -33,3 +33,5 @@
     }
   }
 }
+
+

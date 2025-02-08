@@ -1,11 +1,10 @@
 ---
-import { House, CreditCard, SignIn, Newspaper } from '@phosphor-icons/react';
-import { BookBookmark } from '@phosphor-icons/react/dist/ssr';
+import Icon from './Icon.astro';
 
 import Logo from './Logo.astro';
 
 interface Props {
-  selected?: 'home' | 'pricing' | 'blog';
+  selected?: 'home' | 'pricing' | 'blog' | 'jobs';
 }
 
 const { selected } = Astro.props;
@@ -13,6 +12,7 @@ const { selected } = Astro.props;
 const isHome = selected === 'home';
 const isPricing = selected === 'pricing';
 const isBlog = selected === 'blog';
+const isJobs = selected === 'jobs';
 ---
 
 <header>
@@ -35,18 +35,38 @@ const isBlog = selected === 'blog';
           href="/pricing"
           data-selected={`${isPricing}`}
         >
-          <CreditCard weight={isPricing ? 'fill' : 'regular'} /> Pricing
+          <Icon
+            name="CreditCard"
+            weight={isPricing ? 'duotone' : 'regular'}
+            class="navigation-link-icon"
+          /> Pricing
         </a>
         <a data-event="blog_click" href="/blog" data-selected={`${isBlog}`}>
-          <Newspaper weight={isBlog ? 'fill' : 'regular'} />
+          <Icon
+            name="Newspaper"
+            weight={isBlog ? 'duotone' : 'regular'}
+            class="navigation-link-icon"
+          />
           Blog
         </a>
+        <a data-event="blog_click" href="/jobs" data-selected={`${isJobs}`}>
+          <Icon
+            name="Briefcase"
+            weight={isJobs ? 'duotone' : 'regular'}
+            class="navigation-link-icon"
+          />
+          Careers
+        </a>
         <a data-event="documentation_click" href="https://docs.diploi.com/">
-          <BookBookmark />
+          <Icon
+            name="BookBookmark"
+            weight="regular"
+            class="navigation-link-icon"
+          />
           Documentation
         </a>
         <a data-event="login_click" href="https://console.diploi.com/login">
-          <SignIn />
+          <Icon name="SignIn" weight="regular" class="navigation-link-icon" />
           Login / Sign Up
         </a>
       </div>
@@ -139,7 +159,6 @@ const isBlog = selected === 'blog';
     height: 100vh;
   }
 
-
   .links {
     align-items: center;
     display: flex;
@@ -164,7 +183,15 @@ const isBlog = selected === 'blog';
       color: var(--color-text-primary);
       text-decoration: none;
 
-      &:hover {
+      &[data-selected='true'] {
+        color: var(--color-accent-primary-text);
+      }
+
+      :global(.navigation-link-icon) {
+        fill: currentColor;
+      }
+
+      &:hover:not([data-selected='true']) {
         color: var(--color-text-secondary);
       }
     }

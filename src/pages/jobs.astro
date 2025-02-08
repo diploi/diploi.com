@@ -1,178 +1,158 @@
 ---
-import {
-  HandWaving,
-  MagnifyingGlass,
-  UserCircleDashed,
-  EnvelopeOpen,
-  File,
-  CheckSquare,
-  ArrowRight,
-} from '@phosphor-icons/react';
 import Layout from '../layouts/Layout.astro';
-import Navigation from '../components/Navigation.astro';
-import Footer from '../components/Footer.astro';
+import {
+  Section,
+  PageTag,
+  SectionHeader,
+  SubSection,
+  SubSectionHeader,
+  Icon,
+  Card,
+  Navigation,
+  Footer,
+  PageTitle,
+} from '../components';
 ---
 
-<Layout title="Diploi – Jobs">
+<Layout title="Diploi – Careers">
+  <Navigation selected="jobs" />
   <main>
-    <Navigation />
+    <Section isNarrow>
+      <PageTitle tagText="Careers" title="Join Us" />
+      <SubSection>
+        <SubSectionHeader title="Who We Are" icon="HandWaving" />
 
-    <div class="title">
-      <h1 class="text-gradient">Join Us</h1>
-    </div>
-
-    <article>
-      <section>
-        <h2><HandWaving weight="bold" /> Who We Are</h2>
         <p>
-          Diploi is redefining cloud development with a <b>simple</b>, <b>scalable</b>, and <b>powerful</b> PaaS solution. Our goal is to provide a Developer Experience that looks and feels just <span class="text-gradient">magical</span>.
+          Diploi is redefining cloud development with a <b>simple</b>, <b
+            >scalable</b
+          >, and <b>powerful</b> PaaS solution. Our goal is to provide a Developer
+          Experience that looks and feels just <span class="text-gradient"
+            >magical</span
+          >.
           <br /><br />
-          We're still early on, but with recent funding and a vision to innovate – we aim to grow fast. Now, we’re looking for passionate people to join us.
+          We're still early on, but with recent funding and a vision to innovate
+          – we aim to grow fast. Now, we’re looking for passionate people to join
+          us.
         </p>
-      </section>
-    </article>
-
-    <hr />
-
-    <article>
-      <section>
-        <h2><MagnifyingGlass weight="bold" /> Who We’re Looking For</h2>
-        <p>
-          We are hiring Software Developers who obsess with:
-        </p>
+      </SubSection>
+      <SubSection>
+        <SubSectionHeader
+          title="Who We're Looking For"
+          icon="MagnifyingGlass"
+        />
+        <p>We are hiring Software Developers who obsess with:</p>
         <ul class="checks">
-          <li><CheckSquare weight="bold" /> Developer Experience</li>
-          <li><CheckSquare weight="bold" /> Scalability & Performance</li>
-          <li><CheckSquare weight="bold" /> Reliability & Security</li>
-          <li><CheckSquare weight="bold" /> Working on hard tasks and having a good time</li>
+          <li>
+            <Icon isGradient name="CheckSquare" weight="regular" /> Developer Experience
+          </li>
+          <li>
+            <Icon isGradient name="CheckSquare" weight="regular" /> Scalability &amp;
+            Performance
+          </li>
+          <li>
+            <Icon isGradient name="CheckSquare" weight="regular" /> Reliability &amp;
+            Security
+          </li>
+          <li>
+            <Icon isGradient name="CheckSquare" weight="regular" /> Working on hard
+            tasks and having a good time
+          </li>
         </ul>
         <p>
           <b>Bonus points:</b> Experience with social media and online publishing
           <br /><br />
-          You don’t need to check every box, but if you’re <b>curious, driven, and love solving hard problems</b>, we’d love to hear from you.
+          You don’t need to check every box, but if you’re <b
+            >curious, driven, and love solving hard problems</b
+          >, we’d love to hear from you.
         </p>
-      </section>
-    </article>
-
-    <hr />
-
-    <article>
-      <section>
-        <h2><UserCircleDashed weight="bold" /> Open Positions</h2>
+      </SubSection>
+      <SubSection>
+        <SubSectionHeader
+          title="Open Positions"
+          icon="UserCircleDashed"
+          isGradient
+        />
         <ul class="positions">
+          <hr />
           <li>
-            <File />
+            <Icon name="CodeBlock" weight="regular" sizeRem={2} class='job-position-icon' />
             <h3>Full-Stack Engineer</h3>
             <p>Work across frontend & backend to enhance our solution.</p>
           </li>
+
+          <hr />
           <li>
-            <File />
+            <Icon name="HeadCircuit" weight="regular" sizeRem={2} class='job-position-icon' />
             <h3>Backend / DevOps Engineer</h3>
             <p>Focus on performance, reliability, and cloud automation.</p>
           </li>
+          <hr />
           <li>
-            <File />
+            <Icon name="RocketLaunch" weight="regular" sizeRem={2} class='job-position-icon' />
             <h3>Growth Hacker</h3>
             <p>Help optimize our go-to-market strategy.</p>
           </li>
+          <hr />
         </ul>
         <p>
-          <b>Not seeing your role or you might tick several boxes?</b> Reach out anyways — we’re looking for exceptional talent.
+          <b>Not seeing your role or you might tick several boxes?</b> Reach out
+          anyways — we’re looking for exceptional talent.
         </p>
-      </section>
-    </article>
-
-    <hr />
-
-    <article>
-      <section>
-        <h2><EnvelopeOpen weight="bold" /> How to Apply</h2>
-        <p>
-          Email us at <a href="mailto:hiring@diploi.com">hiring@diploi.com</a> with:
-        </p>
-        <ul class="checks">
-          <li><ArrowRight weight="bold" /> Your resume / LinkedIn / GitHub</li>
-          <li><ArrowRight weight="bold" /> A short intro about why you’re interested</li>
-          <li><ArrowRight weight="bold" /> Any projects or code you’re proud of</li>
-        </ul>
-        <p>
-          Come and create <span class="text-gradient">magic</span> with us!
-        </p>
-      </section>
-    </article>
+      </SubSection>
+      <SubSection>
+        <article class="card large">
+          <div class="title-and-description">
+            <h2>
+              <Icon isGradient name="EnvelopeOpen" isGradient sizeRem={3} /> How to
+              apply
+            </h2>
+            <p>
+              Email us at <a href="mailto:hiring@diploi.com"
+                >hiring@diploi.com</a
+              >
+              with:
+            </p>
+            <ul class="checks">
+              <li>
+                <Icon name="ArrowRight" weight="regular" /> Your resume / LinkedIn
+                / GitHub
+              </li>
+              <li>
+                <Icon name="ArrowRight" weight="regular" /> A short intro about why
+                you’re interested
+              </li>
+              <li>
+                <Icon name="ArrowRight" weight="regular" /> Any projects or code
+                you’re proud of
+              </li>
+            </ul>
+            <p>
+              Come and create <span class="text-gradient">magic</span> with us!
+            </p>
+          </div>
+        </article>
+      </SubSection>
+    </Section>
   </main>
-
   <Footer />
 </Layout>
 
-<style>
-  main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: white;
+<style lang="scss">
+  @use '../styles/mixins';
+
+  p {
+    max-width: unset;
   }
 
   .title {
-    width: 100%;
-    overflow: hidden;
-  }
-
-  .title h1 {
-    position: relative;
-    margin: 140px 0;
-    text-align: center;
-    font-size: var(--font-header-size);
-    font-weight: bold;
-    font-family: var(--font-header);
-    line-height: 1.2;
-  }
-
-  h1::after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url(/starfield.svg);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    z-index: -1;
-
-    transform: scale(6) rotate(45deg);
-    opacity: 0.2;
-  }
-
-  h2 {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 0.6ch;
-  }
+    gap: var(--space-huge);
 
-  h2 > svg {
-    fill: url(#gradient-three);
-  }
-
-  hr {
-    margin: 96px 0;
-    width: 100%;
-    max-width: 80ch;
-    height: 2px;
-    background-image: linear-gradient(to right, transparent, white 50%, transparent);
-    border: none;
-    opacity: 0.1;
-  }
-
-  a {
-    text-decoration-thickness: 2px;
-    color: var(--color-white);
-  }
-
-  article {
-    min-width: min(100%, 55ch);
+    .title-and-description {
+      @include mixins.sparkle-bg;
+    }
   }
 
   .checks {
@@ -183,42 +163,42 @@ import Footer from '../components/Footer.astro';
     > li {
       display: flex;
       align-items: center;
-      gap: 10px;
-      opacity: 0.7;
-
-      > svg {
-        fill: url(#gradient-one);
-      }
+      gap: var(--space-l);
+      font-size: 1.5rem;
     }
   }
 
   .positions {
     display: flex;
     flex-direction: column;
-    gap: 16px;
     margin: 0;
     padding: 0;
-    max-width: 55ch;
     list-style: none;
 
     > li {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      background: transparent;
+      padding: 0;
+      padding: var(--space-xxl) 0;
       position: relative;
-      padding: 22px;
-      padding-left: 64px;
-      padding-right: 32px;
-      background-color: var(--color-grey);
-      border-radius: 12px;
+      overflow: hidden;
 
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='rgba(0, 0, 0, 0.1)' viewBox='0 0 256 256'%3E%3Cpath d='M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z'%3E%3C/path%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-size: 180px;
-    background-position: 100% 10px;
+       :global(.job-position-icon) {
+         @include mixins.card-bg-icon;
+         @include mixins.respond-to('tablet') {
+           left: unset;
+           right: 0;
+           width: 8rem !important;
+           height: 8rem !important;
+           top: 50%;
+           transform: translate(0%, -50%);
+         }
+       }
 
       > svg {
-        position: absolute;
-        top: 28px;
-        left: 20px;
-        font-size: 30px;
+        margin-bottom: var(--space-m);
         opacity: 0.5;
       }
 
@@ -226,17 +206,30 @@ import Footer from '../components/Footer.astro';
         font-size: 24px;
       }
 
-      > h3, p {
+      > h3,
+      p {
         margin: 0;
       }
     }
   }
 
-  .text-gradient {
-    background-image: var(--accent-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-size: 400%;
-    background-position: 0%;
+
+
+  .card {
+    @include mixins.card-desktop;
+    @include mixins.sparkle-bg(2);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xxl);
+
+    @include mixins.respond-to('tablet') {
+      align-items: flex-start;
+    }
+
+    h2 {
+      display: flex;
+      align-items: center;
+      gap: var(--space-l);
+    }
   }
 </style>

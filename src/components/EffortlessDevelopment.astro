@@ -26,13 +26,16 @@ const { title, description, points } = Astro.props;
         points.map((point) => (
           <li>
             <div>
-              <span>[</span>
-              {point}
-              <span>]</span>
+              <p>{point}</p>
               <span>...........................................</span>
             </div>
             <span class="icon-container">
-              <Icon name="CheckSquare" color="#53B365" weight="regular" />
+              <Icon
+                name="CheckSquare"
+                color="#53B365"
+                weight="regular"
+                sizeRem={2}
+              />
             </span>
           </li>
         ))
@@ -104,15 +107,37 @@ const { title, description, points } = Astro.props;
       display: grid;
       grid-template-columns: auto auto;
       align-items: center;
-
       @include mixins.respond-to('tablet') {
-      grid-template-columns: 352px 1fr;
+        grid-template-columns: 512px 1fr;
       }
+
       > div {
-        display: block ruby;
+        display: flex;
         overflow: hidden;
         > span {
+          transform: translateY(5px);
           color: var(--color-text-tertiary);
+        }
+        > p {
+          flex-shrink: 0;
+          color: var(--color-text-primary);
+          font-family: monospace;
+          font-size: 1.125rem;
+          &::before, &::after {
+            padding-right: var(--space-s);
+            color: var(--color-text-tertiary);
+            font-weight: 600;
+            font-size: 1.25rem;
+          }
+          &::before {
+            content: '[';
+            padding-right: var(--space-s);
+          }
+
+          &::after {
+            content: ']';
+            padding-left: var(--space-s);
+          }
         }
       }
     }
@@ -121,6 +146,9 @@ const { title, description, points } = Astro.props;
   .icon-container {
     padding-left: var(--space-s);
     padding: 0;
+    display: flex;
+    height: 100%;
+    transform: translateY(-3px);
   }
 
   .blob-canvas {

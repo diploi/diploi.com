@@ -1,28 +1,5 @@
 import { createNoise3D } from 'simplex-noise';
-import type { Point } from './types';
 
-type GenerateGradient = {
-  ctx: CanvasRenderingContext2D;
-  minX: number;
-  maxX: number;
-  minY: number;
-  maxY: number;
-  flip?: boolean;
-};
-
-const PURPLE = '#6650FA';
-const MID = '#9750FA';
-const PINK = '#FF45EC';
-
-const generateGradient = ({ ...args }: GenerateGradient) => {
-  const gH = args.ctx.createLinearGradient(args.minX, 0, args.maxX, 0);
-
-  gH.addColorStop(0, args.flip ? PINK : PURPLE);
-  gH.addColorStop(0.5, MID);
-  gH.addColorStop(1, args.flip ? PURPLE : PINK);
-
-  return gH;
-};
 
 type GenerateBlobPoints = {
   cx: number;
@@ -168,7 +145,7 @@ export const INITIAL_RIGHT_BLOB_DEFAULT: BlobConfig = {
   tension: 0.5,
 };
 
-const TIME_SPEED = 0.0001;
+const TIME_SPEED = 0.0005;
 const NUM_OF_SEGMENTS = 20;
 const TENSION = 2;
 
@@ -235,7 +212,7 @@ export const animateBlobs = ({
 }: AnimateBlobs) => {
   let time = 0;
 
-  const blue = '#6624FF';
+  const blue = '#341456';
   const purple = '#8E24FF';
   const pink = '#FF24E9';
 
@@ -251,7 +228,7 @@ export const animateBlobs = ({
       initialLeftBlob,
       time,
       {
-        large: '#341456',
+        large: blue,
         medium: purple,
         small: pink,
       },
@@ -267,7 +244,7 @@ export const animateBlobs = ({
         initialRightBlob,
         time,
         {
-          large: '#341456',
+          large: blue,
           medium: purple,
           small: pink,
         },
@@ -275,6 +252,7 @@ export const animateBlobs = ({
         cyR,
       );
     }
+    requestAnimationFrame(animate);
   }
 
   requestAnimationFrame(animate);

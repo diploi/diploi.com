@@ -46,7 +46,7 @@ import { Canvas, BlobCanvas } from '../../../components/react';
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 800px;
+    max-width: 992px;
     margin: 0 auto;
     text-align: center;
 
@@ -74,6 +74,8 @@ import { Canvas, BlobCanvas } from '../../../components/react';
     transform: translate(-50%, -50%);
     aspect-ratio: 1/1;
     z-index: -1;
+    animation: moveUpDown 2800ms linear infinite;
+    animation-delay: 2000ms;
   }
 
   .main-heading {

@@ -1,8 +1,8 @@
 @use './respond-to';
 
 @mixin card-bg-icon {
-  width: 10rem;
-  height: 10rem;
+  width: 10rem !important;
+  height: 10rem !important;
   position: absolute;
   right: 0;
   bottom: 0;
@@ -11,8 +11,8 @@
 
   
 @include respond-to.respond-to('tablet') {
-    width: 20rem;
-    height: 20rem;
+    width: 20rem !important;
+    height: 20rem !important;
     transform: translate(-25%, 25%);
     right: unset;
     left: 0;

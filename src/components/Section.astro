@@ -1,19 +1,26 @@
 ---
-import SectionHeader from './SectionHeader.astro'
-import Sparkle from './Sparkle.astro'
+import SectionHeader from './SectionHeader.astro';
+import Sparkle from './Sparkle.astro';
 
 type TProps = {
-  title?: string
-  highlightedText?: string
-  descriptionStrong?: string
-  description: string
-  step?: number
-}
-const { title, highlightedText, description, descriptionStrong, step } =
-  Astro.props
+  title?: string;
+  highlightedText?: string;
+  descriptionStrong?: string;
+  description: string;
+  step?: number;
+  isNarrow?: boolean;
+};
+const {
+  title,
+  highlightedText,
+  description,
+  descriptionStrong,
+  step,
+  isNarrow,
+} = Astro.props;
 ---
 
-<section class='page-section'>
+<section class:list={['page-section', isNarrow && 'narrow']}>
   {
     !!title && (
       <SectionHeader
@@ -40,6 +47,10 @@ const { title, highlightedText, description, descriptionStrong, step } =
     max-width: var(--max-width-page-section);
     margin: 0 auto;
     width: 100%;
+
+    &.narrow {
+      max-width: var(--max-width-page-section-narrow);
+    }
 
     > .page-section-content {
       display: flex;

@@ -9,10 +9,12 @@ type Props = {
   weight?: IconProps['weight'];
   color?: string;
   class?: string;
+  sizeRem?: number;
 };
 
 const {
   size = 24,
+  sizeRem = 1.5,
   isGradient = false,
   class: className,
   weight = 'light',
@@ -27,11 +29,17 @@ const Icon = icons[Astro.props.name];
   weight={weight}
   className={`icon${isGradient ? ' gradient' : ''} ${className || ''}`}
   color={color}
+  style={{
+    width: `${sizeRem}rem`,
+    height: `${sizeRem}rem`,
+  }}
 />
 
 <style>
   .icon {
     flex-shrink: 0;
+    width: 1.5rem;
+    height: 1.5rem;
 
     &.gradient {
       fill: url(#gradient-one);

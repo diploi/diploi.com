@@ -1,25 +1,25 @@
 ---
-import { CheckCircle, Plus } from '@phosphor-icons/react'
-import Toggle from './Toggle.astro'
-import PlansPricing from './PlansPricing.astro'
+import Toggle from './Toggle.astro';
+import PlansPricing from './PlansPricing.astro';
+import Icon from './Icon.astro';
 
 interface Props {
   pricing: {
-    deployment: number
+    deployment: number;
     coreInstancePrice: {
-      name: string
-      price: number
-      rootStorageSizeGiB: number
-      memoryGiB: number
-      vCpu: number
-    }[]
-  }
+      name: string;
+      price: number;
+      rootStorageSizeGiB: number;
+      memoryGiB: number;
+      vCpu: number;
+    }[];
+  };
 }
 
-const { pricing } = Astro.props
+const { pricing } = Astro.props;
 ---
 
-<div class='cards'>
+<div class="cards">
   <!-- <Toggle /> -->
 
   <ul role="list" class="list">
@@ -43,9 +43,16 @@ const { pricing } = Astro.props
         </li>
         <li class="footer">
           <ul class="features">
-            <li><CheckCircle size={16} weight="bold" /> Everything in Pro</li>
-            <li><Plus size={16} weight="bold" /> No credit-card required</li>
-            <li><Plus size={16} weight="bold" /> No restrictions</li>
+            <li>
+              <Icon name="CheckCircle" sizeRem={1} weight="bold" /> Everything in
+              Pro
+            </li>
+            <li>
+              <Icon name="Plus" sizeRem={1} weight="bold" /> No credit-card required
+            </li>
+            <li>
+              <Icon name="Plus" sizeRem={1} weight="bold" /> No restrictions
+            </li>
           </ul>
           <a data-event="getstarted_click" class="button" href="/#invite"
             >Get Started</a
@@ -65,12 +72,13 @@ const { pricing } = Astro.props
         </li>
         <li class="footer">
           <ul class="features">
-            <li><Plus size={16} weight="bold" /> Unlimited users</li>
-            <li><Plus size={16} weight="bold" /> All core features</li>
+            <li>
+              <Icon name="Plus" sizeRem={1} weight="bold" /> Unlimited users
+            </li>
+            <li>
+              <Icon name="Plus" sizeRem={1} weight="bold" /> All core features
+            </li>
           </ul>
-          <!-- <a data-event="pro_click" class="button" href="#contact-us" -->
-          <!--   >Upgrade to Pro</a -->
-          <!-- > -->
           <a
             data-event="contactus_click"
             class="button secondary"
@@ -95,10 +103,17 @@ const { pricing } = Astro.props
         </li>
         <li class="footer">
           <ul class="features">
-            <li><CheckCircle size={16} weight="bold" /> Everything in Pro</li>
-            <li><Plus size={16} weight="bold" /> Custom templates</li>
-            <li><Plus size={16} weight="bold" /> Premium SLA</li>
-            <li><Plus size={16} weight="bold" /> Premium support</li>
+            <li>
+              <Icon name="CheckCircle" sizeRem={1} weight="bold" /> Everything in
+              Pro
+            </li>
+            <li>
+              <Icon name="Plus" sizeRem={1} weight="bold" /> Custom templates
+            </li>
+            <li><Icon name="Plus" sizeRem={1} weight="bold" /> Premium SLA</li>
+            <li>
+              <Icon name="Plus" sizeRem={1} weight="bold" /> Premium support
+            </li>
           </ul>
           <a
             data-event="contactus_click"
@@ -334,7 +349,7 @@ const { pricing } = Astro.props
 
   .quote {
     text-align: center;
-    max-width:  40ch;
+    max-width: 40ch;
   }
 
   p {

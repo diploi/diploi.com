@@ -19,39 +19,12 @@
     color: var(--color-text-primary);
   }
 }
-.points {
-  display: flex;
-  gap: var(--space-xl);
-  position: relative;
-  position: absolute;
-  padding: 0 128px;
-  width: 100%;
-  justify-content: space-between;
-  top: 50%;
-  transform: translateY(-50%);
-
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 4rem;
-  }
-  &::before {
-    left: 0;
-    background: linear-gradient(to right, var(--color-bg), transparent);
-  }
-  &::after {
-    right: 0;
-    background: linear-gradient(to left, var(--color-bg), transparent);
-  }
-}
 
 .root {
   position: relative;
   display: none;
-  @include mixins.respond-to('tablet') {
+
+  @media (min-width: 984px) {
     display: block;
   }
 }
@@ -64,6 +37,24 @@
 .test {
   position: absolute;
   inset: 0;
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    bottom: 0;
+    width: 4rem;
+    height: 4rem;
+  }
+  &::before {
+    left: 0;
+    background: linear-gradient(to right, var(--color-bg), transparent);
+  }
+  &::after {
+    right: 0;
+    background: linear-gradient(to left, var(--color-bg), transparent);
+  }
 }
 
 .lifecycleDesktopCard {
@@ -75,24 +66,42 @@
   gap: var(--space-xs);
   cursor: default;
   background-color: var(--color-bg-secondary);
+  transition: all 1000ms ease-in-out;
+
+  > svg {
+    @include mixins.card-bg-icon;
+    fill: var(--color-text-tertiary);
+  }
 
   * {
     cursor: inherit;
   }
-
-  &:hover {
-    @include mixins.gradient-border(var(--color-accent-primary));
-    position: absolute; // Don't remove!!! Keep under mixin
-    background-color: var(--color-bg-secondary) !important;
-    background: linear-gradient(
-      to bottom,
-      var(--color-accent-primary-20),
-      transparent
+  > div {
+    @include mixins.gradient-border(
+      var(--color-accent-primary),
+      var(--color-accent-primary),
+      transparent,
+      2px
     );
+    background-color: var(--color-accent-primary-10);
+    border-radius: inherit;
+    position: absolute;
+    inset: 0px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 200ms ease-in-out;
+  }
+
+  &:hover,
+  &.active {
+    > div {
+      opacity: 1;
+    }
+    > svg {
+      fill: var(--color-accent-primary);
+    }
   }
 }
-
-
 
 .pointIcon {
   position: absolute;
@@ -130,7 +139,7 @@
   margin-left: calc(var(--main-padding-x) * -1);
   margin-right: calc(var(--main-padding-x) * -1);
 
-  @include mixins.respond-to('tablet') {
+  @media (min-width: 984px) {
     display: none;
   }
 }
@@ -143,7 +152,7 @@
   color: var(--color-text-secondary);
   padding: var(--space-xxl) var(--space-xl);
 
-  @include mixins.respond-to('tablet') {
+  @media (min-width: 984px) {
     @include mixins.gradient-border;
     min-height: 14rem;
   }
@@ -157,7 +166,7 @@
     z-index: -1;
     opacity: 0.1;
 
-    @include mixins.respond-to('tablet') {
+    @media (min-width: 984px) {
       width: 20rem;
       transform: translate(-25%, 25%);
       right: unset;

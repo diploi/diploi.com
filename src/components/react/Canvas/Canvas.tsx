@@ -14,7 +14,7 @@ const START_OFFSET = 50;
 const DURATION_MS = 2500;
 const SIDE_LENGTH = 125;
 
-const STROKE_WIDTH = 1;
+const STROKE_WIDTH = 2;
 
 const STROKE = '#323234';
 const BACKGROUND = '#0d0d0e';

@@ -1,0 +1,29 @@
+---
+import PageTag from './PageTag.astro';
+
+type Props = {
+  tagText: string;
+  title: string;
+};
+
+const { tagText, title } = Astro.props;
+---
+
+<div class="title">
+  <div class="title-and-description">
+    <PageTag title={tagText} />
+    <h2>{title}</h2>
+  </div>
+</div>
+
+<style lang="scss">
+  @use '../styles/mixins';
+
+  .title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-huge);
+    @include mixins.sparkle-bg;
+  }
+</style>

@@ -1,10 +1,11 @@
 <style is:global lang="scss">
   @use '../styles/mixins';
   :root {
-    font-size: 14px;
+    font-size: 16px;
 
     --max-width-page-section: 1152px;
-    --max-width-page-section-large: 1088px;
+    --max-width-page-section-narrow: 768px;
+    --max-width-page-section-large: 1400px;
     --device-mobile: 360px;
     --device-tablet: 768px;
     --device-laptop: 1280px;
@@ -30,6 +31,7 @@
     --color-accent-primary-text: #a7aaff;
     --color-accent-primary-text-hover: #dcdfff;
     --color-accent-primary-20: rgba(102, 80, 250, 0.2);
+    --color-accent-primary-10: rgba(102, 80, 250, 0.1);
 
     --color-accent-secondary: #ec609c;
     --color-accent-secondary-10: rgba(236, 96, 156, 0.1);
@@ -47,8 +49,6 @@
     --space-xl: 1.5rem;
     --space-xxl: 3rem;
     --space-huge: 4rem;
-
-    --padding-page-x: var(--space-l);
 
     /* Border */
     --border-radius-round: 9999px;
@@ -105,8 +105,8 @@
     justify-content: center;
     gap: var(--space-m);
     padding: var(--space-l) var(--space-xxl);
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: 1.25rem;
+    font-weight: 500;
     font-family: var(--font-body);
     text-decoration: none;
     border-radius: var(--border-radius-button);
@@ -195,7 +195,7 @@
 
   h1 {
     font-size: 4rem;
-    font-weight: 700;
+    font-weight: 750;
     margin-bottom: var(--space-xl);
     @media (min-width: 900px) {
       font-size: 6rem;
@@ -212,7 +212,7 @@
   }
   h3 {
     font-weight: 500;
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     margin-bottom: var(--space-s);
   }
 
@@ -249,9 +249,9 @@
     max-width: 60ch;
     margin: 0;
     font-size: 1.25rem;
-    font-weight: 300;
+    font-weight: 350;
 
-    > strong {
+    > strong, > b {
       font-weight: 600;
       color: var(--color-text-primary);
     }
@@ -284,6 +284,10 @@
     text-decoration: none;
     text-decoration: underline;
     color: var(--color-accent-primary-text);
+
+    &:hover {
+      color: var(--color-accent-primary-text-hover);
+    }
   }
 
   .text-gradient {

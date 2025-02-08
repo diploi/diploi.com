@@ -15,8 +15,8 @@ dependencies:
     specifier: ^3.2.1
     version: 3.2.1
   '@phosphor-icons/react':
-    specifier: ^2.0.15
-    version: 2.0.15(react-dom@18.3.1)(react@18.3.1)
+    specifier: ^2.1.7
+    version: 2.1.7(react-dom@18.3.1)(react@18.3.1)
   '@react-spring/web':
     specifier: ^9.7.5
     version: 9.7.5(react-dom@18.3.1)(react@18.3.1)
@@ -1024,8 +1024,8 @@ packages:
     dev: false
     optional: true
 
-  /@phosphor-icons/react@2.0.15(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-PQKNcRrfERlC8gJGNz0su0i9xVmeubXSNxucPcbCLDd9u0cwJVTEyYK87muul/svf0UXFdL2Vl6bbeOhT1Mwow==}
+  /@phosphor-icons/react@2.1.7(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-g2e2eVAn1XG2a+LI09QU3IORLhnFNAFkNbo2iwbX6NOKSLOwvEMmTa7CgOzEbgNWR47z8i8kwjdvYZ5fkGx1mQ==}
     engines: {node: '>=10'}
     peerDependencies:
       react: '>= 16.8'

@@ -24,7 +24,7 @@ export const featureMasonryItems: TFeatureMasonryItem[] = [
     title: 'Zero-Install Environments',
     description:
       'Spin up fully configured dev environments instantly—no local setup required.',
-    gridArea: gridArea.topLeft,
+    gridArea: gridArea.topRight,
     color: '#FFC53D',
     icon: 'MagicWand',
   },
@@ -52,7 +52,7 @@ export const featureMasonryItems: TFeatureMasonryItem[] = [
     description: 'Quickly view live logs right from your browser.',
     gridArea: gridArea.centerTop,
     color: '#12A594',
-    icon: 'Terminal',
+    icon: 'TerminalWindow',
   },
   {
     id: 'git-integration',
@@ -69,14 +69,14 @@ export const featureMasonryItems: TFeatureMasonryItem[] = [
       'Your entire infrastructure configuration will be stored in a single YAML file.',
     gridArea: gridArea.center,
     color: '#ec609c',
-    icon: 'Code',
+    icon: 'CodeBlock',
   },
   {
     id: 'custom-components',
     title: 'Custom Components',
     description:
       'Add custom components to your monorepo for complete control and easy reuse.',
-    gridArea: gridArea.topRight,
+    gridArea: gridArea.topLeft,
     color: '#6E56CF',
     icon: 'PuzzlePiece',
     showDocker: true,

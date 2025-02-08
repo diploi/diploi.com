@@ -1,16 +1,15 @@
-import * as d3 from 'd3';
 import useMeasure from 'react-use-measure';
 import styles from './Lifecycle.module.scss';
 import { animated } from '@react-spring/web';
 
 import * as Icon from '@phosphor-icons/react';
 import { type LifecyclePoint } from './data';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, type ReactNode } from 'react';
 import { useLifecycleSprings } from './useLifecycleSprings';
 import { drawHalfCirclePath, getX } from './lib';
 
-const CARD_HEIGHT_PX = 128;
-const TIMEOUT_MS = 2000;
+const CARD_HEIGHT_PX = 128 + 16;
+const TIMEOUT_MS = 3000;
 
 type LifecycleDesktopProps = {
   lifecyclePoints: LifecyclePoint[];
@@ -23,6 +22,8 @@ const LifecycleDesktopCard = ({
   x,
   y,
   title,
+  icon,
+  isCurrent,
   description,
   onMouseEnter,
   onMouseLeave,
@@ -36,6 +37,8 @@ const LifecycleDesktopCard = ({
   description: string;
   onMouseEnter: (idx: number) => void;
   onMouseLeave: VoidFunction;
+  icon: ReactNode;
+  isCurrent: boolean;
 }) => {
   const halfWidth = width * 0.5;
   const handleMouseEnter = useCallback(() => {
@@ -47,7 +50,7 @@ const LifecycleDesktopCard = ({
   }, [onMouseLeave]);
   return (
     <article
-      className={styles.lifecycleDesktopCard}
+      className={`${styles.lifecycleDesktopCard} ${isCurrent ? styles.active : ''}`}
       style={{
         width,
         height,
@@ -57,8 +60,10 @@ const LifecycleDesktopCard = ({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
+      <div />
+      {icon}
       <h4>{title}</h4>
-      <p className="small">{description}</p>
+      <p>{description}</p>
     </article>
   );
 };
@@ -78,17 +83,18 @@ export const LifecycleDesktopSvg = ({
   const pointRadius = 32;
   const halfCircleRightPath = drawHalfCirclePath(pointRadius);
   const halfCircleLeftPath = drawHalfCirclePath(pointRadius, true);
-  const cardWidth = width / lifecyclePoints.length + 64;
+  const cardWidth = width / lifecyclePoints.length + 92;
 
   const marginX = 128;
 
-  const { lineSpring, strokeSprings, pointBgSprings } = useLifecycleSprings({
-    currentPoint,
-    lifecyclePoints,
-    width,
-    pointRadius,
-    marginX,
-  });
+  const { lineSpring, strokeSprings, pointBgSprings, verticalLineSprings } =
+    useLifecycleSprings({
+      currentPoint,
+      lifecyclePoints,
+      width,
+      pointRadius,
+      marginX,
+    });
 
   const handleMouseEnter = useCallback(
     (idx: number) => {
@@ -177,17 +183,27 @@ export const LifecycleDesktopSvg = ({
                   strokeWidth={1}
                   strokeDasharray="8, 12"
                 />
+                <animated.line
+                  x1={circleCenterX}
+                  x2={circleCenterX}
+                  y1={lineY1}
+                  y2={lineY2}
+                  stroke="#6650fa"
+                  strokeWidth={2}
+                  style={verticalLineSprings[idx]}
+                />
                 <circle
                   key={point.id}
                   r={pointRadius}
                   cx={circleCenterX}
                   cy={pointRadius}
-                  fill="url(#pointBgGradient)"
+                  fill="transparent"
                   stroke="#36353a"
+                  strokeWidth={4}
                 />
                 <animated.path
                   {...strokeSprings[idx]}
-                  strokeWidth={2}
+                  strokeWidth={4}
                   strokeDasharray="112, 112"
                   transform={`translate(${circleCenterX - pointRadius}, 0)`}
                   d={halfCircleRightPath}
@@ -196,7 +212,7 @@ export const LifecycleDesktopSvg = ({
                 />
                 <animated.path
                   {...strokeSprings[idx]}
-                  strokeWidth={2}
+                  strokeWidth={4}
                   strokeDasharray="112, 112"
                   d={halfCircleLeftPath}
                   stroke="#6650fa"
@@ -254,8 +270,11 @@ export const LifecycleDesktopSvg = ({
                 width={cardWidth}
                 height={CARD_HEIGHT_PX}
                 x={x}
+                isCurrent={idx === currentPoint}
                 y={isEven ? CARD_HEIGHT_PX : height}
                 title={point.title}
+                // @ts-expect-error
+                icon={<PointIcon />}
                 description={point.description}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}

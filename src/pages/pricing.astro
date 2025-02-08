@@ -1,5 +1,5 @@
 ---
-import Layout from '../layouts/Layout.astro'
+import Layout from '../layouts/Layout.astro';
 
 import {
   SectionHeader,
@@ -12,27 +12,24 @@ import {
   PricingType,
   PricingTable,
   Navigation,
-  PageTag,
+  PageTitle,
   Plans,
-} from '../components'
+} from '../components';
 
 const { pricing } = await fetch(
   'https://console.diploi.com/api/business/pricing',
-).then((response) => response.json())
+).then((response) => response.json());
 if (!pricing) {
-  throw new Error(`Failed to load pricing (${pricing.status})`)
+  throw new Error(`Failed to load pricing (${pricing.status})`);
 }
 ---
 
 <Layout title="Diploi – Pricing">
   <Navigation selected="pricing" />
-  <main >
+  <main>
     <Section>
       <div class="pricing-cards">
-        <div class="title-and-description">
-          <PageTag title="Pricing" />
-          <h2>Find the plan that fits your needs</h2>
-        </div>
+        <PageTitle tagText="Pricing" title="Find the plan that fits your needs" />
         <Plans pricing={pricing} />
       </div>
 

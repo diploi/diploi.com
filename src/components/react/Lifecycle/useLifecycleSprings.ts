@@ -1,8 +1,8 @@
-import { useSpring, useSprings } from "@react-spring/web";
-import { useEffect } from "react";
-import { getX } from "./lib";
+import { useSpring, useSprings } from '@react-spring/web';
+import { useEffect } from 'react';
+import { getX } from './lib';
 
-type UseLifecycleSpringsParams ={
+type UseLifecycleSpringsParams = {
   currentPoint: number;
   lifecyclePoints: any[]; // Adjust with a proper type if available
   width: number;
@@ -12,7 +12,7 @@ type UseLifecycleSpringsParams ={
   activeDelay?: number;
   defaultDelay?: number;
   strokeConfig?: Record<string, any>;
-}
+};
 
 export const useLifecycleSprings = ({
   currentPoint,
@@ -43,6 +43,17 @@ export const useLifecycleSprings = ({
     }),
   );
 
+
+
+  const [verticalLineSprings, verticalLinesApi] = useSprings(
+    lifecyclePoints.length,
+    () => ({
+      strokeDashoffset: 80,
+      strokeDasharray: '80, 80',
+      config: { mass: 1, tension: 100, friction: 20 },
+    }),
+  );
+
   useEffect(() => {
     strokeApi.start((idx) => ({
       strokeDashoffset: idx === currentPoint ? 0 : strokeOffset,
@@ -52,6 +63,13 @@ export const useLifecycleSprings = ({
 
     pointBgApi.start((idx) => ({
       transform: `translateY(-50%) ${currentPoint === idx ? 'scale(1)' : 'scale(0)'}`,
+    }));
+
+    verticalLinesApi.start((idx) => ({
+      strokeDashoffset: idx === currentPoint ? 0 : 80,
+      strokeDasharray: '80, 80',
+      config: strokeConfig,
+      delay: currentPoint === 0 ? activeDelay : defaultDelay,
     }));
 
     const isLast = currentPoint === lifecyclePoints.length - 1;
@@ -81,10 +99,12 @@ export const useLifecycleSprings = ({
     activeDelay,
     defaultDelay,
     strokeConfig,
+    verticalLineSprings,
+    verticalLinesApi,
     lineSpringApi,
     strokeApi,
     pointBgApi,
   ]);
 
-  return { lineSpring, strokeSprings, pointBgSprings };
+  return { lineSpring, strokeSprings, pointBgSprings, verticalLineSprings };
 };

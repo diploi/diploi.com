@@ -1,22 +1,26 @@
 ---
-import { Info, X } from '@phosphor-icons/react'
-import SubSectionHeader from './SubSectionHeader.astro'
+import { Info, X } from '@phosphor-icons/react';
+import SubSectionHeader from './SubSectionHeader.astro';
 interface Props {
-  title: string
-  description?: string
-  bars: { title: string; value: number; comparison?: number }[]
-  max?: number
+  title: string;
+  description?: string;
+  bars: { title: string; value: number; comparison?: number }[];
+  max?: number;
 }
 
-const { title, description, bars, max = 120 } = Astro.props
+const { title, description, bars, max = 120 } = Astro.props;
 
-const segmentWidth = (max / 6 / max) * 100
+const segmentWidth = (max / 6 / max) * 100;
 
-const segments = new Array(6).fill(null).map((_, index) => segmentWidth * index)
+const segments = new Array(6)
+  .fill(null)
+  .map((_, index) => segmentWidth * index);
 ---
 
 <figure>
-  <SubSectionHeader title={title} />
+  <div>
+    <SubSectionHeader title={title} />
+  </div>
   <p class="faster-mobile">
     <strong class="text-gradient number">
       {Math.max(...bars.map((bar) => bar.comparison || 0))}
@@ -35,7 +39,7 @@ const segments = new Array(6).fill(null).map((_, index) => segmentWidth * index)
             <p class=" small title">{title}</p>
             {comparison && (
               <p class="small comparison">
-                {comparison} <X size={12} weight="bold" /> worse
+                {comparison} <X  weight="bold" /> worse
               </p>
             )}
           </div>
@@ -221,6 +225,7 @@ const segments = new Array(6).fill(null).map((_, index) => segmentWidth * index)
     right: -17px;
     bottom: -28px;
     width: 32px;
+    font-size: 1rem;
     text-align: center;
   }
 </style>

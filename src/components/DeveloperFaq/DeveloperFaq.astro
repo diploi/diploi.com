@@ -8,9 +8,9 @@ import { developerFaqItems } from './data';
     developerFaqItems.map((item) => (
       <label class="developer-faq-item" for={item.id}>
         <div class="question">
-          <Plus size={24} weight="regular" className="plus" />
-          <Minus size={24} weight="regular" className="minus" />
-          <h3 class="question-title">{item.question}</h3>
+          <Plus weight="regular" className="plus" />
+          <Minus weight="regular" className="minus" />
+          <h4 class="question-title">{item.question}</h4>
         </div>
         <input class="checkbox" type="checkbox" id={item.id} />
         <p class="answer">{item.answer}</p>

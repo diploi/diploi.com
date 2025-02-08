@@ -1,15 +1,21 @@
 ---
+import * as icons from '@phosphor-icons/react';
+import Icon from './Icon.astro';
 type Props = {
-  title: string
-  description?: string
-  class?: string
-}
+  title: string;
+  description?: string;
+  class?: string;
+  icon: keyof typeof icons;
+};
 
-const { title, description, step, class: className } = Astro.props
+const { title, description, step, class: className, icon  } = Astro.props;
+
+
 ---
 
 <div class:list={['sub-section-header', className]}>
   <h3 class="heading">
+    {icon && <Icon name={icon} isGradient sizeRem={3} weight='regular' />}
     {title}
   </h3>
   {description && <p>{description}</p>}
@@ -18,12 +24,18 @@ const { title, description, step, class: className } = Astro.props
 <style>
   .sub-section-header {
     display: flex;
-    gap: 0.5rem;
     flex-direction: column;
+    gap: var(--space-s);
+
     > p,
     .heading {
       margin-bottom: 0;
       max-width: 60ch;
+    }
+    .heading {
+      display: flex;
+      align-items: center;
+      gap: var(--space-s);
     }
   }
 </style>

@@ -8,54 +8,70 @@ import Logo from './Logo.astro';
     <div class="footer-content">
       <div class="logo-and-socials">
         <Logo class="footer-logo" />
-        <div class="socials">
-          <a href="https://github.com/diploi">
-            <Icon name="GithubLogo" class="footer-social-link-icon" />
-          </a>
-          <a href="https://bsky.app/profile/diploi.com">
-            <Icon name="Butterfly" class="footer-social-link-icon" />
-          </a>
-          <!-- <a href="TODO">
-            <Icon name="DiscordLogo" class="footer-social-link-icon" />
-          </a> -->
-          <a href="https://www.linkedin.com/company/diploidev/">
-            <Icon name="LinkedinLogo" class="footer-social-link-icon" />
-          </a>
-          <a href="https://dev.to/diploi">
-            <Icon name="DevToLogo" class="footer-social-link-icon" />
-          </a>
-        </div>
       </div>
       <div class="clickable">
         <ul class="links">
           <label>Product</label>
           <li>
-            <a>Pricing</a>
+            <a href="/pricing">Pricing</a>
           </li>
           <li>
-            <a>Documentation</a>
+            <a href="/jobs">Careers</a>
           </li>
           <li>
             <a>Blog</a>
           </li>
           <li>
-            <a>Login / Sign Up</a>
+            <a href="https://docs.diploi.com/">Documentation</a>
+          </li>
+          <li>
+            <a href="https://console.diploi.com/login">Login / Sign Up</a>
           </li>
         </ul>
+
         <address>
           <label>Contact</label>
-          <p>Malminkatu 30</p>
-          <p>00100 Helsinki</p>
-          <p>Finland</p>
-          <a href="mailto:info@diploi.com">hello@diploi.com</a><br />
+          <a href="mailto:info@diploi.com" class="mail">hello@diploi.com</a><br
+          />
         </address>
+        <ul class="links socials">
+          <label>Socials</label>
+          <li>
+            <Icon
+              name="GithubLogo"
+              class="footer-social-link-icon github"
+            />
+            <a href="https://github.com/diploi">GitHub</a>
+          </li>
+          <li>
+            <Icon
+              name="Butterfly"
+              class="footer-social-link-icon bluesky"
+            />
+            <a href="https://bsky.app/profile/diploi.com">Bluesky</a>
+          </li>
+          <li>
+            <Icon
+              name="LinkedinLogo"
+              class="footer-social-link-icon linkedin"
+            />
+            <a href="https://www.linkedin.com/company/diploidev/">LinkedIn</a>
+          </li>
+          <li>
+            <Icon
+              name="DevToLogo"
+              class="footer-social-link-icon devto"
+            />
+            <a href="https://dev.to/diploi">Dev.to</a>
+          </li>
+        </ul>
       </div>
     </div>
     <div class="bottom">
-      <p class="small builder">
-        <Icon size="1em" name="Square" weight="bold" />
-        <Icon size="1em" name="Triangle" weight="bold" />
-      </p>
+      <!-- <p class="small builder"> -->
+      <!--   <Icon size="1em" name="Square" weight="bold" /> -->
+      <!--   <Icon size="1em" name="Triangle" weight="bold" /> -->
+      <!-- </p> -->
       <p class="small cp">
         <Icon name="Copyright" size={16} weight="light" />
         2025 Diploi Oy
@@ -92,9 +108,12 @@ import Logo from './Logo.astro';
 
     p,
     a {
-      font-weight: 400;
-      color: var(--color-text-primary);
       font-size: 1rem;
+    }
+    a:not(.mail),
+    p {
+      color: var(--color-text-primary);
+      text-decoration: none;
     }
   }
 
@@ -116,34 +135,15 @@ import Logo from './Logo.astro';
     gap: var(--space-l);
   }
 
-  .socials {
-    display: flex;
-    align-items: center;
-    gap: var(--space-s);
-    > a {
-      display: flex;
-      align-items: center;
-      color: var(--color-text-secondary);
-      padding: var(--space-xs);
-
-      &:hover {
-        color: var(--color-text-primary);
-      }
-
-      svg {
-        fill: currentColor;
-      }
-    }
-  }
-
-  :global(.footer-social-link-icon) {
-    width: 1.5rem;
-    height: 1.5rem;
-  }
-
   .clickable {
     display: flex;
-    gap: 6rem;
+    flex-direction: column;
+    gap: var(--space-huge);
+
+    @include mixins.respond-to('tablet') {
+      flex-direction: row;
+      gap: 6rem;
+    }
   }
 
   address {
@@ -161,8 +161,7 @@ import Logo from './Logo.astro';
   label {
     color: var(--color-text-secondary);
     text-transform: uppercase;
-    font-size: 0.75rem;
-    font-weight: 400;
+    font-size: 1rem;
     letter-spacing: 0.3px;
     margin-bottom: var(--space-s);
   }
@@ -172,6 +171,33 @@ import Logo from './Logo.astro';
     flex-direction: column;
     align-items: flex-start;
     gap: var(--space-s);
+
+    &.socials {
+      margin-left: auto;
+      > li  {
+        :global(.footer-social-link-icon) {
+          fill: var(--color-text-tertiary);
+        }
+
+        &:hover {
+          :global(.footer-social-link-icon) {
+            fill: var(--color-text-primary);
+            &.devto {
+              fill: rgb(59, 73, 223);
+            }
+            &.bluesky {
+              fill: rgb(32, 139, 254);
+            }
+            &.linkedin {
+              fill: rgb(0, 96, 151);
+            }
+            &.github {
+              fill: white;
+            }
+          }
+        }
+      }
+    }
   }
 
   .bottom {
@@ -184,7 +210,7 @@ import Logo from './Logo.astro';
 
     @include mixins.respond-to('tablet') {
       flex-direction: row;
-      justify-content: space-between;
+      justify-content: center;
       color: var(--color-text-tertiary);
     }
     p {

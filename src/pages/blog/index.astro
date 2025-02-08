@@ -5,7 +5,7 @@ import Layout from '../../layouts/Layout.astro';
 import Navigation from '../../components/Navigation.astro';
 import Footer from '../../components/Footer.astro';
 import Article from '../../components/blog/Article.astro';
-import { PageTag, Section, GetStarted, SubSection } from '../../components';
+import { Section, GetStarted, SubSection, PageTitle } from '../../components';
 
 const contentArticles = await getCollection('blog');
 
@@ -26,11 +26,6 @@ const devtoArticles = await fetch(
 if (!devtoArticles) {
   throw new Error('Failed to load dev.to articles');
 }
-
-console.log(
-  'devtoArticles',
-  devtoArticles.map((item) => item.title),
-);
 
 const articles = [
   ...contentArticles.map((article) => ({
@@ -58,10 +53,7 @@ const articles = [
   <main>
     <Section>
       <div class="content">
-        <div class="title-and-description">
-          <PageTag title="Blog" />
-          <h2>See what the team has been up to</h2>
-        </div>
+        <PageTitle tagText="Blog" title="See what the team has been up to" />
         <div class="posts">
           {articles.map((article) => <Article {...article} />)}
         </div>
