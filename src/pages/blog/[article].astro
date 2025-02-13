@@ -1,25 +1,20 @@
 ---
-import { getCollection, render } from 'astro:content'
-import {
-  AirplaneTakeoff,
-  HandWaving,
-  User,
-  CalendarBlank,
-} from '@phosphor-icons/react'
-import Layout from '../../layouts/Layout.astro'
-import { Navigation, Footer, GetStarted, Section } from '../../components'
+import { getCollection, render } from 'astro:content';
+import { User, CalendarBlank } from '@phosphor-icons/react';
+import Layout from '../../layouts/Layout.astro';
+import { Navigation, Footer, GetStarted, Section } from '../../components';
 
 export async function getStaticPaths() {
-  const articles = await getCollection('blog')
+  const articles = await getCollection('blog');
   return articles.map((article) => ({
     params: { article: article.id },
     props: { entry: article },
-  }))
+  }));
 }
 
-const { entry } = Astro.props
+const { entry } = Astro.props;
 
-const { Content } = await render(entry)
+const { Content } = await render(entry);
 ---
 
 <Layout title={`Diploi – ${entry.data.title}`}>
@@ -191,11 +186,7 @@ const { Content } = await render(entry)
     width: calc(100% + 96px);
     height: calc(100% + 96px);
     border-radius: 24px;
-    background-image: linear-gradient(
-      -45deg,
-      var(--color-primary),
-      var(--color-secondary)
-    );
+    background-image: linear-gradient(-45deg, var(--color-primary), var(--color-secondary));
     opacity: 0.1;
     z-index: -1;
   }

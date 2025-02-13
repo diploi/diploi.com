@@ -13,19 +13,12 @@ export const featureCards: FeatureCard[] = [
   {
     title: 'One-Click',
     icon: 'CursorClick',
-    items: [
-      'Fast 30 second new developer onboarding',
-      'One-click environment setup',
-      'Instantly shareable testing environments',
-    ],
+    items: ['Fast 30 second new developer onboarding', 'One-click environment setup', 'Instantly shareable testing environments'],
   },
   {
     title: 'Zero-Install',
     icon: 'PlugsConnected',
-    items: [
-      'Zero-install remote development',
-      'Versatile support for any stack pre-build or custom',
-    ],
+    items: ['Zero-install remote development', 'Versatile support for any stack pre-build or custom'],
   },
 ];
 
@@ -49,25 +42,19 @@ export const content = {
     },
     effortlessDevelopment: {
       title: 'Effortless Development',
-      description:
-        'Develop remotely with Diploi using our fast browser IDE, or connect your own over SSH.',
-      points: [
-        'Zero-install Browser IDE',
-        'Local VS Code remote',
-        'SSH connection',
-      ],
+      description: 'Develop remotely with Diploi using our fast browser IDE, or connect your own over SSH.',
+      points: ['Zero-install Browser IDE', 'Local VS Code remote', 'SSH connection'],
     },
   },
   publishApp: {
     step: 3,
     title: 'Publish Your App',
     highlightedText: 'Publish',
-    description:
-      'We take care of the full lifecycle of your app. You can spin up any kind of environment with a single-click.',
+    description: 'We take care of the full lifecycle of your app. You can spin up any kind of environment with a single-click.',
   },
   timeAndResources: {
-    title: 'Save Time and Resources',
-    highlightedText: 'Time and Resources',
+    title: 'Benefits of Diploi',
+    highlightedText: 'Benefits',
     description:
       'These are real-life statistics from a web development company. Can you afford to ignore the benefits and savings from Diploi?',
     impactMetric: {

@@ -34,6 +34,8 @@ const { id, title, description, gridArea, icon, color, showDocker, showHelm } =
     <h3>{title}</h3>
     <p class="description">
       {description}
+    </p>
+    <div class="perks">
       {
         showHelm && (
           <span class="small feature-masonry-perk">
@@ -43,7 +45,7 @@ const { id, title, description, gridArea, icon, color, showDocker, showHelm } =
               width={18}
               height={18}
             />
-            Built on top of Kubernetes
+            Kubernetes
           </span>
         )
       }
@@ -51,11 +53,11 @@ const { id, title, description, gridArea, icon, color, showDocker, showHelm } =
         showDocker && (
           <span class="small feature-masonry-perk">
             <Image alt="docker logo" src={dockerLogo} width={20} height={20} />
-            Runs any Docker image
+            Docker
           </span>
         )
       }
-    </p>
+    </div>
   </div>
 </div>
 
@@ -74,17 +76,26 @@ const { id, title, description, gridArea, icon, color, showDocker, showHelm } =
     .title-and-description {
       z-index: 1;
     }
+
     .description {
       display: flex;
       flex-direction: column;
       gap: var(--space-s);
       align-items: center;
+    }
 
-      > span {
+    .perks {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-l);
+
+      span {
         display: flex;
         align-items: center;
         gap: var(--space-s);
         font-size: 1rem;
+        color: var(--color-text-secondary);
       }
     }
 
@@ -98,7 +109,7 @@ const { id, title, description, gridArea, icon, color, showDocker, showHelm } =
 
     @include mixins.respond-to('tablet') {
       @include mixins.card-desktop;
-      min-height: 14rem;
+      min-height: 17rem;
       text-align: center;
     }
   }

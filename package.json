@@ -30,8 +30,36 @@
     "simplex-noise": "^4.0.3"
   },
   "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "prettier": "^3.4.2",
     "prettier-plugin-astro": "^0.14.1",
-    "sharp": "^0.33.5"
+    "sharp": "^0.33.5",
+    "typescript": "^5.7.3"
+  },
+  "prettier": {
+    "printWidth": 140,
+    "trailingComma": "es5",
+    "singleQuote": true,
+    "importOrderCaseInsensitive": true,
+    "importOrder": [
+      "^react$",
+      "^react/(.*)$",
+      "<THIRD_PARTY_MODULES>",
+      "@phosphor-icons",
+      "@phosphor-icons/react",
+      "^[./]"
+    ],
+    "plugins": [
+      "prettier-plugin-astro",
+      "@trivago/prettier-plugin-sort-imports"
+    ],
+    "overrides": [
+      {
+        "files": "*.astro",
+        "options": {
+          "parser": "astro"
+        }
+      }
+    ]
   }
 }

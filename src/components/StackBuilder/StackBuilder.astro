@@ -26,7 +26,7 @@ import Icon from '../Icon.astro';
           ))
         }
       </div>
-      <ArrowLink href="TODO" text="Read More" />
+      <ArrowLink href="TODO" text="Browse All" />
     </div>
     <div class="header addons">
       <SubSectionHeader
@@ -42,7 +42,7 @@ import Icon from '../Icon.astro';
           ))
         }
       </div>
-      <ArrowLink href="TODO" text="Read More" />
+      <ArrowLink href="TODO" text="Browse All" />
     </div>
     <article class="code-card">
       <label>config.yaml</label>
@@ -67,7 +67,7 @@ import Icon from '../Icon.astro';
         </span>
       </span>
     </button>
-    <p class="small">Try Diploi with a single-click.</p>
+    <!-- <p class="small">Try Diploi with a single-click.</p> -->
   </div>
 </div>
 <script>
@@ -81,34 +81,34 @@ import Icon from '../Icon.astro';
   const defaultComponentId = 'reactVite';
   const defaultAddonId = 'postgres';
 
-  <!-- const defaultComponentButton = document.querySelector( -->
-  <!--   `.stack-builder-button.component[data-id="${defaultComponentId}"]`, -->
-  <!-- ); -->
-  <!-- if (defaultComponentButton) { -->
-  <!--   defaultComponentButton.classList.add('is-selected'); -->
-  <!--   const checkbox = defaultComponentButton.querySelector( -->
-  <!--     'input[type="checkbox"]', -->
-  <!--   ); -->
-  <!--   if (checkbox) { -->
-  <!--     checkbox.checked = true; -->
-  <!--   } -->
-  <!--   selectedComponentIds.push(defaultComponentId); -->
-  <!-- } -->
-  <!---->
-  <!-- const defaultAddonButton = document.querySelector( -->
-  <!--   `.stack-builder-button.addon[data-id="${defaultAddonId}"]`, -->
-  <!-- ); -->
-  <!-- if (defaultAddonButton) { -->
-  <!--   defaultAddonButton.classList.add('is-selected'); -->
-  <!--   const checkbox = defaultAddonButton.querySelector('input[type="checkbox"]'); -->
-  <!--   if (checkbox) { -->
-  <!--     checkbox.checked = true; -->
-  <!--   } -->
-  <!--   selectedAddonIds.push(defaultAddonId); -->
-  <!-- } -->
+  // <!-- const defaultComponentButton = document.querySelector( -->
+  // <!--   `.stack-builder-button.component[data-id="${defaultComponentId}"]`, -->
+  // <!-- ); -->
+  // <!-- if (defaultComponentButton) { -->
+  // <!--   defaultComponentButton.classList.add('is-selected'); -->
+  // <!--   const checkbox = defaultComponentButton.querySelector( -->
+  // <!--     'input[type="checkbox"]', -->
+  // <!--   ); -->
+  // <!--   if (checkbox) { -->
+  // <!--     checkbox.checked = true; -->
+  // <!--   } -->
+  // <!--   selectedComponentIds.push(defaultComponentId); -->
+  // <!-- } -->
+  // <!---->
+  // <!-- const defaultAddonButton = document.querySelector( -->
+  // <!--   `.stack-builder-button.addon[data-id="${defaultAddonId}"]`, -->
+  // <!-- ); -->
+  // <!-- if (defaultAddonButton) { -->
+  // <!--   defaultAddonButton.classList.add('is-selected'); -->
+  // <!--   const checkbox = defaultAddonButton.querySelector('input[type="checkbox"]'); -->
+  // <!--   if (checkbox) { -->
+  // <!--     checkbox.checked = true; -->
+  // <!--   } -->
+  // <!--   selectedAddonIds.push(defaultAddonId); -->
+  // <!-- } -->
 
   launchButton.disabled =
-    selectedComponentIds.length === 0 || selectedAddonIds.length === 0;
+    selectedComponentIds.length === 0 && selectedAddonIds.length === 0;
 
   const toggleSelection = (currentSelectedIds, id) => {
     let nextSelectedIds = currentSelectedIds;
@@ -144,7 +144,7 @@ import Icon from '../Icon.astro';
       }
 
       launchButton.disabled =
-        selectedComponentIds.length === 0 || selectedAddonIds.length === 0;
+        selectedComponentIds.length === 0 && selectedAddonIds.length === 0;
     });
   });
 </script>

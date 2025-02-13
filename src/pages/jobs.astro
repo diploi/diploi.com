@@ -1,129 +1,97 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import {
-  Section,
-  PageTag,
-  SectionHeader,
-  SubSection,
-  SubSectionHeader,
-  Icon,
-  Card,
-  Navigation,
-  Footer,
-  PageTitle,
-} from '../components';
+import { Section, SubSection, SubSectionHeader, Icon, Navigation, Footer, PageTitle } from '../components';
 ---
 
-<Layout title="Diploi – Careers">
+<Layout title="Diploi – Jobs">
   <Navigation selected="jobs" />
   <main>
     <Section isNarrow>
-      <PageTitle tagText="Careers" title="Join Us" />
+      <PageTitle tagText="Jobs" title="Join Us" />
       <SubSection>
         <SubSectionHeader title="Who We Are" icon="HandWaving" />
 
         <p>
-          Diploi is redefining cloud development with a <b>simple</b>, <b
-            >scalable</b
-          >, and <b>powerful</b> PaaS solution. Our goal is to provide a Developer
-          Experience that looks and feels just <span class="text-gradient"
-            >magical</span
-          >.
+          Diploi is redefining cloud development with a <b>simple</b>,
+          <b>scalable</b>, and <b>powerful</b> PaaS solution. Our goal is to provide a Developer Experience that looks and feels just
+          <span class="text-gradient">magical</span>.
           <br /><br />
-          We're still early on, but with recent funding and a vision to innovate
-          – we aim to grow fast. Now, we’re looking for passionate people to join
-          us.
+          We're still early on, but with recent funding and and a mindset to innovate, we aim to grow fast! Now, we’re looking for more passionate
+          people to join us.
         </p>
       </SubSection>
       <SubSection>
-        <SubSectionHeader
-          title="Who We're Looking For"
-          icon="MagnifyingGlass"
-        />
-        <p>We are hiring Software Developers who obsess with:</p>
+        <SubSectionHeader title="Who We're Looking For" icon="MagnifyingGlass" />
+        <p>We are hiring Software Developers who obsess with</p>
         <ul class="checks">
           <li>
             <Icon isGradient name="CheckSquare" weight="regular" /> Developer Experience
           </li>
           <li>
-            <Icon isGradient name="CheckSquare" weight="regular" /> Scalability &amp;
-            Performance
+            <Icon isGradient name="CheckSquare" weight="regular" /> Scalability &amp; Performance
           </li>
           <li>
-            <Icon isGradient name="CheckSquare" weight="regular" /> Reliability &amp;
-            Security
+            <Icon isGradient name="CheckSquare" weight="regular" /> Reliability &amp; Security
           </li>
           <li>
-            <Icon isGradient name="CheckSquare" weight="regular" /> Working on hard
-            tasks and having a good time
+            <Icon isGradient name="CheckSquare" weight="regular" /> Working on hard tasks and having a good time
           </li>
         </ul>
         <p>
-          <b>Bonus points:</b> Experience with social media and online publishing
+          Experience with social media and online publishing is seen as a bonus.
           <br /><br />
-          You don’t need to check every box, but if you’re <b
-            >curious, driven, and love solving hard problems</b
-          >, we’d love to hear from you.
+          You don’t need to check every box, but if you’re <b>curious, driven and love solving hard problems</b>, we’d love to hear from
+          you!
         </p>
       </SubSection>
       <SubSection>
-        <SubSectionHeader
-          title="Open Positions"
-          icon="UserCircleDashed"
-          isGradient
-        />
+        <SubSectionHeader title="Open Positions" icon="UserCircleDashed" />
         <ul class="positions">
           <hr />
           <li>
-            <Icon name="CodeBlock" weight="regular" sizeRem={2} class='job-position-icon' />
+            <Icon name="CodeBlock" weight="regular" sizeRem={2} class="job-position-icon" />
             <h3>Full-Stack Engineer</h3>
             <p>Work across frontend & backend to enhance our solution.</p>
           </li>
 
           <hr />
           <li>
-            <Icon name="HeadCircuit" weight="regular" sizeRem={2} class='job-position-icon' />
+            <Icon name="HeadCircuit" weight="regular" sizeRem={2} class="job-position-icon" />
             <h3>Backend / DevOps Engineer</h3>
             <p>Focus on performance, reliability, and cloud automation.</p>
           </li>
           <hr />
           <li>
-            <Icon name="RocketLaunch" weight="regular" sizeRem={2} class='job-position-icon' />
+            <Icon name="RocketLaunch" weight="regular" sizeRem={2} class="job-position-icon" />
             <h3>Growth Hacker</h3>
             <p>Help optimize our go-to-market strategy.</p>
           </li>
           <hr />
         </ul>
         <p>
-          <b>Not seeing your role or you might tick several boxes?</b> Reach out
-          anyways — we’re looking for exceptional talent.
+          <b>Not seeing your role or you might tick several boxes?</b> Reach out anyway, because we’re looking for exceptional talent!
         </p>
       </SubSection>
       <SubSection>
         <article class="card large">
           <div class="title-and-description">
             <h2>
-              <Icon isGradient name="EnvelopeOpen" isGradient sizeRem={3} /> How to
-              apply
+              <Icon isGradient name="EnvelopeOpen" isGradient sizeRem={3} /> How to apply
             </h2>
             <p>
-              Email us at <a href="mailto:hiring@diploi.com"
-                >hiring@diploi.com</a
-              >
-              with:
+              Email us at
+              <a href="mailto:hiring@diploi.com">hiring@diploi.com</a>
+              with
             </p>
             <ul class="checks">
               <li>
-                <Icon name="ArrowRight" weight="regular" /> Your resume / LinkedIn
-                / GitHub
+                <Icon name="ArrowRight" weight="regular" /> Your resume / LinkedIn / GitHub
               </li>
               <li>
-                <Icon name="ArrowRight" weight="regular" /> A short intro about why
-                you’re interested
+                <Icon name="ArrowRight" weight="regular" /> A short intro about why you’re interested
               </li>
               <li>
-                <Icon name="ArrowRight" weight="regular" /> Any projects or code
-                you’re proud of
+                <Icon name="ArrowRight" weight="regular" /> Any projects or code you’re proud of
               </li>
             </ul>
             <p>
@@ -185,17 +153,17 @@ import {
       position: relative;
       overflow: hidden;
 
-       :global(.job-position-icon) {
-         @include mixins.card-bg-icon;
-         @include mixins.respond-to('tablet') {
-           left: unset;
-           right: 0;
-           width: 8rem !important;
-           height: 8rem !important;
-           top: 50%;
-           transform: translate(0%, -50%);
-         }
-       }
+      :global(.job-position-icon) {
+        @include mixins.card-bg-icon;
+        @include mixins.respond-to('tablet') {
+          left: unset;
+          right: 0;
+          width: 8rem !important;
+          height: 8rem !important;
+          top: 50%;
+          transform: translate(0%, -50%);
+        }
+      }
 
       > svg {
         margin-bottom: var(--space-m);
@@ -212,8 +180,6 @@ import {
       }
     }
   }
-
-
 
   .card {
     @include mixins.card-desktop;

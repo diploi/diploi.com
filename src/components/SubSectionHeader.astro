@@ -5,17 +5,15 @@ type Props = {
   title: string;
   description?: string;
   class?: string;
-  icon: keyof typeof icons;
+  icon?: keyof typeof icons;
 };
 
-const { title, description, step, class: className, icon  } = Astro.props;
-
-
+const { title, description, class: className, icon } = Astro.props;
 ---
 
 <div class:list={['sub-section-header', className]}>
   <h3 class="heading">
-    {icon && <Icon name={icon} isGradient sizeRem={3} weight='regular' />}
+    {icon && <Icon name={icon} isGradient sizeRem={3} weight="regular" />}
     {title}
   </h3>
   {description && <p>{description}</p>}

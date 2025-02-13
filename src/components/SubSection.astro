@@ -1,15 +1,16 @@
 ---
-import SubSectionHeader from './SubSectionHeader.astro'
+import SubSectionHeader from './SubSectionHeader.astro';
 type Props = {
-  title: string
-  description?: string
-  class?: string
-}
+  title?: string;
+  description?: string;
+  class?: string;
+};
 
-const { title, description, step, class: className } = Astro.props
+const { title, description, class: className } = Astro.props;
 ---
+
 <div class:list={['sub-section', className]}>
-  <SubSectionHeader title={title} description={description} />
+  {title && <SubSectionHeader title={title} description={description} />}
   <slot />
 </div>
 

@@ -1,17 +1,14 @@
 ---
 import { getCollection } from 'astro:content';
-import { AirplaneTakeoff, HandWaving } from '@phosphor-icons/react';
 import Layout from '../../layouts/Layout.astro';
 import Navigation from '../../components/Navigation.astro';
 import Footer from '../../components/Footer.astro';
 import Article from '../../components/blog/Article.astro';
-import { Section, GetStarted, SubSection, PageTitle } from '../../components';
+import { Section, GetStarted, PageTitle } from '../../components';
 
 const contentArticles = await getCollection('blog');
 
-const devtoArticles = await fetch(
-  'https://dev.to/api/articles?username=diploi&state=all',
-).then(
+const devtoArticles = await fetch('https://dev.to/api/articles?username=diploi&state=all').then(
   (response) =>
     response.json() as Promise<
       {
@@ -21,7 +18,7 @@ const devtoArticles = await fetch(
         published_timestamp: string;
         user: { name: string };
       }[]
-    >,
+    >
 );
 if (!devtoArticles) {
   throw new Error('Failed to load dev.to articles');
@@ -43,9 +40,7 @@ const articles = [
     timestamp: article.published_timestamp,
     author: article.user.name.split(' ')[0],
   })),
-].sort(
-  (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime(),
-);
+].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
 ---
 
 <Layout title="Diploi – Blog">

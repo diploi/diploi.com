@@ -1,18 +1,17 @@
 ---
-import Gradient from '../components/Gradient.astro'
-import icon from '../images/logo-icon.svg'
-import og from '../images/og.png'
-import GlobalStyles from '../components/GlobalStyles.astro'
+import Gradient from '../components/Gradient.astro';
+import icon from '../images/logo-icon.svg';
+import og from '../images/og.png';
+import GlobalStyles from '../components/GlobalStyles.astro';
 
 interface Props {
-  title: string
-  description?: string
+  title: string;
+  description?: string;
 }
 
-const defaultDescription =
-  'Single SaaS service for managing, developing and hosting your full application.'
+const defaultDescription = 'Single SaaS service for managing, developing and hosting your full application.';
 
-const { title, description = defaultDescription } = Astro.props
+const { title, description = defaultDescription } = Astro.props;
 ---
 
 <!doctype html>
@@ -54,10 +53,7 @@ const { title, description = defaultDescription } = Astro.props
 
     <link rel="stylesheet" href="/styles/mixins/breakpoints.scss" />
 
-    <meta
-      name="google-site-verification"
-      content="XopKlvNBmdLaTZtElCt9bkAVDuqrRL-5Ist_6Ecth-o"
-    />
+    <meta name="google-site-verification" content="XopKlvNBmdLaTZtElCt9bkAVDuqrRL-5Ist_6Ecth-o" />
   </head>
   <body class="body">
     <slot />
@@ -65,59 +61,55 @@ const { title, description = defaultDescription } = Astro.props
     <Gradient />
 
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-182JME5104"
-    ></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-182JME5104"></script>
     <script is:inline>
-      window.dataLayer = window.dataLayer || []
+      window.dataLayer = window.dataLayer || [];
       function gtag() {
-        dataLayer.push(arguments)
+        dataLayer.push(arguments);
       }
-      gtag('js', new Date())
-      gtag('config', 'G-182JME5104')
+      gtag('js', new Date());
+      gtag('config', 'G-182JME5104');
     </script>
   </body>
 </html>
 
 <script>
   window.addEventListener('DOMContentLoaded', () => {
-    const targets = document.querySelectorAll('.on-scroll')
+    const targets = document.querySelectorAll('.on-scroll');
 
     const observer = new IntersectionObserver(
       (entries) =>
         entries.forEach((entry) => {
-          if (
-            entry.isIntersecting &&
-            entry.target.classList.contains('on-scroll')
-          ) {
-            entry.target.classList.remove('on-scroll')
+          if (entry.isIntersecting && entry.target.classList.contains('on-scroll')) {
+            entry.target.classList.remove('on-scroll');
 
             setTimeout(() => {
-              entry.target.classList.add('visible')
+              entry.target.classList.add('visible');
 
               setTimeout(() => {
-                entry.target.classList.add('done')
-              }, 2000)
-            }, 500)
+                entry.target.classList.add('done');
+              }, 2000);
+            }, 500);
           }
         }),
       {
         threshold: 0.5,
-      },
-    )
+      }
+    );
 
-    targets.forEach((target) => observer.observe(target))
-  })
+    targets.forEach((target) => observer.observe(target));
+  });
 
   window.addEventListener('DOMContentLoaded', () => {
-    const events = document.querySelectorAll('[data-event]')
+    const events = document.querySelectorAll('[data-event]');
 
     events.forEach((element) =>
       element.addEventListener('click', () => {
         // @ts-ignore
-        gtag('event', element.getAttribute('data-event'))
-      }),
-    )
-  })
+        gtag('event', element.getAttribute('data-event'));
+      })
+    );
+  });
 </script>
 
 <GlobalStyles />

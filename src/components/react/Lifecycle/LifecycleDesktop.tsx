@@ -8,7 +8,7 @@ import { useCallback, useEffect, useState, type ReactNode } from 'react';
 import { useLifecycleSprings } from './useLifecycleSprings';
 import { drawHalfCirclePath, getX } from './lib';
 
-const CARD_HEIGHT_PX = 128 + 16;
+const CARD_HEIGHT_PX = 160 + 16;
 const TIMEOUT_MS = 3000;
 
 type LifecycleDesktopProps = {

@@ -16,7 +16,7 @@ import Logo from './Logo.astro';
             <a href="/pricing">Pricing</a>
           </li>
           <li>
-            <a href="/jobs">Careers</a>
+            <a href="/jobs">Jobs</a>
           </li>
           <li>
             <a>Blog</a>
@@ -68,10 +68,10 @@ import Logo from './Logo.astro';
       </div>
     </div>
     <div class="bottom">
-      <!-- <p class="small builder"> -->
-      <!--   <Icon size="1em" name="Square" weight="bold" /> -->
-      <!--   <Icon size="1em" name="Triangle" weight="bold" /> -->
-      <!-- </p> -->
+      <p class="small builder">
+        <Icon sizeRem={0.875} name="Square" weight="bold" />
+        <Icon sizeRem={0.875} name="Triangle" weight="bold" />
+      </p>
       <p class="small cp">
         <Icon name="Copyright" size={16} weight="light" />
         2025 Diploi Oy
@@ -203,6 +203,7 @@ import Logo from './Logo.astro';
   .bottom {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     color: var(--color-text-secondary);
     padding-top: var(--space-huge);
     gap: var(--space-l);
@@ -210,7 +211,7 @@ import Logo from './Logo.astro';
 
     @include mixins.respond-to('tablet') {
       flex-direction: row;
-      justify-content: center;
+      justify-content: space-between;
       color: var(--color-text-tertiary);
     }
     p {
@@ -232,6 +233,7 @@ import Logo from './Logo.astro';
       color: inherit;
       gap: var(--space-xs);
       color: var(--color-text-tertiary);
+
       > svg {
         fill: currentColor;
       }

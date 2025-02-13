@@ -22,8 +22,7 @@ export const featureMasonryItems: TFeatureMasonryItem[] = [
   {
     id: 'zero-install',
     title: 'Zero-Install Environments',
-    description:
-      'Spin up fully configured dev environments instantly—no local setup required.',
+    description: 'Spin up dev environments instantly—no local setup required.',
     gridArea: gridArea.topRight,
     color: '#FFC53D',
     icon: 'MagicWand',
@@ -66,17 +65,16 @@ export const featureMasonryItems: TFeatureMasonryItem[] = [
     id: 'infrastructure-as-code',
     title: 'Infrastructure as Code',
     description:
-      'Your entire infrastructure configuration will be stored in a single YAML file.',
-    gridArea: gridArea.center,
+      'Consistent, predictable environments. Your entire infrastructure configuration will be stored in a single YAML file.',
+    gridArea: gridArea.topLeft,
     color: '#ec609c',
     icon: 'CodeBlock',
   },
   {
     id: 'custom-components',
     title: 'Custom Components',
-    description:
-      'Add custom components to your monorepo for complete control and easy reuse.',
-    gridArea: gridArea.topLeft,
+    description: 'Add custom components to your monorepo for complete control.',
+    gridArea: gridArea.center,
     color: '#6E56CF',
     icon: 'PuzzlePiece',
     showDocker: true,
