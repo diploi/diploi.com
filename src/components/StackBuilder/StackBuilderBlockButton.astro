@@ -1,32 +1,41 @@
 ---
-import { Image } from 'astro:assets'
-import Checkbox from '../Checkbox.astro'
-import { TStackBuilderBlock } from './types'
+import { Image } from 'astro:assets';
+import Checkbox from '../Checkbox.astro';
+import type { TStackBuilderBlock } from './types';
 
 type Props = TStackBuilderBlock & {
-  class: string
-}
+  class: string;
+};
 
-const { label, iconSrc, iconAlt, class: className, id } = Astro.props
+const { componentID, type, name, url, class: className } = Astro.props;
+
+export const extractRepositoryOwnerAndRepo = (repositoryUrl: string) => {
+  let url = repositoryUrl;
+  if (!url.endsWith('.git')) url = `${url}.git`;
+
+  const regex = /https:\/\/github\.com\/(.*)\.git/g.exec(url);
+  if (!regex || !regex[1]) throw new Error('Failed to parse Git repo');
+  const [owner, repo] = regex[1]?.split('/') || [];
+  return { owner, repo };
+};
+
+const { owner, repo } = extractRepositoryOwnerAndRepo(url);
+
+const imageSrc = `https://diploi.b-cdn.net/component/${owner}/${repo}/icon.svg?ref=main`;
 ---
 
-<button class:list={['stack-builder-button', className]} data-id={id}>
+<button class:list={['stack-builder-button', className]} data-id={componentID}>
   <div class="label">
-    <Image
-      alt={iconAlt}
-      src={iconSrc}
-      decoding="async"
-      loading="lazy"
-      class="icon"
-    />
+    <Image alt={`${type} icon`} src={imageSrc} class="icon" width={28} height={28} />
 
-    {label}
+    {name}
   </div>
-  <Checkbox />
+  <Checkbox id={`${componentID}-checkbox`} tabIndex={-1} checked={className.includes('is-selected')} />
 </button>
 
 <style lang="scss">
   @use '../../styles/mixins';
+
   .stack-builder-button {
     @include mixins.gradient-border;
     padding: var(--space-xl);
@@ -35,6 +44,7 @@ const { label, iconSrc, iconAlt, class: className, id } = Astro.props
     @include mixins.gradient-bg;
     font-size: 1rem;
     background: var(--color-bg-secondary);
+    cursor: pointer;
 
     @include mixins.respond-to('tablet') {
       padding: var(--space-l);
@@ -46,28 +56,14 @@ const { label, iconSrc, iconAlt, class: className, id } = Astro.props
     }
 
     &.is-selected {
-      @include mixins.gradient-border(
-        var(--color-accent-primary),
-        var(--color-accent-primary)
-      );
-      background: linear-gradient(
-        to bottom,
-        var(--color-accent-primary-20),
-        transparent
-      );
+      @include mixins.gradient-border(var(--color-accent-primary), var(--color-accent-primary));
+      background: linear-gradient(to bottom, var(--color-accent-primary-20), transparent);
 
       background-color: var(--color-bg-secondary);
 
       &:hover {
-        @include mixins.gradient-border(
-          var(--color-accent-primary),
-          var(--color-accent-primary-hover)
-        );
-        background: linear-gradient(
-          to bottom,
-          var(--color-accent-primary-20),
-          var(--color-bg-secondary-20)
-        );
+        @include mixins.gradient-border(var(--color-accent-primary), var(--color-accent-primary-hover));
+        background: linear-gradient(to bottom, var(--color-accent-primary-20), var(--color-bg-secondary-20));
       }
     }
   }

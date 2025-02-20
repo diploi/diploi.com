@@ -6,8 +6,6 @@
   ],
   "compilerOptions": {
     "jsx": "react-jsx",
-    "tsx": "react-tsx",
-    "tsxImportSource": "react",
     "jsxImportSource": "react",
     "allowJs": true,
     "typeRoots": [

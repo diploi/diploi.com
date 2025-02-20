@@ -1,21 +1,16 @@
 ---
 interface Props {
-  label: string
-  id: string
-  checked?: boolean
-  disabled?: boolean
+  label?: string;
+  id: string;
+  checked?: boolean;
+  disabled?: boolean;
+  tabIndex?: number;
 }
-const { label, id, checked = false, disabled = false } = Astro.props
+const { label, id, checked = false, disabled = false, tabIndex } = Astro.props;
 ---
 
 <label class="root" for={id}>
-  <input
-    type="checkbox"
-    id={id}
-    class="checkbox-input"
-    checked={checked}
-    disabled={disabled}
-  />
+  <input type="checkbox" id={id} class="checkbox-input" checked={checked} disabled={disabled} tabindex={tabIndex} />
   <span class="checkbox">
     <!-- Checkmark SVG -->
     <svg viewBox="0 0 24 24" aria-hidden="true">

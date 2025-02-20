@@ -1,60 +1,71 @@
 ---
-import { Code } from 'astro:components';
-import { shikiTheme } from '../../shiki-theme';
-import { components, addons, mockYaml } from './data';
 import StackBuilderBlockButton from './StackBuilderBlockButton.astro';
 import SubSectionHeader from '../SubSectionHeader.astro';
 import ArrowLink from '../ArrowLink.astro';
 import Icon from '../Icon.astro';
+import { componentsToYamlHtml as componentsToYamlHtmlBuildTime } from './yamlFormatter';
 
+const {
+  result: { data },
+} = await fetch(`${import.meta.env.VITE_API_URL}/api/trpc/stack.listPreviewComponents`).then((response) => response.json());
+if (!data || data.status !== 'ok') {
+  throw new Error(`Failed to load pricing (${data})`);
+}
+
+const components = data.components as {
+  componentID: number;
+  type: 'component' | 'addon';
+  identifier: string;
+  name: string;
+  url: string;
+}[];
+
+const defaultComponentIds = [1, 101];
+
+const yamlHtml = componentsToYamlHtmlBuildTime({ selectedComponentIds: defaultComponentIds, components });
 ---
 
-<div class="stack-builder">
+<div class="stack-builder" data-components={JSON.stringify(components)}>
   <div class="grid">
     <div class="header components">
-      <SubSectionHeader
-        title="Components"
-        description="Base blocks of your Stack. All code is editable."
-        class="header-components"
-      />
+      <SubSectionHeader title="Components" description="Base blocks of your Stack. All code is editable." class="header-components" />
     </div>
     <div class="blocks-container components">
       <div class="blocks components">
         {
-          components.map((component) => (
-            <StackBuilderBlockButton {...component} class="component" />
-          ))
+          components
+            .filter((component) => component.type === 'component')
+            .map((component) => (
+              <StackBuilderBlockButton
+                {...component}
+                class={`component ${defaultComponentIds.includes(component.componentID) ? 'is-selected' : ''}`}
+              />
+            ))
         }
       </div>
       <ArrowLink href="TODO" text="Browse All" />
     </div>
     <div class="header addons">
-      <SubSectionHeader
-        title="Add-ons"
-        description="Complementary services. Configurable with config."
-      />
+      <SubSectionHeader title="Add-ons" description="Complementary services. Configurable with config." />
     </div>
     <div class="blocks-container addons">
       <div class="blocks addons">
         {
-          addons.map((addon) => (
-            <StackBuilderBlockButton {...addon} class="addon" />
-          ))
+          components
+            .filter((component) => component.type === 'addon')
+            .map((addon) => (
+              <StackBuilderBlockButton {...addon} class={`addon ${defaultComponentIds.includes(addon.componentID) ? 'is-selected' : ''}`} />
+            ))
         }
       </div>
       <ArrowLink href="TODO" text="Browse All" />
     </div>
-    <article class="code-card">
-      <label>config.yaml</label>
-      <Code
-        wrap
-        code={mockYaml}
-        lang="yaml"
-        class="code"
-        defaultColor={false}
-        theme={shikiTheme}
-      />
-    </article>
+    <div class="code-side">
+      <article class="code-card">
+        <label>config.yaml</label>
+        <Fragment set:html={yamlHtml} />
+      </article>
+    </div>
   </div>
   <div class="ctas">
     <button id="button-launch-stack" class="secondary" disabled>
@@ -63,7 +74,7 @@ import Icon from '../Icon.astro';
         Launch Stack
 
         <span class="rocket">
-          <Icon name="Rocket"  weight="regular" />
+          <Icon name="Rocket" weight="regular" />
         </span>
       </span>
     </button>
@@ -71,46 +82,21 @@ import Icon from '../Icon.astro';
   </div>
 </div>
 <script>
-  let selectedComponentIds = [];
-  let selectedAddonIds = [];
-
-  const launchButton = document.getElementById('button-launch-stack');
-  launchButton.disabled = true;
+  let preview = document.querySelector('pre.shiki')?.parentNode as HTMLElement;
   const buttons = document.querySelectorAll('.stack-builder-button');
 
-  const defaultComponentId = 'reactVite';
-  const defaultAddonId = 'postgres';
+  const components = JSON.parse((document.querySelector('[data-components]') as HTMLElement).getAttribute('data-components') || '');
 
-  // <!-- const defaultComponentButton = document.querySelector( -->
-  // <!--   `.stack-builder-button.component[data-id="${defaultComponentId}"]`, -->
-  // <!-- ); -->
-  // <!-- if (defaultComponentButton) { -->
-  // <!--   defaultComponentButton.classList.add('is-selected'); -->
-  // <!--   const checkbox = defaultComponentButton.querySelector( -->
-  // <!--     'input[type="checkbox"]', -->
-  // <!--   ); -->
-  // <!--   if (checkbox) { -->
-  // <!--     checkbox.checked = true; -->
-  // <!--   } -->
-  // <!--   selectedComponentIds.push(defaultComponentId); -->
-  // <!-- } -->
-  // <!---->
-  // <!-- const defaultAddonButton = document.querySelector( -->
-  // <!--   `.stack-builder-button.addon[data-id="${defaultAddonId}"]`, -->
-  // <!-- ); -->
-  // <!-- if (defaultAddonButton) { -->
-  // <!--   defaultAddonButton.classList.add('is-selected'); -->
-  // <!--   const checkbox = defaultAddonButton.querySelector('input[type="checkbox"]'); -->
-  // <!--   if (checkbox) { -->
-  // <!--     checkbox.checked = true; -->
-  // <!--   } -->
-  // <!--   selectedAddonIds.push(defaultAddonId); -->
-  // <!-- } -->
+  let selectedComponentIds: number[] = [...document.querySelectorAll('.stack-builder-button.is-selected')].map((element) =>
+    parseInt(element.getAttribute('data-id') || '0')
+  );
 
-  launchButton.disabled =
-    selectedComponentIds.length === 0 && selectedAddonIds.length === 0;
+  const launchButton = document.getElementById('button-launch-stack') as HTMLButtonElement;
+  launchButton.disabled = selectedComponentIds.length === 0;
 
-  const toggleSelection = (currentSelectedIds, id) => {
+  const { componentsToYamlHtml } = await import('./yamlFormatter');
+
+  const toggleSelection = (currentSelectedIds: number[], id: number) => {
     let nextSelectedIds = currentSelectedIds;
     if (nextSelectedIds.includes(id)) {
       nextSelectedIds = nextSelectedIds.filter((blockId) => blockId !== id);
@@ -121,36 +107,37 @@ import Icon from '../Icon.astro';
   };
 
   buttons.forEach((button) => {
+    const checkbox = button.querySelector('input[type="checkbox"]') as HTMLInputElement;
+    checkbox.checked = button.classList.contains('is-selected');
+
     button.addEventListener('click', (event) => {
       event.preventDefault();
 
       button.classList.toggle('is-selected');
 
-      const checkbox = button.querySelector('input[type="checkbox"]');
-      if (checkbox) {
-        checkbox.checked = !checkbox.checked;
-      }
+      const isSelected = button.classList.contains('is-selected');
+      checkbox.checked = isSelected;
 
-      const id = button.getAttribute('data-id');
-      const isComponent = button.classList.contains('component');
-      const isAddon = button.classList.contains('addon');
+      const id = parseInt(button.getAttribute('data-id') || '0');
+      selectedComponentIds = toggleSelection(selectedComponentIds, id);
 
-      if (isComponent) {
-        selectedComponentIds = toggleSelection(selectedComponentIds, id);
-      }
+      preview.querySelector('.shiki')?.remove();
+      preview.insertAdjacentHTML('beforeend', componentsToYamlHtml({ selectedComponentIds, components }));
 
-      if (isAddon) {
-        selectedAddonIds = toggleSelection(selectedAddonIds, id);
-      }
-
-      launchButton.disabled =
-        selectedComponentIds.length === 0 && selectedAddonIds.length === 0;
+      launchButton.disabled = selectedComponentIds.length === 0;
     });
   });
 </script>
 
 <style lang="scss">
   @use '../../styles/mixins';
+
+  .code-side {
+    grid-area: preview;
+    overflow: hidden;
+    max-height: 400px;
+    mask-image: linear-gradient(to bottom, white 80%, transparent);
+  }
 
   .code-card {
     @include mixins.card-desktop;
@@ -171,9 +158,11 @@ import Icon from '../Icon.astro';
       font-family: var(--font-body);
       font-size: 0.875rem;
     }
-    pre {
+
+    :global(pre) {
       margin: 0 !important;
       font-size: 1rem !important;
+      white-space: pre-wrap;
     }
   }
 
@@ -200,11 +189,7 @@ import Icon from '../Icon.astro';
       padding: 1px;
       border-radius: inherit;
       filter: saturate(2);
-      background: linear-gradient(
-        to right,
-        var(--color-accent-primary),
-        var(--color-accent-secondary)
-      );
+      background: linear-gradient(to right, var(--color-accent-primary), var(--color-accent-secondary));
       -webkit-mask:
         linear-gradient(white 0 0) content-box,
         linear-gradient(white 0 0);

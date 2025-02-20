@@ -1,8 +1,7 @@
-import { defineConfig } from 'astro/config'
-import react from '@astrojs/react'
-import sitemap from '@astrojs/sitemap'
-import mdx from '@astrojs/mdx'
-import { shikiTheme } from './src/shiki-theme'
+import mdx from '@astrojs/mdx';
+import react from '@astrojs/react';
+import sitemap from '@astrojs/sitemap';
+import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
@@ -15,11 +14,4 @@ export default defineConfig({
     sitemap(),
     mdx(),
   ],
-  markdown: {
-    syntaxHighlight: 'shiki',
-    shikiConfig: {
-      wrap: true,
-      theme: shikiTheme,
-    },
-  },
-})
+});

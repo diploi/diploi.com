@@ -1,7 +1,7 @@
 
 export type TStackBuilderBlock = {
-  id: string;
-  label: string;
-  iconSrc: ImageMetadata;
-  iconAlt: string;
+  componentID: number;
+  type: string;
+  name: string;
+  url: string;
 }
