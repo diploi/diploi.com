@@ -43,7 +43,7 @@ const yamlHtml = componentsToYamlHtmlBuildTime({ selectedComponentIds: defaultCo
             ))
         }
       </div>
-      <ArrowLink href="TODO" text="Browse All" />
+      <ArrowLink href={import.meta.env.VITE_API_URL} text="Browse All" />
     </div>
     <div class="header addons">
       <SubSectionHeader title="Add-ons" description="Complementary services. Configurable with config." />
@@ -58,7 +58,7 @@ const yamlHtml = componentsToYamlHtmlBuildTime({ selectedComponentIds: defaultCo
             ))
         }
       </div>
-      <ArrowLink href="TODO" text="Browse All" />
+      <ArrowLink href={import.meta.env.VITE_API_URL} text="Browse All" />
     </div>
     <div class="code-side">
       <article class="code-card">
@@ -68,7 +68,7 @@ const yamlHtml = componentsToYamlHtmlBuildTime({ selectedComponentIds: defaultCo
     </div>
   </div>
   <div class="ctas">
-    <button id="button-launch-stack" class="secondary" disabled>
+    <button id="button-launch-stack" class="secondary" data-url={import.meta.env.VITE_API_URL} disabled>
       <span class="blobs"></span>
       <span class="text">
         Launch Stack
@@ -127,6 +127,14 @@ const yamlHtml = componentsToYamlHtmlBuildTime({ selectedComponentIds: defaultCo
       launchButton.disabled = selectedComponentIds.length === 0;
     });
   });
+
+  launchButton.addEventListener('click', async () => {
+    launchButton.disabled = true;
+
+    const { launchStack } = await import('./launchStack');
+
+    launchStack({ button: launchButton, componentIds: selectedComponentIds, apiUrl: launchButton.getAttribute('data-url') || '' });
+  });
 </script>
 
 <style lang="scss">
@@ -179,6 +187,7 @@ const yamlHtml = componentsToYamlHtmlBuildTime({ selectedComponentIds: defaultCo
     position: relative;
     overflow: hidden;
     transition: border-color 300ms ease;
+    cursor: pointer;
 
     &::after {
       content: '';
