@@ -1,6 +1,5 @@
 ---
 import Icon from './Icon.astro';
-
 import Logo from './Logo.astro';
 
 interface Props {
@@ -30,42 +29,22 @@ const isJobs = selected === 'jobs';
         <a class="logo-mobile" href="/" data-selected={`${isHome}`}>
           <Logo width={96} />
         </a>
-        <a
-          data-event="pricing_click"
-          href="/pricing"
-          data-selected={`${isPricing}`}
-        >
-          <Icon
-            name="CreditCard"
-            weight={isPricing ? 'duotone' : 'regular'}
-            class="navigation-link-icon"
-          /> Pricing
+        <a data-event="pricing_click" href="/pricing" data-selected={`${isPricing}`}>
+          <Icon name="CreditCard" weight={isPricing ? 'duotone' : 'regular'} class="navigation-link-icon" /> Pricing
         </a>
         <a data-event="blog_click" href="/blog" data-selected={`${isBlog}`}>
-          <Icon
-            name="Newspaper"
-            weight={isBlog ? 'duotone' : 'regular'}
-            class="navigation-link-icon"
-          />
+          <Icon name="Newspaper" weight={isBlog ? 'duotone' : 'regular'} class="navigation-link-icon" />
           Blog
         </a>
-        <a data-event="blog_click" href="/jobs" data-selected={`${isJobs}`}>
-          <Icon
-            name="Briefcase"
-            weight={isJobs ? 'duotone' : 'regular'}
-            class="navigation-link-icon"
-          />
+        <a data-event="jobs_click" href="/jobs" data-selected={`${isJobs}`}>
+          <Icon name="Briefcase" weight={isJobs ? 'duotone' : 'regular'} class="navigation-link-icon" />
           Jobs
         </a>
         <a data-event="documentation_click" href="https://docs.diploi.com/">
-          <Icon
-            name="BookBookmark"
-            weight="regular"
-            class="navigation-link-icon"
-          />
+          <Icon name="BookBookmark" weight="regular" class="navigation-link-icon" />
           Documentation
         </a>
-        <a data-event="login_click" href="https://console.diploi.com/login">
+        <a data-event="login_click" href="https://console.diploi.com">
           <Icon name="SignIn" weight="regular" class="navigation-link-icon" />
           Login / Sign Up
         </a>
