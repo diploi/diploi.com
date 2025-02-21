@@ -64,8 +64,7 @@ export const featureMasonryItems: TFeatureMasonryItem[] = [
   {
     id: 'infrastructure-as-code',
     title: 'Infrastructure as Code',
-    description:
-      'Consistent, predictable environments. Your entire infrastructure configuration will be stored in a single YAML file.',
+    description: 'Consistent, predictable environments. Your entire infrastructure configuration will be stored in a single YAML file.',
     gridArea: gridArea.topLeft,
     color: '#ec609c',
     icon: 'CodeBlock',
@@ -84,5 +83,5 @@ export const featureMasonryItems: TFeatureMasonryItem[] = [
 
 export const featureMasonryText = {
   description:
-    'Zero-install development environments with a single-click. Edit your code directly with our powerful Browser IDE, or connect remotely with your favorite IDE.',
+    'Zero-install development environments with a single click. Edit your code directly with our powerful Browser IDE, or connect remotely with your favorite IDE.',
 };

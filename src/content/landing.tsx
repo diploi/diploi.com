@@ -50,7 +50,7 @@ export const content = {
     step: 3,
     title: 'Publish Your App',
     highlightedText: 'Publish',
-    description: 'We take care of the full lifecycle of your app. You can spin up any kind of environment with a single-click.',
+    description: 'We take care of the full lifecycle of your app. You can spin up any kind of environment with a single click.',
   },
   timeAndResources: {
     title: 'Benefits of Diploi',
