@@ -1,5 +1,4 @@
 ---
-import Toggle from './Toggle.astro';
 import PlansPricing from './PlansPricing.astro';
 import Icon from './Icon.astro';
 
@@ -20,8 +19,6 @@ const { pricing } = Astro.props;
 ---
 
 <div class="cards">
-  <!-- <Toggle /> -->
-
   <ul role="list" class="list">
     <!-- Entry -->
     <li class="card free">
@@ -35,17 +32,12 @@ const { pricing } = Astro.props;
             <div class="help credit">
               <p>50€ of Free Credits</p>
             </div>
-            <!-- <div class="help">
-            Same pricing as Pro, trial is free as long as credits last.
-            Remaining credit will transfer to Pro when upgraded.
-          </div> -->
           </div>
         </li>
         <li class="footer">
           <ul class="features">
             <li>
-              <Icon name="CheckCircle" sizeRem={1} weight="bold" /> Everything in
-              Pro
+              <Icon name="CheckCircle" sizeRem={1} weight="bold" /> Everything in Pro
             </li>
             <li>
               <Icon name="Plus" sizeRem={1} weight="bold" /> No credit-card required
@@ -54,9 +46,7 @@ const { pricing } = Astro.props;
               <Icon name="Plus" sizeRem={1} weight="bold" /> No restrictions
             </li>
           </ul>
-          <a data-event="getstarted_click" class="button" href="/#invite"
-            >Get Started</a
-          >
+          <a data-event="getstarted_click" class="button" href="/#invite">Get Started</a>
         </li>
       </ul>
     </li>
@@ -79,11 +69,7 @@ const { pricing } = Astro.props;
               <Icon name="Plus" sizeRem={1} weight="bold" /> All core features
             </li>
           </ul>
-          <a
-            data-event="contactus_click"
-            class="button secondary"
-            href="#contact-us">Contact Us</a
-          >
+          <a data-event="contactus_click" class="button secondary" href="#contact-us">Contact Us</a>
         </li>
       </ul>
     </li>
@@ -96,16 +82,12 @@ const { pricing } = Astro.props;
         </li>
         <li class="content">
           <p class="quote">Ask for a quote</p>
-          <p class="quote help">
-            Deployment & resource pricing are both negotiable based on your
-            needs
-          </p>
+          <p class="quote help">Deployment & resource pricing are both negotiable based on your needs</p>
         </li>
         <li class="footer">
           <ul class="features">
             <li>
-              <Icon name="CheckCircle" sizeRem={1} weight="bold" /> Everything in
-              Pro
+              <Icon name="CheckCircle" sizeRem={1} weight="bold" /> Everything in Pro
             </li>
             <li>
               <Icon name="Plus" sizeRem={1} weight="bold" /> Custom templates
@@ -115,11 +97,7 @@ const { pricing } = Astro.props;
               <Icon name="Plus" sizeRem={1} weight="bold" /> Premium support
             </li>
           </ul>
-          <a
-            data-event="contactus_click"
-            class="button secondary"
-            href="#contact-us">Contact Us</a
-          >
+          <a data-event="contactus_click" class="button secondary" href="#contact-us">Contact Us</a>
         </li>
       </ul>
     </li>
@@ -195,25 +173,13 @@ const { pricing } = Astro.props;
 
     .header {
       padding-bottom: 1px;
-      background: linear-gradient(
-          to left,
-          transparent 0%,
-          var(--color-border) 50%,
-          transparent 100%
-        )
-        left bottom transparent no-repeat;
+      background: linear-gradient(to left, transparent 0%, var(--color-border) 50%, transparent 100%) left bottom transparent no-repeat;
       background-size: 100% 1px;
     }
 
     .footer {
       padding-top: 1px;
-      background: linear-gradient(
-          to left,
-          transparent 0%,
-          var(--color-border) 50%,
-          transparent 100%
-        )
-        left top transparent no-repeat;
+      background: linear-gradient(to left, transparent 0%, var(--color-border) 50%, transparent 100%) left top transparent no-repeat;
 
       background-size: 100% 1px;
     }
@@ -237,7 +203,6 @@ const { pricing } = Astro.props;
     }
 
     .header {
-      padding-top: var(--space-l);
       .title {
         margin: 0;
         z-index: 1;
@@ -271,11 +236,7 @@ const { pricing } = Astro.props;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: linear-gradient(
-      -45deg,
-      var(--color-primary),
-      var(--color-secondary)
-    );
+    background-image: linear-gradient(-45deg, var(--color-primary), var(--color-secondary));
     opacity: 0.3;
     z-index: -1;
   }
@@ -307,12 +268,6 @@ const { pricing } = Astro.props;
     background-position: center;
     background-size: 200%;
     filter: blur(45px);
-  }
-
-  .price {
-    margin-top: 0;
-    font-size: 1rem;
-    font-family: 'Montserrat', sans-serif;
   }
 
   .credit {

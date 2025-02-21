@@ -1,32 +1,32 @@
 ---
 interface Props {
   pricing: {
-    deployment: number
+    deployment: number;
     coreInstancePrice: {
-      name: string
-      price: number
-      rootStorageSizeGiB: number
-      memoryGiB: number
-      vCpu: number
-    }[]
-  }
+      name: string;
+      price: number;
+      rootStorageSizeGiB: number;
+      memoryGiB: number;
+      vCpu: number;
+    }[];
+  };
 }
 
-const { pricing } = Astro.props
+const { pricing } = Astro.props;
 
-const highlightedAppClusters = ['S', 'M', 'L']
+const highlightedAppClusters = ['S', 'M', 'L'];
 
 const formatter = new Intl.NumberFormat('fi-FI', {
   style: 'currency',
   currency: 'EUR',
   minimumFractionDigits: 3,
-})
+});
 
 const monthlyFormatter = new Intl.NumberFormat('fi-FI', {
   style: 'currency',
   currency: 'EUR',
   minimumFractionDigits: 2,
-})
+});
 ---
 
 <h3 class="help above">Costs per app cluster size, starting at</h3>
@@ -54,15 +54,10 @@ const monthlyFormatter = new Intl.NumberFormat('fi-FI', {
           <h3>{item.name}</h3>
           <div class="price">
             <p>
-              {monthlyFormatter.format(
-                (item.price + pricing.deployment) * 24 * 30,
-              )}
+              {monthlyFormatter.format((item.price + pricing.deployment) * 24 * 30)}
               <span class="help">
                 prod or
-                {monthlyFormatter.format(
-                  (item.price + pricing.deployment) * 8 * 20,
-                )}{' '}
-                dev
+                {monthlyFormatter.format((item.price + pricing.deployment) * 8 * 20)} dev
               </span>
             </p>
             <span class="help">/ app cluster / month</span>
@@ -110,13 +105,13 @@ const monthlyFormatter = new Intl.NumberFormat('fi-FI', {
 
   .price {
     margin-top: 0;
-    font-size: 1rem;
+    font-size: 1.25rem;
   }
 
   .price > p {
     margin: 0;
     color: var(--color-text-primary);
-    font-size: 1rem;
+    font-size: 1.25rem;
   }
 
   .price > .help {
@@ -126,8 +121,9 @@ const monthlyFormatter = new Intl.NumberFormat('fi-FI', {
   }
 
   .help {
-    font-size: 0.875rem;
-    font-weight: 300;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 350;
     color: var(--color-text-secondary);
   }
 
