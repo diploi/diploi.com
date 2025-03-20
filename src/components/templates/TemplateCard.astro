@@ -3,76 +3,49 @@ import { Image } from 'astro:assets';
 import { Info, Package } from '@phosphor-icons/react';
 
 type Props = {
-  slug: string;
-  title: string;
-  image?: ImageMetadata;
-  imageAlt?: string;
-  features: string[];
-  showLearnMore?: boolean;
+  name: string;
+  icon: string;
+  features?: string[];
 };
 
-const {
-  slug,
-  title,
-  image,
-  imageAlt,
-  features,
-  showLearnMore = false,
-} = Astro.props;
+const { name, icon, features } = Astro.props;
 ---
 
 <article>
-  {
-    image && (
-      <Image
-        alt={imageAlt || 'template logo'}
-        src={image}
-        width={48}
-        height={48}
-      />
-    )
-  }
-  {!image && <Package size={48} style={{ fill: 'url(#gradient-three)' }} />}
-  <h3>{title}</h3>
+  <div class="border"></div>
+  {icon && <img alt="component icon" src={`data:image/svg+xml;base64,${icon}`} width={48} height={48} />}
+  {!icon && <Package size={48} style={{ fill: 'url(#gradient-three)' }} />}
+  <h3>{name}</h3>
   <section>
-    <ul>
-      {features.map((feature) => <li>{feature}</li>)}
-    </ul>
-    <button data-launch={slug} data-event={`${slug}_template_launch_click`}>
-      Launch Project
-    </button>
     {
-      showLearnMore && (
-        <a
-          href={`/launch/${slug}`}
-          data-event={`${slug}_template_learnmore_click`}
-        >
-          Learn More
-        </a>
+      features && (
+        <ul>
+          {features.map((feature) => (
+            <li>{feature}</li>
+          ))}
+        </ul>
       )
     }
-    {
-      !showLearnMore && (
-        <p class="help">
-          <Info weight="bold" /> No account needed
-        </p>
-      )
-    }
+    <button> Launch Project </button>
   </section>
 </article>
 
-<style>
+<style lang="scss">
+  @use '../../styles/mixins';
+
   article {
     position: relative;
     padding: 32px;
     padding-top: 40px;
     padding-bottom: 16px;
     width: 280px;
-    border-radius: 24px;
-    background-color: var(--color-grey);
-    box-shadow:
-      rgba(255, 206, 227, 0.2) 0px 1px 1px 0px inset,
-      rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  }
+
+  article > .border {
+    @include mixins.gradient-border($direction: to bottom left, $color-end: transparent 50%);
+    position: absolute;
+    inset: 0;
+    border-top-right-radius: 32px;
   }
 
   article > section {
