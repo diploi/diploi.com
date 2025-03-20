@@ -1,0 +1,77 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Section, Navigation, Footer, PageTitle } from '../components';
+import { getEntry } from 'astro:content';
+import { render } from 'astro:content';
+const documentTOS = await getEntry('legal', 'privacy');
+if (!documentTOS) {
+  throw new Error('Error loading terms of service');
+}
+const { Content } = await render(documentTOS);
+---
+
+<Layout title="Diploi – Privacy Policy">
+  <Navigation />
+  <main>
+    <Section isNarrow>
+      <PageTitle tagText="Privacy" title={documentTOS.data.title} />
+      <p>
+        {documentTOS.data.description}
+      </p>
+      <div class="info">
+        <p>
+          Last updated
+          {
+            new Date(documentTOS.data.timestamp).toLocaleDateString('en-US', {
+              month: 'long',
+              day: 'numeric',
+              year: 'numeric',
+            })
+          }
+        </p>
+      </div>
+      <article class="article">
+        <Content />
+      </article>
+    </Section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  p {
+    max-width: unset;
+  }
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+  }
+
+  .article {
+    max-width: 768px;
+
+    p {
+      max-width: 100%;
+      margin-bottom: 16px;
+      color: #d8d9d9;
+    }
+
+    a {
+      text-decoration: underline;
+    }
+
+    hr {
+      display: flex;
+      justify-content: center;
+      border: none;
+      margin: 40px 0;
+      &::before {
+        content: '⁂';
+        color: white;
+        opacity: 0.2;
+      }
+    }
+  }
+</style>

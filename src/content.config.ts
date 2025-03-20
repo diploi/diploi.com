@@ -13,6 +13,16 @@ const blogCollection = defineCollection({
     }),
 });
 
+const legalCollection = defineCollection({
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/legal' }),
+  schema: z.object({
+      title:z.string(),
+      description: z.string(),
+      timestamp: z.string(),
+    })
+})
+
 export const collections = {
   blog: blogCollection,
+  legal: legalCollection
 };
