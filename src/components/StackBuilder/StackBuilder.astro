@@ -4,6 +4,12 @@ import SubSectionHeader from '../SubSectionHeader.astro';
 import Icon from '../Icon.astro';
 import { componentsToYamlHtml as componentsToYamlHtmlBuildTime } from './yamlFormatter';
 
+interface Props {
+  hideYaml?: boolean;
+}
+
+const { hideYaml } = Astro.props;
+
 const {
   result: { data },
 } = await fetch(`${import.meta.env.VITE_API_URL}/api/trpc/stack.listPreviewComponents`).then((response) => response.json());
@@ -26,45 +32,54 @@ const yamlHtml = componentsToYamlHtmlBuildTime({ selectedComponentIds: defaultCo
 
 <div class="stack-builder" data-components={JSON.stringify(components)}>
   <div class="grid">
-    <div class="header components">
-      <SubSectionHeader title="Components" description="Base blocks of your Stack. All code is editable." class="header-components" />
-    </div>
-    <div class="blocks-container components">
-      <div class="blocks components">
-        {
-          components
-            .filter((component) => component.type === 'component')
-            .map((component) => (
-              <StackBuilderBlockButton
-                {...component}
-                class={`component ${defaultComponentIds.includes(component.componentID) ? 'is-selected' : ''}`}
-              />
-            ))
-        }
+    <div class="list">
+      <div class="header components">
+        <SubSectionHeader title="Components" description="Base blocks of your Stack. All code is editable." class="header-components" />
       </div>
-      <!-- <ArrowLink href={import.meta.env.VITE_API_URL} text="Browse All" /> -->
-    </div>
-    <div class="header addons">
-      <SubSectionHeader title="Add-ons" description="Complementary services. Configurable with config." />
-    </div>
-    <div class="blocks-container addons">
-      <div class="blocks addons">
-        {
-          components
-            .filter((component) => component.type === 'addon')
-            .map((addon) => (
-              <StackBuilderBlockButton {...addon} class={`addon ${defaultComponentIds.includes(addon.componentID) ? 'is-selected' : ''}`} />
-            ))
-        }
+      <div class="blocks-container components">
+        <div class="blocks components">
+          {
+            components
+              .filter((component) => component.type === 'component')
+              .map((component) => (
+                <StackBuilderBlockButton
+                  {...component}
+                  class={`component ${defaultComponentIds.includes(component.componentID) ? 'is-selected' : ''}`}
+                />
+              ))
+          }
+        </div>
+        <!-- <ArrowLink href={import.meta.env.VITE_API_URL} text="Browse All" /> -->
       </div>
-      <!-- <ArrowLink href={import.meta.env.VITE_API_URL} text="Browse All" /> -->
+      <div class="header addons">
+        <SubSectionHeader title="Add-ons" description="Complementary services. Configurable with config." />
+      </div>
+      <div class="blocks-container addons">
+        <div class="blocks addons">
+          {
+            components
+              .filter((component) => component.type === 'addon')
+              .map((addon) => (
+                <StackBuilderBlockButton
+                  {...addon}
+                  class={`addon ${defaultComponentIds.includes(addon.componentID) ? 'is-selected' : ''}`}
+                />
+              ))
+          }
+        </div>
+        <!-- <ArrowLink href={import.meta.env.VITE_API_URL} text="Browse All" /> -->
+      </div>
     </div>
-    <div class="code-side">
-      <article class="code-card">
-        <label>config.yaml</label>
-        <Fragment set:html={yamlHtml} />
-      </article>
-    </div>
+    {
+      !hideYaml && (
+        <div class="code-side">
+          <article class="code-card">
+            <label>config.yaml</label>
+            <Fragment set:html={yamlHtml} />
+          </article>
+        </div>
+      )
+    }
   </div>
   <div class="ctas">
     <button id="button-launch-stack" class="secondary" data-url={import.meta.env.VITE_API_URL} disabled>
@@ -140,16 +155,21 @@ const yamlHtml = componentsToYamlHtmlBuildTime({ selectedComponentIds: defaultCo
   @use '../../styles/mixins';
 
   .code-side {
-    grid-area: preview;
+    display: none;
+    margin-top: calc(64.8px + var(--space-l));
+    width: 440px;
+    max-height: 340px;
     overflow: hidden;
-    max-height: 400px;
     mask-image: linear-gradient(to bottom, white 80%, transparent);
+
+    @include mixins.respond-to('tablet') {
+      display: block;
+    }
   }
 
   .code-card {
     @include mixins.card-desktop;
     height: fit-content;
-    grid-area: preview;
     background-color: var(--color-bg-secondary-20);
 
     > label {
@@ -290,29 +310,18 @@ const yamlHtml = componentsToYamlHtmlBuildTime({ selectedComponentIds: defaultCo
 
   .grid {
     display: flex;
-    flex-direction: column;
+    gap: var(--space-xxl);
 
-    @include mixins.respond-to('tablet') {
-      display: grid;
-      grid-column-gap: var(--space-xxl);
-      grid-row-gap: var(--space-l);
-      grid-template-columns: 1.5fr 1fr;
-      grid-template-areas:
-        'components-header .'
-        'components preview'
-        'addons-header preview'
-        'addons preview';
+    > .list {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: var(--space-l);
     }
   }
 
   .header {
     margin-bottom: var(--space-l);
-    &.components {
-      grid-area: components-header;
-    }
-    &.addons {
-      grid-area: addons-header;
-    }
 
     @include mixins.respond-to('tablet') {
       &.components,
