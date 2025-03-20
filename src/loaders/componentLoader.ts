@@ -1,0 +1,81 @@
+import type { Loader } from 'astro/loaders';
+import { z } from 'astro:content';
+import { marked } from 'marked';
+
+export function componentLoader({ apiUrl, apiKey }: { apiUrl: string; apiKey: string }): Loader {
+  return {
+    name: 'component-loader',
+    load: async ({ store, logger, parseData, meta, generateDigest }) => {
+      const {
+        result: { data },
+      } = await fetch(`${apiUrl}/api/trpc/stack.listPreviewComponents`).then((response) => response.json());
+      if (!data || data.status !== 'ok') {
+        throw new Error(`Failed to load component paths (${data})`);
+      }
+
+      const components = data.components as {
+        type: 'component' | 'addon';
+        identifier: string;
+      }[];
+
+      store.clear();
+
+      for (const component of components) {
+        const {
+          result: { data },
+        } = await fetch(`${apiUrl}/api/trpc/stack.loadComponent`, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ token: apiKey, identifier: component.identifier }),
+        }).then((response) => response.json());
+        if (!data || data.status !== 'ok') {
+          throw new Error(`Failed to load component (${data})`);
+        }
+
+        const entry = data.component as {
+          identifier: string;
+          readme: string;
+          icon: string;
+        };
+
+        const body = Buffer.from(entry.readme, 'base64').toString();
+        const rendered = {
+          html: await marked.parse(body),
+        };
+
+        const entryData = await parseData({
+          id: entry.identifier,
+          data: entry,
+        });
+
+        store.set({
+          id: entry.identifier,
+          data: entryData,
+          body,
+          rendered,
+        });
+      }
+    },
+    schema: async () =>
+      z.object({
+        componentID: z.number().int(),
+        type: z.union([z.literal('component'), z.literal('addon')]),
+        identifier: z.string(),
+        name: z.string(),
+        description: z.string(),
+        features: z.array(z.string()).optional(),
+        versions: z.array(z.string()),
+        layer: z.union([z.literal('frontend'), z.literal('backend'), z.literal('fullstack')]).optional(),
+        owner: z.strictObject({
+          name: z.string(),
+          isVerified: z.boolean(),
+        }),
+        url: z.string(),
+        readme: z.string(),
+        icon: z.string(),
+      }),
+  };
+}

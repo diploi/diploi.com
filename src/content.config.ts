@@ -1,5 +1,6 @@
-import { z, defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
+import { z, defineCollection } from 'astro:content';
+import { componentLoader } from './loaders/componentLoader';
 
 const blogCollection = defineCollection({
   loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/blog' }),
@@ -13,6 +14,14 @@ const blogCollection = defineCollection({
     }),
 });
 
+const componentCollection = defineCollection({
+  loader: componentLoader({
+    apiUrl: import.meta.env.VITE_API_URL,
+    apiKey: import.meta.env.API_TOKEN,
+  }),
+});
+
 export const collections = {
   blog: blogCollection,
+  component: componentCollection,
 };

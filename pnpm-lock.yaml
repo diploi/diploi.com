@@ -44,6 +44,9 @@ dependencies:
   leva:
     specifier: ^0.10.0
     version: 0.10.0(@types/react@18.2.48)(react-dom@18.2.0)(react@18.2.0)
+  marked:
+    specifier: ^15.0.7
+    version: 15.0.7
   prop-types:
     specifier: ^15.8.1
     version: 15.8.1
@@ -3309,6 +3312,12 @@ packages:
 
   /markdown-table@3.0.3:
     resolution: {integrity: sha512-Z1NL3Tb1M9wH4XESsCDEksWoKTdlUafKc4pt0GRwjUyXaCFZ+dc3g2erqB6zm3szA2IUSi7VnPI+o/9jnxh9hw==}
+    dev: false
+
+  /marked@15.0.7:
+    resolution: {integrity: sha512-dgLIeKGLx5FwziAnsk4ONoGwHwGPJzselimvlVskE9XLN4Orv9u2VA3GWw/lYUqjfA0rUT/6fqKwfZJapP9BEg==}
+    engines: {node: '>= 18'}
+    hasBin: true
     dev: false
 
   /mdast-util-definitions@6.0.0:
