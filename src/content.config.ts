@@ -17,7 +17,7 @@ const blogCollection = defineCollection({
 const componentCollection = defineCollection({
   loader: componentLoader({
     apiUrl: import.meta.env.VITE_API_URL,
-    apiKey: import.meta.env.API_TOKEN,
+    apiKey: import.meta.env.API_KEY,
   }),
 });
 
