@@ -1,6 +1,20 @@
 import type { Loader } from 'astro/loaders';
 import { z } from 'astro:content';
+import DOMPurify from 'isomorphic-dompurify';
 import { marked } from 'marked';
+
+// Remove component icon from the README.md
+DOMPurify.addHook('uponSanitizeElement', function (node, data) {
+  if (data.tagName === 'img') {
+    const attributes = (node as any).attributes as NamedNodeMap;
+    if ('src' in attributes) {
+      const src = attributes.getNamedItem('src')?.textContent;
+      if (src === '.diploi/icon.svg') {
+        return node.parentNode!.removeChild(node);
+      }
+    }
+  }
+});
 
 export function componentLoader({ apiUrl, apiKey }: { apiUrl: string; apiKey: string }): Loader {
   return {
@@ -21,6 +35,8 @@ export function componentLoader({ apiUrl, apiKey }: { apiUrl: string; apiKey: st
       store.clear();
 
       for (const component of components) {
+        if (component.type !== 'component') continue;
+
         const {
           result: { data },
         } = await fetch(`${apiUrl}/api/trpc/stack.loadComponent`, {
@@ -43,7 +59,7 @@ export function componentLoader({ apiUrl, apiKey }: { apiUrl: string; apiKey: st
 
         const body = Buffer.from(entry.readme, 'base64').toString();
         const rendered = {
-          html: await marked.parse(body),
+          html: DOMPurify.sanitize(await marked.parse(body)),
         };
 
         const entryData = await parseData({

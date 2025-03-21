@@ -58,12 +58,7 @@
 
     --z-index-andromeda: 10;
 
-    --accent-gradient: linear-gradient(
-      45deg,
-      var(--color-primary),
-      var(--color-secondary) 30%,
-      white 60%
-    );
+    --accent-gradient: linear-gradient(45deg, var(--color-primary), var(--color-secondary) 30%, white 60%);
 
     --font-size-body: 1.5rem;
     --font-weight-h2: 600;
@@ -80,6 +75,7 @@
     --shiki-token-string-expression: var(--color-text-primary);
     --shiki-background: transparent;
   }
+
   hr {
     margin: 0 auto;
     background: white;
@@ -88,13 +84,7 @@
     position: relative;
     width: 100%;
     max-width: var(--max-width-page-section);
-    background: linear-gradient(
-        to left,
-        transparent 0%,
-        var(--color-border) 50%,
-        transparent 100%
-      )
-      left bottom transparent no-repeat;
+    background: linear-gradient(to left, transparent 0%, var(--color-border) 50%, transparent 100%) left bottom transparent no-repeat;
     background-size: 100% 1px;
   }
 
@@ -202,7 +192,8 @@
     }
   }
 
-  h2 {
+  h2,
+  .h2 {
     font-size: 1.5rem;
     font-weight: var(--font-weight-h2);
     margin-bottom: var(--margin-bottom-h2);
@@ -210,17 +201,21 @@
       font-size: 2rem;
     }
   }
-  h3 {
+
+  h3,
+  .h3 {
     font-weight: 500;
     font-size: 1.5rem;
     margin-bottom: var(--space-s);
   }
 
-  h4 {
+  h4,
+  .h4 {
     font-size: 1rem;
     font-weight: 600;
     margin-bottom: var(--space-xs);
   }
+
   ul {
     list-style: none;
     margin: 0;
@@ -251,7 +246,8 @@
     font-size: 1.25rem;
     font-weight: 350;
 
-    > strong, > b {
+    > strong,
+    > b {
       font-weight: 600;
       color: var(--color-text-primary);
     }
@@ -299,11 +295,7 @@
   }
 
   .primary-gradient {
-    background: linear-gradient(
-      to right,
-      var(--color-primary),
-      var(--color-secondary)
-    );
+    background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
   }
 
   .border-gradient {
@@ -315,8 +307,7 @@
       padding: 1px;
       border-radius: inherit;
       background: linear-gradient(to bottom, var(--color-border), transparent);
-      --webkit-mask: linear-gradient(white 0 0) content-box,
-        linear-gradient(white 0 0);
+      --webkit-mask: linear-gradient(white 0 0) content-box, linear-gradient(white 0 0);
       mask:
         linear-gradient(white 0 0) content-box,
         linear-gradient(white 0 0);
@@ -326,10 +317,14 @@
   }
 
   .background-gradient {
-    background: linear-gradient(
-      to bottom,
-      transparent,
-      var(--color-bg-secondary-20)
-    );
+    background: linear-gradient(to bottom, transparent, var(--color-bg-secondary-20));
+  }
+
+  .markdown-body {
+    background-color: transparent !important;
+
+    a {
+      color: var(--color-accent-primary-text) !important;
+    }
   }
 </style>
