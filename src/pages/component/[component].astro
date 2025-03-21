@@ -2,15 +2,13 @@
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import Navigation from '../../components/Navigation.astro';
-import TemplateCards from '../../components/templates/TemplateCards.astro';
 import Footer from '../../components/Footer.astro';
-import { templates } from '../../components/templates/templates';
-import Divider from '../../components/Divider.astro';
-import Logo from '../../components/Logo.astro';
-import { CursorClick, PlugsConnected, Target } from '@phosphor-icons/react';
+import { CursorClick, FileText, PlugsConnected, Target } from '@phosphor-icons/react';
 import logoImage from '../../images/diploi-logo.svg';
-import TemplateCard from '../../components/templates/TemplateCard.astro';
-import { StackBuilder } from '../../components';
+import ComponentCard from '../../components/ComponentCard.astro';
+import { ArrowLink, Icon, StackBuilder, SubSectionHeader } from '../../components';
+
+import 'github-markdown-css/github-markdown.css';
 
 export async function getStaticPaths() {
   const components = await getCollection('component');
@@ -25,73 +23,88 @@ const component = entry.data;
 
 const { Content } = await render(entry);
 
-const description = `Launch a new ${component.name} project and you will instantly have access to a development environment. No login needed.`;
+const description = `Launch a new ${component.name} project and you will instantly have access to a development environment. No sign-up required.`;
+const seoDescription = `Launch a new ${component.name} project and you will instantly have access to a development environment. Pick from add-ons to add databases and much more to your project. No sign-up required.`;
 ---
 
-<Layout title={`Diploi – Launch a ${component.name} Project`} description={description}>
+<Layout title={`Diploi – Launch a ${component.name} Project`} description={seoDescription}>
   <main>
     <Navigation />
 
     <article class="hero">
       <h1>
-        Launch {component.name}
+        Launch {component.icon && <img alt="component icon" src={`data:image/svg+xml;base64,${component.icon}`} width={40} height={40} />}
+        {component.name}
         <small>{' '}with{' '}<img alt="Diploi" src={logoImage.src} width={100} height={29.66} /> </small>
       </h1>
       <p>{description}</p>
     </article>
 
-    <article class="templates">
-      <TemplateCard {...component} />
+    <article class="content">
+      <ComponentCard {...component} />
 
       <section class="info">
-        <Content />
-        <div>
-          <a href={component.url}>GitHub</a>
-        </div>
-
-        <hr />
-
         <section>
-          <StackBuilder hideYaml />
+          <StackBuilder
+            launchButtonText={`Launch ${component.name}`}
+            defaultComponentIds={[component.componentID, 101]}
+            hideComponents
+            hideYaml
+          >
+            <SubSectionHeader
+              slot="addons-header"
+              title="Something extra?"
+              description={`Choose some optional add-ons to launch with ${component.name}`}
+            />
+          </StackBuilder>
         </section>
 
         <hr />
 
-        <h2>What is Diploi?</h2>
-        <p>Diploi is the single SaaS service for managing, developing and hosting your full application.</p>
-        <ul>
-          <li>
-            <h3>
-              <Target weight="bold" size={38} style={{ fill: 'url(#gradient-one)' }} slot="icon" /> Consistent
-            </h3>
-            <ul>
-              <li>Consistent environments from development to production</li>
-              <li>Adoptable incrementally - start easy, grow later</li>
-            </ul>
-          </li>
-          <li>
-            <h3>
-              <CursorClick weight="bold" size={38} style={{ fill: 'url(#gradient-two)' }} slot="icon" /> One-Click
-            </h3>
-            <ul>
-              <li>Fast 30 second new developer onboarding</li>
-              <li>One-click environment setup</li>
-              <li>Instantly shareable testing environments</li>
-            </ul>
-          </li>
-          <li>
-            <h3>
-              <PlugsConnected weight="bold" size={38} style={{ fill: 'url(#gradient-three)' }} slot="icon" /> Zero-Install
-            </h3>
-            <ul>
-              <li>Zero-install remote development</li>
-              <li>Versatile support for any stack pre-build or custom</li>
-            </ul>
-          </li>
-        </ul>
-        <div>
-          <a href="/">Learn more</a>
-        </div>
+        <section class="markdown-body">
+          <label class="h3 readme"><FileText style={{ fill: 'url(#gradient-one)' }} /> Readme</label>
+          <Content />
+        </section>
+
+        <hr />
+
+        <section class="showcase">
+          <h2>What is Diploi?</h2>
+          <p>Diploi is the single SaaS service for managing, developing and hosting your full application.</p>
+          <ul>
+            <li>
+              <h3>
+                <Target weight="bold" size={38} style={{ fill: 'url(#gradient-one)' }} slot="icon" /> Consistent
+              </h3>
+              <ul>
+                <li><Icon name="Minus" sizeRem={1} />Consistent environments from development to production</li>
+                <li><Icon name="Minus" sizeRem={1} />Adoptable incrementally - start easy, grow later</li>
+              </ul>
+            </li>
+            <li>
+              <h3>
+                <CursorClick weight="bold" size={38} style={{ fill: 'url(#gradient-two)' }} slot="icon" /> One-Click
+              </h3>
+              <ul>
+                <li><Icon name="Minus" sizeRem={1} />Fast 30 second new developer onboarding</li>
+                <li><Icon name="Minus" sizeRem={1} />One-click environment setup</li>
+                <li><Icon name="Minus" sizeRem={1} />Instantly shareable testing environments</li>
+              </ul>
+            </li>
+            <li>
+              <h3>
+                <PlugsConnected weight="bold" size={38} style={{ fill: 'url(#gradient-three)' }} slot="icon" /> Zero-Install
+              </h3>
+              <ul>
+                <li><Icon name="Minus" sizeRem={1} />Zero-install remote development</li>
+                <li><Icon name="Minus" sizeRem={1} />Versatile support for any stack pre-build or custom</li>
+              </ul>
+            </li>
+          </ul>
+          <div>
+            <ArrowLink href="/" text="Learn more" />
+          </div>
+        </section>
       </section>
     </article>
   </main>
@@ -118,16 +131,21 @@ const description = `Launch a new ${component.name} project and you will instant
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 128px 0 100px 0;
+    padding: 128px 0 40px 0;
   }
 
   .hero > h1 {
     margin: 0;
+    margin-bottom: 18px;
     font-size: var(--font-header-size);
     font-weight: bold;
     font-family: var(--font-header);
     line-height: 1.2;
     text-align: center;
+  }
+
+  .hero > h1 > img {
+    transform: translateY(4px);
   }
 
   .hero > h1 > small {
@@ -160,6 +178,8 @@ const description = `Launch a new ${component.name} project and you will instant
     background-position: bottom center;
     background-repeat: no-repeat;
     z-index: -1;
+
+    mask-image: linear-gradient(to bottom, white 60%, transparent);
   }
 
   @media (max-width: 900px) {
@@ -173,7 +193,7 @@ const description = `Launch a new ${component.name} project and you will instant
     }
   }
 
-  .templates {
+  .content {
     display: flex;
     align-items: flex-start;
     gap: 32px;
@@ -182,7 +202,7 @@ const description = `Launch a new ${component.name} project and you will instant
   }
 
   @media (max-width: 900px) {
-    .templates {
+    .content {
       flex-direction: column;
       align-items: center;
     }
@@ -193,50 +213,55 @@ const description = `Launch a new ${component.name} project and you will instant
   }
 
   .info {
+    display: flex;
+    flex-direction: column;
+    gap: 96px;
     padding: 0 32px;
   }
 
-  .info a {
-    position: relative;
-    text-decoration: none;
-    color: var(--color-primary);
+  .showcase {
+    display: flex;
+    flex-direction: column;
   }
 
-  .info a::after {
-    content: '';
-    position: absolute;
-    display: block;
-    top: 50%;
-    right: -1.3rem;
-    width: 1rem;
-    height: 1rem;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='%236650fa' viewBox='0 0 256 256'%3E%3Cpath d='M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z'%3E%3C/path%3E%3C/svg%3E");
-    background-size: 100%;
-    transform: translateY(-50%);
-  }
-
-  .info > ul {
+  .showcase > ul {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 24px;
+    margin-bottom: 24px;
     padding: 0;
     list-style: none;
   }
 
-  .info > ul h3 {
+  .showcase > ul > li {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .showcase > ul h3 {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 10px;
   }
 
-  .info > ul h3 > svg {
+  .showcase > ul h3 > svg {
     transform: translate(-2px, -1px);
   }
 
-  .info > ul ul {
-    list-style-type: '→';
+  .showcase > ul ul > li {
+    padding-left: 26px;
+    opacity: 0.7;
   }
 
-  .info > ul ul > li {
-    padding-left: 10px;
-    opacity: 0.7;
+  .markdown-body > label.h3.readme {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    > svg {
+      transform: translateY(1px);
+    }
   }
 </style>
