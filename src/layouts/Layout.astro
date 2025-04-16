@@ -74,7 +74,9 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
           s.parentNode.insertBefore(t, s);
         }
       })(window, document);
-      rdt('init', 'a2_gryyzgsjf5fb');
+      rdt('init', 'a2_gryyzgsjf5fb', {
+        externalId: Math.floor(Math.random() * 1000001),
+      });
       rdt('track', 'PageVisit');
     </script>
 
