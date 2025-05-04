@@ -10,14 +10,14 @@ import PricingCard from './PricingCard.astro';
       <h3><SealPercent weight="bold" /> Free Credits</h3>
       <small>No credit card required</small>
     </section>
-    <p>Sign up & get free credits to try out the full Diploi experience.</p>
+    <p>Sign up & get free credits to try out the full Diploi experience</p>
   </header>
 
   <section class="content" slot="content">
     <SparkleElement sparkleCount={4} minSize={0.25} maxSize={0.75}>
       <section class="credits">
         {/* Animated "Credits" texts */}
-        <svg width="28" height="60" xmlns="http://www.w3.org/2000/svg">
+        <svg width="30" height="60" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <pattern id="credits-up" width="14" height="62" patternUnits="userSpaceOnUse">
               <text x="-58" y="12" font-size="16" fill="currentColor" transform="rotate(-90)">CREDITS</text>
@@ -27,10 +27,13 @@ import PricingCard from './PricingCard.astro';
               <text x="-58" y="12" font-size="16" fill="currentColor" transform="rotate(-90)">CREDITS</text>
               <animate attributeName="y" from="31" to="-31" dur="5s" repeatCount="indefinite"></animate>
             </pattern>
+            <pattern id="credits" width="28" height="62" patternUnits="userSpaceOnUse">
+              <rect width="14" height="60" fill="url(#credits-up)"></rect>
+              <rect x="14" width="14" height="60" fill="url(#credits-down)"></rect>
+            </pattern>
           </defs>
 
-          <rect width="14" height="60" fill="url(#credits-up)"></rect>
-          <rect x="14" width="14" height="60" fill="url(#credits-down)"></rect>
+          <rect width={28 * 3} height="62" transform="translate(14 -14) rotate(45)" fill="url(#credits)"></rect>
         </svg>
 
         <strong aria-label="credits">50<abbr>€</abbr></strong>
@@ -89,8 +92,7 @@ import PricingCard from './PricingCard.astro';
   .credits {
     display: flex;
     align-items: center;
-    padding: 0 12px;
-    padding-left: 6px;
+    padding: 0 14px;
     height: 60px;
     border: 1px solid var(--color-bg);
     border-radius: 6px;
@@ -98,8 +100,21 @@ import PricingCard from './PricingCard.astro';
     border-bottom-right-radius: 0;
 
     > svg {
+      position: absolute;
+      left: 0;
       color: var(--color-bg);
       user-select: none;
+      mask-image: linear-gradient(to right, white, transparent);
+    }
+
+    @keyframes shimmer-animation {
+      0%,
+      70% {
+        --position: 0%;
+      }
+      100% {
+        --position: 100%;
+      }
     }
 
     strong {
@@ -110,16 +125,6 @@ import PricingCard from './PricingCard.astro';
       font-size: 54px;
       line-height: 1;
       color: var(--color-text);
-
-      @keyframes shimmer-animation {
-        0%,
-        70% {
-          --position: 0%;
-        }
-        100% {
-          --position: 100%;
-        }
-      }
 
       background-image: linear-gradient(
         110deg,
