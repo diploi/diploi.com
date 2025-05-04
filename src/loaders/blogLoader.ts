@@ -2,6 +2,8 @@ import { type Loader, glob } from 'astro/loaders';
 import { z } from 'astro:content';
 import DOMPurify from 'isomorphic-dompurify';
 
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 export function blogLoader({ apiKey }: { apiKey: string }): Loader {
   return {
     name: 'blog-loader',
@@ -34,38 +36,39 @@ export function blogLoader({ apiKey }: { apiKey: string }): Loader {
         user: { name: string };
       }[];
 
-      const blogEntries = await Promise.all(
-        blogs.map((blog) =>
-          (async () => {
-            const content = await fetch(`https://dev.to/api/articles/${blog.id}`, {
-              headers: {
-                'api-key': apiKey,
-              },
-            }).then((response) => response.json());
+      let blogEntries = [];
+      for (const blog of blogs) {
+        logger.info(`Fetching blog post ${blog.id} from dev.to...`);
 
-            const body = content.body_markdown;
-            const html = DOMPurify.sanitize(content.body_html);
+        const content = await fetch(`https://dev.to/api/articles/${blog.id}`, {
+          headers: {
+            'api-key': apiKey,
+          },
+        }).then((response) => response.json());
 
-            const firstName = (blog.user.name || '').split(' ')[0];
+        const body = content.body_markdown;
+        const html = DOMPurify.sanitize(content.body_html);
 
-            return {
-              id: blog.slug,
-              data: {
-                title: blog.title,
-                description: blog.description,
-                image: blog.cover_image,
-                author: firstName,
-                timestamp: blog.published_timestamp,
-                url: blog.url,
-              },
-              body,
-              rendered: {
-                html,
-              },
-            };
-          })()
-        )
-      );
+        const firstName = (blog.user.name || '').split(' ')[0];
+
+        blogEntries.push({
+          id: blog.slug,
+          data: {
+            title: blog.title,
+            description: blog.description,
+            image: blog.cover_image,
+            author: firstName,
+            timestamp: blog.published_timestamp,
+            url: blog.url,
+          },
+          body,
+          rendered: {
+            html,
+          },
+        });
+
+        await delay(1000);
+      }
 
       const entries = [...localEntries, ...blogEntries].sort(
         (a, b) => new Date(b.data.timestamp as string).getTime() - new Date(a.data.timestamp as string).getTime()
