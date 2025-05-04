@@ -1,0 +1,156 @@
+---
+type Props = {
+  trial?: boolean;
+  primary?: boolean;
+};
+
+const { trial, primary } = Astro.props;
+---
+
+<article class:list={{ trial, primary }}>
+  <slot name="header" />
+  <slot name="content" />
+  <slot name="footer" />
+  <slot />
+</article>
+
+<style lang="scss">
+  @use '../../../styles/mixins';
+
+  article {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 32px 34px;
+    width: 100%;
+    border-radius: var(--border-radius-medium);
+    overflow: hidden;
+
+    --color-card-border: var(--color-border);
+
+    &.primary {
+      --color-card-border: var(--color-accent-primary);
+      background-image: linear-gradient(to bottom left, var(--color-accent-primary-10), transparent);
+    }
+
+    @include mixins.gradient-border(var(--color-card-border), var(--color-card-border), transparent, 1px);
+
+    &.trial {
+      flex-direction: row;
+      align-items: center;
+
+      --bg-dir: to right;
+      --color-bg: var(--color-secondary);
+      --color-bg: color-mix(in lab, var(--color-secondary), transparent 25%);
+
+      @media (max-width: 820px) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+
+        > :global(section) {
+          align-self: flex-end;
+        }
+      }
+
+      @media (max-width: 420px) {
+        --bg-dir: to bottom;
+      }
+
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0px;
+        pointer-events: none;
+        user-select: none;
+      }
+
+      &::before {
+        background-image: linear-gradient(var(--bg-dir), var(--color-accent-primary), transparent, var(--color-accent-secondary));
+        opacity: 0.2;
+        z-index: -1;
+      }
+
+      &::after {
+        padding: 1px;
+        border-radius: inherit;
+        filter: saturate(2);
+        background: linear-gradient(var(--bg-dir), var(--color-accent-primary), var(--color-accent-secondary));
+        -webkit-mask:
+          linear-gradient(white 0 0) content-box,
+          linear-gradient(white 0 0);
+        mask:
+          linear-gradient(white 0 0) content-box,
+          linear-gradient(white 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+      }
+    }
+
+    &.primary,
+    &.trial {
+      > :global(header) > :global(section) > :global(small) {
+        border-color: var(--color-primary);
+        border-color: color-mix(in lab, color-mix(in lab, var(--color-primary), white 50%), transparent 40%);
+        color: var(--color-primary);
+        color: color-mix(in lab, var(--color-primary), white 50%);
+      }
+    }
+
+    > :global(header) {
+      flex: 1;
+
+      :global(section),
+      :global(h3) {
+        display: flex;
+        align-items: center;
+      }
+
+      > :global(section) {
+        gap: 12px;
+        margin-bottom: 4px;
+
+        @media (max-width: 500px) {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 6px;
+        }
+
+        > :global(h3) {
+          gap: 8px;
+          margin-bottom: 0;
+        }
+
+        > :global(small) {
+          padding: 2px 5px;
+          font-family: var(--font-body);
+          font-size: 1rem;
+          line-height: 1.2;
+          border-radius: 4px;
+          border: 1px solid var(--color-border);
+          color: var(--color-text-secondary);
+        }
+      }
+
+      > :global(p) {
+        color: white;
+        opacity: 0.6;
+      }
+    }
+
+    > :global(section) {
+      > :global(ul) {
+        margin-top: 18px;
+
+        > :global(li) {
+          color: var(--color-text-secondary);
+
+          @media (max-width: 480px) {
+            font-size: 0.875rem;
+          }
+        }
+      }
+    }
+  }
+</style>

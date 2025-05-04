@@ -1,0 +1,60 @@
+---
+import { PencilSimple, Phone, PuzzlePiece, SealPercent } from '@phosphor-icons/react';
+import { SparkleElement } from '../../../components/SparkleElement';
+import PricingCard from './PricingCard.astro';
+---
+
+<PricingCard>
+  <header slot="header">
+    <section>
+      <h3>Enterprise</h3>
+      <p>Tailored pricing to fit your business model and needs</p>
+    </section>
+    <a data-event="contactus_click" class="button secondary" href="#contact-us">Contact Us</a>
+  </header>
+
+  <section slot="content">
+    <ul>
+      <li><Phone /> Direct priority support</li>
+      <li><PencilSimple /> Migration & integration services</li>
+      <li><PuzzlePiece /> Custom components</li>
+    </ul>
+  </section>
+</PricingCard>
+
+<style lang="scss">
+  @use '../../../styles/mixins';
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+
+    @media (max-width: 760px) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    @media (max-width: 420px) {
+      align-items: stretch;
+    }
+
+    > section {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+      margin-bottom: 0;
+
+      > h3 {
+        margin-bottom: 4px;
+      }
+    }
+  }
+
+  button {
+    padding: var(--space-l) var(--space-xl);
+    background-color: var(--color-bg);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+</style>

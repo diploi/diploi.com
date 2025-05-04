@@ -1,5 +1,5 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from '../../layouts/Layout.astro';
 import {
   SectionHeader,
   Section,
@@ -11,7 +11,10 @@ import {
   Navigation,
   PageTitle,
   Plans,
-} from '../components';
+} from '../../components';
+import PricingTrialBanner from './_components/PricingTrialBanner.astro';
+import PricingDeployments from './_components/PricingDeployments.astro';
+import PricingEnterpriceBanner from './_components/PricingEnterpriceBanner.astro';
 
 const { pricing } = await fetch('https://console.diploi.com/api/business/pricing').then((response) => response.json());
 if (!pricing) {
@@ -24,17 +27,22 @@ if (!pricing) {
   <main>
     <Section>
       <div class="pricing-cards">
-        <PageTitle tagText="Pricing" title="Find the plan that fits your needs" />
-        <Plans pricing={pricing} />
+        <PageTitle tagText="Pricing" title="Simple, Predictable Pricing" />
+        <section>
+          <PricingTrialBanner />
+          <PricingDeployments />
+        </section>
+        <hr />
+        <PricingEnterpriceBanner />
       </div>
 
       <hr />
 
       <Section>
         <SectionHeader
-          title="Single App Cluster Costs"
-          highlightedText="Single App"
-          description="A single App Cluster will run all the resources your application stack needs, such as webservers, databases, Redis, and more."
+          title="Cluster Costs"
+          highlightedText="Cluster"
+          description="A running Diploi deployment spins up a cluster that runs everything to do with your stack."
           descriptionSuffix="You will only be charged for the hours your cluster is running."
         />
 
@@ -54,13 +62,20 @@ if (!pricing) {
 </Layout>
 
 <style lang="scss">
-  @use '../styles/mixins';
+  @use '../../styles/mixins';
 
   .pricing-cards {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: var(--space-huge);
+
+    > section {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      gap: 32px;
+    }
   }
 
   .callout {
