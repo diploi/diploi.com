@@ -45,12 +45,12 @@ import { Image } from 'astro:assets';
         <li><Code /> Stack Builder for scaffolding apps</li>
         <li><Terminal /> Browser, VS Code, Cursor, and custom IDE support</li>
         <li><MagicWand /> Automatic Git, CI/CD, SSL, eg. configuration</li>
-        <li><Plus /> And so much more!</li>
+        <li><Plus /> And more</li>
       </ul>
     </section>
 
     <footer slot="footer">
-      <p><Info /> Estimate, assuming use of the size M cluster for 7 hours / workday</p>
+      <p class="help"><Info /> Estimate, assuming use of the size M cluster for 7 hours / workday</p>
       <section class="price">
         <strong>4<abbr>€</abbr></strong>
         <label>/ month</label>
@@ -72,24 +72,27 @@ import { Image } from 'astro:assets';
         <li><Code /> Consistent with development</li>
         <li><ArrowClockwise /> Automated optimized deployments</li>
         <li><Mouse /> One-click setup</li>
-        <li><Plus /> And so much more!</li>
+        <li><Plus /> And more</li>
       </ul>
     </section>
 
     <footer slot="footer">
-      <p><Info /> Estimate, using size S cluster</p>
+      <p class="help"><Info /> Estimate, using size S cluster</p>
       <section class="price">
-        <strong>12<abbr>€</abbr></strong>
+        <strong>19<abbr>€</abbr></strong>
         <label>/ month</label>
       </section>
     </footer>
   </PricingCard>
+
+  <p class="help footer"><Info /> Taxes / VAT not included</p>
 </div>
 
 <style lang="scss">
   @use '../../../styles/mixins';
 
   div {
+    position: relative;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
@@ -137,13 +140,6 @@ import { Image } from 'astro:assets';
       justify-content: space-between;
       align-items: flex-end;
       margin-top: 24px;
-
-      > p {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        font-size: 0.875rem;
-      }
     }
 
     .price {
@@ -183,6 +179,20 @@ import { Image } from 'astro:assets';
 
       @media (max-width: 1100px) {
         display: none;
+      }
+    }
+
+    p.help {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.875rem;
+
+      &.footer {
+        position: absolute;
+        bottom: -42px;
+        padding-left: 32px;
+        opacity: 0.5;
       }
     }
   }

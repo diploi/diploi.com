@@ -1,10 +1,11 @@
 ---
-import { PencilSimple, Phone, PuzzlePiece, SealPercent } from '@phosphor-icons/react';
-import { SparkleElement } from '../../../components/SparkleElement';
+import { Graph, PencilSimple, Phone, PuzzlePiece } from '@phosphor-icons/react';
 import PricingCard from './PricingCard.astro';
 ---
 
 <PricingCard>
+  <Graph weight="thin" className="bg" />
+
   <header slot="header">
     <section>
       <h3>Enterprise</h3>
@@ -48,6 +49,20 @@ import PricingCard from './PricingCard.astro';
       > h3 {
         margin-bottom: 4px;
       }
+    }
+  }
+
+  .bg {
+    position: absolute;
+    top: -200px;
+    right: 230px;
+    width: 600px;
+    height: 600px;
+    color: var(--color-border);
+    opacity: 0.1;
+
+    @media (max-width: 760px) {
+      right: 0;
     }
   }
 
