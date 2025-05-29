@@ -3,7 +3,7 @@ title: 'Skip the YAML and Server Configs: 7 Easy Deployment Platforms You Haven�
 description: 'DevOps can be painful. We know from experience 🤕. So we decided to create a list of new deployment platforms (us included) that you should check out!'
 author: 'Javier'
 timestamp: '2025-05-27T07:11:05.573Z'
-draft: true
+draft: false
 ---
 
 ###### DevOps can be painful. We know from experience 🤕
