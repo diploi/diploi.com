@@ -54,6 +54,14 @@ export function blogLoader({ apiKey }: { apiKey: string }): Loader {
 
         const firstName = (blog.user.name || '').split(' ')[0];
 
+        const localVersion = localEntries.find((entry) => entry.rendered?.metadata?.frontmatter?.devtoUrl === blog.url);
+        if (localVersion) {
+          // This blog has been copied locally. Do not show the Dev.to version, but do copy the cover image
+          localVersion.data.image = blog.cover_image;
+          logger.info(`Found blog post ${blog.id} locally (${localVersion.id})! Skipping dev.to...`);
+          continue;
+        }
+
         blogEntries.push({
           id: blog.slug,
           data: {
