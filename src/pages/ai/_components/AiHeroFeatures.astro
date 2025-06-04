@@ -1,0 +1,57 @@
+---
+import { Eye, FolderUser, LockKeyOpen } from '@phosphor-icons/react';
+---
+
+<ul>
+  <li>
+    <LockKeyOpen />
+    <h3>No vendor lock-in</h3>
+    <p>Use any tool over SSH. Use our AI features, or stick with the editors and workflows you already know.</p>
+  </li>
+  <hr />
+  <li>
+    <FolderUser />
+    <h3>Your own repository</h3>
+    <p>Diploi integrates with your Git repository, so you can work with any Git-compatible tools, even outside the platform.</p>
+  </li>
+  <hr />
+  <li>
+    <Eye />
+    <h3>Open source components</h3>
+    <p>
+      All our stack components are open source and available on <a href="https://github.com/diploi">GitHub</a>. No black boxes, no hidden
+      surprises.
+    </p>
+  </li>
+</ul>
+
+<style>
+  ul {
+    display: flex;
+    gap: 32px;
+  }
+
+  li {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  li > svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  hr {
+    flex-shrink: 0;
+    height: auto;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--color-border), transparent) left top transparent no-repeat;
+    background-size: 1px 100%;
+  }
+
+  a {
+    text-underline-offset: 4px;
+    color: inherit;
+  }
+</style>

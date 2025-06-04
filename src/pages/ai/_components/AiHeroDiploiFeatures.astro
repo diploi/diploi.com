@@ -1,0 +1,88 @@
+---
+import {
+  ArrowClockwise,
+  ArrowUpRight,
+  CodeBlock,
+  Eye,
+  Eyedropper,
+  FastForward,
+  FileCode,
+  FileText,
+  Fire,
+  FolderUser,
+  LockKeyOpen,
+  MagicWand,
+  Mouse,
+  PlugsConnected,
+  TerminalWindow,
+  Toolbox,
+} from '@phosphor-icons/react';
+import AiLink from './AiLink.astro';
+---
+
+<section>
+  <TerminalWindow />
+  <h3>Magical remote development</h3>
+  <ul>
+    <li><PlugsConnected weight="bold" /> Zero-install remote development</li>
+    <li><Fire weight="bold" /> Always hot, no cold-starts</li>
+    <li><Eyedropper weight="bold" /> Support for any stack</li>
+    <li><Mouse weight="bold" /> One-click environment setup</li>
+    <li><FileCode weight="bold" /> Infrastructure as code</li>
+    <li><FileText weight="bold" /> Real-time logging</li>
+    <li><Toolbox weight="bold" /> <a href="#">Stack Builder</a> for scaffolding apps</li>
+    <li><MagicWand weight="bold" /> Automatic Git, CI/CD, SSL</li>
+    <li><FastForward weight="bold" /> 30 second developer onboarding</li>
+  </ul>
+  <AiLink href="/">Explore all features</AiLink>
+</section>
+
+<style lang="scss">
+  @use 'sass:math';
+
+  section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
+
+    > svg {
+      width: 32px;
+      height: 32px;
+      color: var(--color-text-secondary);
+    }
+  }
+
+  ul {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: calc(32px + 32px);
+    row-gap: 16px;
+    margin-top: 4px;
+    margin-bottom: 16px;
+  }
+
+  li {
+    display: flex;
+    font-size: 1.25rem;
+    color: var(--color-text-secondary);
+
+    > svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    @for $i from 1 through 9 {
+      &:nth-child(#{$i}) {
+        > svg {
+          color: color-mix(in lab, var(--color-primary), var(--color-secondary) ($i - 1) * math.div(100%, 8));
+        }
+      }
+    }
+  }
+
+  a {
+    text-underline-offset: 4px;
+    font-weight: inherit;
+    color: inherit;
+  }
+</style>

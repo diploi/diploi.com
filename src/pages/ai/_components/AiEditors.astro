@@ -1,0 +1,78 @@
+---
+import { Image } from 'astro:assets';
+import vscodeLogo from '../../../images/vscode-logo.svg';
+import cursorLogo from '../../../images/cursor-logo.webp';
+import { PlugsConnected, Terminal, TerminalWindow } from '@phosphor-icons/react';
+---
+
+<section class="main">
+  <header>
+    <section>
+      <PlugsConnected />
+      <h2>Use The Tools You Love</h2>
+      <p>Diploi supports any IDE with SSH remote capabilities. We have first-class support for the most common AI-native IDEs.</p>
+    </section>
+  </header>
+  <section class="list">
+    <article style={{ '--color-card-border': '#0098FF' }}>
+      <Image width={32} height={32} src={vscodeLogo} alt="vs code logo" />
+      <h3>VS Code</h3>
+      <p>Officially supported</p>
+      <ul>
+        <li>Copilot, agent mode</li>
+        <li>Full extensions support</li>
+      </ul>
+    </article>
+
+    <article style={{ '--color-card-border': 'white' }}>
+      <Image width={32} height={32} src={cursorLogo} alt="cursor logo" />
+      <h3>Cursor</h3>
+      <p>Officially supported</p>
+      <ul>
+        <li>Agent mode, autocomplete, chat</li>
+        <li>Full extensions support</li>
+      </ul>
+    </article>
+
+    <article>
+      <TerminalWindow size={32} />
+      <h3>SSH</h3>
+      <p>Officially supported</p>
+      <ul>
+        <li>Full control over your environment</li>
+        <li>Any Debian ARM package supported</li>
+      </ul>
+    </article>
+  </section>
+</section>
+
+<style lang="scss">
+  @use '../../../styles/mixins';
+
+  .main {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: var(--max-width-page-section);
+  }
+
+  .list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+
+    > article {
+      padding: 32px 34px;
+      border-radius: var(--border-radius-medium);
+
+      --color-card-border: var(--color-primary);
+      @include mixins.gradient-border(var(--color-card-border), var(--color-card-border), transparent, 1px);
+
+      > svg {
+        color: var(--color-primary);
+      }
+    }
+  }
+</style>
