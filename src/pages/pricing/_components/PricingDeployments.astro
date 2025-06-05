@@ -6,6 +6,7 @@ import reactSticker from '../../../images/react-sticker.svg';
 import kubernetesSticker from '../../../images/kubernetes-sticker.svg';
 import faceSticker from '../../../images/face-sticker.svg';
 import { Image } from 'astro:assets';
+import Tag from '../../../components/Tag.astro';
 ---
 
 <div>
@@ -34,7 +35,7 @@ import { Image } from 'astro:assets';
     <header slot="header">
       <section>
         <h3>Development</h3>
-        <small>Usage-based</small>
+        <Tag primary>Usage-based</Tag>
       </section>
       <p>Average cost for a development environment</p>
     </header>
@@ -61,7 +62,7 @@ import { Image } from 'astro:assets';
     <header slot="header">
       <section>
         <h3>Production</h3>
-        <small>Usage-based</small>
+        <Tag>Usage-based</Tag>
       </section>
       <p>Continuously running environment</p>
     </header>

@@ -2,13 +2,14 @@
 import { SealPercent } from '@phosphor-icons/react';
 import { SparkleElement } from '../../../components/SparkleElement';
 import PricingCard from './PricingCard.astro';
+import Tag from '../../../components/Tag.astro';
 ---
 
 <PricingCard trial>
   <header slot="header">
     <section>
       <h3><SealPercent weight="bold" /> Free Credits</h3>
-      <small>No credit card required</small>
+      <Tag primary>No credit card required</Tag>
     </section>
     <p>Sign up & get free credits to try out the full Diploi experience</p>
   </header>

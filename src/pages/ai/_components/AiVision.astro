@@ -1,0 +1,112 @@
+---
+import { CheckSquare, Compass, HardDrives } from '@phosphor-icons/react';
+import StackBuilderYaml from '../../../components/StackBuilder/StackBuilderYaml.astro';
+import Tag from '../../../components/Tag.astro';
+import AiSectionHeader from './AiSectionHeader.astro';
+---
+
+<section class="main">
+  <section>
+    <AiSectionHeader>
+      <HardDrives />
+      <h2>AI for DevOps <Tag primary>Coming soon</Tag></h2>
+      <p>
+        We have created a platform where spinning up a new service is as-easy-as adding a single line to a config file. This enables AI to
+        truly modify infrastucture on the fly, leading to blazingly fast development.
+      </p>
+    </AiSectionHeader>
+    <ol class="chat">
+      <li>Could you create a new Node.js microservice for proxying image requests?</li>
+      <li>Certainly! Adding a new Node.js component to <code>diploi.yaml</code>...</li>
+    </ol>
+    <!-- <section>
+      <ul>
+        <li>
+          <strong><CheckSquare /> AI should be a choice without lock-in.</strong>
+          Current services ofter lock you in to their own AI implementation, without the possibility to use custom tools.
+        </li>
+        <li>
+          <strong><CheckSquare /> AI should know DevOps</strong>
+          We are making quick progress with AI that helps you code, but they ofter ignore the DevOps parts. We believe AI should also know how
+          to setup your dev environment.
+        </li>
+        <li>
+          <strong><CheckSquare /> AI should be a tool</strong>
+        </li>
+      </ul>
+    </section> -->
+  </section>
+  <aside>
+    <StackBuilderYaml />
+  </aside>
+</section>
+
+<style lang="scss">
+  @use '../../../styles/mixins';
+
+  .main {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    gap: 32px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: var(--max-width-page-section);
+
+    > section {
+      grid-column: span 2;
+    }
+
+    section {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    ul {
+      > li {
+        display: block;
+        font-size: 1.25rem;
+
+        > svg {
+          color: var(--color-primary);
+        }
+      }
+    }
+  }
+
+  .chat {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    > li {
+      padding: 8px 16px;
+      border-radius: 32px;
+      font-size: 1.25rem;
+      border: 1px solid var(--color-border);
+      color: var(--color-text-primary);
+
+      code {
+        padding: 3px 4px 0 4px;
+        font-size: 18px;
+        background-color: var(--color-border);
+        border-radius: 4px;
+      }
+    }
+
+    > li:first-of-type {
+      align-self: flex-end;
+      background-color: var(--color-border);
+      border-top-right-radius: 0px;
+    }
+
+    > li:last-of-type {
+      border-top-left-radius: 0px;
+    }
+  }
+</style>

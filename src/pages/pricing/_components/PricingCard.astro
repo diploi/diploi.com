@@ -88,16 +88,6 @@ const { trial, primary } = Astro.props;
       }
     }
 
-    &.primary,
-    &.trial {
-      > :global(header) > :global(section) > :global(small) {
-        border-color: var(--color-primary);
-        border-color: color-mix(in lab, color-mix(in lab, var(--color-primary), white 50%), transparent 40%);
-        color: var(--color-primary);
-        color: color-mix(in lab, var(--color-primary), white 50%);
-      }
-    }
-
     > :global(header) {
       flex: 1;
 
@@ -120,16 +110,6 @@ const { trial, primary } = Astro.props;
         > :global(h3) {
           gap: 8px;
           margin-bottom: 0;
-        }
-
-        > :global(small) {
-          padding: 2px 5px;
-          font-family: var(--font-body);
-          font-size: 1rem;
-          line-height: 1.2;
-          border-radius: 4px;
-          border: 1px solid var(--color-border);
-          color: var(--color-text-secondary);
         }
       }
 

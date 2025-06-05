@@ -3,21 +3,20 @@ import { Image } from 'astro:assets';
 import vscodeLogo from '../../../images/vscode-logo.svg';
 import cursorLogo from '../../../images/cursor-logo.webp';
 import { PlugsConnected, Terminal, TerminalWindow } from '@phosphor-icons/react';
+import Tag from '../../../components/Tag.astro';
+import AiSectionHeader from './AiSectionHeader.astro';
 ---
 
 <section class="main">
-  <header>
-    <section>
-      <PlugsConnected />
-      <h2>Use The Tools You Love</h2>
-      <p>Diploi supports any IDE with SSH remote capabilities. We have first-class support for the most common AI-native IDEs.</p>
-    </section>
-  </header>
+  <AiSectionHeader>
+    <PlugsConnected />
+    <h2>Use The Tools You Love</h2>
+    <p>Diploi supports any IDE with SSH remote capabilities. We have first-class support for the most common AI-native IDEs.</p>
+  </AiSectionHeader>
   <section class="list">
     <article style={{ '--color-card-border': '#0098FF' }}>
       <Image width={32} height={32} src={vscodeLogo} alt="vs code logo" />
-      <h3>VS Code</h3>
-      <p>Officially supported</p>
+      <h3>VS Code <Tag primary>Officially supported</Tag></h3>
       <ul>
         <li>Copilot, agent mode</li>
         <li>Full extensions support</li>
@@ -26,8 +25,7 @@ import { PlugsConnected, Terminal, TerminalWindow } from '@phosphor-icons/react'
 
     <article style={{ '--color-card-border': 'white' }}>
       <Image width={32} height={32} src={cursorLogo} alt="cursor logo" />
-      <h3>Cursor</h3>
-      <p>Officially supported</p>
+      <h3>Cursor <Tag primary>Officially supported</Tag></h3>
       <ul>
         <li>Agent mode, autocomplete, chat</li>
         <li>Full extensions support</li>
@@ -36,8 +34,7 @@ import { PlugsConnected, Terminal, TerminalWindow } from '@phosphor-icons/react'
 
     <article>
       <TerminalWindow size={32} />
-      <h3>SSH</h3>
-      <p>Officially supported</p>
+      <h3>SSH <Tag primary>Officially supported</Tag></h3>
       <ul>
         <li>Full control over your environment</li>
         <li>Any Debian ARM package supported</li>

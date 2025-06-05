@@ -11,71 +11,27 @@ import AiEditors from './_components/AiEditors.astro';
 import PricingTrialBanner from '../pricing/_components/PricingTrialBanner.astro';
 import PricingDeployments from '../pricing/_components/PricingDeployments.astro';
 import AiPricing from './_components/AiPricing.astro';
+import AiVision from './_components/AiVision.astro';
+import StackBuilder from '../../components/StackBuilder/StackBuilder.astro';
+import AiRoadmap from './_components/AiRoadmap.astro';
+import AiStackBuilder from './_components/AiStackBuilder.astro';
 ---
 
 <Layout title="Diploi – Truly Productive AI">
   <Navigation selected="jobs" />
   <main>
     <AiHero />
-
-    <section>
-      <header>
-        <h2>Our Vision</h2>
-        <p>
-          We believe AI to be a powerful tool in software development, but dont believe in the direction it is currently heading. AI should
-          aid the programmer when needed, and disappear when not. AI should take away the annoying parts of building software, but let the
-          programmer enjoy the fun of creating.
-        </p>
-        <ul>
-          <li>AI should be a tool, not the programmer</li>
-          <li>AI needs to be tightly integrated</li>
-          <li>AI should know DevOps</li>
-        </ul>
-      </header>
-    </section>
+    <AiVision />
     <AiEditors />
+    <AiStackBuilder />
     <AiPricing />
-    <section>
-      <header>
-        <h2>Try Us Out</h2>
-      </header>
-    </section>
-    <section>
-      <header>
-        <h2>Roadmap</h2>
-        <p>We are actively building our own Diploi AI features.</p>
-        <ol>
-          <li>
-            <h3>Remote SSH support</h3>
-            <time>Q4 2024</time>
-            <span>Released</span>
-          </li>
-          <li>
-            <h3>Built-in Browser IDE</h3>
-            <time>Q4 2024</time>
-            <span>Released</span>
-          </li>
-          <li>
-            <h3>Official remote IDE support</h3>
-            <time>Q1 2025</time>
-            <span>Released</span>
-          </li>
-          <li>
-            <h3>AI stack builder</h3>
-            <time>Q3 2025</time>
-            <span>Coming Soon</span>
-          </li>
-          <li>
-            <h3>Built-in Browser IDE AI</h3>
-            <time>Q4 2025</time>
-          </li>
-          <li>
-            <h3>AI log troubleshooter</h3>
-            <time>Q4 2025</time>
-          </li>
-        </ol>
-      </header>
-    </section>
+    <AiRoadmap />
   </main>
   <Footer />
 </Layout>
+
+<style>
+  main {
+    gap: calc(128px + 64px);
+  }
+</style>

@@ -1,0 +1,25 @@
+<header>
+  <slot />
+</header>
+
+<style lang="scss">
+  @use '../../../styles/mixins';
+
+  header {
+    > :global(h2) {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+
+      > :global(span) {
+        transform: translateY(1px);
+      }
+    }
+
+    > :global(svg) {
+      width: 32px;
+      height: 32px;
+      color: var(--color-text-secondary);
+    }
+  }
+</style>

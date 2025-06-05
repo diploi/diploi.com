@@ -1,0 +1,31 @@
+---
+type Props = {
+  primary?: boolean;
+};
+
+const { primary } = Astro.props;
+---
+
+<span class:list={{ primary }}>
+  <slot />
+</span>
+
+<style>
+  span {
+    display: inline-block;
+    padding: 2px 5px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.2;
+    border-radius: 4px;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+  }
+
+  span.primary {
+    border-color: var(--color-primary);
+    border-color: color-mix(in lab, color-mix(in lab, var(--color-primary), white 50%), transparent 40%);
+    color: var(--color-primary);
+    color: color-mix(in lab, var(--color-primary), white 50%);
+  }
+</style>

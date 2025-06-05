@@ -1,0 +1,26 @@
+---
+import { Toolbox } from '@phosphor-icons/react';
+import StackBuilder from '../../../components/StackBuilder/StackBuilder.astro';
+import AiSectionHeader from './AiSectionHeader.astro';
+---
+
+<section class="main">
+  <AiSectionHeader>
+    <Toolbox />
+    <h2>Try Us Out</h2>
+  </AiSectionHeader>
+  <StackBuilder />
+</section>
+
+<style lang="scss">
+  @use '../../../styles/mixins';
+
+  .main {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: var(--max-width-page-section);
+  }
+</style>
