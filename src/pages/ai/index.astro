@@ -33,6 +33,10 @@ import AiCallouts from './_components/AiCallouts.astro';
 
 <style>
   main {
-    gap: calc(128px);
+    gap: 128px;
+
+    @media (max-width: 860px) {
+      gap: 64px;
+    }
   }
 </style>

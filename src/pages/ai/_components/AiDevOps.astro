@@ -109,6 +109,10 @@ import AiYaml from './AiYaml.astro';
       display: block;
       width: 100%;
 
+      :global(pre) {
+        word-break: break-all;
+      }
+
       @media (max-width: 860px) {
         margin-top: 0;
       }
