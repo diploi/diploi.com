@@ -1,0 +1,24 @@
+---
+type Props = {
+  vertical?: boolean;
+};
+
+const { vertical } = Astro.props;
+---
+
+<hr class:list={{ vertical }} />
+
+<style>
+  hr {
+    background-image: linear-gradient(to right, var(--color-border), transparent);
+  }
+
+  hr.vertical {
+    flex-shrink: 0;
+    margin: 0;
+    width: 1px;
+    height: auto;
+    background: linear-gradient(to bottom, var(--color-border), transparent) left top transparent no-repeat;
+    background-size: 1px 100%;
+  }
+</style>

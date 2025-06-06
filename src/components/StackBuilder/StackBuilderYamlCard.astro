@@ -1,0 +1,66 @@
+---
+type Props = {
+  dynamic?: boolean;
+};
+
+const { dynamic } = Astro.props;
+---
+
+<div class="code-side">
+  <article class:list={{ 'code-card': true, dynamic }}>
+    <label>diploi.yaml</label>
+    <pre><slot /></pre>
+  </article>
+</div>
+
+<style lang="scss">
+  @use '../../styles/mixins';
+
+  .code-side {
+    display: none;
+    margin-top: calc(64.8px + var(--space-l));
+    width: 440px;
+    max-height: 400px;
+    overflow: hidden;
+    mask-image: linear-gradient(to bottom, white 80%, transparent);
+
+    @include mixins.respond-to('tablet') {
+      display: block;
+    }
+  }
+
+  .code-card {
+    @include mixins.card-desktop;
+    height: fit-content;
+    background-color: var(--color-bg-secondary-20);
+
+    > label {
+      position: absolute;
+      background: var(--color-bg-secondary);
+      top: 0;
+      right: 0;
+      padding: 0 var(--space-s);
+      border-bottom-left-radius: var(--border-radius-medium);
+      line-height: 1.5rem;
+      color: var(--color-text-secondary);
+      font-weight: 400;
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+    }
+
+    :global(pre) {
+      margin: 0 !important;
+      font-size: 1rem !important;
+      font-family:
+        Menlo, Monaco, 'Lucida Console', 'Liberation Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Courier New', monospace;
+      white-space: pre-wrap;
+      line-height: 1.4;
+      color: var(--color-text-secondary);
+
+      :global(b) {
+        font-weight: normal;
+        color: var(--color-secondary);
+      }
+    }
+  }
+</style>

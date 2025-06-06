@@ -1,8 +1,9 @@
 ---
-import { CheckSquare, Compass, HardDrives } from '@phosphor-icons/react';
-import StackBuilderYaml from '../../../components/StackBuilder/StackBuilderYaml.astro';
+import { HardDrives } from '@phosphor-icons/react';
 import Tag from '../../../components/Tag.astro';
 import AiSectionHeader from './AiSectionHeader.astro';
+import AiLink from './AiLink.astro';
+import AiYaml from './AiYaml.astro';
 ---
 
 <section class="main">
@@ -11,33 +12,18 @@ import AiSectionHeader from './AiSectionHeader.astro';
       <HardDrives />
       <h2>AI for DevOps <Tag primary>Coming soon</Tag></h2>
       <p>
-        We have created a platform where spinning up a new service is as-easy-as adding a single line to a config file. This enables AI to
-        truly modify infrastucture on the fly, leading to blazingly fast development.
+        Our platform lets AI spin up new services by editing a few lines of config. Infrastructure adapts instantly. No tickets, no
+        bottlenecks.
       </p>
     </AiSectionHeader>
     <ol class="chat">
       <li>Could you create a new Node.js microservice for proxying image requests?</li>
       <li>Certainly! Adding a new Node.js component to <code>diploi.yaml</code>...</li>
     </ol>
-    <!-- <section>
-      <ul>
-        <li>
-          <strong><CheckSquare /> AI should be a choice without lock-in.</strong>
-          Current services ofter lock you in to their own AI implementation, without the possibility to use custom tools.
-        </li>
-        <li>
-          <strong><CheckSquare /> AI should know DevOps</strong>
-          We are making quick progress with AI that helps you code, but they ofter ignore the DevOps parts. We believe AI should also know how
-          to setup your dev environment.
-        </li>
-        <li>
-          <strong><CheckSquare /> AI should be a tool</strong>
-        </li>
-      </ul>
-    </section> -->
+    <AiLink href="https://dev.to/diploi/how-we-solved-infrastructure-as-code-2ldn">Our IaC implementation</AiLink>
   </section>
   <aside>
-    <StackBuilderYaml />
+    <AiYaml />
   </aside>
 </section>
 
@@ -48,7 +34,7 @@ import AiSectionHeader from './AiSectionHeader.astro';
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     align-items: center;
-    gap: 32px;
+    gap: 64px;
     margin: 0 auto;
     width: 100%;
     max-width: var(--max-width-page-section);
@@ -86,7 +72,8 @@ import AiSectionHeader from './AiSectionHeader.astro';
 
     > li {
       padding: 8px 16px;
-      border-radius: 32px;
+      max-width: 50ch;
+      border-radius: 22px;
       font-size: 1.25rem;
       border: 1px solid var(--color-border);
       color: var(--color-text-primary);

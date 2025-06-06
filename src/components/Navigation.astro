@@ -3,12 +3,13 @@ import Icon from './Icon.astro';
 import Logo from './Logo.astro';
 
 interface Props {
-  selected?: 'home' | 'pricing' | 'blog' | 'jobs';
+  selected?: 'home' | 'ai' | 'pricing' | 'blog' | 'jobs';
 }
 
 const { selected } = Astro.props;
 
 const isHome = selected === 'home';
+const isAi = selected === 'ai';
 const isPricing = selected === 'pricing';
 const isBlog = selected === 'blog';
 const isJobs = selected === 'jobs';
@@ -28,6 +29,9 @@ const isJobs = selected === 'jobs';
       <div class="links">
         <a class="logo-mobile" href="/" data-selected={`${isHome}`}>
           <Logo width={96} />
+        </a>
+        <a data-event="ai_click" href="/ai" data-selected={`${isAi}`}>
+          <Icon name="Cpu" weight={isAi ? 'duotone' : 'regular'} class="navigation-link-icon" /> AI
         </a>
         <a data-event="pricing_click" href="/pricing" data-selected={`${isPricing}`}>
           <Icon name="CreditCard" weight={isPricing ? 'duotone' : 'regular'} class="navigation-link-icon" /> Pricing

@@ -1,0 +1,65 @@
+---
+import StackBuilderYamlCard from '../../../components/StackBuilder/StackBuilderYamlCard.astro';
+
+const yamlHtml = `<span><b>diploiVersion</b>: "v1.0"
+</span><span><b>components</b>:
+</span><span>  - <b>name</b>: "Next.js"
+</span><span>    <b>identifier</b>: "next"
+</span><span>    <b>package</b>: "https://github.com/diploi/component-nextjs#main"
+</span><span class="add">  - <b>name</b>: "Node.js"
+</span><span class="add">    <b>identifier</b>: "node"
+</span><span class="add">    <b>package</b>: "https://github.com/diploi/component-nodejs#main"
+</span>`;
+---
+
+<section>
+  <StackBuilderYamlCard><Fragment set:html={yamlHtml} /></StackBuilderYamlCard>
+</section>
+
+<script>
+  import { componentsToYamlHtml } from '../../../components/StackBuilder/yamlFormatter';
+
+  const components = [
+    {
+      componentID: 1,
+      type: 'component' as const,
+      identifier: 'next',
+      name: 'Next.js',
+      versions: ['main'],
+      url: 'https://github.com/diploi/component-nextjs',
+    },
+    {
+      componentID: 3,
+      type: 'component' as const,
+      identifier: 'node',
+      name: 'Node.js',
+      versions: ['main'],
+      url: 'https://github.com/diploi/component-nodejs',
+    },
+  ];
+
+  const preview = (document.querySelector('#diff') as Element).parentElement as Element;
+  preview.replaceWith(componentsToYamlHtml({ selectedComponentIds: [1, 3], components }));
+</script>
+
+<style lang="scss">
+  @use '../../../styles/mixins';
+
+  section {
+    :global(.code-side) {
+      mask-image: none;
+    }
+
+    :global(.code-card) :global(pre) :global(.add) {
+      background-color: rgba(72, 218, 155, 0.15);
+
+      &::before {
+        position: absolute;
+        content: '+';
+        margin-left: -14px;
+        font-weight: bold;
+        color: rgba(72, 218, 155, 0.5);
+      }
+    }
+  }
+</style>

@@ -1,5 +1,6 @@
 ---
 import { Eye, FolderUser, LockKeyOpen } from '@phosphor-icons/react';
+import AiHr from './AiHr.astro';
 ---
 
 <ul>
@@ -8,13 +9,13 @@ import { Eye, FolderUser, LockKeyOpen } from '@phosphor-icons/react';
     <h3>No vendor lock-in</h3>
     <p>Use any tool over SSH. Use our AI features, or stick with the editors and workflows you already know.</p>
   </li>
-  <hr />
+  <AiHr vertical />
   <li>
     <FolderUser />
     <h3>Your own repository</h3>
     <p>Diploi integrates with your Git repository, so you can work with any Git-compatible tools, even outside the platform.</p>
   </li>
-  <hr />
+  <AiHr vertical />
   <li>
     <Eye />
     <h3>Open source components</h3>
@@ -40,14 +41,6 @@ import { Eye, FolderUser, LockKeyOpen } from '@phosphor-icons/react';
   li > svg {
     width: 32px;
     height: 32px;
-  }
-
-  hr {
-    flex-shrink: 0;
-    height: auto;
-    width: 1px;
-    background: linear-gradient(to bottom, var(--color-border), transparent) left top transparent no-repeat;
-    background-size: 1px 100%;
   }
 
   a {

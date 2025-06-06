@@ -1,13 +1,14 @@
 ---
-import { Toolbox } from '@phosphor-icons/react';
+import { CursorClick, Toolbox } from '@phosphor-icons/react';
 import StackBuilder from '../../../components/StackBuilder/StackBuilder.astro';
 import AiSectionHeader from './AiSectionHeader.astro';
 ---
 
 <section class="main">
   <AiSectionHeader>
-    <Toolbox />
-    <h2>Try Us Out</h2>
+    <CursorClick />
+    <h2 id="stack-builder">Try Us Out</h2>
+    <p>Choose from a constantly growing list of technologies to build your ideal stack. We’ll take care of configuring your monorepo.</p>
   </AiSectionHeader>
   <StackBuilder />
 </section>

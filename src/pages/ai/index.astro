@@ -1,30 +1,28 @@
 ---
-import { ArrowUpRight } from '@phosphor-icons/react';
 import Footer from '../../components/Footer.astro';
 import Navigation from '../../components/Navigation.astro';
 import Layout from '../../layouts/Layout.astro';
-import AiHeroDiploiFeatures from './_components/AiHeroDiploiFeatures.astro';
-import AiHeroFeatures from './_components/AiHeroFeatures.astro';
-import { SparkleElement } from '../../components';
 import AiHero from './_components/AiHero.astro';
 import AiEditors from './_components/AiEditors.astro';
-import PricingTrialBanner from '../pricing/_components/PricingTrialBanner.astro';
-import PricingDeployments from '../pricing/_components/PricingDeployments.astro';
 import AiPricing from './_components/AiPricing.astro';
-import AiVision from './_components/AiVision.astro';
-import StackBuilder from '../../components/StackBuilder/StackBuilder.astro';
+import AiDevOps from './_components/AiDevOps.astro';
 import AiRoadmap from './_components/AiRoadmap.astro';
 import AiStackBuilder from './_components/AiStackBuilder.astro';
 ---
 
-<Layout title="Diploi – Truly Productive AI">
-  <Navigation selected="jobs" />
+<Layout title="Diploi – Platform for AI Dev">
+  <Navigation selected="ai" />
   <main>
     <AiHero />
-    <AiVision />
+    <hr />
+    <AiDevOps />
+    <hr />
     <AiEditors />
+    <hr />
     <AiStackBuilder />
+    <hr />
     <AiPricing />
+    <hr />
     <AiRoadmap />
   </main>
   <Footer />
@@ -32,6 +30,6 @@ import AiStackBuilder from './_components/AiStackBuilder.astro';
 
 <style>
   main {
-    gap: calc(128px + 64px);
+    gap: calc(128px);
   }
 </style>

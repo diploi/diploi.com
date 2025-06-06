@@ -2,45 +2,65 @@
 import { Image } from 'astro:assets';
 import vscodeLogo from '../../../images/vscode-logo.svg';
 import cursorLogo from '../../../images/cursor-logo.webp';
-import { PlugsConnected, Terminal, TerminalWindow } from '@phosphor-icons/react';
+import vscodePreview from './vscode.png';
+import cursorPreview from './cursor.png';
+import terminalPreview from './terminal.png';
+import { Minus, PlugsConnected, Plus, Terminal, TerminalWindow } from '@phosphor-icons/react';
 import Tag from '../../../components/Tag.astro';
 import AiSectionHeader from './AiSectionHeader.astro';
+import AiLink from './AiLink.astro';
+import AiHr from './AiHr.astro';
+
+const previewImageProps = {
+  width: 340,
+  quality: 'max',
+};
 ---
 
 <section class="main">
   <AiSectionHeader>
     <PlugsConnected />
     <h2>Use The Tools You Love</h2>
-    <p>Diploi supports any IDE with SSH remote capabilities. We have first-class support for the most common AI-native IDEs.</p>
+    <p>Diploi works with any IDE that supports SSH. We offer first-class support for the most popular AI-native editors.</p>
   </AiSectionHeader>
   <section class="list">
     <article style={{ '--color-card-border': '#0098FF' }}>
-      <Image width={32} height={32} src={vscodeLogo} alt="vs code logo" />
-      <h3>VS Code <Tag primary>Officially supported</Tag></h3>
-      <ul>
-        <li>Copilot, agent mode</li>
-        <li>Full extensions support</li>
-      </ul>
+      <Image {...previewImageProps} src={vscodePreview} alt="vs code preview" />
+      <section>
+        <Image width={32} height={32} src={vscodeLogo} alt="vs code logo" />
+        <h3>VS Code <Tag primary>Officially supported</Tag></h3>
+        <ul>
+          <li><Minus /> Copilot, agent mode</li>
+          <li><Minus /> Full extensions support</li>
+        </ul>
+      </section>
     </article>
-
+    <AiHr vertical />
     <article style={{ '--color-card-border': 'white' }}>
-      <Image width={32} height={32} src={cursorLogo} alt="cursor logo" />
-      <h3>Cursor <Tag primary>Officially supported</Tag></h3>
-      <ul>
-        <li>Agent mode, autocomplete, chat</li>
-        <li>Full extensions support</li>
-      </ul>
+      <Image {...previewImageProps} src={cursorPreview} alt="cursor preview" />
+      <section>
+        <Image width={32} height={32} src={cursorLogo} alt="cursor logo" />
+        <h3>Cursor <Tag primary>Officially supported</Tag></h3>
+        <ul>
+          <li><Minus /> Agent mode, autocomplete, chat</li>
+          <li><Minus /> Full extensions support</li>
+        </ul>
+      </section>
     </article>
-
+    <AiHr vertical />
     <article>
-      <TerminalWindow size={32} />
-      <h3>SSH <Tag primary>Officially supported</Tag></h3>
-      <ul>
-        <li>Full control over your environment</li>
-        <li>Any Debian ARM package supported</li>
-      </ul>
+      <Image {...previewImageProps} src={terminalPreview} alt="terminal preview" />
+      <section>
+        <TerminalWindow size={32} />
+        <h3>SSH <Tag primary>Officially supported</Tag></h3>
+        <ul>
+          <li><Minus /> Full control over your environment</li>
+          <li><Minus /> Any Debian ARM package supported</li>
+        </ul>
+      </section>
     </article>
   </section>
+  <AiLink href="/dev">Remote development with Diploi</AiLink>
 </section>
 
 <style lang="scss">
@@ -56,19 +76,32 @@ import AiSectionHeader from './AiSectionHeader.astro';
   }
 
   .list {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
     gap: 32px;
 
     > article {
-      padding: 32px 34px;
-      border-radius: var(--border-radius-medium);
+      flex: 1;
 
-      --color-card-border: var(--color-primary);
-      @include mixins.gradient-border(var(--color-card-border), var(--color-card-border), transparent, 1px);
+      > img {
+        max-width: 100%;
+      }
 
-      > svg {
-        color: var(--color-primary);
+      > section {
+        margin-top: 16px;
+
+        :global(span) {
+          transform: translateY(-2px);
+        }
+
+        > svg {
+          color: var(--color-primary);
+        }
+
+        > ul > li {
+          font-size: 1.25rem;
+          font-weight: 350;
+          color: var(--color-text-secondary);
+        }
       }
     }
   }
