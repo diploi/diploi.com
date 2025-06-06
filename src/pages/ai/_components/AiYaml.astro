@@ -38,8 +38,8 @@ const yamlHtml = `<span><b>diploiVersion</b>: "v1.0"
     },
   ];
 
-  const preview = (document.querySelector('#diff') as Element).parentElement as Element;
-  preview.replaceWith(componentsToYamlHtml({ selectedComponentIds: [1, 3], components }));
+  const preview = document.querySelector('#diff')?.parentElement;
+  preview?.replaceWith(componentsToYamlHtml({ selectedComponentIds: [1, 3], components }));
 </script>
 
 <style lang="scss">
