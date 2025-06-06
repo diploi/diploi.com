@@ -39,6 +39,11 @@ import AiYaml from './AiYaml.astro';
     width: 100%;
     max-width: var(--max-width-page-section);
 
+    @media (max-width: 860px) {
+      grid-template-columns: 1fr;
+      column-gap: 0;
+    }
+
     > section {
       grid-column: span 2;
     }
@@ -94,6 +99,19 @@ import AiYaml from './AiYaml.astro';
 
     > li:last-of-type {
       border-top-left-radius: 0px;
+    }
+  }
+
+  aside {
+    justify-self: center;
+
+    :global(.code-side) {
+      display: block;
+      width: 100%;
+
+      @media (max-width: 860px) {
+        margin-top: 0;
+      }
     }
   }
 </style>

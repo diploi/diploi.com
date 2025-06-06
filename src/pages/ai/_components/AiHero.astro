@@ -25,8 +25,8 @@ const backgroundColor = createStackBackgroundUri({ size: 16, primary: '#6650fa',
     </h1>
     <p>Diploi is the first platform to integrate AI across the entire development lifecycle, while keeping you in command.</p>
     <a class="button" href="#stack-builder">Launch a New Project</a>
-    <!-- <AiLink href="/">Import an existing project</AiLink> -->
-    <AiLink href="/pricing">See pricing</AiLink>
+    {/*<AiLink href="/">Import an existing project</AiLink>*/}
+    <AiLink href="#pricing">See pricing</AiLink>
   </section>
   <AiHeroFeatures />
   <AiHr />
@@ -86,6 +86,20 @@ const backgroundColor = createStackBackgroundUri({ size: 16, primary: '#6650fa',
 
     > .button {
       margin: 32px 0 16px 0;
+    }
+
+    @media (max-width: 860px) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      > h1 {
+        text-align: center;
+      }
+
+      > p {
+        text-align: center;
+      }
     }
   }
 

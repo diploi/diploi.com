@@ -26,10 +26,19 @@ import AiHr from './AiHr.astro';
   </li>
 </ul>
 
-<style>
+<style lang="scss">
   ul {
     display: flex;
     gap: 32px;
+
+    @media (max-width: 860px) {
+      flex-direction: column;
+      gap: 48px;
+
+      :global(hr) {
+        display: none;
+      }
+    }
   }
 
   li {

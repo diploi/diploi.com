@@ -30,7 +30,7 @@ import AiLink from './AiLink.astro';
     <li><Mouse weight="bold" /> One-click environment setup</li>
     <li><FileCode weight="bold" /> Infrastructure as code</li>
     <li><FileText weight="bold" /> Real-time logging</li>
-    <li><Toolbox weight="bold" /> <a href="#">Stack Builder</a> for scaffolding apps</li>
+    <li><Toolbox weight="bold" /> <a href="#stack-builder">Stack Builder</a> for scaffolding apps</li>
     <li><MagicWand weight="bold" /> Automatic Git, CI/CD, SSL</li>
     <li><FastForward weight="bold" /> 30 second developer onboarding</li>
   </ul>
@@ -59,6 +59,10 @@ import AiLink from './AiLink.astro';
     row-gap: 16px;
     margin-top: 4px;
     margin-bottom: 16px;
+
+    @media (max-width: 860px) {
+      grid-template-columns: 1fr;
+    }
   }
 
   li {

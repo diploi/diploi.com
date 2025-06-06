@@ -1,0 +1,25 @@
+---
+import ContactUsCard from '../../../components/ContactUsCard.astro';
+import GetStarted from '../../../components/GetStarted.astro';
+---
+
+<section class="main">
+  <GetStarted />
+  <ContactUsCard />
+</section>
+
+<style lang="scss">
+  @use '../../../styles/mixins';
+
+  .main {
+    display: flex;
+    gap: 16px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: var(--max-width-page-section);
+
+    @media (max-width: 860px) {
+      flex-direction: column;
+    }
+  }
+</style>

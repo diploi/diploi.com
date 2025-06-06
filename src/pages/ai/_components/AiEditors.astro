@@ -79,6 +79,10 @@ const previewImageProps = {
     display: flex;
     gap: 32px;
 
+    @media (max-width: 860px) {
+      flex-direction: column;
+    }
+
     > article {
       flex: 1;
 
