@@ -3,7 +3,7 @@ title: '7 Remote Development Platforms in 2025, to Code without a Local Setup'
 description: 'We discuss 7 remote development platforms that you can use in 2025 to code, run, and test applications in the cloud without the need for a local setup'
 author: 'Javier'
 timestamp: '2025-06-10T07:11:05.573Z'
-# devtoUrl: 'https://dev.to/diploi/7-remote-development-platforms-in-2025-to-code-without-a-local-setup-1ig1-temp-slug-9219074?preview=7d07ad0852d2fdf3274c046298a0692c33f311d8a9599747521218afa6d78289f72881f27ac1d45867ce0061ab6e0225e7a162066f84a2bc7339f3c0'
+devtoUrl: 'https://dev.to/diploi/7-remote-development-platforms-in-2025-to-code-without-a-local-setup-1f92'
 image: '/blog/remote_development_platforms/remote_development_platforms_cover.png'
 social_image: 'https://diploi.com/blog/remote_development_platforms/remote_development_platforms_og.png'
 draft: false
