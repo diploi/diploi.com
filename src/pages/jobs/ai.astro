@@ -1,0 +1,186 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Section, SubSection, SubSectionHeader, Icon, Navigation, Footer, PageTitle } from '../../components';
+---
+
+<Layout title="Diploi – Jobs">
+  <Navigation selected="jobs" />
+  <main>
+    <Section isNarrow>
+      <PageTitle tagText="Jobs" title="Full-stack developer with interest in AI" />
+      <SubSection>
+        <SubSectionHeader title="TL;DR" />
+        <p>
+          We are looking for a full-stack developer with a keen interest in working with AI solutions.
+          <br />
+          If you think you are able to develop features that change the future of software engineering this position is for you.
+        </p>
+      </SubSection>
+      <SubSection>
+        <SubSectionHeader title="Who We Are" icon="HandWaving" />
+        <p>
+          Diploi is redefining cloud development with a <b>simple</b>, <b>scalable</b>, and <b>powerful</b> PaaS solution. Our goal is to provide
+          a Developer Experience that looks and feels just <span class="text-gradient">magical</span>.
+          <br /><br />
+          We are still very early on so joining now will enable you to make a real impact on the product as well as being one of the first employees.
+        </p>
+      </SubSection>
+      <SubSection>
+        <SubSectionHeader title="Who We're Looking For" icon="MagnifyingGlass" />
+        <p>We are hiring Software Developers who obsess with</p>
+        <ul class="checks">
+          <li>
+            <Icon isGradient name="CheckSquare" weight="regular" /> Developer Experience
+          </li>
+          <li>
+            <Icon isGradient name="CheckSquare" weight="regular" /> Artificial Intelligence
+          </li>
+          <li>
+            <Icon isGradient name="CheckSquare" weight="regular" /> Scalability &amp; Performance
+          </li>
+          <li>
+            <Icon isGradient name="CheckSquare" weight="regular" /> Working on hard tasks and having a good time
+          </li>
+        </ul>
+        <p>
+          You don't need to check every box, but if you're curious, driven and love solving hard problems, we'd love to hear from you!
+          <br /><br />
+          Our offices are in Helsinki, Finland and we work on-site once per week. We would prefer if you can do that also.
+        </p>
+        <p>
+          <b>Our Tech Stack</b>
+          <br /><br />
+          Frontend: React for user interfaces
+          <br />
+          Backend: Typescript, PostgreSQL, Kubernetes
+          <br />
+          Cloud: Cloudflare, AWS, Terraform
+        </p>
+      </SubSection>
+      <SubSection>
+        <article class="card large">
+          <div class="title-and-description">
+            <h2>
+              <Icon isGradient name="EnvelopeOpen" isGradient sizeRem={3} /> How to apply
+            </h2>
+            <p>
+              Email us at
+              <a href="mailto:hiring@diploi.com">hiring@diploi.com</a>
+              with
+            </p>
+            <ul class="checks">
+              <li>
+                <Icon name="ArrowRight" weight="regular" /> Your resume / LinkedIn / GitHub
+              </li>
+              <li>
+                <Icon name="ArrowRight" weight="regular" /> A short intro about why you're interested
+              </li>
+              <li>
+                <Icon name="ArrowRight" weight="regular" /> Any projects or code you're proud of
+              </li>
+            </ul>
+            <p>
+              Come and create <span class="text-gradient">magic</span> with us!
+            </p>
+          </div>
+        </article>
+      </SubSection>
+    </Section>
+  </main>
+</Layout>
+<Footer />
+
+<style lang="scss">
+  @use '../../styles/mixins';
+
+  p {
+    max-width: unset;
+  }
+
+  .title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-huge);
+
+    .title-and-description {
+      @include mixins.sparkle-bg;
+    }
+  }
+
+  .checks {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    > li {
+      display: flex;
+      align-items: center;
+      gap: var(--space-l);
+      font-size: 1.5rem;
+    }
+  }
+
+  .positions {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    > li {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      background: transparent;
+      padding: 0;
+      padding: var(--space-xxl) 0;
+      position: relative;
+      overflow: hidden;
+
+      :global(.job-position-icon) {
+        @include mixins.card-bg-icon;
+        @include mixins.respond-to('tablet') {
+          left: unset;
+          right: 0;
+          width: 8rem !important;
+          height: 8rem !important;
+          top: 50%;
+          transform: translate(0%, -50%);
+        }
+      }
+
+      > svg {
+        margin-bottom: var(--space-m);
+        opacity: 0.5;
+      }
+
+      > h3 {
+        font-size: 24px;
+      }
+
+      > h3,
+      p {
+        margin: 0;
+      }
+    }
+  }
+
+  .card {
+    @include mixins.card-desktop;
+    @include mixins.sparkle-bg(2);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xxl);
+
+    @include mixins.respond-to('tablet') {
+      align-items: flex-start;
+    }
+
+    h2 {
+      display: flex;
+      align-items: center;
+      gap: var(--space-l);
+    }
+  }
+</style>
