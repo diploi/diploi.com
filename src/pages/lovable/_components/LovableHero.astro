@@ -1,0 +1,412 @@
+---
+import { Icon } from '../../../components';
+import { BlobCanvas } from '../../../components/BlobCanvas';
+import { getCollection } from 'astro:content';
+import LovableDiploi from './lovable-diploi.svg';
+
+const components = await getCollection('component');
+const icons = components.map((component) => component.data.icon);
+---
+
+<div class="hero">
+  <div class="blobs">
+    <BlobCanvas />
+  </div>
+  <div class="content">
+    <h1 class="main-heading">
+      Expand the Capabilities
+      <br />
+      of your Lovable Apps
+    </h1>
+    <p class="subtitle">
+      Import your Lovable apps to Diploi and improve your developer experience with remote development, deploy multiple environments from
+      different branches, with custom domains, without configuring servers.
+    </p>
+    <LovableDiploi class="lovable-diploi-logo" width="auto" />
+    <div class="icons">
+      <ul>
+        {
+          icons.map((icon) => (
+            <li>
+              <img alt="component icon" src={`data:image/svg+xml;base64,${icon}`} width={40} height={40} />
+            </li>
+          ))
+        }
+      </ul>
+      <div>
+        <ul>
+          {
+            icons.map((icon) => (
+              <li>
+                <img alt="component icon" src={`data:image/svg+xml;base64,${icon}`} width={40} height={40} />
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+    <div class="flex-col-center cta-actions">
+      <a id="lovable-import-link" data-event="launch_lovable_import" href="#LovableImport">
+        <button id="lovable-import-btn">Import from Lovable</button>
+      </a>
+
+      <div id="lovable-form-container" class="display-none">
+        <div class="ml-embedded" data-form="EBPLSy"></div>
+      </div>
+
+      <div class="flex-col-center cta-alt-actions">
+        <p class="cta-notice">Prefer to try out Diploi first?</p>
+        <a data-event="hero_cta_click" href="#StackBuilder"> Launch an instant trial </a>
+        <p class="cta-notice">No account needed.</p>
+      </div>
+    </div>
+    <ul class="links">
+      <a data-event="github_click" target="_blank" href="https://github.com/diploi">
+        <li>
+          <Icon name="GithubLogo" sizeRem={1.275} /> GitHub
+          <Icon name="ArrowSquareOut" sizeRem={1} />
+        </li>
+      </a>
+      <a data-event="discord_click" target="_blank" href="https://discord.gg/vvgQxVjC8G">
+        <li>
+          <Icon name="DiscordLogo" sizeRem={1.275} /> Discord
+          <Icon name="ArrowSquareOut" sizeRem={1} />
+        </li>
+      </a>
+    </ul>
+  </div>
+</div>
+
+<!-- MailerLite Universal -->
+<script type="module">
+  const btn = document.getElementById('lovable-import-btn');
+  const btnLink = document.getElementById('lovable-import-link');
+  const formContainer = document.getElementById('lovable-form-container');
+  // const form = document.getElementById('lovable-form');
+  // const message = document.getElementById('lovable-message');
+
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    btnLink.classList.add('hide');
+    setTimeout(() => {
+      btnLink.classList.add('display-none');
+      formContainer.classList.remove('display-none');
+    }, 300);
+    formContainer.classList.add('show');
+  });
+
+  // form.addEventListener('submit', async (e) => {
+  //   e.preventDefault();
+  //   const email = document.getElementById('lovable-email').value;
+
+  //   const MAILERLITE_API_KEY =
+  //     'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiMjIxZTZhZWU0MTJiM2ZjOGUxNGY4YTc3MjFiZTA1MDZmZGQ0YThhOTg2MTY4N2UzMjIxOTZlOGVkNzBmNzUyYTUzY2UzMDY3MDJlNjBjZDciLCJpYXQiOjE3NTI2NzE5NjEuMDQ0MjU4LCJuYmYiOjE3NTI2NzE5NjEuMDQ0MjYsImV4cCI6NDkwODM0NTU2MS4wMzg0MzMsInN1YiI6IjkxNjM2MSIsInNjb3BlcyI6W119.B1lt04-Fpy-fUI34g9KDwuBun4WMV7KQl5fPgA-tbwN1Oaz3tuv8ltseh5mrTHpOsfc0wjSn2qAeZv6DobaQV63H-_qcNyw2QeHKgzsoq-u9rijK83At2miMatB9WDDTWV2MhqoYTB5bOGE2hDapPQ0RgBySWC8zkld785oPCTmC_d68NwXKcdYDcBAJhVo2UWjkHe-eXD26hhQ2goCf50w35AZyF-dI2VGW6xEO-9PeZd2XTXgWOkLB2BKuklCDTd6RvqC_BjR4r6hxhB-rlAF5RgNFaTkVfoZ3LijwfqtJIdiDqHLxf1rA-EV_mljY1uTwY3ZECg6HUttNOnBMy9DgGExKkcA2pY25226yubTBVCdIl_4QWkR-iDu3z0ezYDHbNNwmDQ3lC8749aUulfQuFfuyUJGYJQ_A_7hdPtiUk72iWYUggBh5togp2cSquYIi42QKVWSlTDimVNW4npjrjfYqi8RNIQO4YVItcrVOWogmmANh-3gKiJgP_nJg8KsNPL4KFXIk5m6O0KK2-5X7hN_tmRCThr1lBLNnrJmxd-f4trM52IHhQFUi_ksEjJCYSEPC2weERN5Xay8HSLGPVwwLEuIefDb04K1GPieFrTb0G8qzyVblx46U4LqGE9fb30Bdqo40obsLu7vEyEBt4D2NT04NJDDhBoYx2Tg';
+  //   const GROUP_ID = '160087582978344048';
+
+  //   try {
+  //     const response = await fetch('https://connect.mailerlite.com/api/subscribers', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         accept: 'application/json',
+  //         authorization: `Bearer ${MAILERLITE_API_KEY}`,
+  //       },
+  //       body: JSON.stringify({
+  //         email: email,
+  //         groups: [GROUP_ID],
+  //       }),
+  //     });
+
+  //     if (response.ok) {
+  //       message.textContent = 'Thanks! You’ll be notified when it’s ready.';
+  //       form.reset();
+  //       formContainer.classList.remove('show');
+
+  //       // setTimeout(() => {
+  //       //   btnLink.classList.remove('hide');
+  //       // }, 300);
+  //     } else {
+  //       const errorData = await response.json();
+  //       message.textContent = `Error: ${errorData.message || 'Something went wrong.'}`;
+  //     }
+  //   } catch (err) {
+  //     message.textContent = 'Network error. Please try again later.';
+  //   }
+  // });
+
+  (function (w, d, e, u, f, l, n) {
+    (w[f] =
+      w[f] ||
+      function () {
+        (w[f].q = w[f].q || []).push(arguments);
+      }),
+      (l = d.createElement(e)),
+      (l.async = 1),
+      (l.src = u),
+      (n = d.getElementsByTagName(e)[0]),
+      n.parentNode.insertBefore(l, n);
+  })(window, document, 'script', 'https://assets.mailerlite.com/js/universal.js', 'ml');
+  ml('account', '906912');
+</script>
+<!-- End MailerLite Universal -->
+
+<style lang="scss">
+  @use 'sass:math';
+  @use '../../../styles/mixins';
+
+  .hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-top: 40px;
+    max-width: 100vw;
+    min-height: 500px;
+    max-height: 1000px;
+    text-align: center;
+  }
+
+  .lovable-diploi-logo {
+    margin-bottom: 40px;
+    height: 100px;
+    @media (max-width: 600px) {
+      height: 50px;
+    }
+  }
+
+  .flex-col-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .cta-actions {
+    gap: 24px;
+
+    .cta-notice {
+      margin-bottom: 0px;
+      font-size: 1rem;
+    }
+  }
+
+  .cta-alt-actions {
+    gap: 8px;
+  }
+
+  .display-none {
+    display: none;
+  }
+
+  #lovable-form-container {
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.3s ease,
+      visibility 0.3s ease;
+    margin-top: 1rem;
+  }
+
+  #lovable-form-container.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  #lovable-import-link {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+
+  #lovable-import-link.hide {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .blobs {
+    position: absolute;
+    inset: 0 -16px;
+    top: calc(var(--header-height-px) * -2);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 992px;
+    margin: 0 auto;
+    text-align: center;
+
+    p {
+      margin-bottom: var(--space-xxl);
+      font-size: 1.5rem;
+    }
+
+    > * {
+      opacity: 0;
+      animation: fadeIn 1000ms ease 1 forwards;
+      animation-delay: 200ms;
+
+      @media (prefers-reduced-motion: reduce) {
+        animation: none;
+      }
+    }
+
+    button {
+      width: fit-content;
+      cursor: pointer;
+    }
+  }
+
+  .news {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    padding: 6px 12px;
+    border-radius: 1000px;
+    color: var(--color-text-primary);
+    text-decoration: none;
+    z-index: 2;
+    scale: 0.8;
+
+    @include mixins.respond-to('mobile') {
+      scale: 1;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      display: block;
+      inset: 0;
+      background:
+        linear-gradient(black, black) padding-box,
+        linear-gradient(45deg, var(--color-accent-primary), var(--color-accent-secondary)) border-box;
+      border: 1px solid transparent;
+      border-radius: 1000px;
+      filter: saturate(2);
+      z-index: -1;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      display: block;
+      inset: 1px;
+      background:
+        radial-gradient(circle at 0, var(--color-accent-primary), transparent 100px),
+        radial-gradient(circle at 100%, var(--color-accent-secondary), transparent 100px);
+      border-radius: 1000px;
+      opacity: 0.4;
+      z-index: -1;
+    }
+  }
+
+  .main-heading {
+    line-height: 1.1;
+    font-weight: 700;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    font-size: 3rem;
+    .text-gradient {
+      display: inline-block;
+    }
+  }
+
+  @keyframes scroll {
+    0% {
+      translate: 0 0 10px;
+    }
+    100% {
+      translate: calc((100% + 16px) * -1) 0 10px;
+    }
+  }
+
+  .icons {
+    position: relative;
+    display: flex;
+    margin-bottom: var(--space-xxl);
+    width: min(600px, 90vw);
+    user-select: none;
+    pointer-events: none;
+
+    mask-image: linear-gradient(to right, transparent, white 20%, white 80%, transparent);
+
+    > ul,
+    > div > ul {
+      display: flex;
+      gap: 16px;
+      margin-right: 16px;
+
+      animation: scroll 30s linear infinite;
+
+      > li {
+        opacity: 0;
+        animation: fadeIn 1000ms ease 1 forwards;
+        animation-delay: 200ms;
+
+        @media (prefers-reduced-motion: reduce) {
+          animation: none;
+        }
+
+        @for $i from 1 through 20 {
+          &:nth-child(#{$i}) {
+            animation-delay: (200ms + ($i * 50ms));
+          }
+        }
+      }
+    }
+
+    > div {
+      position: absolute;
+      translate: 100% 0;
+    }
+  }
+
+  .links {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 24px;
+
+    a {
+      font-size: 1rem;
+      text-decoration: none;
+    }
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      > :global(svg:last-of-type) {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes moveUpDown {
+    0% {
+      transform: translate(-50%, -50%) translateY(0px);
+    }
+    50% {
+      transform: translate(-50%, -50%) translateY(16px);
+    }
+    100% {
+      transform: translate(-50%, -50%) translateY(0px);
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+  }
+</style>
