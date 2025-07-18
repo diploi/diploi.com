@@ -3,7 +3,7 @@ title: 'The easiest way to start new Django and Hono apps, literally one click'
 description: 'Discover how to spin up apps in seconds using Diploi with Hono and Django'
 author: 'Javier'
 timestamp: '2025-06-26T07:11:05.573Z'
-# devtoUrl: 'https://dev.to/diploi/the-easiest-way-to-start-new-django-and-hono-apps-literally-one-click-14b0-temp-slug-1427409?preview=81f643c92b33681c5903860f2d906106c61fda9a51e2b87032fcb6befe4f49352333b42885a62c8ae92f7a2501d7144ca19063087d30117053628d1a'
+devtoUrl: 'https://dev.to/diploi/the-easiest-way-to-start-new-django-and-hono-apps-literally-one-click-141e'
 image: '/blog/hono_and_django_support/hono_and_django_support_cover.png'
 social_image: 'https://diploi.com/blog/hono_and_django_support/hono_and_django_support_og.png'
 draft: false
@@ -58,7 +58,9 @@ If you would like to test out how these frameworks work together with other fram
 2. Select all the components and add-ons
 3. That's it, click `Launch Stack`
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/rsnqJ2QzMIY?si=viHBaXGC1zoiKB2f" title="Code remotely and deploy with one click using this platform" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<div style="display:flex; justify-content:center; width:100%">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/rsnqJ2QzMIY?si=viHBaXGC1zoiKB2f" title="Code remotely and deploy with one click using this platform" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
 
 Diploi will then start a remote development environment that allows you to code in the browser and your application is deployed online. If you would like to start your application with a GitHub repository, all you need to do is register using GitHub and you will be able to start a new repository with your new application
 
