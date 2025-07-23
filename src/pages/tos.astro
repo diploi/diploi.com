@@ -62,6 +62,14 @@ const { Content } = await render(documentTOS);
       text-decoration: underline;
     }
 
+    li {
+      font-weight:300;
+      font-size: 20px;
+      &::marker {
+        font-weight: bold;
+      }
+    }
+    
     hr {
       display: flex;
       justify-content: center;
