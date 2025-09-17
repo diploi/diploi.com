@@ -1,0 +1,276 @@
+---
+import { Icon } from '../../../components';
+import { BlobCanvas } from '../../../components/BlobCanvas';
+import { getCollection } from 'astro:content';
+---
+
+<div class="hero">
+  <div class="blobs">
+    <BlobCanvas />
+  </div>
+  <div class="content">
+    <h1 class="main-heading">Launch Week!</h1>
+    <p class="subtitle">A lot of stuff happening this week!</p>
+  </div>
+</div>
+
+<style lang="scss">
+  @use 'sass:math';
+  @use '../../../styles/mixins';
+
+  .hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-top: 40px;
+    max-width: 100vw;
+    min-height: 500px;
+    max-height: 1000px;
+    text-align: center;
+  }
+
+  .lovable-diploi-logo {
+    margin-bottom: 40px;
+    height: 100px;
+    @media (max-width: 600px) {
+      height: 50px;
+    }
+  }
+
+  .flex-col-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .cta-actions {
+    gap: 24px;
+
+    .cta-notice {
+      margin-bottom: 0px;
+      font-size: 1rem;
+    }
+  }
+
+  .cta-alt-actions {
+    gap: 8px;
+  }
+
+  .display-none {
+    display: none;
+  }
+
+  #lovable-form-container {
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.3s ease,
+      visibility 0.3s ease;
+    margin-top: 1rem;
+  }
+
+  #lovable-form-container.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  #lovable-import-link {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+
+  #lovable-import-link.hide {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .blobs {
+    position: absolute;
+    inset: 0 -16px;
+    top: calc(var(--header-height-px) * -2);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 992px;
+    margin: 0 auto;
+    text-align: center;
+
+    p {
+      margin-bottom: var(--space-xxl);
+      font-size: 1.5rem;
+    }
+
+    > * {
+      opacity: 0;
+      animation: fadeIn 1000ms ease 1 forwards;
+      animation-delay: 200ms;
+
+      @media (prefers-reduced-motion: reduce) {
+        animation: none;
+      }
+    }
+
+    button {
+      width: fit-content;
+      cursor: pointer;
+    }
+  }
+
+  .news {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    padding: 6px 12px;
+    border-radius: 1000px;
+    color: var(--color-text-primary);
+    text-decoration: none;
+    z-index: 2;
+    scale: 0.8;
+
+    @include mixins.respond-to('mobile') {
+      scale: 1;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      display: block;
+      inset: 0;
+      background:
+        linear-gradient(black, black) padding-box,
+        linear-gradient(45deg, var(--color-accent-primary), var(--color-accent-secondary)) border-box;
+      border: 1px solid transparent;
+      border-radius: 1000px;
+      filter: saturate(2);
+      z-index: -1;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      display: block;
+      inset: 1px;
+      background:
+        radial-gradient(circle at 0, var(--color-accent-primary), transparent 100px),
+        radial-gradient(circle at 100%, var(--color-accent-secondary), transparent 100px);
+      border-radius: 1000px;
+      opacity: 0.4;
+      z-index: -1;
+    }
+  }
+
+  .main-heading {
+    line-height: 1.1;
+    font-weight: 700;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    font-size: 3rem;
+    .text-gradient {
+      display: inline-block;
+    }
+  }
+
+  @keyframes scroll {
+    0% {
+      translate: 0 0 10px;
+    }
+    100% {
+      translate: calc((100% + 16px) * -1) 0 10px;
+    }
+  }
+
+  .icons {
+    position: relative;
+    display: flex;
+    margin-bottom: var(--space-xxl);
+    width: min(600px, 90vw);
+    user-select: none;
+    pointer-events: none;
+
+    mask-image: linear-gradient(to right, transparent, white 20%, white 80%, transparent);
+
+    > ul,
+    > div > ul {
+      display: flex;
+      gap: 16px;
+      margin-right: 16px;
+
+      animation: scroll 30s linear infinite;
+
+      > li {
+        opacity: 0;
+        animation: fadeIn 1000ms ease 1 forwards;
+        animation-delay: 200ms;
+
+        @media (prefers-reduced-motion: reduce) {
+          animation: none;
+        }
+
+        @for $i from 1 through 20 {
+          &:nth-child(#{$i}) {
+            animation-delay: (200ms + ($i * 50ms));
+          }
+        }
+      }
+    }
+
+    > div {
+      position: absolute;
+      translate: 100% 0;
+    }
+  }
+
+  .links {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 24px;
+
+    a {
+      font-size: 1rem;
+      text-decoration: none;
+    }
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      > :global(svg:last-of-type) {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes moveUpDown {
+    0% {
+      transform: translate(-50%, -50%) translateY(0px);
+    }
+    50% {
+      transform: translate(-50%, -50%) translateY(16px);
+    }
+    100% {
+      transform: translate(-50%, -50%) translateY(0px);
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+  }
+</style>

@@ -1,0 +1,30 @@
+---
+import { createWebsiteSchema } from '../../utils/createWebsiteSchema';
+import Landing from '../_landing/index.astro';
+import LaunchweekHero from './_components/LaunchweekHero.astro';
+
+import { Section, GetStarted, PageTitle } from '../../components';
+import Layout from '../../layouts/Layout.astro';
+import Footer from '../../components/Footer.astro';
+import Navigation from '../../components/Navigation.astro';
+const schema = createWebsiteSchema();
+---
+
+<Layout title="Diploi – Blog">
+  {/* Organization schema for Google */}
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <main>
+  <Navigation />
+    <LaunchweekHero slot="hero" />
+    <Section>
+      <div class="content">
+        <PageTitle tagText="What's happening?" title="These are the new releases for this Launch Week" />
+      </div>
+    </Section>
+    <hr />
+    <Section>
+      <GetStarted />
+    </Section>
+  </main>
+  <Footer />
+</Layout>
