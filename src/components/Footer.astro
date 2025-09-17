@@ -12,7 +12,7 @@ import { ArrowUpRight, RocketLaunch } from '@phosphor-icons/react';
     <div class="footer-content">
       <div class="logo-and-socials">
         <Logo class="footer-logo" />
-        <a class="launch-week">
+        <a class="launch-week" data-event="footer_launchweek_click" href="/launchweek">
           <Tag><RocketLaunch weight="fill" /> Launch Week <ArrowUpRight /></Tag>
         </a>
       </div>
@@ -30,9 +30,6 @@ import { ArrowUpRight, RocketLaunch } from '@phosphor-icons/react';
           </li>
           <li>
             <a data-event="documentation_click" href="https://docs.diploi.com/">Documentation</a>
-          </li>
-          <li>
-            <a data-event="launchweek_click" href="/launchweek">Launch Week</a>
           </li>
           <li>
             <a data-event="login_click" href="https://console.diploi.com/login">Login / Sign Up</a>
@@ -230,6 +227,48 @@ import { ArrowUpRight, RocketLaunch } from '@phosphor-icons/react';
             }
           }
         }
+      }
+    }
+  }
+
+  .launch-week {
+    > :global(span) {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      // margin-bottom: 16px;
+      padding: 7px 10px 8px 10px;
+      // border-radius: 1000px;
+      color: var(--color-text-primary);
+      text-decoration: none;
+      z-index: 2;
+
+      &::before {
+        content: '';
+        position: absolute;
+        display: block;
+        inset: 0;
+        background:
+          linear-gradient(black, black) padding-box,
+          linear-gradient(45deg, var(--color-accent-primary), var(--color-accent-secondary)) border-box;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        filter: saturate(2);
+        z-index: -1;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        display: block;
+        inset: 1px;
+        background:
+          radial-gradient(circle at 0, var(--color-accent-primary), transparent 100px),
+          radial-gradient(circle at 100%, var(--color-accent-secondary), transparent 100px);
+        border-radius: 4px;
+        opacity: 0.4;
+        z-index: -1;
       }
     }
   }

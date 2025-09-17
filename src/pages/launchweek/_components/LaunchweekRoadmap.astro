@@ -1,43 +1,34 @@
 ---
-import { Compass } from '@phosphor-icons/react';
+import { BookBookmark, ClockCountdown, GitFork, Lightning, Square } from '@phosphor-icons/react';
 import Tag from '../../../components/Tag.astro';
-import AiSectionHeader from '../../ai/_components/AiSectionHeader.astro';
 ---
 
 <section class="main">
-  <AiSectionHeader>
-    <Compass />
-    <h2>Roadmap</h2>
-    <p>We are actively building our own Diploi AI features.</p>
-  </AiSectionHeader>
   <ol>
     <li>
-      <h3>Remote SSH support</h3>
-      <time>Q4 2024</time>
-      <Tag primary>Released</Tag>
+      <h3><ClockCountdown /> Monday <Tag primary>Releasing soon!</Tag></h3>
+      <time>22.9.2025</time>
+      <Square weight="duotone" className="bg" />
     </li>
     <li>
-      <h3>Built-in Browser IDE</h3>
-      <time>Q4 2024</time>
-      <Tag primary>Released</Tag>
+      <h3><ClockCountdown /> Tuesday</h3>
+      <time>23.9.2025</time>
+      <Square weight="duotone" className="bg" />
     </li>
     <li>
-      <h3>Official remote IDE support</h3>
-      <time>Q1 2025</time>
-      <Tag primary>Released</Tag>
+      <h3><ClockCountdown /> Wednesday</h3>
+      <time>24.9.2025</time>
+      <GitFork weight="duotone" className="bg" />
     </li>
     <li>
-      <h3>AI stack builder</h3>
-      <time>Q3 2025</time>
-      <Tag>Coming soon</Tag>
+      <h3><ClockCountdown /> Thursday</h3>
+      <time>25.9.2025</time>
+      <Lightning weight="duotone" className="bg" />
     </li>
     <li>
-      <h3>Built-in Browser IDE AI</h3>
-      <time>Q4 2025</time>
-    </li>
-    <li>
-      <h3>AI log troubleshooter</h3>
-      <time>Q4 2025</time>
+      <h3><ClockCountdown /> Friday</h3>
+      <time>26.9.2025</time>
+      <BookBookmark weight="duotone" className="bg" />
     </li>
   </ol>
 </section>
@@ -55,8 +46,39 @@ import AiSectionHeader from '../../ai/_components/AiSectionHeader.astro';
   }
 
   ol {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
     margin: 0;
     padding: 0;
     list-style: none;
+
+    > li {
+      @include mixins.card-desktop;
+      padding: 48px;
+      background-color: var(--color-bg);
+
+      > h3 {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      > time {
+        font-size: 1.25rem;
+        font-weight: 350;
+        color: var(--color-text-secondary);
+      }
+
+      > .bg {
+        position: absolute;
+        top: -20px;
+        right: 0;
+        width: 400px;
+        height: 400px;
+        color: var(--color-text-secondary);
+        opacity: 0.1;
+      }
+    }
   }
 </style>

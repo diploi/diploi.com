@@ -1,16 +1,14 @@
 ---
 import { createWebsiteSchema } from '../../utils/createWebsiteSchema';
-import Landing from '../_landing/index.astro';
 import LaunchweekHero from './_components/LaunchweekHero.astro';
-
-import { Section, GetStarted, PageTitle } from '../../components';
 import Layout from '../../layouts/Layout.astro';
 import Footer from '../../components/Footer.astro';
 import Navigation from '../../components/Navigation.astro';
-import AiSectionHeader from '../ai/_components/AiSectionHeader.astro';
-import { HardDrives } from '@phosphor-icons/react';
-import Tag from '../../components/Tag.astro';
 import LaunchweekRoadmap from './_components/LaunchweekRoadmap.astro';
+import LaunchweekFeatures from './_components/LaunchweekFeatures.astro';
+import AiCallouts from '../ai/_components/AiCallouts.astro';
+import AiStackBuilder from '../ai/_components/AiStackBuilder.astro';
+
 const schema = createWebsiteSchema();
 ---
 
@@ -23,9 +21,11 @@ const schema = createWebsiteSchema();
     <LaunchweekHero slot="hero" />
     <LaunchweekRoadmap />
     <hr />
-    <Section>
-      <GetStarted />
-    </Section>
+    <LaunchweekFeatures />
+    <hr />
+    <AiStackBuilder />
+    <hr & />
+    <AiCallouts />
   </main>
   <Footer />
 </Layout>

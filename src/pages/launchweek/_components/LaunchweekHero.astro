@@ -1,7 +1,8 @@
 ---
-import { RocketLaunch } from '@phosphor-icons/react';
-import { SparkleElement } from '../../../components';
+import { Heart, RocketLaunch } from '@phosphor-icons/react';
 import { createStackBackgroundUri } from '../../ai/_components/aiUtils';
+import logo from '../../../../public/logo-icon.svg';
+import { Image } from 'astro:assets';
 
 const background = createStackBackgroundUri({
   size: 16,
@@ -15,11 +16,15 @@ const backgroundColor = createStackBackgroundUri({ size: 16, primary: '#6650fa',
 <header>
   <div class="background" inert aria-hidden></div>
   <section>
-    <RocketLaunch size={64 + 16} weight="duotone" style={{ fill: 'url(#gradient-one)' }} />
+    <div>
+      <Image src={logo} alt="Diploi logo" width={64 + 16} height={64 + 16} />
+      <Heart size={32} weight="fill" />
+      <RocketLaunch size={64 + 16} weight="duotone" style={{ fill: 'url(#gradient-one)' }} />
+    </div>
     <h1>Launch Week</h1>
-    <p>Diploi is the first platform to integrate AI across the entire development lifecycle, while keeping you in command.</p>
-    {/*<AiLink href="/">Import an existing project</AiLink>*/}
-    <!-- <AiLink href="#pricing">See pricing</AiLink> -->
+    <p>
+      Launch Week is here! We're rolling out new features and components to make your development flow smoother, faster, and more magical.
+    </p>
   </section>
 </header>
 
@@ -54,6 +59,17 @@ const backgroundColor = createStackBackgroundUri({ size: 16, primary: '#6650fa',
     flex-direction: column;
     align-items: center;
     margin: 64px 0;
+
+    > div {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+
+      > svg:first-of-type {
+        color: var(--color-secondary);
+      }
+    }
 
     > h1 {
       margin-bottom: 8px;
@@ -123,11 +139,16 @@ const backgroundColor = createStackBackgroundUri({ size: 16, primary: '#6650fa',
       background-size: 896px;
       // transform: rotate(8deg);
 
+      --highlight-color: white;
+      @media (max-width: 860px) {
+        --highlight-color: rgba(255, 255, 255, 0.3);
+      }
+
       mask-image: radial-gradient(
         circle at center,
         transparent,
         transparent calc(var(--size) - 50px),
-        white var(--size),
+        var(--highlight-color) var(--size),
         transparent calc(var(--size) + 200px),
         transparent
       );
