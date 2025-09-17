@@ -16,6 +16,11 @@
   status = 301
 
 [[redirects]]
+  from = "/in"
+  to = "/?utm=in"
+  status = 302
+
+[[redirects]]
   from = "/launch/astro"
   to = "/component/astro"
   status = 301
