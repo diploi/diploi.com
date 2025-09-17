@@ -3,6 +3,8 @@ import Icon from './Icon.astro';
 import Logo from './Logo.astro';
 import TinyLaunchSoon from '../images/tinylaunch-soon.svg';
 import { Image } from 'astro:assets';
+import Tag from './Tag.astro';
+import { ArrowUpRight, RocketLaunch } from '@phosphor-icons/react';
 ---
 
 <footer>
@@ -10,6 +12,9 @@ import { Image } from 'astro:assets';
     <div class="footer-content">
       <div class="logo-and-socials">
         <Logo class="footer-logo" />
+        <a class="launch-week">
+          <Tag><RocketLaunch weight="fill" /> Launch Week <ArrowUpRight /></Tag>
+        </a>
       </div>
       <div class="clickable">
         <ul class="links">
@@ -155,6 +160,10 @@ import { Image } from 'astro:assets';
     justify-content: space-between;
     align-items: center;
     gap: var(--space-l);
+  }
+
+  .launch-week {
+    font-weight: 500;
   }
 
   .clickable {

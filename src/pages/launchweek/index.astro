@@ -7,20 +7,21 @@ import { Section, GetStarted, PageTitle } from '../../components';
 import Layout from '../../layouts/Layout.astro';
 import Footer from '../../components/Footer.astro';
 import Navigation from '../../components/Navigation.astro';
+import AiSectionHeader from '../ai/_components/AiSectionHeader.astro';
+import { HardDrives } from '@phosphor-icons/react';
+import Tag from '../../components/Tag.astro';
+import LaunchweekRoadmap from './_components/LaunchweekRoadmap.astro';
 const schema = createWebsiteSchema();
 ---
 
 <Layout title="Diploi – Blog">
   {/* Organization schema for Google */}
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
-  <main>
+
   <Navigation />
+  <main>
     <LaunchweekHero slot="hero" />
-    <Section>
-      <div class="content">
-        <PageTitle tagText="What's happening?" title="These are the new releases for this Launch Week" />
-      </div>
-    </Section>
+    <LaunchweekRoadmap />
     <hr />
     <Section>
       <GetStarted />
@@ -28,3 +29,13 @@ const schema = createWebsiteSchema();
   </main>
   <Footer />
 </Layout>
+
+<style>
+  main {
+    gap: 128px;
+
+    @media (max-width: 860px) {
+      gap: 64px;
+    }
+  }
+</style>
