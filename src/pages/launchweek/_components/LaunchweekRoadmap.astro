@@ -1,17 +1,48 @@
 ---
-import { BookBookmark, ClockCountdown, GitFork, Lightning, Square } from '@phosphor-icons/react';
+import { BookBookmark, ClockCountdown, GitFork, Lightning, RocketLaunch, SealCheck, Square } from '@phosphor-icons/react';
 import Tag from '../../../components/Tag.astro';
+import { getCollection } from 'astro:content';
+import AiLink from '../../ai/_components/AiLink.astro';
+
+const components = await getCollection('component');
+
+const laravelComponent = components.find((component) => component.id === 'laravel')!.data;
+const denoComponent = components.find((component) => component.id === 'deno')!.data;
 ---
 
 <section class="main">
   <ol>
-    <li>
-      <h3><ClockCountdown /> Monday <Tag primary>Releasing soon!</Tag></h3>
-      <time>22.9.2025</time>
-      <Square weight="duotone" className="bg" />
+    <li class="released">
+      <h3><SealCheck weight="bold" style={{ fill: 'url(#gradient-two)' }} /> Monday</h3>
+      <p>
+        Day one brings two big additions: <a href="/component/laravel">Laravel</a> and <a href="/component/deno">Deno</a>. Laravel
+        introduces <strong>official PHP support on Diploi</strong>, while Deno expands our JS/TS roster with powerful package management and
+        fine-grained process permissions.
+      </p>
+      <ul>
+        <li>
+          <h4>
+            <img alt="Laravel icon" src={`data:image/svg+xml;base64,${laravelComponent.icon}`} width={32} height={32} />
+            {laravelComponent.name}
+            <Tag primary>New</Tag>
+          </h4>
+          <p>The PHP framework for web artisans. Running on FrankenPHP.</p>
+          <AiLink href="/component/laravel">Launch Laravel</AiLink>
+        </li>
+        <li>
+          <h4>
+            <img alt="Deno icon" src={`data:image/svg+xml;base64,${denoComponent.icon}`} width={32} height={32} />
+            {denoComponent.name}
+            <Tag primary>New</Tag>
+          </h4>
+          <p>The next-generation JavaScript runtime. Now available with a single-click.</p>
+          <AiLink href="/component/deno">Launch Deno</AiLink>
+        </li>
+      </ul>
+      <RocketLaunch weight="duotone" className="bg" />
     </li>
     <li>
-      <h3><ClockCountdown /> Tuesday</h3>
+      <h3><ClockCountdown /> Tuesday <Tag primary>Releasing soon!</Tag></h3>
       <time>23.9.2025</time>
       <Square weight="duotone" className="bg" />
     </li>
@@ -34,6 +65,7 @@ import Tag from '../../../components/Tag.astro';
 </section>
 
 <style lang="scss">
+  @use 'sass:math';
   @use '../../../styles/mixins';
 
   .main {
@@ -55,13 +87,49 @@ import Tag from '../../../components/Tag.astro';
 
     > li {
       @include mixins.card-desktop;
+      position: relative;
       padding: 48px;
       background-color: var(--color-bg);
+
+      @for $i from 1 through 5 {
+        &.released:nth-child(#{$i}) {
+          background: linear-gradient(
+            to top,
+            transparent,
+            color-mix(in lab, color-mix(in lab, var(--color-primary), var(--color-secondary) ($i - 1) * math.div(100%, 4)), transparent 90%)
+          );
+
+          > .bg {
+            color: color-mix(
+              in lab,
+              color-mix(in lab, var(--color-primary), var(--color-secondary) ($i - 1) * math.div(100%, 4)),
+              transparent 90%
+            );
+            opacity: 0.5;
+          }
+
+          &::after {
+            background: linear-gradient(
+              to bottom,
+              color-mix(in lab, var(--color-primary), var(--color-secondary) ($i - 1) * math.div(100%, 4)),
+              transparent
+            );
+          }
+        }
+      }
 
       > h3 {
         display: flex;
         align-items: center;
         gap: 8px;
+      }
+
+      > p {
+        a {
+          color: var(--color-text-primary);
+          text-underline-offset: 4px;
+          font-weight: 600;
+        }
       }
 
       > time {
@@ -72,12 +140,36 @@ import Tag from '../../../components/Tag.astro';
 
       > .bg {
         position: absolute;
-        top: -20px;
+        top: -5px;
         right: 0;
         width: 400px;
         height: 400px;
         color: var(--color-text-secondary);
         opacity: 0.1;
+      }
+
+      > ul {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 32px;
+        margin-top: 32px;
+
+        > li {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+
+          h4 {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5rem;
+          }
+        }
+
+        @media (max-width: 860px) {
+          grid-template-columns: 1fr;
+        }
       }
     }
   }

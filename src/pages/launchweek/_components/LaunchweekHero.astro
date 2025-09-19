@@ -131,6 +131,8 @@ const backgroundColor = createStackBackgroundUri({ size: 16, primary: '#6650fa',
     }
 
     &::before {
+      --highlight-color: white;
+
       position: absolute;
       content: '';
       display: block;
@@ -138,11 +140,6 @@ const backgroundColor = createStackBackgroundUri({ size: 16, primary: '#6650fa',
       background-image: var(--backgroundColor);
       background-size: 896px;
       // transform: rotate(8deg);
-
-      --highlight-color: white;
-      @media (max-width: 860px) {
-        --highlight-color: rgba(255, 255, 255, 0.3);
-      }
 
       mask-image: radial-gradient(
         circle at center,
@@ -154,6 +151,10 @@ const backgroundColor = createStackBackgroundUri({ size: 16, primary: '#6650fa',
       );
 
       animation: background-animation 8s infinite ease;
+
+      @media (max-width: 860px) {
+        --highlight-color: rgba(255, 255, 255, 0.3);
+      }
     }
   }
 </style>
