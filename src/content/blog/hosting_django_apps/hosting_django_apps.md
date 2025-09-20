@@ -9,11 +9,24 @@ social_image: 'https://diploi.com/blog/hosting_django_apps/hosting_django_apps_o
 draft: false
 ---
 
+Updated <time datetime="2025-09-20T12:00:05.000Z">September 20, 2025</time>
+
 ###### Getting started with Django on Diploi
 
 Django is a huge part of the web, and there are many options for getting a Django app online, but Diploi might be the easiest one out there.
 
 In this guide, I’ll walk you through spinning up a brand-new Django app on Diploi, which will be live on the internet from the moment you create it. No YAML files or boring server setup screens, just code and go.
+
+---
+
+## Table of contents
+
+- [What you need](#what-you-need)
+- [How to create an app with Django](#how-to-create-an-app-with-django)
+- [Launching your Django app to Production](#launching-your-django-app-to-production)
+- [Configuring a custom domain for your Django app in Production](#configuring-a-custom-domain-for-your-django-app-in-production)
+- [Trying out Django for the first time?](#trying-out-django-for-the-first-time)
+- [References](#references)
 
 ---
 
@@ -95,7 +108,7 @@ Sign up [Diploi](https://console.diploi.com/) for free and receive **50 € in
 
 ---
 
-**References:**
+## References
 
 - https://docs.djangoproject.com/
 - https://docs.diploi.com/

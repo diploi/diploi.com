@@ -9,6 +9,8 @@ social_image: 'https://diploi.com/blog/exploring-7-lesser-known-ai-coding-extens
 draft: false
 ---
 
+Updated <time datetime="2025-09-20T15:00:05.000Z">September 20, 2025</time>
+
 ###### Beyond the popular tools that most people are using
 
 If you code for a living or just got started in the journey to become a developer, I imagine you are aware of how helpful AI can be, but chances are that you are aware of the usual suspects, like GitHub Copilot or OpenAI Codex.
@@ -31,6 +33,15 @@ And at the end, I provide a short conclusion based on the findings.
 
 [TLDR? Check the comparison tables](#comparing-the-extensions)
 
+---
+
+## Table of contents
+
+- [List of AI coding extensions explored in this article](#list-of-ai-coding-extensions-explored-in-this-article)
+- [Comparing the Extensions](#comparing-the-extensions)
+- [Closing thoughts](#closing-thoughts)
+- [References](#references)
+
 ## List of AI coding extensions explored in this article
 
 We'll go over the following extensions:
@@ -45,7 +56,7 @@ We'll go over the following extensions:
 
 **Let's get started!**
 
-***
+---
 
 ### Sixth AI - The All-in-One Coding Agent
 
@@ -206,7 +217,7 @@ I hope I'm being paranoid and it's all good, but we'll see.
 
 That said, I think Sixth has a lot of potential and I believe that it's worth giving it a try if you are looking for a solution that could give you access to multiple AI models, without the need to manage API keys or individual payments to each AI provider you want to use.
 
-***
+---
 
 ### Code Web Chat (CWC) - ChatGPT in Your VS Code
 
@@ -293,7 +304,7 @@ In a nutshell, Code Web Chat turns your browser into a sidekick for VS Code. It�
 
 I think this tool is best suited for devs who want to save money and don't need complex features. It's not as streamlined as other extensions explored here, but it gets the job done for simple tasks.
 
-***
+---
 
 ### Syntx - Autonomous AI Agent in Your Editor
 
@@ -451,7 +462,7 @@ Syntx offers code assistant capabilities, with a wide range of options and behav
 
 If you want to evaluate different models in your code or use different models for various tasks within your code, then Syntx will be an interesting option for you. 
 
-***
+---
 
 ### Tabby - Self-Hosted Copilot Alternative
 
@@ -575,7 +586,7 @@ In short, Tabby is the “roll your own” solution. It’s meant for those who 
 
 It's not the most plug-and-play tool out there, but if you are looking for a fully self-hosted solution, then Tabby is for you.
 
-***
+---
 
 ### Augment Code - The Professional’s AI Copilot with Superpowers
 
@@ -672,7 +683,7 @@ Additionally, their MCP support and integrations with other dev tools make it ea
 
 If you work with large codebases and need code completions and agentic capabilities with context awareness, then Augment is an interesting alternative for you to explore.
 
-***
+---
 
 ### GoCodeo - Build & Ship Apps with an AI Agent
 
@@ -835,7 +846,7 @@ Their lack of consistency around pricing is also odd, and it's not clear if the 
 
 If you are an individual developer who likes to test out different tools, then GoCodeo might be a good option for you to explore. However, if you work at a company that has strict rules around data privacy, then I would avoid using this extension.
 
-***
+---
 
 ### Vibe Coder - Voice-Driven Coding with AI
 
@@ -916,7 +927,7 @@ Vibe Coder is an interesting initiative to explore voice-first coding, but as I 
 
 If you want to experiment with voice coding, give Vibe Coder a try, although I couldn't get the Vibe mode to work on my machine. 🥲
 
-***
+---
 
 ## Comparing the Extensions
 
@@ -990,7 +1001,7 @@ That's all for now, see you 😌
 
 ---
 
-**References:**
+## References
 
 https://trysixth.com/
 https://codeweb.chat/

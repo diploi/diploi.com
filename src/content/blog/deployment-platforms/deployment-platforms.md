@@ -1,11 +1,13 @@
 ---
 title: 'Skip the YAML and Server Configs: 7 Easy Deployment Platforms You Haven’t Tried'
-description: 'DevOps can be painful. We know from experience 🤕. So we decided to create a list of new deployment platforms (us included) that you should check out!'
+description: 'We created a list of deployment platforms (us included) that you should check out to make your development workflow faster'
 author: 'Javier'
 timestamp: '2025-05-27T07:11:05.573Z'
 devtoUrl: 'https://dev.to/diploi/skip-the-yaml-and-server-configs-7-easy-deployment-platforms-you-havent-tried-50d4'
 draft: false
 ---
+
+Updated <time datetime="2025-09-20T14:32:00+03:00">September 20, 2025</time>
 
 ###### DevOps can be painful. We know from experience 🤕
 
@@ -20,6 +22,18 @@ By now you know both the big boys, like Azure, and you also probably know other 
 But I bet that you probably don't know the ones I'll present now, and I hope you find them useful, reliable, interesting, and maybe even in some cases, whimsical 😌
 
 Let's get started!
+
+## Table of contents
+
+- [Canine](#canine)
+- [Sherpa](#sherpa)
+- [Sliplane](#sliplane)
+- [Ploi](#ploi)
+- [Stacktape](#stacktape)
+- [Thunder](#thunder)
+- [Diploi](#diploi)
+- [Choosing the Right Platform](#choosing-the-right-platform)
+- [References](#references)
 
 ---
 
@@ -301,7 +315,7 @@ In case you are curious, [Test-drive Diploi ✨](https://diploi.com/)
 
 ---
 
-**References:**
+## References
 
 https://ploi.io/documentation
 https://canine.gitbook.io/canine.sh

@@ -9,9 +9,22 @@ social_image: 'https://diploi.com/blog/hosting_hono_apps/hosting_hono_apps_og.pn
 draft: false
 ---
 
+Updated <time datetime="2025-09-20T15:10:05.000Z">September 20, 2025</time>
+
 ###### Getting started with Hono, but in easy-mode
 
 You probably know how to start a new Hono app just using `npm create hono@latest`, for example, but this guide is not about that. Here we'll show you how to get your new Hono app online in record time.
+
+---
+
+## Table of contents
+
+- [What you need](#what-you-need)
+- [How to create an app with Hono](#how-to-create-an-app-with-hono)
+- [Launching your Hono app to Production](#launching-your-hono-app-to-production)
+- [Configuring a custom domain for your Hono app in Production](#configuring-a-custom-domain-for-your-hono-app-in-production)
+- [Trying out Hono for the first time?](#trying-out-hono-for-the-first-time)
+- [References](#references)
 
 ---
 
@@ -96,7 +109,7 @@ Sign up at [Diploi](https://diploi.com/) and get **50 € in free credits**.
 
 ---
 
-**References:**
+## References
 
 - https://hono.dev/docs/
 - https://docs.diploi.com/

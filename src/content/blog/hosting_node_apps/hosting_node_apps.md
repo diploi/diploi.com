@@ -9,11 +9,24 @@ social_image: 'https://diploi.com/blog/hosting_node_apps/hosting_node_apps_og.pn
 draft: false
 ---
 
+Updated <time datetime="2025-09-20T15:12:05.000Z">September 20, 2025</time>
+
 ###### Getting started with Node.js on Diploi
 
 Node powers so much of the internet these days, and there are hundreds of services that can help you host Node apps, but none might be easier than Diploi. Bold claim, I know.
 
 In this guide, I'll show how easy it is to create a new Node app that is hosted online right from the start without ever touching YAML or annoying server setup wizards.
+
+---
+
+## Table of contents
+
+- [What you need](#what-you-need)
+- [How to create an app with Node](#how-to-create-an-app-with-node)
+- [Launching your Node.js app to Production](#launching-your-nodejs-app-to-production)
+- [Configuring a custom domain for your Node.js app in Production](#configuring-a-custom-domain-for-your-nodejs-app-in-production)
+- [Trying out Node for the first time?](#trying-out-node-for-the-first-time)
+- [References](#references)
 
 ---
 
@@ -93,7 +106,7 @@ If you haven't yet, sign up at [Diploi](https://diploi.com/) and get **50 € 
 
 ---
 
-**References:**
+## References
 
 - https://nodejs.org/docs/latest/api/
 - https://docs.diploi.com/
