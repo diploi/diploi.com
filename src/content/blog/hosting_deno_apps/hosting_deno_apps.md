@@ -4,8 +4,8 @@ description: 'How to use Diploi to host and develop Deno-powered apps without co
 author: 'Javier'
 timestamp: '2025-09-22T01:00:05.000Z'
 # devtoUrl: ''
-image: '/blog/hosting_a_ghost_blog/hosting_a_ghost_blog_cover.png'
-social_image: 'https://diploi.com/blog/hosting_a_ghost_blog/hosting_a_ghost_blog_og.png'
+image: '/blog/hosting_deno_apps/hosting_deno_apps_cover.png'
+social_image: 'https://diploi.com/blog/hosting_deno_apps/hosting_deno_apps_og.png'
 draft: true
 ---
 

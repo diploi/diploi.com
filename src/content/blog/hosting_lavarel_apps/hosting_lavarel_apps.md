@@ -4,8 +4,8 @@ description: 'In this tutorial guide we go over the process of creating and host
 author: 'Javier'
 timestamp: '2025-09-22T02:11:05.573Z'
 # devtoUrl: ''
-image: '/blog/hosting_a_ghost_blog/hosting_a_ghost_blog_cover.png'
-social_image: 'https://diploi.com/blog/hosting_a_ghost_blog/hosting_a_ghost_blog_og.png'
+image: '/blog/hosting_lavarel_apps/hosting_lavarel_apps_cover.png'
+social_image: 'https://diploi.com/blog/hosting_lavarel_apps/hosting_lavarel_apps_og.png'
 draft: true
 ---
 
