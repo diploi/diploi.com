@@ -9,11 +9,24 @@ social_image: 'https://diploi.com/blog/hosting_nextjs_apps/hosting_nextjs_apps_o
 draft: false
 ---
 
+Updated <time datetime="2025-09-20T15:11:05.000Z">September 20, 2025</time>
+
 ###### Getting started with Next.js, without Vercel
 
 If you have used Next.js, I'm sure you will be familiar with Vercel. For the most part, Vercel provides a good hosting service, but if you need to use Next.js along with other frameworks on a monorepo, then it is not so good, but Diploi is 😌
 
 In this post, we'll go over how to create production-ready Next.js apps, with a great deployment experience and support for complex monorepo apps.
+
+---
+
+## Table of contents
+
+- [What you need](#what-you-need)
+- [How to create an app with Next.js](#how-to-create-an-app-with-nextjs)
+- [Launching your Next.js app to Production](#launching-your-nextjs-app-to-production)
+- [Configuring a custom domain for your Next.js app in Production](#configuring-a-custom-domain-for-your-nextjs-app-in-production)
+- [Trying out Next.js for the first time?](#trying-out-nextjs-for-the-first-time)
+- [References](#references)
 
 ---
 
@@ -93,7 +106,7 @@ Sign up at [Diploi](https://diploi.com/) and get **50 € in free credits**.
 
 ---
 
-**References:**
+## References
 
 - https://nextjs.org/docs
 - https://docs.diploi.com/

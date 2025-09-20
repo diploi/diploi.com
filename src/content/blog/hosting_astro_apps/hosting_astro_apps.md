@@ -9,9 +9,22 @@ social_image: 'https://diploi.com/blog/hosting_astro_apps/hosting_astro_apps_og.
 draft: false
 ---
 
+Updated <time datetime="2025-09-20T15:02:05.000Z">September 20, 2025</time>
+
 ###### Getting started with Astro apps, the easy way
 
 You can start an Astro project in several ways, by using the official CLI, grabbing a community starter from GitHub, or wiring up your own config, but if you're looking for the **fastest and smoothest way**, Diploi makes it ridiculously easy.
+
+---
+
+## Table of contents
+
+- [What you need](#what-you-need)
+- [How to create an app with Astro](#how-to-create-an-app-with-astro)
+- [Launching your Astro app to Production](#launching-your-astro-app-to-production)
+- [Configuring a custom domain for your Astro site in Production](#configuring-a-custom-domain-for-your-astro-site-in-production)
+- [Trying out Astro for the first time?](#trying-out-astro-for-the-first-time)
+- [References](#references)
 
 ---
 
@@ -93,7 +106,7 @@ Sign up at [Diploi](https://diploi.com/) and get **50 € in free credits**.
 
 ---
 
-**References:**
+## References
 
 - https://docs.astro.build/en/getting-started/
 - https://docs.diploi.com/

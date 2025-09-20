@@ -9,9 +9,22 @@ social_image: 'https://diploi.com/blog/hosting_nuejs_apps/hosting_nuejs_apps_og.
 draft: false
 ---
 
+Updated <time datetime="2025-09-20T15:15:05.000Z">September 20, 2025</time>
+
 ###### Getting started with Nue.js apps, the easy way
 
 There are plenty of ways to kick off a Nue.js application, cloning a template from a repo, running `nue create simple-blog`, or rolling your own boilerplate from scratch, but today I’m showing you the absolute easiest approach using Diploi.
+
+---
+
+## Table of contents
+
+- [What you need](#what-you-need)
+- [How to create an app with Nue.js](#how-to-create-an-app-with-nuejs)
+- [Launching your Nue.js app to Production](#launching-your-nuejs-app-to-production)
+- [Configuring a custom domain for your Nue.js application in Production](#configuring-a-custom-domain-for-your-nuejs-application-in-production)
+- [Trying out Nue.js for the first time?](#trying-out-nuejs-for-the-first-time)
+- [References](#references)
 
 ---
 
@@ -94,7 +107,7 @@ Register at [Diploi](https://diploi.com/) and get **50 € in free credits**.
 
 ---
 
-**References:**
+## References
 
 - https://svelte.dev/docs/kit/introduction
 - https://docs.diploi.com/

@@ -9,6 +9,8 @@ social_image: 'https://diploi.com/blog/hosting_svelte_apps/hosting_svelte_apps_o
 draft: false
 ---
 
+Updated <time datetime="2025-09-20T15:22:05.000Z">September 20, 2025</time>
+
 ###### Getting started with SvelteKit apps, the easy way
 
 There are many ways to launch apps with SvelteKit, like classic `npm init -y` or taking one of the thousands of boilerplate templates hosted on GitHub, but today I'm talking about the absolute easiest one.
@@ -18,6 +20,17 @@ If you don't want to read, check this short video tutorial.
 <div style="display:flex; justify-content:center; width:100%">
     <iframe width="560" height="315" src="https://www.youtube.com/embed/Cj8WW_EZlMQ?si=ws1-4P8rWnrtNc4y" title="Launching a SvelteKit in record time" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </div>
+
+---
+
+## Table of contents
+
+- [What you need](#what-you-need)
+- [How to create an app with SvelteKit](#how-to-create-an-app-with-sveltekit)
+- [Launching your SvelteKit app to Production](#launching-your-sveltekit-app-to-production)
+- [Configuring a custom domain for your SvelteKit application in Production](#configuring-a-custom-domain-for-your-sveltekit-application-in-production)
+- [Trying out SvelteKit for the first time?](#trying-out-sveltekit-for-the-first-time)
+- [References](#references)
 
 ---
 
@@ -85,7 +98,7 @@ Register in [Diploi](https://diploi.com/) and get 50€ in free credits.
 
 ---
 
-**References:**
+## References
 
 - https://svelte.dev/docs/kit/introduction
 - https://docs.diploi.com/

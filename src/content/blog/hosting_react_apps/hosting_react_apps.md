@@ -9,11 +9,24 @@ social_image: 'https://diploi.com/blog/hosting_react_apps/hosting_react_apps_og.
 draft: false
 ---
 
+Updated <time datetime="2025-09-20T15:20:05.000Z">September 20, 2025</time>
+
 ###### Getting started with React on Diploi
 
 React is one of the most used and fastest ways to build modern web frontends, and with Diploi, you can host your new React apps faster than with any other hosting service.
 
 In this guide, you’ll learn how to launch a fresh React app, using Vite as the default bundler for your app. Using Diploi, your app will be live online in seconds, and best of all, without creating YAML files or doing any server config work.
+
+---
+
+## Table of contents
+
+- [What you need](#what-you-need)
+- [How to create an app with React + Vite](#how-to-create-an-app-with-react--vite)
+- [Launching your React+Vite app to Production](#launching-your-reactvite-app-to-production)
+- [Configuring a custom domain for your React + Vite app in Production](#configuring-a-custom-domain-for-your-react--vite-app-in-production)
+- [Trying out React with Vite for the first time?](#trying-out-react-with-vite-for-the-first-time)
+- [References](#references)
 
 ---
 
@@ -102,7 +115,7 @@ Sign up for [Diploi](https://console.diploi.com/) for free and get €50 in cred
 
 ---
 
-**References:**
+## References
 
 - https://vite.dev/guide/
 - https://react.dev/reference/react

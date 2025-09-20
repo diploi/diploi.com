@@ -9,9 +9,22 @@ social_image: 'https://diploi.com/blog/hosting_a_ghost_blog/hosting_a_ghost_blog
 draft: false
 ---
 
+Updated <time datetime="2025-09-20T15:01:05.000Z">September 20, 2025</time>
+
 ###### Launching a Ghost blog using Diploi to customize and host it
 
 If you're interested in self-hosting open-source services, this guide will be useful for you. Diploi gets you from zero to a live blog in seconds, and the best part is that you can also customize your Ghost blogs at the code level, without the need to run anything locally using Diploi's remote development capabilities. Let's get straight to it!
+
+---
+
+## Table of contents
+
+- [What you’ll need](#what-youll-need)
+- [Creating a blog with Ghost](#creating-a-blog-with-ghost)
+- [Ship your Ghost blog to Production](#ship-your-ghost-blog-to-production)
+- [Set up a custom domain for your Ghost site](#set-up-a-custom-domain-for-your-ghost-site)
+- [New to Ghost? Try it in the cloud first for free](#new-to-ghost-try-it-in-the-cloud-first-for-free)
+- [References](#references)
 
 ---
 
@@ -51,7 +64,10 @@ Once you are ready to create and launch your blog to production, you can create 
 6. Add any necessary **environment variables**
 7. Click **Create Deployment +**
 
-That’s it, your Ghost blog is deployed and ready to scale.
+That’s it, your Ghost blog is deployed and ready to scale. To access the admin panel, you must add to your Ghost URL the slug `/ghost`, where you can setup your password and then access your site's dashboard.
+
+Example:
+`example.com/ghost`
 
 ---
 
@@ -87,7 +103,7 @@ What other open source tools would you like us to support? Let us know on [Disco
 
 ---
 
-**References:**
+## References
 
 - Ghost Docs https://ghost.org/docs/
 - Diploi Components https://docs.diploi.com/building/components

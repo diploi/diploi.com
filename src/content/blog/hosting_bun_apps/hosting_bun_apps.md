@@ -9,6 +9,8 @@ social_image: 'https://diploi.com/blog/hosting_bun_apps/hosting_bun_apps_og.png'
 draft: false
 ---
 
+Updated <time datetime="2025-09-20T15:03:05.000Z">September 20, 2025</time>
+
 ###### Getting started with Bun on Diploi
 
 There are thousands of tutorials going over how to create a Bun app and then host it online. This is not that 😎
@@ -16,6 +18,17 @@ There are thousands of tutorials going over how to create a Bun app and then hos
 In this tutorial, we will show you how to completely skip any DevOps work that you usually need to put your apps online by using Diploi, so that you can create Bun applications that can be launched to production in seconds.
 
 And yes, I'm not exaggerating.
+
+---
+
+## Table of contents
+
+- [What you need](#what-you-need)
+- [How to create an app with Bun](#how-to-create-an-app-with-bun)
+- [Launching your Bun app to Production](#launching-your-bun-app-to-production)
+- [Configuring a custom domain for your Bun app in Production](#configuring-a-custom-domain-for-your-bun-app-in-production)
+- [Trying out Bun for the first time?](#trying-out-bun-for-the-first-time)
+- [References](#references)
 
 ---
 
@@ -96,7 +109,7 @@ Sign up at [Diploi](https://diploi.com/) and get **50 € in free credits**.
 
 ---
 
-**References:**
+## References
 
 - https://bun.com/docs
 - https://docs.diploi.com/
