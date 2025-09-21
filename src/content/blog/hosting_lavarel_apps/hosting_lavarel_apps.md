@@ -6,7 +6,7 @@ timestamp: '2025-09-22T02:11:05.573Z'
 # devtoUrl: ''
 image: '/blog/hosting_lavarel_apps/hosting_lavarel_apps_cover.png'
 social_image: 'https://diploi.com/blog/hosting_lavarel_apps/hosting_lavarel_apps_og.png'
-draft: true
+draft: false
 ---
 
 Updated <time datetime="2025-09-22T03:00:05.000Z">September 22, 2025</time>
@@ -20,7 +20,7 @@ You probably know how to start a new Laravel app running `composer create-projec
 In this guide, we’ll show you how to get your new Laravel app not only setup while skipping the local install, but also get it online in record time by using Diploi, all without setting up servers or manipulating YAML files.
 
 <div style="display:flex; justify-content:center; width:100%">
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/Cj8WW_EZlMQ?si=ws1-4P8rWnrtNc4y" title="Launching a Lavarel app with Diploi" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/mNJpQ-_r9rs?si=5W0BvBdBgpGN-edw" title="Launching a Lavarel app with Diploi" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </div>
 
 ---

@@ -6,7 +6,7 @@ timestamp: '2025-09-22T01:00:05.000Z'
 # devtoUrl: ''
 image: '/blog/hosting_deno_apps/hosting_deno_apps_cover.png'
 social_image: 'https://diploi.com/blog/hosting_deno_apps/hosting_deno_apps_og.png'
-draft: true
+draft: false
 ---
 
 Updated <time datetime="2025-09-22T01:00:05.000Z">September 22, 2025</time>
@@ -22,7 +22,7 @@ We’ll walk through everything from creating your Deno project on Diploi, to pu
 Let’s go!
 
 <div style="display:flex; justify-content:center; width:100%">
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/Cj8WW_EZlMQ?si=ws1-4P8rWnrtNc4y" title="Launching a Deno app using Diploi" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/mNJpQ-_r9rs?si=5eSJB8LBJaiIHyJ5" title="Launching a Deno app using Diploi" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </div>
 
 ---
