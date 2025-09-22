@@ -8,6 +8,8 @@ const components = await getCollection('component');
 
 const laravelComponent = components.find((component) => component.id === 'laravel')!.data;
 const denoComponent = components.find((component) => component.id === 'deno')!.data;
+const fastapiComponent = components.find((component) => component.id === 'fastapi')!.data;
+const flaskComponent = components.find((component) => component.id === 'flask')!.data;
 ---
 
 <section class="main">
@@ -43,13 +45,39 @@ const denoComponent = components.find((component) => component.id === 'deno')!.d
       </ul>
       <RocketLaunch weight="duotone" className="bg" />
     </li>
-    <li>
-      <h3><ClockCountdown /> Tuesday <Tag primary>Releasing soon!</Tag></h3>
-      <time>23.9.2025</time>
-      <Square weight="duotone" className="bg" />
+    <li class="released">
+      <h3><SealCheck weight="bold" style={{ fill: 'url(#gradient-two)' }} /> Tuesday</h3>
+      <p>
+        It's Python's turn! Day two brings <strong>two of the most popular Python web frameworks</strong>, <a href="/component/fastapi"
+          >FastAPI</a
+        > and <a href="/component/flask">Flask</a>, to Diploi. Launch them with a single-click and start building faster than ever.
+      </p>
+      <ul>
+        <li>
+          <h4>
+            <img alt="FastAPI icon" src={`data:image/svg+xml;base64,${fastapiComponent.icon}`} width={32} height={32} />
+            {fastapiComponent.name}
+            <Tag primary>New</Tag>
+          </h4>
+          <p>Modern, fast, web framework for building APIs with standard type hints.</p>
+          <AiLink href="/component/fastapi">Launch FastAPI</AiLink>
+          <!-- <AiLink href="/blog/hosting_laravel_apps">Read guide</AiLink> -->
+        </li>
+        <li>
+          <h4>
+            <img alt="Flask icon" src={`data:image/svg+xml;base64,${flaskComponent.icon}`} width={32} height={32} />
+            {flaskComponent.name}
+            <Tag primary>New</Tag>
+          </h4>
+          <p>Lightweight, easy, scalable WSGI web application framework.</p>
+          <AiLink href="/component/flask">Launch Flask</AiLink>
+          <!-- <AiLink href="/blog/hosting_deno_apps">Read guide</AiLink> -->
+        </li>
+      </ul>
+      <RocketLaunch weight="duotone" className="bg" />
     </li>
     <li>
-      <h3><ClockCountdown /> Wednesday</h3>
+      <h3><ClockCountdown /> Wednesday <Tag primary>Releasing soon!</Tag></h3>
       <time>24.9.2025</time>
       <GitFork weight="duotone" className="bg" />
     </li>
