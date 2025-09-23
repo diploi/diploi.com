@@ -10,6 +10,7 @@ const laravelComponent = components.find((component) => component.id === 'larave
 const denoComponent = components.find((component) => component.id === 'deno')!.data;
 const fastapiComponent = components.find((component) => component.id === 'fastapi')!.data;
 const flaskComponent = components.find((component) => component.id === 'flask')!.data;
+const n8nComponent = components.find((component) => component.id === 'n8n')!.data;
 ---
 
 <section class="main">
@@ -76,13 +77,31 @@ const flaskComponent = components.find((component) => component.id === 'flask')!
       </ul>
       <RocketLaunch weight="duotone" className="bg" />
     </li>
-    <li>
-      <h3><ClockCountdown /> Wednesday <Tag primary>Releasing soon!</Tag></h3>
-      <time>24.9.2025</time>
-      <GitFork weight="duotone" className="bg" />
+    <li class="released">
+      <h3><SealCheck weight="bold" style={{ fill: 'url(#gradient-two)' }} /> Wednesday</h3>
+      <p>
+        Day three expands Diploi's advanced toolkit with <a href="/component/n8n">n8n</a>. Build powerful automations, schedule tasks
+        seamlessly, and take advantage of <strong>custom nodes right out of the box</strong>.
+      </p>
+      <ul>
+        <li class="wide">
+          <h4>
+            <img alt="n8n icon" src={`data:image/svg+xml;base64,${n8nComponent.icon}`} width={32} height={32} />
+            {n8nComponent.name}
+            <Tag primary>New</Tag>
+          </h4>
+          <p>
+            Build with the precision of code or the speed of drag-n-drop. n8n gives you more freedom to implement multi-step AI agents and
+            integrate apps than any other tool.
+          </p>
+          <AiLink href="/component/n8n">Launch n8n</AiLink>
+          <AiLink href="/blog/hosting_fastapi_apps">Read guide</AiLink>
+        </li>
+      </ul>
+      <RocketLaunch weight="duotone" className="bg" />
     </li>
     <li>
-      <h3><ClockCountdown /> Thursday</h3>
+      <h3><ClockCountdown /> Thursday <Tag primary>Releasing soon!</Tag></h3>
       <time>25.9.2025</time>
       <Lightning weight="duotone" className="bg" />
     </li>
@@ -188,6 +207,10 @@ const flaskComponent = components.find((component) => component.id === 'flask')!
           display: flex;
           flex-direction: column;
           align-items: flex-start;
+
+          &.wide {
+            grid-column: span 2;
+          }
 
           h4 {
             display: flex;
