@@ -25,7 +25,7 @@ export function componentLoader({ apiUrl, apiKey }: { apiUrl: string; apiKey: st
         result: { data },
       } = await fetch(`${apiUrl}/api/trpc/stack.listPreviewComponents`).then((response) => response.json());
       if (!data || data.status !== 'ok') {
-        throw new Error(`Failed to load component paths (${data})`);
+        throw new Error(`Failed to load component paths (${JSON.stringify(data)})`);
       }
 
       const components = data.components as {
