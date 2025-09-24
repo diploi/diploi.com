@@ -1,4 +1,4 @@
-export const diploiDescription = `Diploi is a magical developer experience platform for managing, developing, and hosting your full application. It lets you launch, test, and share environments with one click—no local installs required, no complex DevOps setup.
+export const diploiDescription = `Diploi is a magical developer experience platform for managing, developing, and hosting your full application. It lets you launch, test, and share environments with one click, no local installs required, no complex DevOps setup.
 
 Pick from a growing catalog of frameworks like Next.js, React + Vite, Astro, SvelteKit, Node.js, Django, Bun, Hono, Nue, Ghost, and more. Add-ons include PostgreSQL, Redis, MongoDB, MariaDB, and MinIO. You define your infrastructure in a diploi.yaml file, and Diploi spins up the entire stack automatically.
 

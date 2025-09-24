@@ -55,13 +55,13 @@ After signing in, do the following:
 - Create a new project: Click the **Create Project +** button on your Dashboard.  
   ![Create project](../../../images/blog/create-project.png)
 
-- Choose Flask as the component: In **Pick Components**, select **Flask** (it may appear under Python/Flask). If you want a full-stack setup, add a frontend component here too—for example, pair a Flask API with a React UI in the same project.  
+- Choose Flask as the component: In **Pick Components**, select **Flask** (it may appear under Python/Flask). If you want a full-stack setup, add a frontend component here too, for example, pair a Flask API with a React UI in the same project.  
   ![Selecting Flask](flask-component.png)
 
 - Add optional services: In **Pick Add-ons**, attach databases or caches if you need them (PostgreSQL, Redis, etc.). You can skip this for now and add them later by modifying the `diploi.yaml` file in the root of the project.
   ![Selecting add-ons](../../../images/blog/selecting-add-ons-2.png)
 
-- Create a repository: Select **Create Repository** so Diploi can generate a new GitHub repo for your code. Name the project and confirm—Diploi will scaffold a minimal Flask starter for you.  
+- Create a repository: Select **Create Repository** so Diploi can generate a new GitHub repo for your code. Name the project and confirm, Diploi will scaffold a minimal Flask starter for you.  
   ![Flask repository](../../../images/blog/creating-a-repo.png)
 
 - Launch the stack: Click **Launch Stack**. Diploi will provision the environment and boot your Flask app.  
@@ -143,10 +143,10 @@ After the DNS settings propagate, your Flask app be accessible using your custom
 You can spin up a temporary Flask environment on Diploi and explore what's possible within minutes. Here are two quick ways to test-drive Flask on Diploi:
 
 - Option 1 - Launch a trial without signing up
-  Open the Diploi StackBuilder <a href="https://diploi.com/#StackBuilder" target="_blank">https://diploi.com/#StackBuilder</a> and start a free trial project. Pick the **Flask** stack (plus any extras you want) and hit **Launch**. No account, no credit card—just a disposable Flask environment you can poke around in.
+  Open the Diploi StackBuilder <a href="https://diploi.com/#StackBuilder" target="_blank">https://diploi.com/#StackBuilder</a> and start a free trial project. Pick the **Flask** stack (plus any extras you want) and hit **Launch**. No account, no credit card, just a disposable Flask environment you can poke around in.
 
 - Option 2 - Quick Launch with your Diploi account
-  If you’re logged in, create a new project as usual and, in the **Repository** step, choose **Quick Launch** instead of linking GitHub. Diploi will provision a ready-to-use Flask app so you can experiment immediately—no permanent repo until you decide to create one.
+  If you’re logged in, create a new project as usual and, in the **Repository** step, choose **Quick Launch** instead of linking GitHub. Diploi will provision a ready-to-use Flask app so you can experiment immediately, no permanent repo until you decide to create one.
     ![Quick launch](../../../images/blog/quick-launch.png)
 
 With that, you can go from zero to a deployed Flask service on Diploi, although keep in mind that these options are not meant for production apps, they are only for testing.
