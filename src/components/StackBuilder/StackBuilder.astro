@@ -28,9 +28,10 @@ interface Component {
   url: string;
   count?: number;
   badge?: 'new' | 'beta';
+  hidden?: boolean;
 }
 
-const components = data.components as Component[];
+const components = (data.components as Component[]).filter((component) => !component.hidden);
 ---
 
 <div class="stack-builder" data-components={JSON.stringify(components)} data-components-defaults={JSON.stringify(defaultComponentIds)}>
