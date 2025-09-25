@@ -5,7 +5,7 @@ import { BlobCanvas } from '../../../components/BlobCanvas';
 import { getCollection } from 'astro:content';
 
 const components = await getCollection('component');
-const icons = components.map((component) => component.data.icon);
+const icons = components.filter((component) => !component.data.hidden).map((component) => component.data.icon);
 ---
 
 <div class="hero">

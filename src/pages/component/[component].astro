@@ -14,7 +14,7 @@ import 'github-markdown-css/github-markdown.css';
 export async function getStaticPaths() {
   const components = await getCollection('component');
   return components
-    .filter((component) => component.data.type === 'component')
+    .filter((component) => component.data.type === 'component' && !component.data.hidden)
     .map((component) => ({
       params: { component: component.id },
       props: { entry: component },

@@ -95,6 +95,7 @@ export function componentLoader({ apiUrl, apiKey }: { apiUrl: string; apiKey: st
         url: z.string(),
         readme: z.string(),
         icon: z.string(),
+        hidden: z.boolean().optional(),
       }),
   };
 }

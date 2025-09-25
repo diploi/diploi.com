@@ -1,5 +1,5 @@
 ---
-import { BookBookmark, ClockCountdown, RocketLaunch, SealCheck } from '@phosphor-icons/react';
+import { Heart, RocketLaunch, SealCheck } from '@phosphor-icons/react';
 import Tag from '../../../components/Tag.astro';
 import { getCollection } from 'astro:content';
 import AiLink from '../../ai/_components/AiLink.astro';
@@ -12,6 +12,7 @@ const fastapiComponent = components.find((component) => component.id === 'fastap
 const flaskComponent = components.find((component) => component.id === 'flask')!.data;
 const n8nComponent = components.find((component) => component.id === 'n8n')!.data;
 const supabaseComponent = components.find((component) => component.id === 'supabase')!.data;
+const lovableComponent = components.find((component) => component.id === 'lovable')!.data;
 ---
 
 <section class="main">
@@ -126,10 +127,31 @@ const supabaseComponent = components.find((component) => component.id === 'supab
       </ul>
       <RocketLaunch weight="duotone" className="bg" />
     </li>
-    <li>
-      <h3><ClockCountdown /> Friday <Tag primary>Releasing soon!</Tag></h3>
-      <time>26.9.2025</time>
-      <BookBookmark weight="duotone" className="bg" />
+    <li class="released">
+      <h3><SealCheck weight="bold" style={{ fill: 'url(#gradient-two)' }} /> Friday</h3>
+      <p>
+        We're closing Launch Week with something special: <strong>direct imports from Lovable</strong>. <a
+          href="https://lovable.dev/"
+          target="_blank">Lovable</a
+        > is perfect for vibe-coding, while Diploi gives you the power to take projects further. <strong
+          >Just connect your Lovable project to GitHub, select it in Diploi</strong
+        >, and you're ready to go. You can even keep working across both platforms at the same time.
+      </p>
+      <ul>
+        <li class="wide">
+          <h4>
+            <img alt="n8n icon" src={`data:image/svg+xml;base64,${lovableComponent.icon}`} width={32} height={32} />
+            {lovableComponent.name}
+            <Tag primary>New</Tag>
+          </h4>
+          <p>
+            Official support for Lovable repositories. When logged into Diploi, create a new project and select "Import Repository" to get
+            started.
+          </p>
+          <AiLink href="/blog/hosting_supabase">Read guide</AiLink>
+        </li>
+      </ul>
+      <Heart weight="duotone" className="bg" />
     </li>
   </ol>
 </section>

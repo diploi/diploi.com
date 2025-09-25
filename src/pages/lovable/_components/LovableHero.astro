@@ -5,7 +5,7 @@ import { getCollection } from 'astro:content';
 import LovableDiploi from './lovable-diploi.svg';
 
 const components = await getCollection('component');
-const icons = components.map((component) => component.data.icon);
+const icons = components.filter((component) => !component.data.hidden).map((component) => component.data.icon);
 ---
 
 <div class="hero">
@@ -19,7 +19,8 @@ const icons = components.map((component) => component.data.icon);
       of your Lovable Apps
     </h1>
     <p class="subtitle">
-      Import your Lovable apps to Diploi and improve your developer experience with remote development, deploy multiple environments from different branches, without configuring servers. Continue vibe coding (or just coding) using your favourite editor.
+      Import your Lovable apps to Diploi and improve your developer experience with remote development, deploy multiple environments from
+      different branches, without configuring servers. Continue vibe coding (or just coding) using your favourite editor.
     </p>
     <LovableDiploi class="lovable-diploi-logo" width="auto" />
     <div class="icons">
