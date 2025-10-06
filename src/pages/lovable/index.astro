@@ -1,14 +1,42 @@
 ---
+import Footer from '../../components/Footer.astro';
+import Navigation from '../../components/Navigation.astro';
+import Layout from '../../layouts/Layout.astro';
 import { createWebsiteSchema } from '../../utils/createWebsiteSchema';
 import Landing from '../_landing/index.astro';
-import LovableHero from './_components/LovableHero.astro';
+import AiCallouts from '../ai/_components/AiCallouts.astro';
+import AiEditors from '../ai/_components/AiEditors.astro';
+import AiPricing from '../ai/_components/AiPricing.astro';
+import LovableHeroNew from './_components/LovableHeroNew.astro';
 
 const schema = createWebsiteSchema();
 ---
 
-<Landing>
+<Layout title="Diploi – Level Up Your Lovable Apps">
   {/* Organization schema for Google */}
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
 
-  <LovableHero slot="hero" />
-</Landing>
+  <Navigation />
+  <main>
+    <LovableHeroNew />
+    <hr />
+    <AiEditors />
+    <hr />
+    <AiPricing />
+    {/*<hr />*/}
+    {/*<AiRoadmap />*/}
+    <hr />
+    <AiCallouts />
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  main {
+    gap: 128px;
+
+    @media (max-width: 860px) {
+      gap: 64px;
+    }
+  }
+</style>

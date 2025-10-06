@@ -1,0 +1,128 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import { CodeBlock, Database, Eye, FolderUser, Lightning, LockKeyOpen, MouseSimple } from '@phosphor-icons/react';
+import AiHr from '../../ai/_components/AiHr.astro';
+import vscodeLogo from '../../../images/vscode-logo.svg';
+import cursorLogo from '../../../images/cursor-logo.webp';
+import webstormLogo from '../../../images/webstorm-logo.svg';
+import zedLogo from '../../../images/zed-logo.svg';
+
+const componentAllowlist = [
+  'supabase',
+  'laravel',
+  'fastapi',
+  'nodejs',
+  'ghost',
+  'sveltekit',
+  'hono',
+  'python',
+  'postgres',
+  'redis',
+  'mongo',
+];
+
+const components = await getCollection('component');
+const icons = components
+  .filter((component) => !component.data.hidden)
+  .slice(0, 28)
+  .map((component) => component.data.icon);
+---
+
+<ul class="features">
+  <li>
+    <MouseSimple />
+    <h3>One-click import</h3>
+    <p>Use any tool over SSH. Use our AI features, or stick with the editors and workflows you already know.</p>
+  </li>
+  <AiHr vertical />
+  <li>
+    <CodeBlock />
+    <h3>Use any editor</h3>
+    <ul class="logos">
+      <li><Image width={40} height={40} src={vscodeLogo} alt="vs code logo" /></li>
+      <li><Image width={40} height={40} src={cursorLogo} alt="cursor logo" /></li>
+      <li><Image width={40} height={40} src={webstormLogo} alt="webstorm logo" /></li>
+      <li><Image width={40} height={40} src={zedLogo} alt="zed logo" /></li>
+    </ul>
+    <p>Use any editor you'd like with SSH remote support.</p>
+  </li>
+  <AiHr vertical />
+  <li>
+    <Database />
+    <h3>Add any service</h3>
+    <ul class="components">
+      {
+        icons.map((icon) => (
+          <li>
+            <img alt="component icon" src={`data:image/svg+xml;base64,${icon}`} width={16} height={16} />
+          </li>
+        ))
+      }
+    </ul>
+    <p>Host any of our supported services along side your Lovable app.</p>
+  </li>
+</ul>
+
+<style lang="scss">
+  .features {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr 1px 1fr;
+    gap: 32px;
+
+    @media (max-width: 860px) {
+      grid-template-columns: 1fr;
+      gap: 48px;
+
+      :global(hr) {
+        display: none;
+      }
+    }
+  }
+
+  li {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 0;
+  }
+
+  li > svg {
+    width: 32px;
+    height: 32px;
+    mix-blend-mode: luminosity;
+    filter: brightness(1.2);
+  }
+
+  h3 {
+    mix-blend-mode: luminosity;
+    filter: brightness(1.2);
+  }
+
+  p {
+    mix-blend-mode: luminosity;
+    filter: brightness(1.1);
+  }
+
+  a {
+    text-underline-offset: 4px;
+    color: inherit;
+  }
+
+  :global(hr) {
+    mix-blend-mode: luminosity;
+    filter: brightness(1.8);
+  }
+
+  .logos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .components {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+</style>

@@ -1,0 +1,164 @@
+---
+import AiHeroDiploiFeatures from '../../ai/_components/AiHeroDiploiFeatures.astro';
+import LovableHeroFeatures from './LovableHeroFeatures.astro';
+import { createStackBackgroundUri } from '../../ai/_components/aiUtils';
+import AiLink from '../../ai/_components/AiLink.astro';
+import AiHr from '../../ai/_components/AiHr.astro';
+
+const background = createStackBackgroundUri({
+  size: 16,
+  primary: 'white',
+  secondary: 'white',
+  chance: 0.4,
+});
+const backgroundColor = createStackBackgroundUri({ size: 16, primary: '#6650fa', secondary: '#ec609c', chance: 0.8 });
+---
+
+<header>
+  <div class="background" inert aria-hidden></div>
+  <section>
+    <h1>Level Up Your<br />Lovable Apps</h1>
+    <LovableHeroFeatures />
+    <a class="button" href="#stack-builder">Import Lovable Project</a>
+    {/*<AiLink href="/">Import an existing project</AiLink>*/}
+    <AiLink href="#pricing">See pricing</AiLink>
+  </section>
+  <AiHr />
+  <AiHeroDiploiFeatures />
+</header>
+
+<style lang="scss" define:vars={{ background, backgroundColor }}>
+  header {
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: var(--max-width-page-section);
+  }
+
+  header .text-gradient {
+    --accent-gradient: linear-gradient(45deg, var(--color-primary), var(--color-secondary), var(--color-primary), var(--color-secondary));
+
+    background-size: 400%;
+    animation: gradient-animation 8s infinite alternate cubic-bezier(0.65, 0, 0.35, 1);
+
+    @keyframes gradient-animation {
+      0% {
+        background-position: 0%;
+      }
+      100% {
+        background-position: 100%;
+      }
+    }
+  }
+
+  section {
+    margin: 64px 0;
+
+    > h1 {
+      margin-bottom: 32px;
+      mix-blend-mode: luminosity;
+      filter: brightness(1.2);
+    }
+
+    > .button {
+      margin: 32px 0 16px 0;
+    }
+
+    @media (max-width: 860px) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      > h1 {
+        text-align: center;
+      }
+
+      > p {
+        text-align: center;
+      }
+    }
+  }
+
+  @property --size {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 0%;
+  }
+
+  @property --angle {
+    syntax: '<angle>';
+    inherits: false;
+    initial-value: 0turn;
+  }
+
+  .background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 80vh;
+    // overflow: hidden;
+    z-index: -1;
+
+    @keyframes rotate-animation {
+      0% {
+        --angle: 0turn;
+      }
+      100% {
+        --angle: 1turn;
+      }
+    }
+
+    background-image:
+      radial-gradient(farthest-corner at 50% 180%, black, transparent 60%),
+      conic-gradient(at -10% -20% in lab, #4b73ff 0.28turn, #ff66f4 0.33turn, #ff0105 0.38turn, #fe7b02 0.5turn);
+
+    // background-image: conic-gradient(from var(--angle) at -20% -20% in lab, #4b73ff, #ff66f4, #ff0105, #fe7b02, #4b73ff);
+    // animation: rotate-animation 14s infinite linear;
+
+    // background-image: conic-gradient(from 1turn at 50% 0% in hsl, red, blue);
+
+    mask-image: linear-gradient(to bottom, white, transparent);
+
+    @keyframes background-animation {
+      0% {
+        background-position: 0% 0%;
+      }
+      100% {
+        background-position: 896px 0%;
+      }
+    }
+
+    &::after {
+      position: absolute;
+      // content: '';
+      display: block;
+      inset: 0;
+      background-image: conic-gradient(at 0% 0% in lab, #4b73ff 0.29turn, #ff66f4 0.33turn, #ff0105 0.38turn, #fe7b02 0.5turn);
+      mask-image: radial-gradient(circle at 0% 0%, white, transparent 50%);
+    }
+
+    &::before {
+      position: absolute;
+      content: '';
+      display: block;
+      inset: 0;
+      // background-image: var(--background);
+      // background-image: conic-gradient(from var(--angle) at -20% -20% in lab, #4b73ff, #ff66f4, #ff0105, #fe7b02, #4b73ff);
+      // animation: rotate-animation 14s infinite linear;
+      // background-size: 896px;
+      // transform: rotate(8deg);
+      // background-color: red;
+
+      mask-image: var(--background);
+      mask-size: 896px;
+
+      // animation: background-animation 14s infinite linear;
+    }
+  }
+</style>
