@@ -41,10 +41,6 @@ export default defineConfig({
     }),
     mdx(),
     sentry({
-      dsn: 'https://df15d51df97371766b31299d9a5614a1@o4509195528437760.ingest.de.sentry.io/4509195529879632',
-      tracesSampleRate: 0,
-      replaysSessionSampleRate: 0.1,
-      replaysOnErrorSampleRate: 1.0,
       sourceMapsUploadOptions: {
         project: 'website',
         authToken: process.env.SENTRY_AUTH_TOKEN,
