@@ -16,7 +16,7 @@ const backgroundColor = createStackBackgroundUri({ size: 16, primary: '#6650fa',
 ---
 
 <header>
-  <div class="background" inert aria-hidden></div>
+  <div class="background" inert aria-hidden style={{ '--background': background, '--backgroundColor': backgroundColor }}></div>
   <section>
     <h1>
       Platform for <SparkleElement sparkleCount={4} minSize={0.5} maxSize={1.25}
@@ -45,13 +45,11 @@ const backgroundColor = createStackBackgroundUri({ size: 16, primary: '#6650fa',
     const background = document.querySelector('.background');
     if (!background) return;
 
-    background.setAttribute('style', `${background.getAttribute('style')}--x:${x}px;--y:${y}px`);
-
-    console.log(x, y);
+    background.setAttribute('style', `${background.getAttribute('style')};--x:${x}px;--y:${y}px`);
   });
 </script>
 
-<style lang="scss" define:vars={{ background, backgroundColor }}>
+<style lang="scss">
   header {
     display: flex;
     flex-direction: column;

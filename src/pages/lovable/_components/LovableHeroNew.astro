@@ -1,23 +1,51 @@
 ---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import { CaretCircleDoubleUpIcon } from '@phosphor-icons/react';
 import AiHeroDiploiFeatures from '../../ai/_components/AiHeroDiploiFeatures.astro';
 import LovableHeroFeatures from './LovableHeroFeatures.astro';
 import { createStackBackgroundUri } from '../../ai/_components/aiUtils';
 import AiLink from '../../ai/_components/AiLink.astro';
 import AiHr from '../../ai/_components/AiHr.astro';
+import lovableIcon from '../../../images/lovable-icon.svg';
 
 const background = createStackBackgroundUri({
-  size: 16,
-  primary: 'white',
-  secondary: 'white',
+  size: 32,
+  primary: 'rgba(255, 255, 255, 0.05)',
+  secondary: 'rgba(255, 255, 255, 0.05)',
   chance: 0.4,
 });
-const backgroundColor = createStackBackgroundUri({ size: 16, primary: '#6650fa', secondary: '#ec609c', chance: 0.8 });
+
+const componentBlocklist = ['n8n', 'laravel', 'flask'];
+
+const components = await getCollection('component');
+const icons = components
+  .filter((component) => !component.data.hidden && !componentBlocklist.includes(component.data.identifier))
+  .slice(0, 18)
+  .map((component) => component.data.icon);
 ---
 
 <header>
-  <div class="background" inert aria-hidden></div>
+  <div class="background" inert aria-hidden style={{ '--background': background }}></div>
   <section>
-    <h1>Level Up Your<br />Lovable Apps</h1>
+    <div class="title">
+      <h1>
+        <CaretCircleDoubleUpIcon size="0.7em" weight="regular" />
+        Level Up Your<br />Lovable Apps
+      </h1>
+      <div>
+        <Image id="lovable" width={200} height={200} src={lovableIcon} alt="vs code logo" />
+        <ul class="icons">
+          {
+            icons.map((icon) => (
+              <li>
+                <img alt="component icon" src={`data:image/svg+xml;base64,${icon}`} width={16} height={16} />
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
     <LovableHeroFeatures />
     <a class="button" href="#stack-builder">Import Lovable Project</a>
     {/*<AiLink href="/">Import an existing project</AiLink>*/}
@@ -27,7 +55,9 @@ const backgroundColor = createStackBackgroundUri({ size: 16, primary: '#6650fa',
   <AiHeroDiploiFeatures />
 </header>
 
-<style lang="scss" define:vars={{ background, backgroundColor }}>
+<style lang="scss">
+  @use '../../../styles/mixins';
+
   header {
     display: flex;
     flex-direction: column;
@@ -53,13 +83,121 @@ const backgroundColor = createStackBackgroundUri({ size: 16, primary: '#6650fa',
     }
   }
 
+  @property --x {
+    syntax: '<length>';
+    inherits: false;
+    initial-value: 0px;
+  }
+
+  @property --y {
+    syntax: '<length>';
+    inherits: false;
+    initial-value: 0px;
+  }
+
+  @property --z {
+    syntax: '<length>';
+    inherits: false;
+    initial-value: 0px;
+  }
+
   section {
     margin: 64px 0;
 
-    > h1 {
-      margin-bottom: 32px;
-      mix-blend-mode: luminosity;
-      filter: brightness(1.2);
+    @media (max-width: 860px) {
+      margin-top: 0px;
+    }
+
+    .title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 56px;
+
+      @media (max-width: 860px) {
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+
+        > div {
+          scale: 0.6;
+        }
+
+        h1 {
+          text-align: center;
+          font-size: 2.4em;
+        }
+      }
+
+      > div {
+        position: relative;
+      }
+
+      .icons {
+        position: absolute;
+        display: flex;
+        top: 50%;
+        left: -16px;
+        width: calc(100% + 32px);
+        rotate: 45deg;
+        scale: 1.3;
+        perspective: 800px;
+        transform-style: preserve-3d;
+
+        > li {
+          position: absolute;
+          transform-style: preserve-3d;
+          translate: var(--x) var(--y) var(--z);
+          filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.7));
+
+          @keyframes item-animation {
+            0% {
+              --x: calc(200px + 16px);
+              --y: 0px;
+              --z: -10px;
+              scale: 0.9;
+              opacity: 0;
+            }
+            40% {
+              opacity: 1;
+            }
+            50% {
+              --y: 20px;
+              --z: 100px;
+              // scale: 1.2;
+            }
+            60% {
+              opacity: 1;
+            }
+            100% {
+              --x: -8px;
+              --y: 0px;
+              --z: -10px;
+              scale: 0.9;
+              opacity: 0;
+            }
+          }
+
+          animation: item-animation 20s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+
+          @for $i from 1 through 18 {
+            &:nth-child(#{$i}) {
+              $interval: 20s / 18;
+              animation-delay: calc($i * $interval * -1);
+            }
+          }
+        }
+      }
+    }
+
+    h1 > svg {
+      position: absolute;
+      z-index: 1;
+      color: var(--color-primary);
+      pointer-events: none;
+      user-select: none;
+      translate: -110% -10%;
+      fill: url(#gradient-two);
     }
 
     > .button {
@@ -71,8 +209,8 @@ const backgroundColor = createStackBackgroundUri({ size: 16, primary: '#6650fa',
       flex-direction: column;
       align-items: center;
 
-      > h1 {
-        text-align: center;
+      h1 > svg {
+        display: none;
       }
 
       > p {
@@ -81,84 +219,17 @@ const backgroundColor = createStackBackgroundUri({ size: 16, primary: '#6650fa',
     }
   }
 
-  @property --size {
-    syntax: '<percentage>';
-    inherits: false;
-    initial-value: 0%;
-  }
-
-  @property --angle {
-    syntax: '<angle>';
-    inherits: false;
-    initial-value: 0turn;
-  }
-
   .background {
     position: absolute;
     top: 0;
     left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     width: 100%;
-    height: 80vh;
-    // overflow: hidden;
+    height: 60vh;
+    background-image: var(--background);
+    background-size: 896px;
+    overflow: hidden;
     z-index: -1;
 
-    @keyframes rotate-animation {
-      0% {
-        --angle: 0turn;
-      }
-      100% {
-        --angle: 1turn;
-      }
-    }
-
-    background-image:
-      radial-gradient(farthest-corner at 50% 180%, black, transparent 60%),
-      conic-gradient(at -10% -20% in lab, #4b73ff 0.28turn, #ff66f4 0.33turn, #ff0105 0.38turn, #fe7b02 0.5turn);
-
-    // background-image: conic-gradient(from var(--angle) at -20% -20% in lab, #4b73ff, #ff66f4, #ff0105, #fe7b02, #4b73ff);
-    // animation: rotate-animation 14s infinite linear;
-
-    // background-image: conic-gradient(from 1turn at 50% 0% in hsl, red, blue);
-
-    mask-image: linear-gradient(to bottom, white, transparent);
-
-    @keyframes background-animation {
-      0% {
-        background-position: 0% 0%;
-      }
-      100% {
-        background-position: 896px 0%;
-      }
-    }
-
-    &::after {
-      position: absolute;
-      // content: '';
-      display: block;
-      inset: 0;
-      background-image: conic-gradient(at 0% 0% in lab, #4b73ff 0.29turn, #ff66f4 0.33turn, #ff0105 0.38turn, #fe7b02 0.5turn);
-      mask-image: radial-gradient(circle at 0% 0%, white, transparent 50%);
-    }
-
-    &::before {
-      position: absolute;
-      content: '';
-      display: block;
-      inset: 0;
-      // background-image: var(--background);
-      // background-image: conic-gradient(from var(--angle) at -20% -20% in lab, #4b73ff, #ff66f4, #ff0105, #fe7b02, #4b73ff);
-      // animation: rotate-animation 14s infinite linear;
-      // background-size: 896px;
-      // transform: rotate(8deg);
-      // background-color: red;
-
-      mask-image: var(--background);
-      mask-size: 896px;
-
-      // animation: background-animation 14s infinite linear;
-    }
+    mask-image: linear-gradient(to bottom, white 50%, transparent);
   }
 </style>

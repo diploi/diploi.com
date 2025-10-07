@@ -14,7 +14,7 @@ const backgroundColor = createStackBackgroundUri({ size: 16, primary: '#6650fa',
 ---
 
 <header>
-  <div class="background" inert aria-hidden></div>
+  <div class="background" inert aria-hidden style={{ '--background': background, '--backgroundColor': backgroundColor }}></div>
   <section>
     <div>
       <Image src={logo} alt="Diploi logo" width={64 + 16} height={64 + 16} />
@@ -28,7 +28,7 @@ const backgroundColor = createStackBackgroundUri({ size: 16, primary: '#6650fa',
   </section>
 </header>
 
-<style lang="scss" define:vars={{ background, backgroundColor }}>
+<style lang="scss">
   header {
     display: flex;
     flex-direction: column;
