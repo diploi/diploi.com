@@ -8,6 +8,9 @@ import AiCallouts from '../ai/_components/AiCallouts.astro';
 import AiEditors from '../ai/_components/AiEditors.astro';
 import AiPricing from '../ai/_components/AiPricing.astro';
 import LovableHeroNew from './_components/LovableHeroNew.astro';
+import LovablePacks from './_components/LovablePacks.astro';
+import LovableResources from './_components/LovableResources.astro';
+import LovableTeamwork from './_components/LovableTeamwork.astro';
 
 const schema = createWebsiteSchema();
 ---
@@ -20,12 +23,13 @@ const schema = createWebsiteSchema();
   <main>
     <LovableHeroNew />
     <hr />
+    <LovablePacks />
+    <hr />
+    <LovableTeamwork />
+    <hr />
     <AiEditors />
     <hr />
-    <AiPricing />
-    {/*<hr />*/}
-    {/*<AiRoadmap />*/}
-    <hr />
+    <LovableResources />
     <AiCallouts />
   </main>
   <Footer />

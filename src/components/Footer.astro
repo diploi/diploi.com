@@ -1,10 +1,8 @@
 ---
+import { ArrowUpRight, RocketLaunch } from '@phosphor-icons/react';
 import Icon from './Icon.astro';
 import Logo from './Logo.astro';
-import TinyLaunchSoon from '../images/tinylaunch-soon.svg';
-import { Image } from 'astro:assets';
 import Tag from './Tag.astro';
-import { ArrowUpRight, RocketLaunch } from '@phosphor-icons/react';
 ---
 
 <footer>
@@ -77,18 +75,6 @@ import { ArrowUpRight, RocketLaunch } from '@phosphor-icons/react';
             <a data-event="devto_click" href="https://www.youtube.com/@diploi">Youtube</a>
           </li>
         </ul>
-      </div>
-      <div>
-        <a href="https://tinylaunch.com" target="_blank" rel="noopener">
-          <Image alt="TinyLaucnh Badge" src={TinyLaunchSoon} height={64} />
-        </a>
-        <a href="https://launchvault.dev/projects/diploi" target="_blank" title="Launch Vault Top 2 Daily Winner">
-          <img
-            src="https://launchvault.dev/images/badges/top2.png"
-            alt="Launch Vault Top 2 Daily Winner"
-            style="width: auto; height: 64px;"
-          />
-        </a>
       </div>
     </div>
     <div class="bottom">

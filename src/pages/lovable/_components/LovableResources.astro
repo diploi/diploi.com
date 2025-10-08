@@ -1,0 +1,26 @@
+---
+import { FilesIcon } from '@phosphor-icons/react';
+import AiSectionHeader from '../../ai/_components/AiSectionHeader.astro';
+---
+
+<section class="main">
+  <AiSectionHeader>
+    <FilesIcon />
+    <h2>Resources For Lovable</h2>
+    <p>Diploi works with any IDE that supports SSH. We offer first-class support for the most popular AI-native editors.</p>
+  </AiSectionHeader>
+</section>
+
+<style lang="scss">
+  @use 'sass:math';
+  @use '../../../styles/mixins';
+
+  .main {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: var(--max-width-page-section);
+  }
+</style>

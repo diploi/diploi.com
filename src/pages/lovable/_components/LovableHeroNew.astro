@@ -1,13 +1,14 @@
 ---
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
-import { CaretCircleDoubleUpIcon } from '@phosphor-icons/react';
+import { CaretCircleDoubleUpIcon, InfoIcon, SparkleIcon } from '@phosphor-icons/react';
 import AiHeroDiploiFeatures from '../../ai/_components/AiHeroDiploiFeatures.astro';
 import LovableHeroFeatures from './LovableHeroFeatures.astro';
 import { createStackBackgroundUri } from '../../ai/_components/aiUtils';
 import AiLink from '../../ai/_components/AiLink.astro';
 import AiHr from '../../ai/_components/AiHr.astro';
 import lovableIcon from '../../../images/lovable-icon.svg';
+import Tag from '../../../components/Tag.astro';
 
 const background = createStackBackgroundUri({
   size: 32,
@@ -29,10 +30,7 @@ const icons = components
   <div class="background" inert aria-hidden style={{ '--background': background }}></div>
   <section>
     <div class="title">
-      <h1>
-        <CaretCircleDoubleUpIcon size="0.7em" weight="regular" />
-        Level Up Your<br />Lovable Apps
-      </h1>
+      <h1>Level Up Your<br />Lovable Apps</h1>
       <div>
         <Image id="lovable" width={200} height={200} src={lovableIcon} alt="vs code logo" />
         <ul class="icons">
@@ -48,14 +46,14 @@ const icons = components
     </div>
     <LovableHeroFeatures />
     <a class="button" href="#stack-builder">Import Lovable Project</a>
-    {/*<AiLink href="/">Import an existing project</AiLink>*/}
-    <AiLink href="#pricing">See pricing</AiLink>
+    <p class="help"><InfoIcon /> Your Lovable project won't be altered. You can still use Lovable after importing.</p>
   </section>
-  <AiHr />
-  <AiHeroDiploiFeatures />
+  <!-- <AiHr />
+  <AiHeroDiploiFeatures /> -->
 </header>
 
 <style lang="scss">
+  @use 'sass:math';
   @use '../../../styles/mixins';
 
   header {
@@ -83,6 +81,16 @@ const icons = components
     }
   }
 
+  p.help {
+    max-width: 50ch;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+
+    > svg {
+      translate: -1px 3px;
+    }
+  }
+
   @property --x {
     syntax: '<length>';
     inherits: false;
@@ -102,7 +110,7 @@ const icons = components
   }
 
   section {
-    margin: 64px 0;
+    margin-top: 64px;
 
     @media (max-width: 860px) {
       margin-top: 0px;
@@ -182,22 +190,12 @@ const icons = components
 
           @for $i from 1 through 18 {
             &:nth-child(#{$i}) {
-              $interval: 20s / 18;
+              $interval: math.div(20s, 18);
               animation-delay: calc($i * $interval * -1);
             }
           }
         }
       }
-    }
-
-    h1 > svg {
-      position: absolute;
-      z-index: 1;
-      color: var(--color-primary);
-      pointer-events: none;
-      user-select: none;
-      translate: -110% -10%;
-      fill: url(#gradient-two);
     }
 
     > .button {
@@ -208,10 +206,6 @@ const icons = components
       display: flex;
       flex-direction: column;
       align-items: center;
-
-      h1 > svg {
-        display: none;
-      }
 
       > p {
         text-align: center;
