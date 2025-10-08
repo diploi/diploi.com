@@ -58,18 +58,22 @@ const ogSocialImage = getFullImageUrl({ siteUrl: Astro.url.origin, imageUrl: ogS
     <slot name="head" />
 
     {/* Save information about AD campaigns for later (this will be used when launching) */}
-    <script is:inline>
-      try {
-        if (window && window.location && window.localStorage) {
-          const params = Object.fromEntries(new URLSearchParams(document.location.search));
-          if (Object.keys(params).length > 0) {
-            window.localStorage.setItem('utm', JSON.stringify({ params, time: Date.now() }));
+    {
+      /*
+        <script is:inline>
+          try {
+            if (window && window.location && window.localStorage) {
+              const params = Object.fromEntries(new URLSearchParams(document.location.search));
+              if (Object.keys(params).length > 0) {
+                window.localStorage.setItem('utm', JSON.stringify({ params, time: Date.now() }));
+              }
+            }
+          } catch (error) {
+            console.error('Failed to use localStorage', error);
           }
-        }
-      } catch (error) {
-        console.error('Failed to use localStorage', error);
-      }
-    </script>
+        </script>
+      */
+    }
 
     {/* Google site verification */}
     <meta name="google-site-verification" content="XopKlvNBmdLaTZtElCt9bkAVDuqrRL-5Ist_6Ecth-o" />

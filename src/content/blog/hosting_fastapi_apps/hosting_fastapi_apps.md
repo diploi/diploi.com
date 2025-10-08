@@ -157,6 +157,6 @@ Happy coding 👩‍💻
 ## References
 
 - Official FastAPI Documentation https://fastapi.tiangolo.com/
-- FastAPI in Diploi http://diploi.com/component/fastapi
+- FastAPI in Diploi https://diploi.com/component/fastapi
 - Diploi Components https://docs.diploi.com/building/components
 - Custom Domains https://docs.diploi.com/deploying/custom-domain/

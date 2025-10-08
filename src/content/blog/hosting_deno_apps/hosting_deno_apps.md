@@ -165,6 +165,6 @@ We hope this guide helps you get your Deno application online faster and easier 
 ## References
 
 - Official Deno Documentation https://docs.deno.com/runtime/
-- Deno in Diploi http://diploi.com/component/deno
+- Deno in Diploi https://diploi.com/component/deno
 - Diploi Components https://docs.diploi.com/building/components
 - Custom Domains https://docs.diploi.com/deploying/custom-domain/

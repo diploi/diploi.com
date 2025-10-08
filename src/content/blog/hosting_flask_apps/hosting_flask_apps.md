@@ -159,6 +159,6 @@ We hope this guide helps you get your Flask app online faster. If you have quest
 ## References
 
 - Official Flask Documentation https://flask.palletsprojects.com/en/stable/
-- Flask in Diploi http://diploi.com/component/flask
+- Flask in Diploi https://diploi.com/component/flask
 - Diploi Components https://docs.diploi.com/building/components
 - Custom Domains https://docs.diploi.com/deploying/custom-domain/

@@ -117,6 +117,6 @@ What other frameworks or services would you like to see supported on Diploi? Joi
 ## References
 
 - Official Laravel Documentation https://laravel.com/docs/12.x
-- Laravel in Diploi http://diploi.com/component/laravel
+- Laravel in Diploi https://diploi.com/component/laravel
 - Diploi Components https://docs.diploi.com/building/components
 - Custom Domains https://docs.diploi.com/deploying/custom-domain/
