@@ -1,0 +1,37 @@
+---
+import { SquareIcon, TriangleIcon } from '@phosphor-icons/react';
+
+const icons = new Array(3).fill(null).map(() => (Math.random() > 0.5 ? 'triangle' : 'square'));
+---
+
+<aside>
+  {icons.map((type) => (type === 'triangle' ? <TriangleIcon size={12} /> : <SquareIcon size={12} />))}
+</aside>
+
+<style>
+  aside {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1px;
+    margin: 0 auto;
+    height: 1px;
+    width: 100%;
+    max-width: var(--max-width-page-section);
+    background-image: linear-gradient(
+      to left,
+      transparent 0%,
+      var(--color-border) calc(50% - 40px),
+      transparent calc(50% - 20px),
+      transparent calc(50% + 20px),
+      var(--color-border) calc(50% + 40px),
+      transparent
+    );
+
+    > svg {
+      filter: brightness(1.2);
+      color: var(--color-border);
+    }
+  }
+</style>

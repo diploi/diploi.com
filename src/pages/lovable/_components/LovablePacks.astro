@@ -7,6 +7,7 @@ import AiHr from '../../ai/_components/AiHr.astro';
 import AiLink from '../../ai/_components/AiLink.astro';
 import cursorLogo from '../../../images/cursor-logo.webp';
 import vscodeLogo from '../../../images/vscode-logo.svg';
+import zedLogo from '../../../images/zed-logo.svg';
 
 const components = await getCollection('component');
 const lovable = components.find((component) => component.data.identifier === 'lovable')!;
@@ -22,27 +23,30 @@ const postgres = components.find((component) => component.data.identifier === 'p
   <AiSectionHeader>
     <StackIcon />
     <h2>Support For Any Stack</h2>
-    <p>Diploi works with any IDE that supports SSH. We offer first-class support for the most popular AI-native editors.</p>
+    <p>
+      Build your stack your way. Diploi supports any combination of services, from Lovable apps to databases, APIs, and more. Below are a
+      few examples you can run with Diploi.
+    </p>
   </AiSectionHeader>
   <section class="list">
     <article>
       <ul>
         <li>
           <Image width={32} height={32} src={cursorLogo} alt="cursor logo" />
-          Cursor for development
+          <span>Cursor for development</span>
         </li>
         <hr />
         <li>
           <img alt="lovable icon" src={`data:image/svg+xml;base64,${lovable.data.icon}`} width={32} height={32} />
-          Frontend created with Lovable
+          <span>Frontend created with Lovable</span>
         </li>
         <li>
           <img alt="supabase icon" src={`data:image/svg+xml;base64,${supabase.data.icon}`} width={32} height={32} />
-          Self-hosted <a href="/component/supabase">Supabase</a> as the backend
+          <span>Self-hosted <a href="/component/supabase">Supabase</a> as the backend</span>
         </li>
         <li>
           <img alt="n8n icon" src={`data:image/svg+xml;base64,${n8n.data.icon}`} width={32} height={32} />
-          <a href="/component/n8n">n8n</a> for AI automation
+          <span><a href="/component/n8n">n8n</a> for AI automation</span>
         </li>
       </ul>
     </article>
@@ -50,21 +54,21 @@ const postgres = components.find((component) => component.data.identifier === 'p
     <article>
       <ul>
         <li>
-          <Image width={32} height={32} src={vscodeLogo} alt="vs code logo" />
-          VS Code for development
+          <Image width={32} height={32} src={zedLogo} alt="zed logo" />
+          <span>Zed for development</span>
         </li>
         <hr />
         <li>
           <img alt="lovable icon" src={`data:image/svg+xml;base64,${lovable.data.icon}`} width={32} height={32} />
-          Frontend created with Lovable
+          <span>Frontend created with Lovable</span>
         </li>
         <li>
           <img alt="node icon" src={`data:image/svg+xml;base64,${node.data.icon}`} width={32} height={32} />
-          Custom <a href="/component/node">Node.js</a> backend
+          <span> Custom <a href="/component/node">Node.js</a> backend</span>
         </li>
         <li>
           <img alt="ghost icon" src={`data:image/svg+xml;base64,${ghost.data.icon}`} width={32} height={32} />
-          <a href="/component/ghost">Ghost</a> as a CMS
+          <span><a href="/component/ghost">Ghost</a> as a CMS</span>
         </li>
       </ul>
     </article>
@@ -73,20 +77,20 @@ const postgres = components.find((component) => component.data.identifier === 'p
       <ul>
         <li>
           <Image width={32} height={32} src={vscodeLogo} alt="vs code logo" />
-          VS Code for development
+          <span>VS Code for development</span>
         </li>
         <hr />
         <li>
           <img alt="lovable icon" src={`data:image/svg+xml;base64,${lovable.data.icon}`} width={32} height={32} />
-          Frontend created with Lovable
+          <span>Frontend created with Lovable</span>
         </li>
         <li>
           <img alt="laravel icon" src={`data:image/svg+xml;base64,${laravel.data.icon}`} width={32} height={32} />
-          An API created with <a href="/component/laravel">Laravel</a>
+          <span>An API created with <a href="/component/laravel">Laravel</a></span>
         </li>
         <li>
           <img alt="postgres icon" src={`data:image/svg+xml;base64,${postgres.data.icon}`} width={32} height={32} />
-          PostgreSQL for data storage
+          <span>PostgreSQL for data storage</span>
         </li>
       </ul>
     </article>
@@ -114,28 +118,27 @@ const postgres = components.find((component) => component.data.identifier === 'p
       flex-direction: column;
     }
 
-    > article {
+    article {
       flex: 1;
+    }
 
-      > img {
-        max-width: 100%;
-      }
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
 
-      > section {
-        margin-top: 16px;
+      li {
+        gap: 0;
 
-        :global(span) {
-          transform: translateY(-2px);
+        img {
+          margin-right: 12px;
         }
 
-        > svg {
-          color: var(--color-primary);
-        }
-
-        > ul > li {
-          font-size: 1.25rem;
-          font-weight: 350;
-          color: var(--color-text-secondary);
+        a {
+          font-size: 1rem;
+          font-weight: inherit;
+          text-underline-offset: 4px;
+          color: inherit;
         }
       }
     }

@@ -7,7 +7,9 @@ import Landing from '../_landing/index.astro';
 import AiCallouts from '../ai/_components/AiCallouts.astro';
 import AiEditors from '../ai/_components/AiEditors.astro';
 import AiPricing from '../ai/_components/AiPricing.astro';
+import LovableEditors from './_components/LovableEditors.astro';
 import LovableHeroNew from './_components/LovableHeroNew.astro';
+import LovableHr from './_components/LovableHr.astro';
 import LovablePacks from './_components/LovablePacks.astro';
 import LovableResources from './_components/LovableResources.astro';
 import LovableTeamwork from './_components/LovableTeamwork.astro';
@@ -22,14 +24,15 @@ const schema = createWebsiteSchema();
   <Navigation />
   <main>
     <LovableHeroNew />
-    <hr />
-    <LovablePacks />
-    <hr />
+    <LovableHr />
+    <LovableEditors />
+    <LovableHr />
     <LovableTeamwork />
-    <hr />
-    <AiEditors />
-    <hr />
+    <LovableHr />
+    <LovablePacks />
+    <LovableHr />
     <LovableResources />
+    <h1>Lovable callout here</h1>
     <AiCallouts />
   </main>
   <Footer />

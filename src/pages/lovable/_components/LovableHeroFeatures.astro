@@ -20,20 +20,6 @@ import zedLogo from '../../../images/zed-logo.svg';
 import githubLogo from '../../../images/github-logo.svg';
 import githubActionsIcon from '../../../images/github-actions-icon.svg';
 
-const componentAllowlist = [
-  'supabase',
-  'laravel',
-  'fastapi',
-  'nodejs',
-  'ghost',
-  'sveltekit',
-  'hono',
-  'python',
-  'postgres',
-  'redis',
-  'mongo',
-];
-
 const components = await getCollection('component');
 const icons = components
   .filter((component) => !component.data.hidden && component.data.identifier !== 'supabase')
@@ -46,7 +32,7 @@ const supabase = components.find((component) => component.data.identifier === 's
 <ul class="features">
   <li>
     <SealCheckIcon />
-    <h3>Pro Developer Worklfow</h3>
+    <h3>Pro Developer Workflow</h3>
     <ul class="logos">
       <li><Image width={40} height={40} src={githubLogo} alt="github logo" /></li>
       <li><Image width={40} height={40} src={githubActionsIcon} alt="github actions icon" /></li>
@@ -58,10 +44,10 @@ const supabase = components.find((component) => component.data.identifier === 's
     <CodeBlock />
     <h3>Use Any Editor</h3>
     <ul class="logos">
-      <li><Image width={40} height={40} src={vscodeLogo} alt="vs code logo" /></li>
       <li><Image width={40} height={40} src={cursorLogo} alt="cursor logo" /></li>
-      <li><Image width={40} height={40} src={webstormLogo} alt="webstorm logo" /></li>
       <li><Image width={40} height={40} src={zedLogo} alt="zed logo" /></li>
+      <li><Image width={40} height={40} src={vscodeLogo} alt="vs code logo" /></li>
+      <li><Image width={40} height={40} src={webstormLogo} alt="webstorm logo" /></li>
     </ul>
     <p>Use any editor you'd like with SSH remote support, like Cursor or Zed.</p>
   </li>

@@ -1,6 +1,14 @@
 ---
+import { getCollection } from 'astro:content';
 import { FilesIcon } from '@phosphor-icons/react';
 import AiSectionHeader from '../../ai/_components/AiSectionHeader.astro';
+import Tag from '../../../components/Tag.astro';
+
+const articles = await getCollection('blog');
+
+const lovableFilterWords = ['lovable', 'supabase', 'import', ' ai ', 'remote development'];
+
+const lovableArticles = articles.filter((article) => lovableFilterWords.some((word) => article.data.title.toLowerCase().includes(word)));
 ---
 
 <section class="main">
@@ -9,6 +17,32 @@ import AiSectionHeader from '../../ai/_components/AiSectionHeader.astro';
     <h2>Resources For Lovable</h2>
     <p>Diploi works with any IDE that supports SSH. We offer first-class support for the most popular AI-native editors.</p>
   </AiSectionHeader>
+  <ul class="list">
+    {
+      lovableArticles.map((article) => (
+        <li>
+          <a href={`/blog/${article.id}`}>
+            <h3>{article.data.title}</h3>
+            <p>{article.data.description}</p>
+            <ul>
+              <li>
+                <Tag>Blog</Tag>
+              </li>
+              <li>
+                <time>
+                  {new Date(article.data.timestamp).toLocaleDateString('en-US', {
+                    month: 'long',
+                    day: 'numeric',
+                    year: 'numeric',
+                  })}
+                </time>
+              </li>
+            </ul>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
 </section>
 
 <style lang="scss">
@@ -22,5 +56,36 @@ import AiSectionHeader from '../../ai/_components/AiSectionHeader.astro';
     margin: 0 auto;
     width: 100%;
     max-width: var(--max-width-page-section);
+  }
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    > li {
+      flex-direction: column;
+
+      > a {
+        text-decoration: none;
+
+        ul {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 8px;
+          margin-top: 4px;
+        }
+      }
+
+      &:not(:last-of-type)::after {
+        content: '';
+        display: block;
+        margin: 32px 0;
+        width: 100%;
+        height: 1px;
+        background-image: linear-gradient(to right, var(--color-border), transparent);
+      }
+    }
   }
 </style>
