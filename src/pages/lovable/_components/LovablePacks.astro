@@ -9,6 +9,12 @@ import cursorLogo from '../../../images/cursor-logo.webp';
 import vscodeLogo from '../../../images/vscode-logo.svg';
 import zedLogo from '../../../images/zed-logo.svg';
 
+const articles = await getCollection('blog');
+const linkedFilterWords = ['supabase', 'n8n', 'node', 'ghost', 'laravel', 'postgres'];
+const linkedArticles = articles
+  .filter((article) => linkedFilterWords.some((word) => article.data.title.toLowerCase().includes(word)))
+  .slice(0, 4);
+
 const components = await getCollection('component');
 const lovable = components.find((component) => component.data.identifier === 'lovable')!;
 const supabase = components.find((component) => component.data.identifier === 'supabase')!;
@@ -95,7 +101,10 @@ const postgres = components.find((component) => component.data.identifier === 'p
       </ul>
     </article>
   </section>
-  <AiLink href="/dev">Remote development with Diploi</AiLink>
+  <div class="links">
+    <AiHr />
+    {linkedArticles.map((article) => <AiLink href={`/blog/${article.id}`}>{article.data.title}</AiLink>)}
+  </div>
 </section>
 
 <style lang="scss">
@@ -141,6 +150,22 @@ const postgres = components.find((component) => component.data.identifier === 'p
           color: inherit;
         }
       }
+    }
+  }
+
+  .links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    :global(hr) {
+      margin: 0;
+      margin-bottom: 32px;
+      max-width: 500px;
+    }
+
+    :global(a) {
+      color: var(--color-text-secondary);
     }
   }
 </style>

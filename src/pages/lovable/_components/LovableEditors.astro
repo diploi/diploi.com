@@ -1,23 +1,39 @@
 ---
 import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
 import vscodeLogo from '../../../images/vscode-logo.svg';
 import cursorLogo from '../../../images/cursor-logo.webp';
 import vscodePreview from '../../ai/_components/vscode.png';
 import cursorPreview from '../../ai/_components/cursor.png';
 import terminalPreview from '../../ai/_components/terminal.png';
-import { AppWindowIcon, Minus, PlugsConnected, PlugsConnectedIcon, SidebarIcon, TerminalWindow } from '@phosphor-icons/react';
+import { AppWindowIcon, Minus, TerminalWindow } from '@phosphor-icons/react';
 import Tag from '../../../components/Tag.astro';
 import AiSectionHeader from '../../ai/_components/AiSectionHeader.astro';
 import AiHr from '../../ai/_components/AiHr.astro';
 import AiLink from '../../ai/_components/AiLink.astro';
+import { createStackBackgroundUri } from '../../ai/_components/aiUtils';
+
+const articles = await getCollection('blog');
+const linkedFilterWords = [' ai ', 'remote development'];
+const linkedArticles = articles
+  .filter((article) => linkedFilterWords.some((word) => article.data.title.toLowerCase().includes(word)))
+  .slice(0, 3);
 
 const previewImageProps = {
   width: 340,
   quality: 'max',
 };
+
+const background = createStackBackgroundUri({
+  size: 16,
+  primary: 'rgba(255, 255, 255, 0.05)',
+  secondary: 'rgba(255, 255, 255, 0.05)',
+  chance: 0.1,
+});
 ---
 
 <section class="main">
+  <div class="background" inert aria-hidden style={{ '--background': background }}></div>
   <AiSectionHeader>
     <AppWindowIcon />
     <h2>Local IDE support</h2>
@@ -62,7 +78,11 @@ const previewImageProps = {
       </section>
     </article>
   </section>
-  <AiLink href="/dev">Remote development with Diploi</AiLink>
+  <div class="links">
+    <AiHr />
+    <AiLink href="/dev">Remote development with Diploi</AiLink>
+    {linkedArticles.map((article) => <AiLink href={`/blog/${article.id}`}>{article.data.title}</AiLink>)}
+  </div>
 </section>
 
 <style lang="scss">
@@ -110,5 +130,34 @@ const previewImageProps = {
         }
       }
     }
+  }
+
+  .links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    :global(hr) {
+      margin: 0;
+      margin-bottom: 32px;
+      max-width: 500px;
+    }
+
+    :global(a) {
+      color: var(--color-text-secondary);
+    }
+  }
+
+  .background {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 60vh;
+    background-image: var(--background);
+    background-size: 896px;
+    overflow: hidden;
+    z-index: -1;
+
+    mask-image: linear-gradient(to bottom, transparent, white 50%, transparent);
   }
 </style>

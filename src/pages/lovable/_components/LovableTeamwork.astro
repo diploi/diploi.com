@@ -1,35 +1,39 @@
 ---
 import {
-  CodeBlockIcon,
   CopyIcon,
-  DatabaseIcon,
   FastForwardIcon,
   FileCodeIcon,
   FileTextIcon,
   GitBranchIcon,
+  GitMergeIcon,
+  HardDrivesIcon,
   LinkIcon,
   MagicWandIcon,
   MouseIcon,
   PlugsConnectedIcon,
-  SealCheckIcon,
+  ShareIcon,
+  SquareIcon,
+  TriangleIcon,
   UsersThreeIcon,
 } from '@phosphor-icons/react';
 import AiSectionHeader from '../../ai/_components/AiSectionHeader.astro';
-import AiLink from '../../ai/_components/AiLink.astro';
 import AiHr from '../../ai/_components/AiHr.astro';
 ---
 
 <section class="main">
   <AiSectionHeader>
     <UsersThreeIcon />
-    <h2>Teamwork Makes The Dream Work</h2>
-    <p>Diploi works with any IDE that supports SSH. We offer first-class support for the most popular AI-native editors.</p>
+    <h2>Built for Collaboration</h2>
+    <p>
+      Teamwork on Diploi is effortless. From sharing a demo link to hopping into a teammate's command line, everything is just a click away.
+    </p>
   </AiSectionHeader>
   <ul class="features">
     <li>
-      <SealCheckIcon />
-      <h3>Per-Developer Environments</h3>
-      <p>Get the proper software-dev workflow. Git, CI/CD, SSH, e.g.</p>
+      <SquareIcon weight="thin" className="bg" aria-hidden />
+      <HardDrivesIcon />
+      <h3>Individual Environments</h3>
+      <p>Your own environment. Your own IDE. Connect to others whenever you need to.</p>
       <ul data-row="0">
         <li><PlugsConnectedIcon weight="bold" /> Zero-install remote development</li>
         <li><MouseIcon weight="bold" /> One-click environment setup</li>
@@ -38,9 +42,10 @@ import AiHr from '../../ai/_components/AiHr.astro';
     </li>
     <AiHr vertical />
     <li>
-      <CodeBlockIcon />
+      <TriangleIcon weight="thin" className="bg" aria-hidden />
+      <GitMergeIcon />
       <h3>GitHub Workflow</h3>
-      <p>Use any editor you'd like with SSH remote support, like Cursor or Zed.</p>
+      <p>Git that works the way you do. Pull requests, Actions, or plain CLI.</p>
       <ul data-row="1">
         <li><GitBranchIcon weight="bold" /> GitHub integration</li>
         <li><MagicWandIcon weight="bold" /> Automatic Git, CI/CD, SSL</li>
@@ -49,9 +54,10 @@ import AiHr from '../../ai/_components/AiHr.astro';
     </li>
     <AiHr vertical />
     <li>
-      <DatabaseIcon />
+      <SquareIcon weight="thin" className="bg" aria-hidden />
+      <ShareIcon />
       <h3>Easy Previews</h3>
-      <p>Host any of our supported services with your app, like Supabase or a CMS.</p>
+      <p>Want to demo a feature? Share the link. You can spin up endless environments.</p>
       <ul data-row="2">
         <li><LinkIcon weight="bold" /> Shareable environment URLs</li>
         <li><CopyIcon weight="bold" /> One-click environment cloning</li>
@@ -59,7 +65,6 @@ import AiHr from '../../ai/_components/AiHr.astro';
       </ul>
     </li>
   </ul>
-  <AiLink href="/dev">Remote development with Diploi</AiLink>
 </section>
 
 <style lang="scss">
@@ -71,43 +76,9 @@ import AiHr from '../../ai/_components/AiHr.astro';
     flex-direction: column;
     gap: 48px;
     margin: 0 auto;
+    margin-bottom: 64px;
     width: 100%;
     max-width: var(--max-width-page-section);
-  }
-
-  .list {
-    display: flex;
-    gap: 32px;
-
-    @media (max-width: 860px) {
-      flex-direction: column;
-    }
-
-    > article {
-      flex: 1;
-
-      > img {
-        max-width: 100%;
-      }
-
-      > section {
-        margin-top: 16px;
-
-        :global(span) {
-          transform: translateY(-2px);
-        }
-
-        > svg {
-          color: var(--color-primary);
-        }
-
-        > ul > li {
-          font-size: 1.25rem;
-          font-weight: 350;
-          color: var(--color-text-secondary);
-        }
-      }
-    }
   }
 
   .features {
@@ -125,10 +96,19 @@ import AiHr from '../../ai/_components/AiHr.astro';
     }
 
     li {
+      position: relative;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       min-width: 0;
+
+      &:nth-of-type(2) .bg {
+        translate: -5% 2%;
+      }
+
+      &:nth-of-type(3) .bg {
+        translate: -5% -30%;
+      }
     }
 
     li > svg {
@@ -170,6 +150,21 @@ import AiHr from '../../ai/_components/AiHr.astro';
             }
           }
         }
+      }
+    }
+
+    .bg {
+      position: absolute;
+      width: 150% !important;
+      height: 150% !important;
+      aspect-ratio: 1/1;
+      translate: -40% -22%;
+      color: white;
+      opacity: 0.02;
+      z-index: -1;
+
+      @media (max-width: 860px) {
+        display: none;
       }
     }
   }

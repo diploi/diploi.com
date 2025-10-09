@@ -1,0 +1,35 @@
+---
+import { SealPercent } from '@phosphor-icons/react';
+import { SparkleElement } from '../../../components/SparkleElement';
+import Tag from '../../../components/Tag.astro';
+import PricingCard from '../../pricing/_components/PricingCard.astro';
+---
+
+<PricingCard trial>
+  <section class="content" slot="content">
+    <h2>Ready to Level Up?<br />Give Us a Try!</h2>
+    <a class="button" href={`${import.meta.env.VITE_API_URL}/import/lovable`}>Import Lovable Project</a>
+  </section>
+</PricingCard>
+
+<style lang="scss">
+  :global(.trial) {
+    margin: 0 auto;
+    max-width: var(--max-width-page-section);
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      width: 100%;
+      margin: 48px 0;
+    }
+
+    h2 {
+      font-size: 3em;
+      font-weight: 800;
+      text-align: center;
+    }
+  }
+</style>

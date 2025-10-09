@@ -5,9 +5,7 @@ import AiSectionHeader from '../../ai/_components/AiSectionHeader.astro';
 import Tag from '../../../components/Tag.astro';
 
 const articles = await getCollection('blog');
-
 const lovableFilterWords = ['lovable', 'supabase', 'import', ' ai ', 'remote development'];
-
 const lovableArticles = articles.filter((article) => lovableFilterWords.some((word) => article.data.title.toLowerCase().includes(word)));
 ---
 

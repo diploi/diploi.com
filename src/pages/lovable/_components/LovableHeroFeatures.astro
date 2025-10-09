@@ -19,12 +19,10 @@ import webstormLogo from '../../../images/webstorm-logo.svg';
 import zedLogo from '../../../images/zed-logo.svg';
 import githubLogo from '../../../images/github-logo.svg';
 import githubActionsIcon from '../../../images/github-actions-icon.svg';
+import githubCopilotIcon from '../../../images/github-copilot-icon.svg';
 
 const components = await getCollection('component');
-const icons = components
-  .filter((component) => !component.data.hidden && component.data.identifier !== 'supabase')
-  .slice(0, 24)
-  .map((component) => component.data.icon);
+const visibleComponents = components.filter((component) => !component.data.hidden && component.data.identifier !== 'supabase').slice(0, 24);
 
 const supabase = components.find((component) => component.data.identifier === 'supabase');
 ---
@@ -34,8 +32,9 @@ const supabase = components.find((component) => component.data.identifier === 's
     <SealCheckIcon />
     <h3>Pro Developer Workflow</h3>
     <ul class="logos">
-      <li><Image width={40} height={40} src={githubLogo} alt="github logo" /></li>
-      <li><Image width={40} height={40} src={githubActionsIcon} alt="github actions icon" /></li>
+      <li><Image width={40} height={40} src={githubLogo} title="GitHub" alt="github logo" /></li>
+      <li><Image width={40} height={40} src={githubActionsIcon} title="GitHub Actions" alt="github actions icon" /></li>
+      <li><Image width={40} height={40} src={githubCopilotIcon} title="GitHub Copilot" alt="github copilot icon" /></li>
     </ul>
     <p>Get the proper software-dev workflow. Git, CI/CD, SSH, e.g.</p>
   </li>
@@ -44,10 +43,10 @@ const supabase = components.find((component) => component.data.identifier === 's
     <CodeBlock />
     <h3>Use Any Editor</h3>
     <ul class="logos">
-      <li><Image width={40} height={40} src={cursorLogo} alt="cursor logo" /></li>
-      <li><Image width={40} height={40} src={zedLogo} alt="zed logo" /></li>
-      <li><Image width={40} height={40} src={vscodeLogo} alt="vs code logo" /></li>
-      <li><Image width={40} height={40} src={webstormLogo} alt="webstorm logo" /></li>
+      <li><Image width={40} height={40} src={cursorLogo} title="Cursor" alt="cursor logo" /></li>
+      <li><Image width={40} height={40} src={zedLogo} title="Zed" alt="zed logo" /></li>
+      <li><Image width={40} height={40} src={vscodeLogo} title="VS Code" alt="vs code logo" /></li>
+      <li><Image width={40} height={40} src={webstormLogo} title="WebStorm" alt="webstorm logo" /></li>
     </ul>
     <p>Use any editor you'd like with SSH remote support, like Cursor or Zed.</p>
   </li>
@@ -58,16 +57,25 @@ const supabase = components.find((component) => component.data.identifier === 's
     <div class="components">
       <ul>
         <li>
-          <img alt="supabase icon" src={`data:image/svg+xml;base64,${supabase?.data.icon}`} width={40} height={40} />
+          <a href="/component/supabase">
+            <img title="Supabase" alt="Supabase icon" src={`data:image/svg+xml;base64,${supabase?.data.icon}`} width={40} height={40} />
+          </a>
         </li>
       </ul>
       <ul>
         {
-          icons.map((icon) => (
-            <li>
-              <img alt="component icon" src={`data:image/svg+xml;base64,${icon}`} width={16} height={16} />
-            </li>
-          ))
+          visibleComponents.map((component) => {
+            const img = (
+              <img
+                title={component.data.name}
+                alt={`${component.data.name} icon`}
+                src={`data:image/svg+xml;base64,${component.data.icon}`}
+                width={16}
+                height={16}
+              />
+            );
+            return <li>{component.data.type === 'component' ? <a href={`/component/${component.data.identifier}`}>{img}</a> : img}</li>;
+          })
         }
       </ul>
     </div>
@@ -117,6 +125,10 @@ const supabase = components.find((component) => component.data.identifier === 's
   .components {
     display: flex;
     gap: 8px;
+
+    a {
+      display: flex;
+    }
 
     > ul {
       display: flex;
