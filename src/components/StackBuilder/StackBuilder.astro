@@ -1,8 +1,9 @@
 ---
-import StackBuilderBlockButton from './StackBuilderBlockButton.astro';
 import SubSectionHeader from '../SubSectionHeader.astro';
 import Icon from '../Icon.astro';
 import StackBuilderYaml from './StackBuilderYaml.astro';
+import StackBuilderButtonCallout from './StackBuilderButtonCallout.astro';
+import StackBuilderButtonComponent from './StackBuilderButtonComponent.astro';
 
 interface Props {
   launchButtonText?: string;
@@ -32,6 +33,7 @@ interface Component {
 }
 
 const components = (data.components as Component[]).filter((component) => !component.hidden);
+const lovableComponent = (data.components as Component[]).find((component) => component.identifier === 'lovable');
 ---
 
 <div class="stack-builder" data-components={JSON.stringify(components)} data-components-defaults={JSON.stringify(defaultComponentIds)}>
@@ -40,6 +42,7 @@ const components = (data.components as Component[]).filter((component) => !compo
       {
         !hideComponents && (
           <>
+            <div class="callouts">{!!lovableComponent && <StackBuilderButtonCallout {...lovableComponent} href="/lovable" />}</div>
             <div class="header components">
               <SubSectionHeader
                 title="Components"
@@ -52,7 +55,7 @@ const components = (data.components as Component[]).filter((component) => !compo
                 {components
                   .filter((component) => component.type === 'component')
                   .map((component) => (
-                    <StackBuilderBlockButton {...component} class="component" />
+                    <StackBuilderButtonComponent {...component} class="component" />
                   ))}
               </div>
               {/* <ArrowLink href={import.meta.env.VITE_API_URL} text="Browse All" /> */}
@@ -70,7 +73,7 @@ const components = (data.components as Component[]).filter((component) => !compo
           {
             components
               .filter((component) => component.type === 'addon')
-              .map((addon) => <StackBuilderBlockButton {...addon} class="addon" />)
+              .map((addon) => <StackBuilderButtonComponent {...addon} class="addon" />)
           }
         </div>
         {/* <ArrowLink href={import.meta.env.VITE_API_URL} text="Browse All" /> */}
@@ -94,7 +97,7 @@ const components = (data.components as Component[]).filter((component) => !compo
 </div>
 
 <script>
-  const buttons = document.querySelectorAll('.stack-builder-button');
+  const buttons = document.querySelectorAll('.stack-builder-button[data-id]');
 
   let selectedComponentIds: number[] = JSON.parse(
     (document.querySelector('[data-components-defaults]') as HTMLElement).getAttribute('data-components-defaults') || '[]'
@@ -328,6 +331,11 @@ const components = (data.components as Component[]).filter((component) => !compo
         margin-bottom: 0;
       }
     }
+  }
+
+  .callouts {
+    margin-top: calc(var(--space-xxl) * -1);
+    margin-bottom: var(--space-xl);
   }
 
   .blocks-container {

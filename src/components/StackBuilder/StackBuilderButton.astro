@@ -1,0 +1,116 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = ({ component: 'a' } & HTMLAttributes<'a'>) | ({ component: 'button' } & HTMLAttributes<'button'>);
+
+const { component: Component, class: className, ...other } = Astro.props;
+---
+
+<Component class:list={['stack-builder-button', 'button', className]} {...other as HTMLAttributes<'button'>}>
+  <slot />
+</Component>
+
+<style lang="scss">
+  @use '../../styles/mixins';
+
+  .stack-builder-button {
+    @include mixins.gradient-border;
+    padding: var(--space-xl);
+    gap: var(--space-l);
+    justify-content: space-between;
+    @include mixins.gradient-bg;
+    font-size: 1rem;
+    background: var(--color-bg-secondary);
+    cursor: pointer;
+    min-width: 0;
+
+    @include mixins.respond-to('tablet') {
+      padding: var(--space-l);
+    }
+
+    &:hover:not(.is-selected) {
+      background: var(--color-bg-secondary);
+      background-color: var(--color-bg-secondary-hover);
+    }
+
+    &.is-selected {
+      @include mixins.gradient-border(var(--color-accent-primary), var(--color-accent-primary));
+      background: linear-gradient(to bottom, var(--color-accent-primary-20), transparent);
+
+      background-color: var(--color-bg-secondary);
+
+      &:hover {
+        @include mixins.gradient-border(var(--color-accent-primary), var(--color-accent-primary-hover));
+        background: linear-gradient(to bottom, var(--color-accent-primary-20), var(--color-bg-secondary-20));
+      }
+    }
+
+    > :global(label.new),
+    > :global(label.beta) {
+      --light: color-mix(in lch, var(--color-accent-primary), var(--color-bg) 20%);
+      --dark: color-mix(in lch, var(--color-accent-primary), var(--color-bg) 50%);
+
+      position: absolute;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      top: -8px;
+      left: -8px;
+      padding: 0 7px 0 4px;
+      font-size: 0.875rem;
+      background-color: var(--color-accent-primary);
+      background: linear-gradient(to bottom, var(--light), var(--dark));
+      border-radius: 32px;
+      z-index: 1;
+
+      pointer-events: none;
+      user-select: none;
+
+      &.beta {
+        --light: color-mix(in lch, var(--color-accent-secondary), var(--color-bg) 30%);
+        --dark: color-mix(in lch, var(--color-accent-secondary), var(--color-bg) 55%);
+        background-color: var(--color-accent-secondary);
+      }
+    }
+
+    :global(.label) {
+      display: flex;
+      align-items: center;
+      gap: var(--space-l);
+      min-width: 0;
+
+      > :global(span) {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        min-width: 0;
+        min-height: 43px;
+
+        > :global(span) {
+          max-width: 100%;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+
+        :global(.downloads) {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          font-size: 0.875rem;
+          opacity: 0.5;
+
+          > :global(svg) {
+            translate: 0 -1px;
+          }
+        }
+      }
+    }
+
+    :global(.icon) {
+      width: 1.75rem;
+      height: 1.75rem;
+    }
+  }
+</style>

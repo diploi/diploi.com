@@ -1,0 +1,64 @@
+---
+import { Image } from 'astro:assets';
+import Checkbox from '../Checkbox.astro';
+import type { TStackBuilderBlock } from './types';
+import { DownloadSimpleIcon, FlaskIcon, SparkleIcon } from '@phosphor-icons/react';
+import StackBuilderButton from './StackBuilderButton.astro';
+
+type Props = TStackBuilderBlock & {
+  class: string;
+};
+
+const { componentID, type, name, url, class: className, badge, count } = Astro.props;
+
+export const extractRepositoryOwnerAndRepo = (repositoryUrl: string) => {
+  let url = repositoryUrl;
+  if (!url.endsWith('.git')) url = `${url}.git`;
+
+  const regex = /https:\/\/github\.com\/(.*)\.git/g.exec(url);
+  if (!regex || !regex[1]) throw new Error('Failed to parse Git repo');
+  const [owner, repo] = regex[1]?.split('/') || [];
+  return { owner, repo };
+};
+
+const { owner, repo } = extractRepositoryOwnerAndRepo(url);
+
+const imageSrc = `https://diploi.b-cdn.net/component/${owner}/${repo}/icon.svg?ref=main`;
+
+const numberFormatter = new Intl.NumberFormat('fi-FI', {
+  style: 'decimal',
+});
+---
+
+<StackBuilderButton component="button" class={className} data-id={componentID}>
+  {
+    badge === 'new' && (
+      <label class="new">
+        <SparkleIcon weight="fill" size={12} /> New
+      </label>
+    )
+  }
+  {
+    badge === 'beta' && (
+      <label class="beta">
+        <FlaskIcon weight="fill" size={12} /> Beta
+      </label>
+    )
+  }
+  <div class="label">
+    <Image alt={`${type} icon`} src={imageSrc} class="icon" width={28} height={28} />
+    <span>
+      <span>{name}</span>
+      {
+        !!count && (
+          <span class="downloads">
+            <DownloadSimpleIcon /> <span data-component-count={componentID}>{numberFormatter.format(count)}</span>
+          </span>
+        )
+      }
+    </span>
+  </div>
+  <Checkbox id={`${componentID}-checkbox`} tabIndex={-1} checked={className.includes('is-selected')} />
+</StackBuilderButton>
+
+<style lang="scss"></style>

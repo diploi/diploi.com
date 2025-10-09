@@ -1,0 +1,47 @@
+---
+import { Image } from 'astro:assets';
+import { ArrowUpRightIcon, SparkleIcon } from '@phosphor-icons/react';
+import StackBuilderButton from './StackBuilderButton.astro';
+
+type Props = {
+  name: string;
+  url: string;
+  href: string;
+};
+
+const { name, url, href } = Astro.props;
+
+export const extractRepositoryOwnerAndRepo = (repositoryUrl: string) => {
+  let url = repositoryUrl;
+  if (!url.endsWith('.git')) url = `${url}.git`;
+
+  const regex = /https:\/\/github\.com\/(.*)\.git/g.exec(url);
+  if (!regex || !regex[1]) throw new Error('Failed to parse Git repo');
+  const [owner, repo] = regex[1]?.split('/') || [];
+  return { owner, repo };
+};
+
+const { owner, repo } = extractRepositoryOwnerAndRepo(url);
+
+const imageSrc = `https://diploi.b-cdn.net/component/${owner}/${repo}/icon.svg?ref=main`;
+---
+
+<StackBuilderButton component="a" class="callout" href={href}>
+  <label class="new">
+    <SparkleIcon weight="fill" size={12} /> New
+  </label>
+  <div class="label">
+    <Image alt={`${name} icon`} src={imageSrc} class="icon" width={28} height={28} />
+    <span>
+      <span>Import from {name}</span>
+      <span class="downloads">Go to import page</span>
+    </span>
+  </div>
+  <ArrowUpRightIcon size={28} weight="bold" className="arrow" />
+</StackBuilderButton>
+
+<style>
+  .arrow {
+    color: var(--color-border);
+  }
+</style>

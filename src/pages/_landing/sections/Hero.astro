@@ -1,8 +1,10 @@
 ---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
 import { Icon } from '../../../components';
 import { Canvas } from '../../../components/react/Canvas';
 import { BlobCanvas } from '../../../components/BlobCanvas';
-import { getCollection } from 'astro:content';
+import lovableIcon from '../../../images/lovable-icon.svg';
 
 const components = await getCollection('component');
 const icons = components.filter((component) => !component.data.hidden).map((component) => component.data.icon);
@@ -13,8 +15,12 @@ const icons = components.filter((component) => !component.data.hidden).map((comp
     <BlobCanvas />
   </div>
   <div class="content">
-    <a data-event="news_launchweek_click" class="news" href="/launchweek">
-      <Icon name="RocketLaunch" weight="fill" sizeRem={1} /> Launch Week <Icon name="ArrowUpRight" weight="bold" sizeRem={1} />
+    <a data-event="news_launchweek_click" class="news" href="/lovable">
+      <Image id="lovable" width={16} height={16} src={lovableIcon} alt="lovable logo" /> Import From Lovable <Icon
+        name="ArrowUpRight"
+        weight="bold"
+        sizeRem={1}
+      />
     </a>
     <h1 class="main-heading">
       <div class="diploi-canvas-container">

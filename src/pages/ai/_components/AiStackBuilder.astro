@@ -1,14 +1,14 @@
 ---
-import { CursorClick } from '@phosphor-icons/react';
+import { CursorClickIcon } from '@phosphor-icons/react';
 import StackBuilder from '../../../components/StackBuilder/StackBuilder.astro';
 import AiSectionHeader from './AiSectionHeader.astro';
 ---
 
 <section class="main">
   <AiSectionHeader>
-    <CursorClick />
+    <CursorClickIcon />
     <h2 id="stack-builder">Try Us Out</h2>
-    <p>Choose from a constantly growing list of technologies to build your ideal stack. We’ll take care of configuring your monorepo.</p>
+    <p>Choose from a constantly growing list of technologies to build your ideal stack. We'll take care of configuring your monorepo.</p>
   </AiSectionHeader>
   <StackBuilder />
 </section>
@@ -23,5 +23,9 @@ import AiSectionHeader from './AiSectionHeader.astro';
     margin: 0 auto;
     width: 100%;
     max-width: var(--max-width-page-section);
+
+    > :global(header) {
+      margin-bottom: var(--space-xl);
+    }
   }
 </style>
