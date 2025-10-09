@@ -79,7 +79,7 @@ const ogSocialImage = getFullImageUrl({ siteUrl: Astro.url.origin, imageUrl: ogS
     <meta name="google-site-verification" content="XopKlvNBmdLaTZtElCt9bkAVDuqrRL-5Ist_6Ecth-o" />
 
     {/* Umami tag */}
-    <script defer src="https://umami.console.diploi.com/script.js" data-website-id="745bea8d-6998-4bb9-ae81-9369864e5aaa"></script>
+    {/*<script defer src="https://umami.console.diploi.com/script.js" data-website-id="745bea8d-6998-4bb9-ae81-9369864e5aaa"></script>*/}
   </head>
   <body class="body">
     <slot />
@@ -87,29 +87,33 @@ const ogSocialImage = getFullImageUrl({ siteUrl: Astro.url.origin, imageUrl: ogS
     <Gradient />
 
     {/* Google tag (gtag.js) */}
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-182JME5104"></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-      gtag('config', 'G-182JME5104');
-      gtag('consent', 'default', {
-        ad_storage: 'denied',
-        ad_user_data: 'denied',
-        ad_personalization: 'denied',
-        analytics_storage: 'denied',
-      });
-    </script>
+    {
+      /*
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-182JME5104"></script>
+        <script is:inline>
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-182JME5104');
+          gtag('consent', 'default', {
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+            analytics_storage: 'denied',
+          });
+        </script>
+      */
+    }
   </body>
 </html>
 
 <script>
   // Disable Umami for localhost
-  if (window && window.location.hostname === 'localhost') {
-    localStorage.setItem('umami.disabled', '1');
-  }
+  // if (window && window.location.hostname === 'localhost') {
+  //   localStorage.setItem('umami.disabled', '1');
+  // }
 
   window.addEventListener('DOMContentLoaded', () => {
     const targets = document.querySelectorAll('.on-scroll');
@@ -137,19 +141,19 @@ const ogSocialImage = getFullImageUrl({ siteUrl: Astro.url.origin, imageUrl: ogS
     targets.forEach((target) => observer.observe(target));
   });
 
-  window.addEventListener('DOMContentLoaded', () => {
-    const events = document.querySelectorAll('[data-event]');
+  // window.addEventListener('DOMContentLoaded', () => {
+  //   const events = document.querySelectorAll('[data-event]');
 
-    events.forEach((element) =>
-      element.addEventListener('click', () => {
-        const event = element.getAttribute('data-event');
-        // @ts-ignore
-        if (umami) umami.track(event);
-        // @ts-ignore
-        if (gtag) gtag('event', event);
-      })
-    );
-  });
+  //   events.forEach((element) =>
+  //     element.addEventListener('click', () => {
+  //       const event = element.getAttribute('data-event');
+  //       // @ts-ignore
+  //       if (umami) umami.track(event);
+  //       // @ts-ignore
+  //       if (gtag) gtag('event', event);
+  //     })
+  //   );
+  // });
 </script>
 
 <GlobalStyles />
