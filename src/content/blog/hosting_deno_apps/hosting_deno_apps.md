@@ -7,6 +7,7 @@ timestamp: '2025-09-22T01:00:05.000Z'
 image: './hosting_deno_apps_cover.png'
 social_image: './hosting_deno_apps_og.png'
 draft: false
+type: 'Guide'
 ---
 
 Updated <time datetime="2025-10-28T11:07:05.000Z">October 28, 2025</time>

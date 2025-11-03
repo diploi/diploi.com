@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import { FilesIcon } from '@phosphor-icons/react';
 import AiSectionHeader from '../../ai/_components/AiSectionHeader.astro';
 import Tag from '../../../components/Tag.astro';
+import Article from '../../../components/blog/Article.astro';
 
 const articles = await getCollection('blog');
 const lovableFilterWords = ['lovable', 'supabase', 'import', ' ai ', 'remote development'];
@@ -19,24 +20,7 @@ const lovableArticles = articles.filter((article) => lovableFilterWords.some((wo
     {
       lovableArticles.map((article) => (
         <li>
-          <a href={`/blog/${article.id}`}>
-            <h3>{article.data.title}</h3>
-            <p>{article.data.description}</p>
-            <ul>
-              <li>
-                <Tag>Blog</Tag>
-              </li>
-              <li>
-                <time>
-                  {new Date(article.data.timestamp).toLocaleDateString('en-US', {
-                    month: 'long',
-                    day: 'numeric',
-                    year: 'numeric',
-                  })}
-                </time>
-              </li>
-            </ul>
-          </a>
+          <Article {...article.data} image={false} id={article.id} />
         </li>
       ))
     }
@@ -63,18 +47,6 @@ const lovableArticles = articles.filter((article) => lovableFilterWords.some((wo
 
     > li {
       flex-direction: column;
-
-      > a {
-        text-decoration: none;
-
-        ul {
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          gap: 8px;
-          margin-top: 4px;
-        }
-      }
 
       &:not(:last-of-type)::after {
         content: '';

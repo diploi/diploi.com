@@ -7,6 +7,7 @@ timestamp: '2025-08-27T07:11:05.573Z'
 image: './hosting_a_ghost_blog_cover.png'
 social_image: './hosting_a_ghost_blog_og.png'
 draft: false
+type: 'Guide'
 ---
 
 Updated <time datetime="2025-10-28T11:04:05.000Z">October 28, 2025</time>

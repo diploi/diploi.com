@@ -4,10 +4,17 @@ import Layout from '../../layouts/Layout.astro';
 import Navigation from '../../components/Navigation.astro';
 import Footer from '../../components/Footer.astro';
 import Article from '../../components/blog/Article.astro';
-import { Section, GetStarted, PageTitle } from '../../components';
+import { Section, PageTitle } from '../../components';
 import { createBlogSchema } from './_utils/createBlogSchema';
+import AiHr from '../ai/_components/AiHr.astro';
+import LovableHr from '../lovable/_components/LovableHr.astro';
+import AiCallouts from '../ai/_components/AiCallouts.astro';
 
 const articles = await getCollection('blog');
+
+const latest = articles[0];
+const highlight = articles.find((article) => article.data.hightlight === true && article.id !== latest.id);
+const list = articles.filter((article) => ![latest.id, highlight?.id].includes(article.id));
 
 const schema = createBlogSchema({
   url: new URL(Astro.url.pathname, Astro.site),
@@ -19,27 +26,48 @@ const schema = createBlogSchema({
 });
 ---
 
-<Layout title="Diploi - Blog" description='Tutorials, insights and case studies about building and deploying modern apps with remote development and one-click deployment workflows.' ogUrlMatchCanonical={true} >
+<Layout
+  title="Diploi - Blog"
+  description="Tutorials, insights and case studies about building and deploying modern apps with remote development and one-click deployment workflows."
+  ogUrlMatchCanonical={true}
+>
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
   <Navigation selected="blog" />
   <main>
     <Section>
       <div class="content">
         <PageTitle tagText="Blog" title="See what the team has been up to" />
+        <div class="hero">
+          <Article {...latest.data} id={latest.id} />
+          <AiHr vertical />
+          <div class="side">
+            <Article {...highlight!.data} id={highlight!.id} />
+          </div>
+        </div>
+        <AiHr />
+        <div class="latest">
+          {
+            list.slice(0, 3).map((article, index) => (
+              <>
+                <Article {...article.data} id={article.id} />
+                {index < 2 && <AiHr vertical />}
+              </>
+            ))
+          }
+        </div>
+        <LovableHr />
         <div class="posts">
-          {articles.map((article) => <Article {...article.data} id={article.id} />)}
+          {list.slice(3).map((article) => <Article {...article.data} image={false} id={article.id} />)}
         </div>
       </div>
     </Section>
-    <hr />
-    <Section>
-      <GetStarted />
-    </Section>
+    <LovableHr />
+    <AiCallouts />
   </main>
   <Footer />
 </Layout>
 
-<style>
+<style lang="scss">
   main {
     position: relative;
     display: flex;
@@ -58,10 +86,50 @@ const schema = createBlogSchema({
     text-align: center;
   }
 
+  .hero {
+    display: flex;
+    flex-direction: row;
+    gap: 32px;
+
+    > :global(a) {
+      flex: 2;
+    }
+
+    @media (max-width: 900px) {
+      flex-direction: column;
+    }
+  }
+
+  .hero > .side {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    flex: 1;
+  }
+
+  .latest {
+    display: flex;
+    gap: 32px;
+
+    @media (max-width: 900px) {
+      flex-direction: column;
+    }
+  }
+
   .posts {
     display: flex;
     flex-direction: column;
     gap: var(--space-l);
+    width: 100%;
+
+    > :global(a):not(:last-of-type)::after {
+      content: '';
+      display: block;
+      margin: 32px 0;
+      width: 100%;
+      height: 1px;
+      background-image: linear-gradient(to right, var(--color-border), transparent);
+    }
   }
 
   .title {

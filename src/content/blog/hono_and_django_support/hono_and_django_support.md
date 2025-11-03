@@ -7,6 +7,7 @@ devtoUrl: 'https://dev.to/diploi/the-easiest-way-to-start-new-django-and-hono-ap
 image: './hono_and_django_support_cover.png'
 social_image: './hono_and_django_support_og.png'
 draft: false
+type: 'News'
 ---
 
 Updated <time datetime="2025-10-28T11:03:05.000Z">October 28, 2025</time>

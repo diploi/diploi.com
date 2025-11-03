@@ -71,6 +71,7 @@ export function blogLoader({ apiKey }: { apiKey: string }): Loader {
             author: firstName,
             timestamp: blog.published_timestamp,
             url: blog.url,
+            type: 'Blog',
           },
           body,
           rendered: {
@@ -123,6 +124,8 @@ export function blogLoader({ apiKey }: { apiKey: string }): Loader {
         author: z.string(),
         timestamp: z.string(),
         url: z.string().optional(),
+        type: z.string().optional(),
+        hightlight: z.boolean().optional(),
       }),
   };
 }

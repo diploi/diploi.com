@@ -7,6 +7,7 @@ timestamp: '2025-09-23T18:00:05.000Z'
 image: './hosting_n8n_cover.png'
 social_image: './hosting_n8n_og.png'
 draft: false
+type: 'Guide'
 ---
 
 Updated <time datetime="2025-10-28T11:13:05.000Z">October 28, 2025</time>

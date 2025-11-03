@@ -1,34 +1,33 @@
 ---
 import { CalendarBlank, Link, User } from '@phosphor-icons/react';
 import { Image } from 'astro:assets';
+import Tag from '../Tag.astro';
 
 type Props = {
   id: string;
   title: string;
   description: string;
-  image?: ImageMetadata | null;
+  image?: ImageMetadata | false | null;
   external_image?: string | null;
   url?: string;
   timestamp: string;
   author: string;
+  type?: string;
 };
 
-const { id, title, description, image, external_image, url, timestamp, author } = Astro.props;
+const { id, title, description, image, external_image, url, timestamp, author, type = 'Blog' } = Astro.props;
 ---
 
 <a href={`/blog/${id}`}>
-  <article>
-    {
-      (image || external_image) && (
-        <Image src={(image || external_image) as string} inferSize width={500} height={300} alt="Article image" />
-      )
-    }
-    <h3>{title}</h3>
-    <p>{description}</p>
-    <footer>
-      <p class="small"><User /> {author}</p>
-      <p class="small">
-        <CalendarBlank />
+  {image !== false && (image || external_image) && <Image src={(image || external_image) as string} inferSize alt="Article image" />}
+  <h3>{title}</h3>
+  <p>{description}</p>
+  <ul>
+    <li>
+      <Tag>{type}</Tag>
+    </li>
+    <li>
+      <time datetime={timestamp}>
         {
           new Date(timestamp).toLocaleDateString('en-US', {
             month: 'long',
@@ -36,65 +35,39 @@ const { id, title, description, image, external_image, url, timestamp, author } 
             year: 'numeric',
           })
         }
-      </p>
-      {
-        url && (
-          <p class="small">
-            <Link /> Dev.to
-          </p>
-        )
-      }
-    </footer>
-  </article>
+      </time>
+    </li>
+    {
+      url && (
+        <li>
+          <Link /> Dev.to
+        </li>
+      )
+    }
+  </ul>
 </a>
 
 <style lang="scss">
-  @use '../../styles/mixins';
-
   a {
-    display: block;
-    width: 100%;
-    max-width: 768px;
-    margin: 0 auto;
-    text-decoration: none;
-    color: white;
-  }
-
-  article {
-    @include mixins.card-desktop;
     display: flex;
     flex-direction: column;
-    gap: var(--space-xl);
-  }
+    text-decoration: none;
 
-  img {
-    height: 50%;
-    width: 100%;
-    max-width: 100%;
-    border-radius: var(--border-radius-medium);
-    object-fit: cover;
-  }
-
-  h3 {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 0;
-
-    svg {
-      opacity: 0.7;
+    > img {
+      margin-bottom: 24px;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--border-radius-medium);
+      object-fit: cover;
     }
-  }
 
-  footer {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-
-    p {
+    > ul {
       display: flex;
+      flex-direction: row;
       align-items: center;
-      gap: 3px;
+      gap: 8px;
+      margin-top: 4px;
     }
   }
 </style>

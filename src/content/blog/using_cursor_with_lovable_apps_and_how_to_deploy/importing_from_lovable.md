@@ -7,6 +7,8 @@ devtoUrl: 'https://dev.to/diploi/using-cursor-with-apps-built-with-lovable-and-h
 image: './deploying_lovable_apps_cover.png'
 social_image: './deploying_lovable_apps_og.png'
 draft: false
+type: 'Guide'
+hightlight: true
 ---
 
 Updated <time datetime="2025-10-28T11:22:05.000Z">October 28, 2025</time>
@@ -47,6 +49,7 @@ Because of these issues, we decided to create something to help people who use L
 ## What is possible with Diploi
 
 Not only can you import your apps or start from zero, but you can also expand what's possible for your apps by using Diploi, where you can:
+
 - add a backend for your imported apps,
 - migrate from paid Supabase to open-source Supabase,
 - add additional databases,
@@ -97,10 +100,10 @@ Once you finish creating an account, you will be welcomed with the Stack Builder
 From the Stack Builder, choose the option **Import Repository** and you have the option to:
 
 - Select the application you want to import from your list of repositories.
-![Selecting a repository from own list of repos](selecting-a-repository-from-own-list-of-repos.png)
+  ![Selecting a repository from own list of repos](selecting-a-repository-from-own-list-of-repos.png)
 
 - Importing from a URL, which allows you to use the URL from any repository you own or public repositories, even if you are not the owner.
-![Importing from URL](importing-from-url.png)
+  ![Importing from URL](importing-from-url.png)
 
 #### 4. Analyze the repository
 
@@ -160,9 +163,9 @@ There are multiple ways to generate an SSH key, but in my opinion the easiest wa
 
 1. Open a Terminal
    - in **Linux**, you can open the terminal by pressing `Ctrl`+`Alt`+`T`
-      ![Linux terminal](terminal.png)
+     ![Linux terminal](terminal.png)
    - in **Mac**, open the Spotlight Search by pressing `Command`+`Space` and then typing "terminal".
-      ![mac terminal](terminal-mac.png)
+     ![mac terminal](terminal-mac.png)
    - in **Windows**, you can open the terminal by opening Git Bash from your apps (If you don't have it, you can download it here https://git-scm.com/downloads)
 
 2. Then type the command `ssh-keygen`, which will generate an SSH key, which by default will have the name `id_ed25519`, but you can assign a different name and store it on a different folder. For convenience, use the default filename and location, since Cursor by default will use the same filename and location to fetch your SSH keys.
@@ -193,7 +196,6 @@ Now we are ready to open the imported app from Lovable using Cursor.
 
 1. Go to the deployment page and enable Cursor, from the **"Develop"** section, press the button **+** and you'll be able to see the **"Open in Cursor"** option.
    ![Open in Cursor launch button](open-in-cursor-launch-button.png)
-   
 2. To pin the **"Open in Cursor"** button to your deployment, just click on the pin icon next to the text.
    ![Pinning Cursor to the deployment dashboard](pinning-cursor-to-the-deployment-dashboard.png)
 
@@ -250,7 +252,6 @@ And that should be all you need to set up your new **"Production"** deployment, 
 
 ![Create Deployment](../../../images/blog/creating-deployment.png)
 
-
 ---
 
 ## Adding a custom domain to your deployed Lovable app
@@ -282,6 +283,7 @@ It is common for the custom domain to be fully set up within 1 to 2 minutes, but
 If you want to elevate your application with a proper Backend, blogging, or databases, you can add components like **FastAPI**, **Ghost**, **n8n**, etc., and add-ons like **Redis** and **Supabase**.
 
 #### 1. Open the diploi.yaml file
+
 To add them, all you need to do is access your app's folder and find the `diploi.yaml` file. When you open it, the content for your Lovable app would look like this:
 
 ```yaml
