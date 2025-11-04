@@ -18,6 +18,7 @@ import {
 } from '@phosphor-icons/react';
 import AiSectionHeader from '../../ai/_components/AiSectionHeader.astro';
 import AiHr from '../../ai/_components/AiHr.astro';
+import Bullets from '../../../components/Bullets';
 ---
 
 <section class="main">
@@ -34,11 +35,17 @@ import AiHr from '../../ai/_components/AiHr.astro';
       <HardDrivesIcon />
       <h3>Individual Environments</h3>
       <p>Your own environment. Your own IDE. Connect to others whenever you need to.</p>
-      <ul data-row="0">
-        <li><PlugsConnectedIcon weight="bold" /> Zero-install remote development</li>
-        <li><MouseIcon weight="bold" /> One-click environment setup</li>
-        <li><FastForwardIcon weight="bold" /> 30 second developer onboarding</li>
-      </ul>
+      <Bullets total={9}>
+        <Bullets.Item>
+          <PlugsConnectedIcon weight="bold" /> Zero-install remote development
+        </Bullets.Item>
+        <Bullets.Item>
+          <MouseIcon weight="bold" /> One-click environment setup
+        </Bullets.Item>
+        <Bullets.Item>
+          <FastForwardIcon weight="bold" /> 30 second developer onboarding
+        </Bullets.Item>
+      </Bullets>
     </li>
     <AiHr vertical />
     <li>
@@ -46,11 +53,18 @@ import AiHr from '../../ai/_components/AiHr.astro';
       <GitMergeIcon />
       <h3>GitHub Workflow</h3>
       <p>Git that works the way you do. Pull requests, Actions, or plain CLI.</p>
-      <ul data-row="1">
-        <li><GitBranchIcon weight="bold" /> GitHub integration</li>
-        <li><MagicWandIcon weight="bold" /> Automatic Git, CI/CD, SSL</li>
-        <li><FileCodeIcon weight="bold" /> Infrastructure as code</li>
-      </ul>
+
+      <Bullets start={3} total={9}>
+        <Bullets.Item>
+          <GitBranchIcon weight="bold" /> GitHub integration
+        </Bullets.Item>
+        <Bullets.Item>
+          <MagicWandIcon weight="bold" /> Automatic Git, CI/CD, SSL
+        </Bullets.Item>
+        <Bullets.Item>
+          <FileCodeIcon weight="bold" /> Infrastructure as code
+        </Bullets.Item>
+      </Bullets>
     </li>
     <AiHr vertical />
     <li>
@@ -58,11 +72,17 @@ import AiHr from '../../ai/_components/AiHr.astro';
       <ShareIcon />
       <h3>Easy Previews</h3>
       <p>Want to demo a feature? Share the link. You can spin up endless environments.</p>
-      <ul data-row="2">
-        <li><LinkIcon weight="bold" /> Shareable environment URLs</li>
-        <li><CopyIcon weight="bold" /> One-click environment cloning</li>
-        <li><FileTextIcon weight="bold" /> Real-time logging</li>
-      </ul>
+      <Bullets start={6} total={9}>
+        <Bullets.Item>
+          <LinkIcon weight="bold" /> Shareable environment URLs
+        </Bullets.Item>
+        <Bullets.Item>
+          <CopyIcon weight="bold" /> One-click environment cloning
+        </Bullets.Item>
+        <Bullets.Item>
+          <FileTextIcon weight="bold" /> Real-time logging
+        </Bullets.Item>
+      </Bullets>
     </li>
   </ul>
 </section>

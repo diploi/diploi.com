@@ -2,31 +2,79 @@
 import PricingCard from '../../pricing/_components/PricingCard.astro';
 ---
 
-<PricingCard trial>
-  <section class="content" slot="content">
-    <h2>Ready to Level Up?<br />Give Us a Try!</h2>
-    <a class="button" data-link="login" href={`${import.meta.env.VITE_API_URL}/import/lovable`}>Import Lovable Project</a>
-  </section>
-</PricingCard>
+<section class="content" slot="content">
+  <h2>Ready to Level Up?<br />Give Us a Try!</h2>
+  <a class="button" data-link="login" href={`${import.meta.env.VITE_API_URL}/import/lovable`}>Import Lovable Project</a>
+</section>
 
 <style lang="scss">
-  :global(.trial) {
-    margin: 0 auto;
+  @property --rotation {
+    syntax: '<angle>';
+    inherits: false;
+    initial-value: 0turn;
+  }
+
+  .content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
     max-width: var(--max-width-page-section);
+    margin: 48px auto;
+    padding: 112px 0;
+    border: 1px solid transparent;
+    border-radius: var(--border-radius-medium);
 
-    .content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 24px;
-      width: 100%;
-      margin: 48px 0;
+    --color-bg-left: color-mix(in lab, var(--color-accent-primary), var(--color-bg) 70%);
+    --color-bg-right: color-mix(in lab, var(--color-accent-secondary), var(--color-bg) 70%);
+
+    background:
+      linear-gradient(to right, var(--color-bg-left), var(--color-bg), var(--color-bg-right)) padding-box,
+      conic-gradient(from var(--rotation), var(--color-accent-primary), var(--color-accent-secondary), var(--color-accent-primary))
+        border-box;
+
+    @keyframes rotate {
+      from {
+        --rotation: 0turn;
+      }
+      to {
+        --rotation: 1turn;
+      }
     }
 
-    h2 {
-      font-size: 3em;
-      font-weight: 800;
-      text-align: center;
+    animation: rotate 5s linear infinite;
+
+    &::after {
+      content: '';
+      position: absolute;
+      display: block;
+      inset: 0;
+      background-color: red;
+      border-radius: var(--border-radius-medium);
+      background-image: conic-gradient(
+        from var(--rotation),
+        var(--color-accent-primary),
+        var(--color-accent-secondary),
+        var(--color-accent-primary)
+      );
+      z-index: -1;
+      filter: blur(32px);
+      scale: 1.1;
+      opacity: 0.3;
+
+      animation: rotate 5s linear infinite;
+
+      @media (max-width: 1000px) {
+        display: none;
+      }
     }
+  }
+
+  h2 {
+    font-size: 3em;
+    font-weight: 800;
+    text-align: center;
   }
 </style>

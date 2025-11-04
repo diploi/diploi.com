@@ -1,0 +1,29 @@
+.bullets {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.25rem;
+  color: var(--color-text-secondary);
+
+  > svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  @for $i from 1 through 16 {
+    &:nth-child(#{$i}) {
+      > svg {
+        --percentage: calc(((#{$i} + var(--start) - 1) / (var(--total) - 1)) * 100%);
+        color: color-mix(in lab, var(--color-primary), var(--color-secondary) var(--percentage));
+      }
+    }
+  }
+}

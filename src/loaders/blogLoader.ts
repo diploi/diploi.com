@@ -99,8 +99,6 @@ export function blogLoader({ apiKey }: { apiKey: string }): Loader {
               data: entry.data,
             });
 
-        console.log(id.split('/').pop());
-
         store.set({
           id,
           data: { ...entryData, slug: id.split('/').pop() },

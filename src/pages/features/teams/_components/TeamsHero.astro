@@ -1,0 +1,159 @@
+---
+import { getCollection } from 'astro:content';
+import { InfoIcon } from '@phosphor-icons/react';
+import { createStackBackgroundUri } from '../../../ai/_components/aiUtils';
+import TeamsHeroFeatures from './TeamsHeroFeatures.astro';
+
+const calendlyUrl = import.meta.env.VITE_CALENDLY_URL;
+
+const background = createStackBackgroundUri({
+  size: 32,
+  primary: 'rgba(255, 255, 255, 0.05)',
+  secondary: 'rgba(255, 255, 255, 0.05)',
+  chance: 0.4,
+});
+const backgroundColor = createStackBackgroundUri({ size: 32, primary: 'white', secondary: 'white', chance: 0.6 });
+
+const componentBlocklist = ['n8n', 'laravel', 'flask'];
+
+const components = await getCollection('component');
+const icons = components
+  .filter((component) => !component.data.hidden && !componentBlocklist.includes(component.data.identifier))
+  .slice(0, 18)
+  .map((component) => component.data.icon);
+---
+
+<header>
+  <div class="background" inert aria-hidden style={{ '--background': background, '--backgroundColor': backgroundColor }}></div>
+  <section>
+    <div class="title">
+      <h1>Workflow to<br />Ship Faster</h1>
+    </div>
+    <TeamsHeroFeatures />
+    <a class="button" target="_blank" href={calendlyUrl}>Book a Demo</a>
+    <p class="help"><InfoIcon /> We'll help your team get started. Book a 30-minute demo and let's discuss your needs.</p>
+  </section>
+</header>
+
+<style lang="scss">
+  @use 'sass:math';
+  @use '../../../../styles/mixins';
+
+  header {
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: var(--max-width-page-section);
+  }
+
+  header .text-gradient {
+    --accent-gradient: linear-gradient(45deg, var(--color-primary), var(--color-secondary), var(--color-primary), var(--color-secondary));
+
+    background-size: 400%;
+    animation: gradient-animation 8s infinite alternate cubic-bezier(0.65, 0, 0.35, 1);
+
+    @keyframes gradient-animation {
+      0% {
+        background-position: 0%;
+      }
+      100% {
+        background-position: 100%;
+      }
+    }
+  }
+
+  p.help {
+    max-width: 50ch;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+
+    > svg {
+      translate: -1px 3px;
+    }
+  }
+
+  @property --x {
+    syntax: '<length>';
+    inherits: false;
+    initial-value: 0px;
+  }
+
+  @property --y {
+    syntax: '<length>';
+    inherits: false;
+    initial-value: 0px;
+  }
+
+  @property --z {
+    syntax: '<length>';
+    inherits: false;
+    initial-value: 0px;
+  }
+
+  section {
+    margin-top: 64px;
+
+    @media (max-width: 860px) {
+      margin-top: 0px;
+    }
+
+    .title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 56px;
+
+      @media (max-width: 860px) {
+        h1 {
+          text-align: center;
+          font-size: 2.4em;
+        }
+      }
+    }
+
+    > .button {
+      margin: 32px 0 16px 0;
+    }
+
+    @media (max-width: 860px) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      > p {
+        text-align: center;
+      }
+    }
+  }
+
+  .background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60vh;
+    background-image: var(--background);
+    background-size: 896px;
+    overflow: hidden;
+    z-index: -1;
+
+    mask-image: linear-gradient(to bottom, white 50%, transparent);
+
+    &::before {
+      position: absolute;
+      content: '';
+      display: block;
+      inset: 0;
+      background-image: var(--backgroundColor);
+      background-size: 896px;
+      opacity: 0.15;
+
+      mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="%23000000" viewBox="0 0 256 256"><path d="M117.25,157.92a60,60,0,1,0-66.5,0A95.83,95.83,0,0,0,3.53,195.63a8,8,0,1,0,13.4,8.74,80,80,0,0,1,134.14,0,8,8,0,0,0,13.4-8.74A95.83,95.83,0,0,0,117.25,157.92ZM40,108a44,44,0,1,1,44,44A44.05,44.05,0,0,1,40,108Zm210.14,98.7a8,8,0,0,1-11.07-2.33A79.83,79.83,0,0,0,172,168a8,8,0,0,1,0-16,44,44,0,1,0-16.34-84.87,8,8,0,1,1-5.94-14.85,60,60,0,0,1,55.53,105.64,95.83,95.83,0,0,1,47.22,37.71A8,8,0,0,1,250.14,206.7Z"></path></svg>');
+      mask-size: 600px;
+      mask-repeat: no-repeat;
+      mask-position: 100px 0px;
+    }
+  }
+</style>
