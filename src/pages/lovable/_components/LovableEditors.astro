@@ -81,7 +81,7 @@ const background = createStackBackgroundUri({
   <div class="links">
     <AiHr />
     <AiLink href="/dev">Remote development with Diploi</AiLink>
-    {linkedArticles.map((article) => <AiLink href={`/blog/${article.id}`}>{article.data.title}</AiLink>)}
+    {linkedArticles.map((article) => <AiLink href={`/blog/${article.data.slug}`}>{article.data.title}</AiLink>)}
   </div>
 </section>
 

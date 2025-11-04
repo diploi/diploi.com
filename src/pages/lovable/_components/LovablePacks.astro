@@ -103,7 +103,7 @@ const postgres = components.find((component) => component.data.identifier === 'p
   </section>
   <div class="links">
     <AiHr />
-    {linkedArticles.map((article) => <AiLink href={`/blog/${article.id}`}>{article.data.title}</AiLink>)}
+    {linkedArticles.map((article) => <AiLink href={`/blog/${article.data.slug}`}>{article.data.title}</AiLink>)}
   </div>
 </section>
 

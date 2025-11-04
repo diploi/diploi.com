@@ -38,10 +38,10 @@ const schema = createBlogSchema({
       <div class="content">
         <PageTitle tagText="Blog" title="See what the team has been up to" />
         <div class="hero">
-          <Article {...latest.data} id={latest.id} />
+          <Article {...latest.data} />
           <AiHr vertical />
           <div class="side">
-            <Article {...highlight!.data} id={highlight!.id} />
+            <Article {...highlight!.data} />
           </div>
         </div>
         <AiHr />
@@ -49,7 +49,7 @@ const schema = createBlogSchema({
           {
             list.slice(0, 3).map((article, index) => (
               <>
-                <Article {...article.data} id={article.id} />
+                <Article {...article.data} />
                 {index < 2 && <AiHr vertical />}
               </>
             ))
@@ -57,7 +57,7 @@ const schema = createBlogSchema({
         </div>
         <LovableHr />
         <div class="posts">
-          {list.slice(3).map((article) => <Article {...article.data} image={false} id={article.id} />)}
+          {list.slice(3).map((article) => <Article {...article.data} image={false} />)}
         </div>
       </div>
     </Section>

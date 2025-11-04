@@ -11,7 +11,7 @@ import 'github-markdown-css/github-markdown.css';
 export async function getStaticPaths() {
   const articles = await getCollection('blog');
   return articles.map((article) => ({
-    params: { article: article.id },
+    params: { article: article.data.slug },
     props: { entry: article },
   }));
 }

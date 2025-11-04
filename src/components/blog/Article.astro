@@ -1,10 +1,10 @@
 ---
-import { CalendarBlank, Link, User } from '@phosphor-icons/react';
+import { LinkIcon } from '@phosphor-icons/react';
 import { Image } from 'astro:assets';
 import Tag from '../Tag.astro';
 
 type Props = {
-  id: string;
+  slug?: string;
   title: string;
   description: string;
   image?: ImageMetadata | false | null;
@@ -15,10 +15,10 @@ type Props = {
   type?: string;
 };
 
-const { id, title, description, image, external_image, url, timestamp, author, type = 'Blog' } = Astro.props;
+const { slug, title, description, image, external_image, url, timestamp, author, type = 'Blog' } = Astro.props;
 ---
 
-<a href={`/blog/${id}`}>
+<a href={`/blog/${slug}`}>
   {image !== false && (image || external_image) && <Image src={(image || external_image) as string} inferSize alt="Article image" />}
   <h3>{title}</h3>
   <p>{description}</p>
@@ -40,7 +40,7 @@ const { id, title, description, image, external_image, url, timestamp, author, t
     {
       url && (
         <li>
-          <Link /> Dev.to
+          <LinkIcon /> Dev.to
         </li>
       )
     }

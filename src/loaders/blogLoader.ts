@@ -89,33 +89,37 @@ export function blogLoader({ apiKey }: { apiKey: string }): Loader {
       store.clear();
 
       for (const entry of entries) {
-        let id = entry.id;
-        // For local posts, only pick the last section of the path to be the post ID
-        if (id.includes('/')) {
-          id = id.split('/').pop() as string;
-        }
+        const id = entry.id;
+        const isLocalEntry = Boolean((entry as { filePath?: string }).filePath);
 
-        const entryData = await parseData({
-          id,
-          data: entry.data,
-        });
+        const entryData = isLocalEntry
+          ? entry.data
+          : await parseData({
+              id,
+              data: entry.data,
+            });
+
+        console.log(id.split('/').pop());
 
         store.set({
           id,
-          data: entryData,
+          data: { ...entryData, slug: id.split('/').pop() },
           body: entry.body,
           rendered: entry.rendered,
-          //@ts-ignore
+          // @ts-ignore Preserve original metadata managed by Astro
           deferredRender: entry.deferredRender,
-          //@ts-ignore
+          // @ts-ignore Existing local content keeps its original file path
           filePath: entry.filePath,
-          //@ts-ignore
+          // @ts-ignore Retain digest when present
           digest: entry.digest,
+          // @ts-ignore Ensure we keep the asset imports discovered by Astro
+          assetImports: entry.assetImports,
         });
       }
     },
     schema: async () =>
       z.object({
+        slug: z.string(),
         title: z.string(),
         description: z.string(),
         image: z.string().nullable().optional(),
