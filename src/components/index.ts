@@ -2,7 +2,6 @@ export { DeveloperFaq } from './DeveloperFaq';
 export { FeatureMasonry } from './FeatureMasonry';
 export { SparkleElement } from './SparkleElement';
 export * from './FeatureCards';
-export { default as Navigation } from './Navigation.astro';
 export { default as Icon } from './Icon.astro';
 export { default as Card } from './Card.astro';
 export { default as Chart } from './Chart.astro';

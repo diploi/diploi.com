@@ -1,0 +1,196 @@
+---
+import { Image } from 'astro:assets';
+import {
+  BrowserIcon,
+  CaretDownIcon,
+  CodeIcon,
+  CpuIcon,
+  FileTextIcon,
+  GitDiffIcon,
+  GitPullRequestIcon,
+  HardDrivesIcon,
+  PlayCircleIcon,
+  PlugsConnectedIcon,
+  SparkleIcon,
+  StackIcon,
+  TerminalIcon,
+  UsersIcon,
+} from '@phosphor-icons/react';
+import lovableIcon from '../../images/lovable-icon.svg';
+---
+
+<button id="features-button" popovertarget="features-popover">
+  Features <CaretDownIcon />
+
+  <div popover id="features-popover">
+    <section style={{ gridArea: 'groups' }}>
+      <label>Diploi for</label>
+      <a data-event="ai_click" href="/">
+        <span><CodeIcon /> Developers</span>
+        <span>Zero-install remote dev</span>
+      </a>
+      <a data-event="ai_click" href="/features/teams">
+        <span><UsersIcon /> Teams</span>
+        <span>Ship faster with zero-config</span>
+      </a>
+      <a data-event="ai_click" href="/ai">
+        <span><GitPullRequestIcon />DevOps</span>
+        <span>GitOps & push to deploy</span>
+      </a>
+      <a data-event="ai_click" href="/ai">
+        <span><SparkleIcon />Vibes & AI</span>
+        <span>From vibes to prod with zero-config</span>
+      </a>
+    </section>
+    <hr />
+    <section style={{ gridArea: 'features' }}>
+      <label>Features</label>
+      <a data-event="ai_click" href="/">
+        <span><PlugsConnectedIcon /> Remote Dev</span>
+      </a>
+      <a data-event="ai_click" href="/ai">
+        <span><HardDrivesIcon /> Prod & Staging</span>
+      </a>
+      <a data-event="ai_click" href="/features/teams">
+        <span><PlayCircleIcon /> CI/CD</span>
+      </a>
+      <a data-event="ai_click" href="/ai">
+        <span><FileTextIcon /> IaC</span>
+      </a>
+      <a data-event="ai_click" href="/ai">
+        <span><StackIcon /> Components</span>
+      </a>
+      <a data-event="ai_click" href="/ai">
+        <span><GitDiffIcon /> GitHub Integration</span>
+      </a>
+      <a data-event="ai_click" href="/ai">
+        <span><BrowserIcon /> Browser IDE</span>
+      </a>
+      <a data-event="ai_click" href="/ai">
+        <span><TerminalIcon /> SSH</span>
+      </a>
+    </section>
+    <section style={{ gridArea: 'imports' }}>
+      <label>Import from</label>
+      <a data-event="ai_click" href="/lovable">
+        <span><Image id="lovable" width={18} height={18} src={lovableIcon} alt="lovable logo" /> Lovable</span>
+      </a>
+    </section>
+  </div>
+</button>
+
+<style lang="scss">
+  @use 'sass:math';
+
+  #features-popover {
+    grid-template-columns: 1.3fr 1px 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      'groups hr features'
+      'imports imports imports';
+    // gap: 32px;
+    inset: auto;
+    margin: 0;
+    margin-top: 32px;
+    padding: 0;
+    transform: translateY(50%);
+    background: var(--color-bg);
+    border-radius: 8px;
+
+    backdrop-filter: blur(10px);
+
+    border: 1px solid transparent;
+    background:
+      linear-gradient(var(--color-bg)) padding-box,
+      conic-gradient(var(--color-primary), var(--color-bg), var(--color-primary)) border-box;
+
+    &:popover-open {
+      display: grid;
+    }
+
+    > section {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 32px;
+      padding-right: 42px;
+
+      &:nth-of-type(1) {
+        > a {
+          $items: 4;
+          @for $i from 1 through $items {
+            &:nth-of-type(#{$i}) {
+              svg {
+                color: color-mix(in oklch, var(--color-primary), var(--color-secondary) ($i - 1) * math.div(100%, $items));
+              }
+            }
+          }
+        }
+      }
+
+      &:nth-of-type(2) {
+        gap: 8px;
+
+        > label {
+          margin-bottom: 6px;
+        }
+
+        svg {
+          width: auto;
+          height: auto;
+          color: var(--color-text-secondary);
+        }
+      }
+
+      &:nth-of-type(3) {
+        gap: 8px;
+        padding: 24px 32px 20px 32px;
+        background-color: var(--color-accent-primary-10);
+      }
+    }
+
+    > hr {
+      grid-area: hr;
+      width: 1px;
+      height: 100%;
+      background-image: linear-gradient(to bottom, var(--color-primary), var(--color-accent-primary-10));
+      background-size: 100%;
+      border: none;
+    }
+
+    a {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0px;
+      padding: 0;
+
+      > span {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        &:nth-of-type(2) {
+          padding-left: 34px;
+          color: var(--color-text-secondary);
+        }
+      }
+
+      svg {
+        width: 24px;
+        height: 24px;
+        color: var(--color-text-secondary);
+      }
+    }
+
+    label {
+      color: var(--color-text-primary);
+      text-transform: uppercase;
+      font-size: 12px;
+
+      &:not(:first-of-type) {
+        margin-top: var(--space-xl);
+      }
+    }
+  }
+</style>

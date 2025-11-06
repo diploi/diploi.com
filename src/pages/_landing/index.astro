@@ -3,11 +3,9 @@ import Layout from '../../layouts/Layout.astro';
 import GlobalStyles from '../../components/GlobalStyles.astro';
 import { Lifecycle } from '../../components/react/Lifecycle';
 import {
-  Navigation,
   DeveloperFaq,
   FeatureMasonry,
   FeatureCards,
-  GetStarted,
   Footer,
   Section,
   SubSection,
@@ -19,6 +17,7 @@ import {
 import { featureCards, chart, content } from '../../content';
 import StackBuilder from '../../components/StackBuilder/StackBuilder.astro';
 import AiCallouts from '../ai/_components/AiCallouts.astro';
+import Navigation from '../../components/Navigation/Navigation.astro';
 
 interface Props {
   title?: string;

@@ -1,8 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { Section, Navigation, Footer, PageTitle } from '../components';
+import { Section, Footer, PageTitle } from '../components';
 import { getEntry } from 'astro:content';
 import { render } from 'astro:content';
+import Navigation from '../components/Navigation/Navigation.astro';
+
 const documentTOS = await getEntry('legal', 'tos');
 if (!documentTOS) {
   throw new Error('Error loading terms of service');
@@ -10,7 +12,10 @@ if (!documentTOS) {
 const { Content } = await render(documentTOS);
 ---
 
-<Layout title="Diploi - Terms of Service" description="This is the agreement governing how users can interact with Diploi. By using the service you accept these terms of service.">
+<Layout
+  title="Diploi - Terms of Service"
+  description="This is the agreement governing how users can interact with Diploi. By using the service you accept these terms of service."
+>
   <Navigation />
   <main>
     <Section isNarrow>
@@ -63,13 +68,13 @@ const { Content } = await render(documentTOS);
     }
 
     li {
-      font-weight:300;
+      font-weight: 300;
       font-size: 20px;
       &::marker {
         font-weight: bold;
       }
     }
-    
+
     hr {
       display: flex;
       justify-content: center;

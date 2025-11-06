@@ -1,6 +1,6 @@
 ---
 import Footer from '../../components/Footer.astro';
-import Navigation from '../../components/Navigation.astro';
+import Navigation from '../../components/Navigation/Navigation.astro';
 import Layout from '../../layouts/Layout.astro';
 import { createWebsiteSchema } from '../../utils/createWebsiteSchema';
 import AiCallouts from '../ai/_components/AiCallouts.astro';
@@ -15,7 +15,11 @@ import LovableTeamwork from './_components/LovableTeamwork.astro';
 const schema = createWebsiteSchema();
 ---
 
-<Layout title="Diploi - Level Up Your Lovable Apps" description='Extend apps built with Lovable by migrating to Diploi, to use Cursor, add databases or backend services, and deploy staging/production environments with zero DevOps.' ogUrlMatchCanonical={true}>
+<Layout
+  title="Diploi - Level Up Your Lovable Apps"
+  description="Extend apps built with Lovable by migrating to Diploi, to use Cursor, add databases or backend services, and deploy staging/production environments with zero DevOps."
+  ogUrlMatchCanonical={true}
+>
   {/* Organization schema for Google */}
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
 

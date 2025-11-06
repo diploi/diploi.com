@@ -1,20 +1,10 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import {
-  SectionHeader,
-  Section,
-  Footer,
-  ContactUsCard,
-  GetStarted,
-  PricingType,
-  PricingTable,
-  Navigation,
-  PageTitle,
-  Plans,
-} from '../../components';
+import { SectionHeader, Section, Footer, ContactUsCard, GetStarted, PricingType, PricingTable, PageTitle, Plans } from '../../components';
 import PricingTrialBanner from './_components/PricingTrialBanner.astro';
 import PricingDeployments from './_components/PricingDeployments.astro';
 import PricingEnterpriceBanner from './_components/PricingEnterpriceBanner.astro';
+import Navigation from '../../components/Navigation/Navigation.astro';
 
 const { pricing } = await fetch('https://console.diploi.com/api/business/pricing').then((response) => response.json());
 if (!pricing) {
@@ -22,7 +12,11 @@ if (!pricing) {
 }
 ---
 
-<Layout title="Pricing - Diploi Cloud Costs" description='Usage-based pricing for cloud app hosting. Pay only for what you use, starting at €0.026/hour for a full environment.' ogUrlMatchCanonical={true}>
+<Layout
+  title="Pricing - Diploi Cloud Costs"
+  description="Usage-based pricing for cloud app hosting. Pay only for what you use, starting at €0.026/hour for a full environment."
+  ogUrlMatchCanonical={true}
+>
   <Navigation selected="pricing" />
   <main>
     <Section>
