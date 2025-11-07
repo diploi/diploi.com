@@ -64,7 +64,8 @@ const isJobs = selected === 'jobs';
     min-height: var(--header-height-px);
     top: 0;
     z-index: var(--z-index-andromeda);
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(4px);
+    background-color: rgba(0, 0, 0, 0.5);
     border-bottom: 1px solid var(--color-separator);
 
     @include mixins.respond-to('tablet') {

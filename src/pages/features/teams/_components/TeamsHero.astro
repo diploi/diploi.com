@@ -1,147 +1,39 @@
 ---
-import { getCollection } from 'astro:content';
 import { InfoIcon } from '@phosphor-icons/react';
-import { createStackBackgroundUri } from '../../../ai/_components/aiUtils';
 import TeamsHeroFeatures from './TeamsHeroFeatures.astro';
+import FeaturesHero from '../../_components/FeaturesHero.astro';
 
 const calendlyUrl = import.meta.env.VITE_CALENDLY_URL;
-
-const background = createStackBackgroundUri({
-  size: 32,
-  primary: 'rgba(255, 255, 255, 0.05)',
-  secondary: 'rgba(255, 255, 255, 0.05)',
-  chance: 0.4,
-});
-const backgroundColor = createStackBackgroundUri({ size: 32, primary: 'white', secondary: 'white', chance: 0.6 });
-
-const componentBlocklist = ['n8n', 'laravel', 'flask'];
-
-const components = await getCollection('component');
-const icons = components
-  .filter((component) => !component.data.hidden && !componentBlocklist.includes(component.data.identifier))
-  .slice(0, 18)
-  .map((component) => component.data.icon);
 ---
 
-<header>
-  <div class="background" inert aria-hidden style={{ '--background': background, '--backgroundColor': backgroundColor }}></div>
-  <section>
-    <div class="title">
-      <h1>Workflow to<br />Ship Faster</h1>
-    </div>
-    <TeamsHeroFeatures />
+<FeaturesHero>
+  <h1 slot="title">Workflow to<br />Ship Faster</h1>
+  <TeamsHeroFeatures slot="features" />
+  <Fragment slot="callout">
     <a class="button" target="_blank" href={calendlyUrl}>Book a Demo</a>
     <p class="help"><InfoIcon /> We'll help your team get started. Book a 30-minute demo and let's discuss your needs.</p>
-  </section>
-</header>
+  </Fragment>
+  <Fragment slot="background">
+    <div class="shapes"></div>
+  </Fragment>
+</FeaturesHero>
 
 <style lang="scss">
-  @use 'sass:math';
-  @use '../../../../styles/mixins';
-
-  header {
-    display: flex;
-    flex-direction: column;
-    gap: 64px;
-    margin: 0 auto;
-    width: 100%;
-    max-width: var(--max-width-page-section);
-  }
-
-  header .text-gradient {
-    --accent-gradient: linear-gradient(45deg, var(--color-primary), var(--color-secondary), var(--color-primary), var(--color-secondary));
-
-    background-size: 400%;
-    animation: gradient-animation 8s infinite alternate cubic-bezier(0.65, 0, 0.35, 1);
-
-    @keyframes gradient-animation {
-      0% {
-        background-position: 0%;
-      }
-      100% {
-        background-position: 100%;
-      }
-    }
-  }
-
-  p.help {
-    max-width: 50ch;
-    font-size: 0.875rem;
-    color: var(--color-text-secondary);
-
-    > svg {
-      translate: -1px 3px;
-    }
-  }
-
-  @property --x {
-    syntax: '<length>';
-    inherits: false;
-    initial-value: 0px;
-  }
-
-  @property --y {
-    syntax: '<length>';
-    inherits: false;
-    initial-value: 0px;
-  }
-
-  @property --z {
-    syntax: '<length>';
-    inherits: false;
-    initial-value: 0px;
-  }
-
-  section {
-    margin-top: 64px;
-
-    @media (max-width: 860px) {
-      margin-top: 0px;
-    }
-
-    .title {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 56px;
-
-      @media (max-width: 860px) {
-        h1 {
-          text-align: center;
-          font-size: 2.4em;
-        }
-      }
-    }
-
-    > .button {
-      margin: 32px 0 16px 0;
-    }
-
-    @media (max-width: 860px) {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-      > p {
-        text-align: center;
-      }
-    }
-  }
-
-  .background {
+  .shapes {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 60vh;
-    background-image: var(--background);
-    background-size: 896px;
-    overflow: hidden;
-    z-index: -1;
-
-    mask-image: linear-gradient(to bottom, white 50%, transparent);
+    inset: 0;
 
     &::before {
+      position: absolute;
+      content: '';
+      display: block;
+      inset: 0;
+      background-image: var(--background);
+      background-size: 896px;
+      opacity: 0.05;
+    }
+
+    &::after {
       position: absolute;
       content: '';
       display: block;

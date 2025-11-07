@@ -1,0 +1,18 @@
+---
+import { InfoIcon } from '@phosphor-icons/react';
+import DevopsHeroFeatures from './DevopsHeroFeatures.astro';
+import FeaturesHero from '../../_components/FeaturesHero.astro';
+
+const calendlyUrl = import.meta.env.VITE_CALENDLY_URL;
+---
+
+<FeaturesHero>
+  <h1 slot="title">Zero-Config<br />DevOps</h1>
+  <DevopsHeroFeatures slot="features" />
+  <Fragment slot="callout">
+    <a class="button" target="_blank" href={calendlyUrl}>Book a Demo</a>
+    <p class="help"><InfoIcon /> We'll help your team get started. Book a 30-minute demo and let's discuss your needs.</p>
+  </Fragment>
+</FeaturesHero>
+
+<style lang="scss"></style>

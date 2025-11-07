@@ -1,0 +1,88 @@
+---
+import { createStackBackgroundUri } from '../../ai/_components/aiUtils';
+
+const background = createStackBackgroundUri({ size: 32, primary: 'white', secondary: 'white', chance: 0.4 });
+const backgroundColor = createStackBackgroundUri({ size: 32, primary: 'white', secondary: 'white', chance: 0.5 });
+---
+
+<header>
+  <div class="background" inert aria-hidden style={{ '--background': background, '--backgroundColor': backgroundColor }}>
+    <slot name="background" />
+  </div>
+  <section>
+    <div class="title">
+      <slot name="title" />
+    </div>
+    <slot name="features" />
+    <slot name="callout" />
+  </section>
+</header>
+
+<style lang="scss">
+  header {
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: var(--max-width-page-section);
+  }
+
+  section {
+    margin-top: 64px;
+
+    @media (max-width: 860px) {
+      margin-top: 0px;
+    }
+
+    .title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 56px;
+
+      @media (max-width: 860px) {
+        h1 {
+          text-align: center;
+          font-size: 2.4em;
+        }
+      }
+    }
+
+    > :global(.button) {
+      margin: 32px 0 16px 0;
+    }
+
+    > :global(p.help) {
+      max-width: 50ch;
+      font-size: 0.875rem;
+      color: var(--color-text-secondary);
+
+      > :global(svg) {
+        translate: -1px 3px;
+      }
+    }
+
+    @media (max-width: 860px) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      > p {
+        text-align: center;
+      }
+    }
+  }
+
+  .background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60vh;
+    overflow: hidden;
+    z-index: -1;
+
+    mask-image: linear-gradient(to bottom, white 50%, transparent);
+  }
+</style>

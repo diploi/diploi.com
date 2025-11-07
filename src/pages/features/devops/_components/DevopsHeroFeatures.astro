@@ -1,0 +1,123 @@
+---
+import { getCollection } from 'astro:content';
+import AiHr from '../../../ai/_components/AiHr.astro';
+import {
+  ArrowsClockwiseIcon,
+  ChatsCircleIcon,
+  CodeBlockIcon,
+  DatabaseIcon,
+  FastForwardIcon,
+  HandshakeIcon,
+  LaptopIcon,
+  MouseIcon,
+  PlugsConnectedIcon,
+  SealCheckIcon,
+  TimerIcon,
+} from '@phosphor-icons/react';
+import Bullets from '../../../../components/Bullets';
+
+const components = await getCollection('component');
+const visibleComponents = components.filter((component) => !component.data.hidden && component.data.identifier !== 'supabase').slice(0, 24);
+
+const supabase = components.find((component) => component.data.identifier === 'supabase');
+---
+
+<ul class="features">
+  <li>
+    <TimerIcon />
+    <h3>Instant Onboarding</h3>
+    <p>Onboard new developers with a few clicks with nothing to install or configure.</p>
+    <Bullets total={6}>
+      <Bullets.Item>
+        <PlugsConnectedIcon weight="bold" /> Zero-install remote development
+      </Bullets.Item>
+      <Bullets.Item>
+        <MouseIcon weight="bold" /> One-click environment setup
+      </Bullets.Item>
+      <Bullets.Item>
+        <FastForwardIcon weight="bold" /> 30 second developer onboarding
+      </Bullets.Item>
+    </Bullets>
+  </li>
+  <AiHr vertical />
+  <li>
+    <ArrowsClockwiseIcon />
+    <h3>Continuous Development</h3>
+    <p>Use any editor you'd like with SSH remote support, like Cursor or Zed.</p>
+    <Bullets start={3} total={6}>
+      <Bullets.Item>
+        <PlugsConnectedIcon weight="bold" /> Zero-install remote development
+      </Bullets.Item>
+      <Bullets.Item>
+        <MouseIcon weight="bold" /> One-click environment setup
+      </Bullets.Item>
+      <Bullets.Item>
+        <FastForwardIcon weight="bold" /> 30 second developer onboarding
+      </Bullets.Item>
+    </Bullets>
+  </li>
+  <AiHr vertical />
+  <li>
+    <FastForwardIcon />
+    <h3>Streamlined Efficiency</h3>
+    <ul class="logos">
+      <li>300h (big)</li>
+    </ul>
+    <p>Juicy but tiny graphs go here!</p>
+  </li>
+</ul>
+
+<style lang="scss">
+  .features {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr 1px 1fr;
+    gap: 32px;
+
+    @media (max-width: 860px) {
+      grid-template-columns: 1fr;
+      gap: 48px;
+
+      :global(hr) {
+        display: none;
+      }
+    }
+  }
+
+  li {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 0;
+  }
+
+  li > svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  a {
+    text-underline-offset: 4px;
+    color: inherit;
+  }
+
+  .logos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .components {
+    display: flex;
+    gap: 8px;
+
+    a {
+      display: flex;
+    }
+
+    > ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+  }
+</style>

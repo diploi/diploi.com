@@ -1,0 +1,51 @@
+---
+import Footer from '../../../components/Footer.astro';
+import Navigation from '../../../components/Navigation/Navigation.astro';
+import Layout from '../../../layouts/Layout.astro';
+import { createWebsiteSchema } from '../../../utils/createWebsiteSchema';
+import AiCallouts from '../../ai/_components/AiCallouts.astro';
+import LovableCallout from '../../lovable/_components/LovableCallout.astro';
+import LovableEditors from '../../lovable/_components/LovableEditors.astro';
+import LovableHr from '../../lovable/_components/LovableHr.astro';
+import LovablePacks from '../../lovable/_components/LovablePacks.astro';
+import LovableResources from '../../lovable/_components/LovableResources.astro';
+import LovableTeamwork from '../../lovable/_components/LovableTeamwork.astro';
+import DevHero from './_components/DevHero.astro';
+
+const schema = createWebsiteSchema();
+---
+
+<Layout
+  title="Diploi - Built for Collaboration"
+  description="Extend apps built with Lovable by migrating to Diploi, to use Cursor, add databases or backend services, and deploy staging/production environments with zero DevOps."
+  ogUrlMatchCanonical={true}
+>
+  {/* Organization schema for Google */}
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+  <Navigation />
+  <main>
+    <DevHero />
+    <LovableHr />
+    <LovableEditors />
+    <LovableHr />
+    <LovableTeamwork />
+    <LovableHr />
+    <LovablePacks />
+    <LovableHr />
+    <LovableResources />
+    <LovableCallout />
+    <AiCallouts />
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  main {
+    gap: 128px;
+
+    @media (max-width: 860px) {
+      gap: 64px;
+    }
+  }
+</style>
