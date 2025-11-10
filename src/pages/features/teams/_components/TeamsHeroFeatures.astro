@@ -7,14 +7,19 @@ import {
   CodeBlockIcon,
   DatabaseIcon,
   FastForwardIcon,
+  FileCodeIcon,
+  GitBranchIcon,
   HandshakeIcon,
   LaptopIcon,
+  MagicWandIcon,
   MouseIcon,
   PlugsConnectedIcon,
   SealCheckIcon,
   TimerIcon,
 } from '@phosphor-icons/react';
 import Bullets from '../../../../components/Bullets';
+import { SparkleElement } from '../../../../components';
+import AiLink from '../../../ai/_components/AiLink.astro';
 
 const components = await getCollection('component');
 const visibleComponents = components.filter((component) => !component.data.hidden && component.data.identifier !== 'supabase').slice(0, 24);
@@ -26,13 +31,13 @@ const supabase = components.find((component) => component.data.identifier === 's
   <li>
     <TimerIcon />
     <h3>Instant Onboarding</h3>
-    <p>Onboard new developers with a few clicks with nothing to install or configure.</p>
+    <p>Onboard new developers in seconds with nothing to install or configure.</p>
     <Bullets total={6}>
       <Bullets.Item>
-        <PlugsConnectedIcon weight="bold" /> Zero-install remote development
+        <MouseIcon weight="bold" /> One-click environment setup
       </Bullets.Item>
       <Bullets.Item>
-        <MouseIcon weight="bold" /> One-click environment setup
+        <PlugsConnectedIcon weight="bold" /> Zero-install remote development
       </Bullets.Item>
       <Bullets.Item>
         <FastForwardIcon weight="bold" /> 30 second developer onboarding
@@ -43,16 +48,16 @@ const supabase = components.find((component) => component.data.identifier === 's
   <li>
     <ArrowsClockwiseIcon />
     <h3>Continuous Development</h3>
-    <p>Use any editor you'd like with SSH remote support, like Cursor or Zed.</p>
+    <p>Let your developers focus on code — Diploi takes care of the rest.</p>
     <Bullets start={3} total={6}>
       <Bullets.Item>
-        <PlugsConnectedIcon weight="bold" /> Zero-install remote development
+        <MagicWandIcon weight="bold" /> Automatic Git, CI/CD, SSL
       </Bullets.Item>
       <Bullets.Item>
-        <MouseIcon weight="bold" /> One-click environment setup
+        <FileCodeIcon weight="bold" /> Infrastructure as code
       </Bullets.Item>
       <Bullets.Item>
-        <FastForwardIcon weight="bold" /> 30 second developer onboarding
+        <GitBranchIcon weight="bold" /> GitHub integration
       </Bullets.Item>
     </Bullets>
   </li>
@@ -60,10 +65,12 @@ const supabase = components.find((component) => component.data.identifier === 's
   <li>
     <FastForwardIcon />
     <h3>Streamlined Efficiency</h3>
-    <ul class="logos">
-      <li>300h (big)</li>
-    </ul>
-    <p>Juicy but tiny graphs go here!</p>
+    <strong class="hours">
+      <SparkleElement sparkleCount={3} minSize={0.25} maxSize={0.75}><span class="text-gradient">300</span></SparkleElement>
+      <small>Hours saved for<br />every developer</small>
+    </strong>
+    <p>Diploi saves 300 hours for every developer, every year.</p>
+    <AiLink>Learn more</AiLink>
   </li>
 </ul>
 
@@ -100,24 +107,21 @@ const supabase = components.find((component) => component.data.identifier === 's
     color: inherit;
   }
 
-  .logos {
+  .hours {
     display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-  }
+    align-items: center;
+    gap: 12px;
 
-  .components {
-    display: flex;
-    gap: 8px;
-
-    a {
-      display: flex;
+    span {
+      font-size: 4rem;
+      font-weight: 900;
+      line-height: 56px;
     }
 
-    > ul {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
+    > small {
+      font-size: 0.875rem;
+      font-weight: normal;
+      color: var(--color-text-secondary);
     }
   }
 </style>

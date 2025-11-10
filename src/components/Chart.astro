@@ -1,5 +1,5 @@
 ---
-import { Info, X } from '@phosphor-icons/react';
+import { Info, X, XIcon } from '@phosphor-icons/react';
 import SubSectionHeader from './SubSectionHeader.astro';
 interface Props {
   title: string;
@@ -12,23 +12,21 @@ const { title, description, bars, max = 120 } = Astro.props;
 
 const segmentWidth = (max / 6 / max) * 100;
 
-const segments = new Array(6)
-  .fill(null)
-  .map((_, index) => segmentWidth * index);
+const segments = new Array(6).fill(null).map((_, index) => segmentWidth * index);
 ---
 
 <figure>
   <div>
-    <SubSectionHeader title={title} />
+    <SubSectionHeader title={title} description={description} />
   </div>
   <p class="faster-mobile">
     <strong class="text-gradient number">
       {Math.max(...bars.map((bar) => bar.comparison || 0))}
     </strong>
-    <X weight="bold" />
+    <XIcon weight="bold" />
 
     <span class="text">
-      <span>Faster {description}</span>
+      <span>Faster</span>
     </span>
   </p>
   <div class="content">
@@ -36,10 +34,10 @@ const segments = new Array(6)
       {
         bars.map(({ title, value, comparison }) => (
           <div class="bar" style={{ width: `${(value / max) * 100}%` }}>
-            <p class=" small title">{title}</p>
+            <p class="small title">{title}</p>
             {comparison && (
               <p class="small comparison">
-                {comparison} <X  weight="bold" /> worse
+                {comparison} <XIcon /> worse
               </p>
             )}
           </div>
@@ -50,11 +48,8 @@ const segments = new Array(6)
       </div>
 
       {
-        segments.map((position, idx) => (
-          <div
-            class="segment"
-            style={{ width: `${segmentWidth}%`, left: `${position}%` }}
-          >
+        segments.map((position) => (
+          <div class="segment" style={{ width: `${segmentWidth}%`, left: `${position}%` }}>
             <span>{Math.round(((segmentWidth + position) / 100) * max)}</span>
           </div>
         ))
@@ -62,10 +57,10 @@ const segments = new Array(6)
     </div>
     <p class="faster">
       <strong class="text-gradient number">
-        {Math.max(...bars.map((bar) => bar.comparison || 0))}<X weight="bold" />
+        {Math.max(...bars.map((bar) => bar.comparison || 0))}<XIcon weight="bold" />
       </strong>
       <span class="text">
-        <span>Faster {description}</span>
+        <span>Faster</span>
       </span>
     </p>
   </div>
@@ -107,6 +102,7 @@ const segments = new Array(6)
     align-items: center;
     gap: var(--space-s);
     margin-bottom: var(--space-l);
+    min-width: 84px;
 
     svg {
       width: 0.75rem;
@@ -119,26 +115,25 @@ const segments = new Array(6)
 
   .faster {
     display: none;
+    min-width: 96px;
 
     @include mixins.respond-to('tablet') {
-      display: flex;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
     }
 
     .number {
-      display: flex;
-      align-items: baseline;
-      font-weight: 600;
+      font-weight: 900;
       font-size: 3.5rem;
       line-height: 3.5rem;
 
       > svg {
+        vertical-align: 5px;
         width: 2rem;
         height: 2rem;
         transform: translateY(3px);
-        fill: var(--color-text-primary);
+        fill: var(--color-text-secondary);
         margin-left: var(--space-xs);
       }
     }
@@ -182,11 +177,7 @@ const segments = new Array(6)
   }
 
   .graph > .bar:first-of-type {
-    background-image: linear-gradient(
-      45deg,
-      var(--color-primary),
-      var(--color-secondary)
-    );
+    background-image: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
   }
 
   .graph > .bar > .title {
@@ -199,6 +190,12 @@ const segments = new Array(6)
       transform: translateY(0);
       padding-left: var(--space-s);
       font-weight: 500;
+    }
+
+    @media (min-width: 1400px) {
+      position: absolute;
+      left: 0;
+      translate: calc(-100% - 12px) 2px;
     }
   }
 

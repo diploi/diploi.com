@@ -2,17 +2,13 @@
 import Footer from '../../../components/Footer.astro';
 import Navigation from '../../../components/Navigation/Navigation.astro';
 import Layout from '../../../layouts/Layout.astro';
-import { createWebsiteSchema } from '../../../utils/createWebsiteSchema';
 import AiCallouts from '../../ai/_components/AiCallouts.astro';
-import LovableCallout from '../../lovable/_components/LovableCallout.astro';
-import LovableEditors from '../../lovable/_components/LovableEditors.astro';
 import LovableHr from '../../lovable/_components/LovableHr.astro';
-import LovablePacks from '../../lovable/_components/LovablePacks.astro';
-import LovableResources from '../../lovable/_components/LovableResources.astro';
-import LovableTeamwork from '../../lovable/_components/LovableTeamwork.astro';
 import TeamsHero from './_components/TeamsHero.astro';
-
-const schema = createWebsiteSchema();
+import TeamsGraphs from './_components/TeamsGraphs.astro';
+import TeamsResources from './_components/TeamsResources.astro';
+import TeamsIntegration from './_components/TeamsIntegration.astro';
+import TeamsLifecycle from './_components/TeamsLifecycle.astro';
 ---
 
 <Layout
@@ -20,21 +16,17 @@ const schema = createWebsiteSchema();
   description="Extend apps built with Lovable by migrating to Diploi, to use Cursor, add databases or backend services, and deploy staging/production environments with zero DevOps."
   ogUrlMatchCanonical={true}
 >
-  {/* Organization schema for Google */}
-  <script slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
-
   <Navigation />
   <main>
     <TeamsHero />
     <LovableHr />
-    <LovableEditors />
+    <TeamsIntegration />
     <LovableHr />
-    <LovableTeamwork />
+    <TeamsLifecycle />
     <LovableHr />
-    <LovablePacks />
+    <TeamsGraphs />
     <LovableHr />
-    <LovableResources />
-    <LovableCallout />
+    <TeamsResources />
     <AiCallouts />
   </main>
   <Footer />

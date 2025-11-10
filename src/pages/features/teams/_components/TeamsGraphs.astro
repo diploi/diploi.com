@@ -1,0 +1,20 @@
+---
+import { FastForwardIcon, TimerIcon } from '@phosphor-icons/react';
+import AiSectionHeader from '../../../ai/_components/AiSectionHeader.astro';
+import { Chart } from '../../../../components';
+import { featureCards, chart, content } from '../../../../content';
+import FeaturesSection from '../../_components/FeaturesSection.astro';
+---
+
+<FeaturesSection>
+  <AiSectionHeader slot="header">
+    <FastForwardIcon />
+    <h2>Save Time at Every Step</h2>
+    <p>These are real-life statistics from a web development company. Can you afford to ignore the benefits and savings from Diploi?</p>
+  </AiSectionHeader>
+  <Chart {...chart.newProjectStartUp} />
+  <Chart {...chart.developerOnboarding} />
+  <Chart {...chart.creatingTestEnvironment} />
+  <Chart {...chart.updatingProduction} />
+  <!-- <ImpactMetric {...content.timeAndResources.impactMetric} /> -->
+</FeaturesSection>

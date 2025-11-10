@@ -1,0 +1,226 @@
+---
+import {
+  ChartPieSliceIcon,
+  CircleIcon,
+  CopyIcon,
+  FastForwardIcon,
+  FileCodeIcon,
+  FileTextIcon,
+  GitBranchIcon,
+  GitMergeIcon,
+  HardDrivesIcon,
+  InfoIcon,
+  LinkIcon,
+  MagicWandIcon,
+  MouseIcon,
+  PlugsConnectedIcon,
+  ShareIcon,
+  SquareIcon,
+  TriangleIcon,
+  UsersThreeIcon,
+} from '@phosphor-icons/react';
+import { getCollection } from 'astro:content';
+import AiSectionHeader from '../../../ai/_components/AiSectionHeader.astro';
+import AiHr from '../../../ai/_components/AiHr.astro';
+import Bullets from '../../../../components/Bullets';
+import FeaturesSection from '../../_components/FeaturesSection.astro';
+import FeaturesComponentIcons from '../../_components/FeaturesComponentIcons.astro';
+import { Image } from 'astro:assets';
+import awsLogo from '../_images/aws-logo.svg';
+import diploiLogo from '../../../../images/diploi-logo.svg';
+import AiLink from '../../../ai/_components/AiLink.astro';
+
+const calendlyUrl = import.meta.env.VITE_CALENDLY_URL;
+
+const awsComponentIDs = ['postgres', 'mongo', 'redis'];
+const diploiPartialComponentIDs = ['node', 'next', 'react-vite'];
+const externalComponentIDs = ['supabase', 'ghost', 'fastapi'];
+const diploiComponentIDs = ['node', 'postgres', 'mariadb', 'next', 'react-vite', 'supabase'];
+
+const components = await getCollection('component');
+const awsComponents = components.filter((component) => !component.data.hidden && awsComponentIDs.includes(component.id));
+const externalComponents = components.filter((component) => !component.data.hidden && externalComponentIDs.includes(component.id));
+const diploiPartialComponents = components.filter(
+  (component) => !component.data.hidden && diploiPartialComponentIDs.includes(component.id)
+);
+const diploiComponents = components.filter((component) => !component.data.hidden && diploiComponentIDs.includes(component.id));
+---
+
+<FeaturesSection>
+  <AiSectionHeader slot="header">
+    <PlugsConnectedIcon />
+    <h2>Built to Fit Your Existing Setup</h2>
+    <p>
+      We work with your existing infrastructure. Integrate Diploi with your current cloud to gradually adopt its features, or move your
+      entire stack for maximum benefit.
+    </p>
+  </AiSectionHeader>
+  <ul class="features">
+    <li>
+      <TriangleIcon weight="thin" className="bg" aria-hidden />
+      <ChartPieSliceIcon />
+      <h3>Incremental Adoption</h3>
+      <p>
+        Start small by running parts of your stack on Diploi while keeping your current production setup. Even our dev environments alone
+        make a big difference to productivity.
+      </p>
+      <div class="graph">
+        <div class="aws">
+          <span>
+            <Image alt="aws logo" src={awsLogo} height={32} />
+            <p class="help"><InfoIcon /> Diploi can run your deployments in the same AWS VPC as your existing infrastucture.</p>
+          </span>
+          <div>
+            Your cloud services
+
+            <FeaturesComponentIcons components={awsComponents} />
+          </div>
+          <div class="diploi">
+            Your Diploi services
+
+            <FeaturesComponentIcons components={diploiPartialComponents} />
+          </div>
+        </div>
+        <div>
+          External services
+
+          <FeaturesComponentIcons components={externalComponents} />
+        </div>
+      </div>
+      <a class="button" target="_blank" href={calendlyUrl}>Book a Call</a>
+      <p class="help">
+        <InfoIcon /> Private Cloud is available for Enterprise customers. Book a call and let's find the best solution for you!
+      </p>
+    </li>
+    <AiHr vertical />
+    <li>
+      <SquareIcon weight="thin" className="bg" aria-hidden />
+      <CircleIcon />
+      <h3>Maximum Efficiency</h3>
+      <p>
+        Move your stack to Diploi for consistent environments from dev to prod. Set up entire environments with a single click, onboard devs
+        in 30-seconds.
+      </p>
+
+      <div class="graph">
+        <div class="aws diploi">
+          <span>
+            <Image alt="diploi logo" src={diploiLogo} height={32} />
+            <p class="help"><InfoIcon /> Diploi supports even the most complex setups. If it can be containerized, it can run on Diploi.</p>
+          </span>
+          <FeaturesComponentIcons components={diploiComponents} />
+        </div>
+      </div>
+
+      <p style="color:red">info about us providing a developer here</p>
+
+      <Bullets start={3} total={9}>
+        <Bullets.Item>
+          <GitBranchIcon weight="bold" /> GitHub integration
+        </Bullets.Item>
+        <Bullets.Item>
+          <MagicWandIcon weight="bold" /> Automatic Git, CI/CD, SSL
+        </Bullets.Item>
+        <Bullets.Item>
+          <FileCodeIcon weight="bold" /> Infrastructure as code
+        </Bullets.Item>
+      </Bullets>
+    </li>
+  </ul>
+</FeaturesSection>
+
+<style lang="scss">
+  @use 'sass:math';
+
+  .features {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    gap: 32px;
+
+    @media (max-width: 860px) {
+      grid-template-columns: 1fr;
+      gap: 48px;
+
+      :global(hr) {
+        display: none;
+      }
+    }
+
+    li {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      min-width: 0;
+
+      &:nth-of-type(2) .bg {
+        translate: -5% 2%;
+      }
+
+      &:nth-of-type(3) .bg {
+        translate: -5% -30%;
+      }
+    }
+
+    li > svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    .bg {
+      position: absolute;
+      width: 150% !important;
+      height: 150% !important;
+      aspect-ratio: 1/1;
+      translate: -40% -22%;
+      color: white;
+      opacity: 0.02;
+      z-index: -1;
+
+      @media (max-width: 860px) {
+        display: none;
+      }
+    }
+  }
+
+  .graph {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+
+    div {
+      padding: 32px;
+      border: 2px solid var(--color-border);
+      border-radius: var(--border-radius-medium);
+    }
+
+    .aws {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+
+      > span {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        grid-column: 1 / span 2;
+      }
+    }
+
+    .diploi {
+      background-image: linear-gradient(to bottom right, var(--color-accent-primary-20), transparent);
+      border-color: var(--color-accent-primary);
+    }
+  }
+
+  .help {
+    max-width: 50ch;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+
+    > svg {
+      translate: -1px 3px;
+    }
+  }
+</style>

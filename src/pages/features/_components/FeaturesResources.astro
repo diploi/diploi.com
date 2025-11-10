@@ -2,47 +2,43 @@
 import { getCollection } from 'astro:content';
 import { FilesIcon } from '@phosphor-icons/react';
 import AiSectionHeader from '../../ai/_components/AiSectionHeader.astro';
-import Tag from '../../../components/Tag.astro';
 import Article from '../../../components/blog/Article.astro';
+import FeaturesSection from './FeaturesSection.astro';
+
+type Props = {
+  title: string;
+  description: string;
+  filterByWords: string[];
+};
+
+const { title, description, filterByWords } = Astro.props;
 
 const articles = await getCollection('blog');
-const lovableFilterWords = ['lovable', 'supabase', 'import', ' ai ', 'remote development'];
-const lovableArticles = articles.filter((article) => lovableFilterWords.some((word) => article.data.title.toLowerCase().includes(word)));
+const filteredArticles = articles
+  .filter((article) => filterByWords.some((word) => article.data.title.toLowerCase().includes(word)))
+  .slice(0, 5);
 ---
 
-<section class="main">
-  <AiSectionHeader>
+<FeaturesSection>
+  <AiSectionHeader slot="header">
     <FilesIcon />
-    <h2>Resources For Lovable</h2>
+    <h2>{title}</h2>
     <p>
-      Explore our collection of helpful resources related to Lovable. You can always <a href="mailto:hello@diploi.com">contact us</a> if you
-      have any questions.
+      {description} You can always <a href="mailto:hello@diploi.com">contact us</a> if you have any questions.
     </p>
   </AiSectionHeader>
   <ul class="list">
     {
-      lovableArticles.map((article) => (
+      filteredArticles.map((article) => (
         <li>
           <Article {...article.data} image={false} />
         </li>
       ))
     }
   </ul>
-</section>
+</FeaturesSection>
 
 <style lang="scss">
-  @use 'sass:math';
-  @use '../../../styles/mixins';
-
-  .main {
-    display: flex;
-    flex-direction: column;
-    gap: 48px;
-    margin: 0 auto;
-    width: 100%;
-    max-width: var(--max-width-page-section);
-  }
-
   .list {
     display: flex;
     flex-direction: column;
