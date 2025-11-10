@@ -5,6 +5,14 @@ import Logo from './Logo.astro';
 import Tag from './Tag.astro';
 
 const calendlyUrl = import.meta.env.VITE_CALENDLY_URL;
+
+import { getCollection } from 'astro:content';
+const alternatives = (await getCollection('alternative'))
+  .sort((a, b) => a.data.competitor.localeCompare(b.data.competitor))
+  .map((entry) => ({
+    href: `/alternative/${entry.data.slug}`,
+    competitor: entry.data.competitor,
+  }));
 ---
 
 <footer>
@@ -35,6 +43,21 @@ const calendlyUrl = import.meta.env.VITE_CALENDLY_URL;
             <a data-link="login" data-event="login_click" href="https://console.diploi.com/login">Login / Sign Up</a>
           </li>
         </ul>
+
+        {
+          alternatives && alternatives.length > 0 && (
+            <ul class="links">
+              <label>Alternative to</label>
+              {alternatives.map((alternative) => {
+                return (
+                  <li>
+                    <a href={alternative.href}>{alternative.competitor}</a>
+                  </li>
+                );
+              })}
+            </ul>
+          )
+        }
 
         <ul class="links">
           <label>Legal</label>

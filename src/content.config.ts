@@ -39,8 +39,21 @@ const legalCollection = defineCollection({
   }),
 });
 
+const alternativesCollection = defineCollection({
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/alternative' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    timestamp: z.string(),
+    slug: z.string(),
+    author: z.string(),
+    competitor: z.string(),
+  }),
+})
+
 export const collections = {
   blog: blogCollection,
   legal: legalCollection,
   component: componentCollection,
+  alternative: alternativesCollection
 };
