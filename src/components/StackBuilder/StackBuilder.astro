@@ -10,9 +10,10 @@ interface Props {
   defaultComponentIds?: number[];
   hideComponents?: boolean;
   hideYaml?: boolean;
+  hideCallouts?: boolean;
 }
 
-const { launchButtonText = 'Launch Stack', defaultComponentIds = [1, 101], hideComponents, hideYaml } = Astro.props;
+const { launchButtonText = 'Launch Stack', defaultComponentIds = [1, 101], hideComponents, hideYaml, hideCallouts } = Astro.props;
 
 const {
   result: { data },
@@ -42,7 +43,9 @@ const lovableComponent = (data.components as Component[]).find((component) => co
       {
         !hideComponents && (
           <>
-            <div class="callouts">{!!lovableComponent && <StackBuilderButtonCallout {...lovableComponent} href="/lovable" />}</div>
+            {!hideCallouts && (
+              <div class="callouts">{!!lovableComponent && <StackBuilderButtonCallout {...lovableComponent} href="/lovable" />}</div>
+            )}
             <div class="header components">
               <SubSectionHeader
                 title="Components"

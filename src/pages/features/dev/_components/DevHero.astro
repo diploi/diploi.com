@@ -2,17 +2,14 @@
 import { InfoIcon } from '@phosphor-icons/react';
 import DevHeroFeatures from './DevHeroFeatures.astro';
 import FeaturesHero from '../../_components/FeaturesHero.astro';
+import StackBuilder from '../../../../components/StackBuilder/StackBuilder.astro';
 
 const calendlyUrl = import.meta.env.VITE_CALENDLY_URL;
 ---
 
 <FeaturesHero>
   <h1 slot="title">Magical Developer<br />Experience</h1>
-  <DevHeroFeatures slot="features" />
-  <Fragment slot="callout">
-    <a class="button" target="_blank" href={calendlyUrl}>Book a Demo</a>
-    <p class="help"><InfoIcon /> We'll help your team get started. Book a 30-minute demo and let's discuss your needs.</p>
-  </Fragment>
+  <StackBuilder slot="features" hideCallouts />
   <Fragment slot="background">
     <div class="shapes"></div>
     <div class="waves"></div>
