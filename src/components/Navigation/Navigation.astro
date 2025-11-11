@@ -155,20 +155,22 @@ const isJobs = selected === 'jobs';
     > :global(button) {
       padding: 0;
       font-weight: 350;
-      background-color: transparent;
     }
 
     > a,
     > button,
     > :global(button),
     > :global(button) > :global([popover]) > :global(section) > :global(a) {
+      position: relative;
       display: flex;
       align-items: center;
       gap: var(--space-m);
-      padding: var(--space-m) var(--space-l);
+      padding: 12px 16px;
       font-size: 1rem;
       color: var(--color-text-primary);
       text-decoration: none;
+      border-radius: var(--border-radius-button);
+      background-color: transparent !important;
 
       &[data-selected='true'] {
         color: var(--color-accent-primary-text);
@@ -178,8 +180,38 @@ const isJobs = selected === 'jobs';
         fill: currentColor;
       }
 
+      @media (min-width: 900px) {
+        gap: var(--space-s);
+        // text-shadow: #000 0px 0px 8px;
+      }
+
+      &::before {
+        content: '';
+        position: absolute;
+        display: block;
+        inset: 0;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: inherit;
+        z-index: -1;
+
+        user-select: none;
+        pointer-events: none;
+
+        opacity: 0;
+        scale: 0.9;
+
+        transition:
+          opacity 250ms cubic-bezier(0.25, 1, 0.5, 1),
+          scale 200ms cubic-bezier(0.25, 1, 0.5, 1);
+      }
+
       &:hover:not([data-selected='true']) {
-        color: var(--color-text-secondary);
+        color: white;
+
+        &::before {
+          opacity: 1;
+          scale: 1;
+        }
       }
     }
   }
@@ -219,20 +251,6 @@ const isJobs = selected === 'jobs';
 
       & .logo-mobile {
         display: none;
-      }
-
-      > a,
-      > button,
-      [popover] > a {
-        display: flex;
-        font-size: 1rem;
-        align-items: center;
-        gap: var(--space-s);
-        padding: var(--space-s) var(--space-l);
-        background-color: transparent;
-        border-radius: var(--border-radius-medium);
-        position: relative;
-        text-shadow: #000 0px 0px 8px;
       }
     }
 

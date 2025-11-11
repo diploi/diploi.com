@@ -6,6 +6,7 @@ import {
   FileTextIcon,
   GitDiffIcon,
   HardDrivesIcon,
+  ListIcon,
   PlayCircleIcon,
   PlugsConnectedIcon,
   StackIcon,
@@ -16,7 +17,7 @@ import { features } from '../../content/features';
 ---
 
 <button id="features-button" popovertarget="features-popover">
-  Features <CaretDownIcon />
+  <ListIcon size={24} /> Features <CaretDownIcon />
 
   <div popover id="features-popover">
     <section style={{ gridArea: 'groups' }}>
@@ -72,30 +73,71 @@ import { features } from '../../content/features';
 <style lang="scss">
   @use 'sass:math';
 
+  button {
+    perspective-origin: 50% 50%;
+  }
+
   #features-popover {
     grid-template-columns: 1.3fr 1px 1fr;
     grid-template-rows: auto;
     grid-template-areas:
       'groups hr features'
       'imports imports imports';
-    // gap: 32px;
     inset: auto;
     margin: 0;
-    margin-top: 32px;
+    margin-top: 64px;
     padding: 0;
     transform: translateY(50%);
     background: var(--color-bg);
     border-radius: 8px;
+    cursor: default;
+    overflow: visible;
 
-    backdrop-filter: blur(10px);
+    filter: drop-shadow(0 16px 32px black);
 
     border: 1px solid transparent;
     background:
       linear-gradient(var(--color-bg)) padding-box,
       conic-gradient(var(--color-primary), var(--color-bg), var(--color-primary)) border-box;
 
+    @keyframes popup-open {
+      from {
+        transform-origin: 50% 0%;
+        transform: perspective(1000px) translateY(50%) rotateX(-20deg);
+        opacity: 0;
+      }
+      to {
+        transform-origin: 50% 0%;
+        transform: perspective(1000px) translateY(50%) rotateX(0deg);
+        opacity: 1;
+      }
+    }
+
     &:popover-open {
       display: grid;
+      animation: popup-open 250ms cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      display: block;
+      top: -12px;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+      border-bottom: 12px solid var(--color-primary);
+      translate: -50% 0;
+    }
+
+    &::after {
+      top: -10px;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-bottom: 10px solid var(--color-bg);
     }
 
     > section {
@@ -170,6 +212,10 @@ import { features } from '../../content/features';
         width: 24px;
         height: 24px;
         color: var(--color-text-secondary);
+      }
+
+      &::before {
+        inset: -8px;
       }
     }
 
