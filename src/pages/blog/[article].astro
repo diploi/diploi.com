@@ -3,8 +3,9 @@ import { getCollection, render } from 'astro:content';
 import { Image } from 'astro:assets';
 import { User, CalendarBlank, DevToLogo, ArrowSquareOut } from '@phosphor-icons/react';
 import Layout from '../../layouts/Layout.astro';
-import { Navigation, Footer, GetStarted, Section } from '../../components';
+import { Footer, GetStarted, Section } from '../../components';
 import { createBlogPostSchema } from './_utils/createBlogPostSchema';
+import Navigation from '../../components/Navigation/Navigation.astro';
 
 import 'github-markdown-css/github-markdown.css';
 
