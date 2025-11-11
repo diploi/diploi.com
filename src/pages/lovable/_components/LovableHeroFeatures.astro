@@ -1,18 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
-import {
-  CodeBlock,
-  Database,
-  Eye,
-  FolderUser,
-  LaptopIcon,
-  Lightning,
-  LockKeyOpen,
-  MouseSimple,
-  SealCheckIcon,
-} from '@phosphor-icons/react';
-import AiHr from '../../ai/_components/AiHr.astro';
+import { CodeBlock, Database, SealCheckIcon } from '@phosphor-icons/react';
 import vscodeLogo from '../../../images/vscode-logo.svg';
 import cursorLogo from '../../../images/cursor-logo.webp';
 import webstormLogo from '../../../images/webstorm-logo.svg';
@@ -20,6 +9,7 @@ import zedLogo from '../../../images/zed-logo.svg';
 import githubLogo from '../../../images/github-logo.svg';
 import githubActionsIcon from '../../../images/github-actions-icon.svg';
 import githubCopilotIcon from '../../../images/github-copilot-icon.svg';
+import FeaturesHr from '../../features/_components/FeaturesHr.astro';
 
 const components = await getCollection('component');
 const visibleComponents = components.filter((component) => !component.data.hidden && component.data.identifier !== 'supabase').slice(0, 24);
@@ -38,7 +28,7 @@ const supabase = components.find((component) => component.data.identifier === 's
     </ul>
     <p>Get the proper software-dev workflow. Git, CI/CD, SSH, e.g.</p>
   </li>
-  <AiHr vertical />
+  <FeaturesHr vertical />
   <li>
     <CodeBlock />
     <h3>Use Any Editor</h3>
@@ -50,7 +40,7 @@ const supabase = components.find((component) => component.data.identifier === 's
     </ul>
     <p>Use any editor you'd like with SSH remote support, like Cursor or Zed.</p>
   </li>
-  <AiHr vertical />
+  <FeaturesHr vertical />
   <li>
     <Database />
     <h3>Add Any Service</h3>

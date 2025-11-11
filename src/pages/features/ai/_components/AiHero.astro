@@ -1,0 +1,27 @@
+---
+import FeaturesHero from '../../_components/FeaturesHero.astro';
+import AiHeroFeatures from './AiHeroFeatures.astro';
+import AiHeroDiploiFeatures from './AiHeroDiploiFeatures.astro';
+import FeaturesHr from '../../_components/FeaturesHr.astro';
+import { features } from '../../../../content/features';
+
+const feature = features.find((feature) => feature.id === 'ai')!;
+---
+
+<FeaturesHero>
+  <h1 slot="title">{feature.title}</h1>
+  <p slot="description">
+    Diploi is the first platform to integrate AI across the entire development lifecycle, while keeping you in command.
+  </p>
+  <AiHeroFeatures slot="features" />
+  <FeaturesHr class="break" />
+  <AiHeroDiploiFeatures />
+  <feature.bg weight="thin" slot="icon" />
+  <feature.bg slot="mask" />
+</FeaturesHero>
+
+<style lang="scss">
+  :global(.break) {
+    margin: 64px 0;
+  }
+</style>

@@ -1,6 +1,8 @@
 ---
-import { Info, X, XIcon } from '@phosphor-icons/react';
+import { XIcon } from '@phosphor-icons/react';
 import SubSectionHeader from './SubSectionHeader.astro';
+import Help from './Help.astro';
+
 interface Props {
   title: string;
   description?: string;
@@ -17,7 +19,9 @@ const segments = new Array(6).fill(null).map((_, index) => segmentWidth * index)
 
 <figure>
   <div>
-    <SubSectionHeader title={title} description={description} />
+    <SubSectionHeader title={title}>
+      <Help>{description}</Help>
+    </SubSectionHeader>
   </div>
   <p class="faster-mobile">
     <strong class="text-gradient number">

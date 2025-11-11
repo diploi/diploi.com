@@ -17,6 +17,7 @@ const { title, description, class: className, icon } = Astro.props;
     {title}
   </h3>
   {description && <p>{description}</p>}
+  <slot />
 </div>
 
 <style>

@@ -1,77 +1,76 @@
 ---
+import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
-import AiHr from '../../../ai/_components/AiHr.astro';
-import {
-  ArrowsClockwiseIcon,
-  ChatsCircleIcon,
-  CodeBlockIcon,
-  DatabaseIcon,
-  FastForwardIcon,
-  HandshakeIcon,
-  LaptopIcon,
-  MouseIcon,
-  PlugsConnectedIcon,
-  SealCheckIcon,
-  TimerIcon,
-} from '@phosphor-icons/react';
+import { BrowserIcon, FileCodeIcon, LaptopIcon, SparkleIcon, ToolboxIcon } from '@phosphor-icons/react';
 import Bullets from '../../../../components/Bullets';
+import Help from '../../../../components/Help.astro';
+import FeaturesComponentIcons from '../../_components/FeaturesComponentIcons.astro';
+import vscodeLogo from '../../../../images/vscode-logo.svg';
+import cursorLogo from '../../../../images/cursor-logo.webp';
+import webstormLogo from '../../../../images/webstorm-logo.svg';
+import zedLogo from '../../../../images/zed-logo.svg';
+import githubLogo from '../../../../images/github-logo.svg';
+import githubCopilotIcon from '../../../../images/github-copilot-icon.svg';
+import FeaturesHr from '../../_components/FeaturesHr.astro';
+import Link from '../../../../components/Link.astro';
 
 const components = await getCollection('component');
-const visibleComponents = components.filter((component) => !component.data.hidden && component.data.identifier !== 'supabase').slice(0, 24);
 
-const supabase = components.find((component) => component.data.identifier === 'supabase');
+const demoComponentIDs = ['react-vite', 'bun', 'postgres'];
+const demoComponents = components
+  .filter((component) => !component.data.hidden && demoComponentIDs.includes(component.id))
+  .sort((a, b) => demoComponentIDs.indexOf(a.id) - demoComponentIDs.indexOf(b.id));
 ---
 
 <ul class="features">
   <li>
-    <TimerIcon />
-    <h3>Instant Onboarding</h3>
-    <p>Onboard new developers with a few clicks with nothing to install or configure.</p>
-    <Bullets total={6}>
-      <Bullets.Item>
-        <PlugsConnectedIcon weight="bold" /> Zero-install remote development
-      </Bullets.Item>
-      <Bullets.Item>
-        <MouseIcon weight="bold" /> One-click environment setup
-      </Bullets.Item>
-      <Bullets.Item>
-        <FastForwardIcon weight="bold" /> 30 second developer onboarding
-      </Bullets.Item>
-    </Bullets>
+    <LaptopIcon />
+    <h3>Instant Dev Environment, One-Click</h3>
+    <p>Nothing explains Diploi better than seeing it yourself. Click Launch to spin up a live demo.</p>
+    <div class="options">
+      <fieldset>
+        <legend>Demo Stack</legend>
+        <FeaturesComponentIcons components={demoComponents} />
+      </fieldset>
+      <p>or</p>
+      <Link href="#stack-builder">Pick your own stack</Link>
+    </div>
+    <button>Launch Demo</button>
+    <Help>Instant launch. No sign-up required.</Help>
   </li>
-  <AiHr vertical />
+  <FeaturesHr vertical />
   <li>
-    <ArrowsClockwiseIcon />
-    <h3>Continuous Development</h3>
-    <p>Use any editor you'd like with SSH remote support, like Cursor or Zed.</p>
-    <Bullets start={3} total={6}>
-      <Bullets.Item>
-        <PlugsConnectedIcon weight="bold" /> Zero-install remote development
-      </Bullets.Item>
-      <Bullets.Item>
-        <MouseIcon weight="bold" /> One-click environment setup
-      </Bullets.Item>
-      <Bullets.Item>
-        <FastForwardIcon weight="bold" /> 30 second developer onboarding
-      </Bullets.Item>
-    </Bullets>
-  </li>
-  <AiHr vertical />
-  <li>
-    <FastForwardIcon />
-    <h3>Streamlined Efficiency</h3>
+    <SparkleIcon />
+    <h3>Unmatched DX Experience, Zero-Install</h3>
     <ul class="logos">
-      <li>300h (big)</li>
+      <li><Image width={40} height={40} src={cursorLogo} title="Cursor" alt="cursor logo" /></li>
+      <li><Image width={40} height={40} src={vscodeLogo} title="VS Code" alt="vs code logo" /></li>
+      <li><Image width={40} height={40} src={zedLogo} title="Zed" alt="zed logo" /></li>
+      <li><Image width={40} height={40} src={githubLogo} title="GitHub" alt="github logo" /></li>
+      <li><Image width={40} height={40} src={githubCopilotIcon} title="GitHub Copilot" alt="github copilot icon" /></li>
+      <li><Image width={40} height={40} src={webstormLogo} title="WebStorm" alt="webstorm logo" /></li>
     </ul>
-    <p>Juicy but tiny graphs go here!</p>
+    <p>Enjoy a pro dev workflow with Git, CI/CD, and SSH. Connect your favorite editor, like Cursor or Zed — no setup required.</p>
+    <Bullets total={3}>
+      <Bullets.Item>
+        <BrowserIcon weight="bold" /> Code in the browser
+      </Bullets.Item>
+      <Bullets.Item>
+        <FileCodeIcon weight="bold" /> Infrastructure as code
+      </Bullets.Item>
+      <Bullets.Item>
+        <ToolboxIcon weight="bold" />
+        <a href="#stack-builder">Stack Builder</a> for scaffolding apps
+      </Bullets.Item>
+    </Bullets>
   </li>
 </ul>
 
 <style lang="scss">
   .features {
     display: grid;
-    grid-template-columns: 1fr 1px 1fr 1px 1fr;
-    gap: 32px;
+    grid-template-columns: 1fr 1px 1fr;
+    gap: 64px;
 
     @media (max-width: 860px) {
       grid-template-columns: 1fr;
@@ -95,29 +94,24 @@ const supabase = components.find((component) => component.data.identifier === 's
     height: 32px;
   }
 
-  a {
-    text-underline-offset: 4px;
-    color: inherit;
-  }
-
   .logos {
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
   }
 
-  .components {
+  .options {
     display: flex;
-    gap: 8px;
+    align-items: center;
+    gap: 16px;
 
-    a {
-      display: flex;
-    }
-
-    > ul {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
+    > fieldset {
+      margin: 0;
+      padding: 14px 18px;
+      padding-top: 10px;
+      background-image: linear-gradient(to bottom right, var(--color-accent-primary-20), transparent);
+      border-color: var(--color-accent-primary);
+      border-radius: var(--border-radius-button);
     }
   }
 </style>

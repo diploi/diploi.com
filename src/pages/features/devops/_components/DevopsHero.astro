@@ -2,17 +2,23 @@
 import { InfoIcon } from '@phosphor-icons/react';
 import DevopsHeroFeatures from './DevopsHeroFeatures.astro';
 import FeaturesHero from '../../_components/FeaturesHero.astro';
+import { features } from '../../../../content/features';
 
 const calendlyUrl = import.meta.env.VITE_CALENDLY_URL;
+
+const feature = features.find((feature) => feature.id === 'devops')!;
 ---
 
 <FeaturesHero>
-  <h1 slot="title">Zero-Config<br />DevOps</h1>
+  <h1 slot="title">{feature.title}</h1>
+  <p slot="description">TODO TODO TODO Diploi is the all-in-one remote development platform — one platform from code to deployment.</p>
   <DevopsHeroFeatures slot="features" />
   <Fragment slot="callout">
     <a class="button" target="_blank" href={calendlyUrl}>Book a Demo</a>
     <p class="help"><InfoIcon /> We'll help your team get started. Book a 30-minute demo and let's discuss your needs.</p>
   </Fragment>
+  <feature.bg weight="thin" slot="icon" />
+  <feature.bg slot="mask" />
 </FeaturesHero>
 
 <style lang="scss"></style>

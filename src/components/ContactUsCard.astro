@@ -28,10 +28,15 @@ const calendlyUrl = import.meta.env.VITE_CALENDLY_URL;
   @use '../styles/mixins';
 
   article {
-    @include mixins.card-desktop;
     display: flex;
     flex-direction: column;
     gap: var(--space-xxl);
+    padding: 48px;
+    border: 1px solid transparent;
+    border-radius: var(--border-radius-medium);
+    background:
+      linear-gradient(to bottom right in lab, color-mix(in lab, var(--color-border), var(--color-bg) 85%), var(--color-bg)) padding-box,
+      conic-gradient(var(--color-border), var(--color-bg), var(--color-border)) border-box;
 
     @include mixins.respond-to('tablet') {
       align-items: flex-start;

@@ -2,12 +2,12 @@
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import { StackIcon } from '@phosphor-icons/react';
-import AiSectionHeader from '../../ai/_components/AiSectionHeader.astro';
-import AiHr from '../../ai/_components/AiHr.astro';
-import AiLink from '../../ai/_components/AiLink.astro';
 import cursorLogo from '../../../images/cursor-logo.webp';
 import vscodeLogo from '../../../images/vscode-logo.svg';
 import zedLogo from '../../../images/zed-logo.svg';
+import FeaturesHr from '../../features/_components/FeaturesHr.astro';
+import Link from '../../../components/Link.astro';
+import FeaturesSectionHeader from '../../features/_components/FeaturesSectionHeader.astro';
 
 const articles = await getCollection('blog');
 const linkedFilterWords = ['supabase', 'n8n', 'node', 'ghost', 'laravel', 'postgres'];
@@ -26,14 +26,14 @@ const postgres = components.find((component) => component.data.identifier === 'p
 ---
 
 <section class="main">
-  <AiSectionHeader>
+  <FeaturesSectionHeader>
     <StackIcon />
     <h2>Support For Any Stack</h2>
     <p>
       Build your stack your way. Diploi supports any combination of services, from Lovable apps to databases, APIs, and more. Below are a
       few examples you can run with Diploi.
     </p>
-  </AiSectionHeader>
+  </FeaturesSectionHeader>
   <section class="list">
     <article>
       <ul>
@@ -56,7 +56,7 @@ const postgres = components.find((component) => component.data.identifier === 'p
         </li>
       </ul>
     </article>
-    <AiHr vertical />
+    <FeaturesHr vertical />
     <article>
       <ul>
         <li>
@@ -78,7 +78,7 @@ const postgres = components.find((component) => component.data.identifier === 'p
         </li>
       </ul>
     </article>
-    <AiHr vertical />
+    <FeaturesHr vertical />
     <article>
       <ul>
         <li>
@@ -102,8 +102,8 @@ const postgres = components.find((component) => component.data.identifier === 'p
     </article>
   </section>
   <div class="links">
-    <AiHr />
-    {linkedArticles.map((article) => <AiLink href={`/blog/${article.data.slug}`}>{article.data.title}</AiLink>)}
+    <FeaturesHr />
+    {linkedArticles.map((article) => <Link href={`/blog/${article.data.slug}`}>{article.data.title}</Link>)}
   </div>
 </section>
 

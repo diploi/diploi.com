@@ -1,5 +1,5 @@
 ---
-import StackBuilderYamlCard from '../../../components/StackBuilder/StackBuilderYamlCard.astro';
+import StackBuilderYamlCard from '../../../../components/StackBuilder/StackBuilderYamlCard.astro';
 
 const yamlHtml = `<span><b>diploiVersion</b>: "v1.0"
 </span><span><b>components</b>:
@@ -17,7 +17,7 @@ const yamlHtml = `<span><b>diploiVersion</b>: "v1.0"
 </section>
 
 <script>
-  import { componentsToYamlHtml } from '../../../components/StackBuilder/yamlFormatter';
+  import { componentsToYamlHtml } from '../../../../components/StackBuilder/yamlFormatter';
 
   const components = [
     {
@@ -43,8 +43,6 @@ const yamlHtml = `<span><b>diploiVersion</b>: "v1.0"
 </script>
 
 <style lang="scss">
-  @use '../../../styles/mixins';
-
   section {
     :global(.code-side) {
       mask-image: none;

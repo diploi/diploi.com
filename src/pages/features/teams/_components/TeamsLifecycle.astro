@@ -1,15 +1,15 @@
 ---
 import { InfinityIcon } from '@phosphor-icons/react';
-import AiSectionHeader from '../../../ai/_components/AiSectionHeader.astro';
 import { Lifecycle } from '../../../../components/react/Lifecycle';
 import FeaturesSection from '../../_components/FeaturesSection.astro';
+import FeaturesSectionHeader from '../../_components/FeaturesSectionHeader.astro';
 ---
 
 <FeaturesSection>
-  <AiSectionHeader slot="header">
+  <FeaturesSectionHeader slot="header">
     <InfinityIcon />
     <h2>Support for the Full Lifecycle of an App</h2>
     <p>We take care of the full lifecycle of your app. You can spin up any kind of environment with a single click.</p>
-  </AiSectionHeader>
+  </FeaturesSectionHeader>
   <Lifecycle client:visible={{ rootMargin: '600px' }} />
 </FeaturesSection>

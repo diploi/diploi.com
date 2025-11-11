@@ -1,17 +1,18 @@
 ---
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
-import vscodeLogo from '../../../images/vscode-logo.svg';
-import cursorLogo from '../../../images/cursor-logo.webp';
-import vscodePreview from '../../features/ai/_images/vscode.png';
-import cursorPreview from '../../features/ai/_images/cursor.png';
-import terminalPreview from '../../features/ai/_images/terminal.png';
-import { AppWindowIcon, Minus, TerminalWindow } from '@phosphor-icons/react';
-import Tag from '../../../components/Tag.astro';
-import FeaturesSectionHeader from '../../features/_components/FeaturesSectionHeader.astro';
-import FeaturesHr from '../../features/_components/FeaturesHr.astro';
-import Link from '../../../components/Link.astro';
-import { createStackBackgroundUri } from '../../features/_components/featuresUtils';
+import vscodeLogo from '../../../../images/vscode-logo.svg';
+import cursorLogo from '../../../../images/cursor-logo.webp';
+import vscodePreview from '../_images/vscode.png';
+import cursorPreview from '../_images/cursor.png';
+import terminalPreview from '../_images/terminal.png';
+import { MinusIcon, PlugsConnectedIcon, TerminalWindowIcon } from '@phosphor-icons/react';
+import Tag from '../../../../components/Tag.astro';
+import FeaturesSectionHeader from '../../_components/FeaturesSectionHeader.astro';
+import Link from '../../../../components/Link.astro';
+import FeaturesHr from '../../_components/FeaturesHr.astro';
+import FeaturesSection from '../../_components/FeaturesSection.astro';
+import { createStackBackgroundUri } from '../../_components/featuresUtils';
 
 const articles = await getCollection('blog');
 const linkedFilterWords = [' ai ', 'remote development'];
@@ -32,36 +33,34 @@ const background = createStackBackgroundUri({
 });
 ---
 
-<section class="main">
-  <div class="background" inert aria-hidden style={{ '--background': background }}></div>
-  <FeaturesSectionHeader>
-    <AppWindowIcon />
-    <h2>Local IDE Support</h2>
-    <p>
-      Diploi works with any IDE that supports SSH. We offer first-class support for the most popular AI-native editors, like Cursor and Zed.
-    </p>
+<FeaturesSection>
+  <FeaturesSectionHeader slot="header">
+    <PlugsConnectedIcon />
+    <h2>Use The Tools You Love</h2>
+    <p>Diploi works with any IDE that supports SSH. We offer first-class support for the most popular AI-native editors.</p>
   </FeaturesSectionHeader>
+  <div class="background" inert aria-hidden style={{ '--background': background }}></div>
   <section class="list">
-    <article style={{ '--color-card-border': 'white' }}>
-      <Image {...previewImageProps} src={cursorPreview} alt="cursor preview" />
-      <section>
-        <Image width={32} height={32} src={cursorLogo} alt="cursor logo" />
-        <h3>Cursor <Tag primary>Officially supported</Tag></h3>
-        <ul>
-          <li><Minus /> Agent mode, autocomplete, chat</li>
-          <li><Minus /> Full extensions support</li>
-        </ul>
-      </section>
-    </article>
-    <FeaturesHr vertical />
     <article style={{ '--color-card-border': '#0098FF' }}>
       <Image {...previewImageProps} src={vscodePreview} alt="vs code preview" />
       <section>
         <Image width={32} height={32} src={vscodeLogo} alt="vs code logo" />
         <h3>VS Code <Tag primary>Officially supported</Tag></h3>
         <ul>
-          <li><Minus /> Copilot, agent mode</li>
-          <li><Minus /> Full extensions support</li>
+          <li><MinusIcon /> Copilot, agent mode</li>
+          <li><MinusIcon /> Full extensions support</li>
+        </ul>
+      </section>
+    </article>
+    <FeaturesHr vertical />
+    <article style={{ '--color-card-border': 'white' }}>
+      <Image {...previewImageProps} src={cursorPreview} alt="cursor preview" />
+      <section>
+        <Image width={32} height={32} src={cursorLogo} alt="cursor logo" />
+        <h3>Cursor <Tag primary>Officially supported</Tag></h3>
+        <ul>
+          <li><MinusIcon /> Agent mode, autocomplete, chat</li>
+          <li><MinusIcon /> Full extensions support</li>
         </ul>
       </section>
     </article>
@@ -69,11 +68,11 @@ const background = createStackBackgroundUri({
     <article>
       <Image {...previewImageProps} src={terminalPreview} alt="terminal preview" />
       <section>
-        <TerminalWindow size={32} />
+        <TerminalWindowIcon size={32} />
         <h3>SSH <Tag primary>Officially supported</Tag></h3>
         <ul>
-          <li><Minus /> Full control over your environment</li>
-          <li><Minus /> Any Debian ARM package supported</li>
+          <li><MinusIcon /> Full control over your environment</li>
+          <li><MinusIcon /> Any Debian ARM package supported</li>
         </ul>
       </section>
     </article>
@@ -83,20 +82,9 @@ const background = createStackBackgroundUri({
     <Link href="/dev">Remote development with Diploi</Link>
     {linkedArticles.map((article) => <Link href={`/blog/${article.data.slug}`}>{article.data.title}</Link>)}
   </div>
-</section>
+</FeaturesSection>
 
 <style lang="scss">
-  @use '../../../styles/mixins';
-
-  .main {
-    display: flex;
-    flex-direction: column;
-    gap: 48px;
-    margin: 0 auto;
-    width: 100%;
-    max-width: var(--max-width-page-section);
-  }
-
   .list {
     display: flex;
     gap: 32px;

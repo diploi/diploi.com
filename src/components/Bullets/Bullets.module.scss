@@ -13,6 +13,12 @@
   font-size: 1.25rem;
   color: var(--color-text-secondary);
 
+  a {
+    text-underline-offset: 4px;
+    font-weight: inherit;
+    color: inherit;
+  }
+
   > svg {
     width: 22px;
     height: 22px;

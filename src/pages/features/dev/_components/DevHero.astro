@@ -1,113 +1,15 @@
 ---
-import { InfoIcon } from '@phosphor-icons/react';
 import DevHeroFeatures from './DevHeroFeatures.astro';
 import FeaturesHero from '../../_components/FeaturesHero.astro';
-import StackBuilder from '../../../../components/StackBuilder/StackBuilder.astro';
+import { features } from '../../../../content/features';
 
-const calendlyUrl = import.meta.env.VITE_CALENDLY_URL;
+const feature = features.find((feature) => feature.id === 'dev')!;
 ---
 
 <FeaturesHero>
-  <h1 slot="title">Magical Developer<br />Experience</h1>
-  <StackBuilder slot="features" hideCallouts />
-  <Fragment slot="background">
-    <div class="shapes"></div>
-    <div class="waves"></div>
-  </Fragment>
+  <h1 slot="title">{feature.title}</h1>
+  <p slot="description">Diploi is the all-in-one remote development platform — one platform from code to deployment.</p>
+  <DevHeroFeatures slot="features" />
+  <feature.bg weight="thin" slot="icon" />
+  <feature.bg slot="mask" />
 </FeaturesHero>
-
-<style lang="scss">
-  .shapes {
-    position: absolute;
-    inset: 0;
-
-    &::before {
-      position: absolute;
-      content: '';
-      display: block;
-      inset: 0;
-      background-image: var(--background);
-      background-size: 896px;
-      opacity: 0.05;
-    }
-
-    // &::after {
-    //   position: absolute;
-    //   content: '';
-    //   display: block;
-    //   inset: 0;
-    //   background-image: var(--backgroundColor);
-    //   background-size: 896px;
-    //   opacity: 0.15;
-
-    //   mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="%23000000" viewBox="0 0 256 256"><path d="M117.25,157.92a60,60,0,1,0-66.5,0A95.83,95.83,0,0,0,3.53,195.63a8,8,0,1,0,13.4,8.74,80,80,0,0,1,134.14,0,8,8,0,0,0,13.4-8.74A95.83,95.83,0,0,0,117.25,157.92ZM40,108a44,44,0,1,1,44,44A44.05,44.05,0,0,1,40,108Zm210.14,98.7a8,8,0,0,1-11.07-2.33A79.83,79.83,0,0,0,172,168a8,8,0,0,1,0-16,44,44,0,1,0-16.34-84.87,8,8,0,1,1-5.94-14.85,60,60,0,0,1,55.53,105.64,95.83,95.83,0,0,1,47.22,37.71A8,8,0,0,1,250.14,206.7Z"></path></svg>');
-    //   mask-size: 600px;
-    //   mask-repeat: no-repeat;
-    //   mask-position: 100px 0px;
-    // }
-  }
-
-  .waves {
-    position: absolute;
-    inset: 0;
-    filter: blur(64px);
-    z-index: -1;
-
-    mask-image: var(--backgroundColor);
-    mask-size: 896px;
-
-    &::before,
-    &::after {
-      position: absolute;
-      content: '';
-      display: block;
-      inset: 0;
-
-      mask-repeat: repeat-x;
-    }
-
-    &::before {
-      background-color: var(--color-primary);
-
-      $width: 1440px;
-      mask-image: url('data:image/svg+xml,<svg width="100%" height="100%" id="svg" viewBox="0 0 1440 590" xmlns="http://www.w3.org/2000/svg" class="transition duration-300 ease-in-out delay-150"><path d="M 0,600 L 0,225 C 103.67857142857142,177.21428571428572 207.35714285714283,129.42857142857144 319,112 C 430.64285714285717,94.57142857142857 550.2500000000001,107.5 688,142 C 825.7499999999999,176.5 981.6428571428571,232.57142857142856 1110,250 C 1238.357142857143,267.42857142857144 1339.1785714285716,246.21428571428572 1440,225 L 1440,600 L 0,600 Z" fill="%23ff0080" transform="rotate(-180 720 300)"></path></svg>');
-      mask-size: $width 590px;
-      mask-position: 0 -300px;
-
-      @keyframes right {
-        from {
-          mask-position: 0px -300px;
-          // opacity: 0;
-        }
-        to {
-          mask-position: $width -300px;
-          // opacity: 1;
-        }
-      }
-
-      animation: right 15s linear infinite;
-    }
-
-    &::after {
-      background-color: var(--color-secondary);
-
-      $width: 900px;
-      mask-image: url('data:image/svg+xml,<svg width="100%" height="100%" id="svg" viewBox="0 0 1440 590" xmlns="http://www.w3.org/2000/svg" class="transition duration-300 ease-in-out delay-150"><path d="M 0,600 L 0,225 C 103.67857142857142,177.21428571428572 207.35714285714283,129.42857142857144 319,112 C 430.64285714285717,94.57142857142857 550.2500000000001,107.5 688,142 C 825.7499999999999,176.5 981.6428571428571,232.57142857142856 1110,250 C 1238.357142857143,267.42857142857144 1339.1785714285716,246.21428571428572 1440,225 L 1440,600 L 0,600 Z" fill="%23ff0080" transform="rotate(-180 720 300)"></path></svg>');
-      mask-size: $width 590px;
-      mask-position: 0px -300px;
-
-      @keyframes left {
-        from {
-          mask-position: 0px -300px;
-          // opacity: 0;
-        }
-        to {
-          mask-position: -$width -300px;
-          // opacity: 1;
-        }
-      }
-
-      animation: left 10s linear infinite;
-    }
-  }
-</style>

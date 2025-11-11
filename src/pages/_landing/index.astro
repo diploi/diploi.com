@@ -16,8 +16,8 @@ import {
 } from '../../components';
 import { featureCards, chart, content } from '../../content';
 import StackBuilder from '../../components/StackBuilder/StackBuilder.astro';
-import AiCallouts from '../ai/_components/AiCallouts.astro';
 import Navigation from '../../components/Navigation/Navigation.astro';
+import FeaturesCallouts from '../features/_components/FeaturesCallouts.astro';
 
 interface Props {
   title?: string;
@@ -62,7 +62,7 @@ const { title = defaultTitle, description = defaultDescription } = Astro.props;
       <Chart {...chart.updatingProduction} />
       <ImpactMetric {...content.timeAndResources.impactMetric} />
     </Section>
-    <AiCallouts />
+    <FeaturesCallouts />
   </main>
 </Layout>
 <Footer />

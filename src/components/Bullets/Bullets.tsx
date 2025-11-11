@@ -20,7 +20,7 @@ export const Bullets = ({ children, className, start = 0, style, total }: Bullet
   }, [style, start, total]);
 
   return (
-    <ul className={[styles.bullets, className].filter(Boolean).join(' ')} style={customStyle}>
+    <ul className={[styles.bullets, className, 'bullets'].filter(Boolean).join(' ')} style={customStyle}>
       {children}
     </ul>
   );

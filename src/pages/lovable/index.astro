@@ -3,7 +3,7 @@ import Footer from '../../components/Footer.astro';
 import Navigation from '../../components/Navigation/Navigation.astro';
 import Layout from '../../layouts/Layout.astro';
 import { createWebsiteSchema } from '../../utils/createWebsiteSchema';
-import AiCallouts from '../ai/_components/AiCallouts.astro';
+import FeaturesCallouts from '../features/_components/FeaturesCallouts.astro';
 import LovableCallout from './_components/LovableCallout.astro';
 import LovableEditors from './_components/LovableEditors.astro';
 import LovableHero from './_components/LovableHero.astro';
@@ -35,7 +35,7 @@ const schema = createWebsiteSchema();
     <LovableHr />
     <LovableResources />
     <LovableCallout />
-    <AiCallouts />
+    <FeaturesCallouts />
   </main>
   <Footer />
 </Layout>

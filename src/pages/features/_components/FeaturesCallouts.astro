@@ -1,0 +1,160 @@
+---
+import { ArrowUpRightIcon } from '@phosphor-icons/react';
+import LovableHr from '../../lovable/_components/LovableHr.astro';
+import Callouts from '../../../components/Callouts.astro';
+import { features } from '../../../content/features';
+
+interface Props {
+  hide?: (typeof features)[number]['id'][];
+}
+
+const { hide = [] } = Astro.props;
+---
+
+<div>
+  <article style={{ '--total': 4 - (hide?.length ?? 0) }}>
+    {
+      features
+        .filter((feature) => !hide.includes(feature.id))
+        .map((feature) => (
+          <a data-event={`${feature.id}_click`} href={feature.href}>
+            <section>
+              {<feature.icon />}
+              <h3>
+                <small>Diploi for</small>
+                <span>{feature.title}</span>
+              </h3>
+              <p>{feature.description}</p>
+              <ArrowUpRightIcon className="arrow" />
+              <feature.bg className="bg" />
+            </section>
+          </a>
+        ))
+    }
+  </article>
+  <LovableHr />
+  <Callouts />
+</div>
+
+<style lang="scss">
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+  }
+
+  @property --color {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: transparent;
+  }
+
+  article {
+    display: flex;
+    gap: 16px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: var(--max-width-page-section);
+
+    > a {
+      display: flex;
+      flex: 1;
+      text-decoration: none;
+
+      --color: var(--color-border);
+
+      transition: --color 250ms ease;
+
+      container-type: inline-size;
+      @container (width < 300px) {
+        > section {
+          padding-bottom: 128px;
+
+          .bg {
+            bottom: -150px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+          }
+        }
+      }
+
+      @for $i from 1 through 4 {
+        &:nth-of-type(#{$i}) {
+          --percentage: calc(((#{$i} - 1) / (var(--total) - 1)) * 100%);
+          --color-hover: color-mix(in lab, var(--color-primary), var(--color-secondary) var(--percentage));
+        }
+      }
+
+      &:hover {
+        --color: var(--color-hover);
+
+        .arrow {
+          color: var(--color-text-primary);
+          translate: 8px -8px;
+        }
+      }
+    }
+  }
+
+  section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 32px;
+    padding-bottom: 256px;
+    width: 100%;
+    border: 1px solid transparent;
+    border-radius: var(--border-radius-medium);
+    background:
+      linear-gradient(to bottom right in lab, color-mix(in lab, var(--color), var(--color-bg) 85%), var(--color-bg)) padding-box,
+      conic-gradient(var(--color), var(--color-bg), var(--color)) border-box;
+    user-select: none;
+    overflow: hidden;
+
+    > svg {
+      width: 32px;
+      height: 32px;
+      color: var(--color-hover);
+    }
+
+    h3 {
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+
+      small {
+        font-size: 1rem;
+        font-family: var(--font-body);
+        text-transform: uppercase;
+        color: var(--color-text-secondary);
+      }
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .arrow {
+      position: absolute;
+      top: 32px;
+      right: 32px;
+      color: var(--color-text-secondary);
+
+      transition:
+        translate 250ms ease,
+        color 250ms ease;
+    }
+
+    .bg {
+      position: absolute;
+      bottom: -150px;
+      right: -100px;
+      width: 400px;
+      height: 400px;
+      color: var(--color);
+      opacity: 0.2;
+    }
+  }
+</style>

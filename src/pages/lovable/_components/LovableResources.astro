@@ -1,9 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import { FilesIcon } from '@phosphor-icons/react';
-import AiSectionHeader from '../../ai/_components/AiSectionHeader.astro';
-import Tag from '../../../components/Tag.astro';
 import Article from '../../../components/blog/Article.astro';
+import FeaturesSectionHeader from '../../features/_components/FeaturesSectionHeader.astro';
 
 const articles = await getCollection('blog');
 const lovableFilterWords = ['lovable', 'supabase', 'import', ' ai ', 'remote development'];
@@ -11,14 +10,14 @@ const lovableArticles = articles.filter((article) => lovableFilterWords.some((wo
 ---
 
 <section class="main">
-  <AiSectionHeader>
+  <FeaturesSectionHeader>
     <FilesIcon />
     <h2>Resources For Lovable</h2>
     <p>
       Explore our collection of helpful resources related to Lovable. You can always <a href="mailto:hello@diploi.com">contact us</a> if you
       have any questions.
     </p>
-  </AiSectionHeader>
+  </FeaturesSectionHeader>
   <ul class="list">
     {
       lovableArticles.map((article) => (

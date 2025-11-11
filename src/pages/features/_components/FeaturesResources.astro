@@ -1,9 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
 import { FilesIcon } from '@phosphor-icons/react';
-import AiSectionHeader from '../../ai/_components/AiSectionHeader.astro';
 import Article from '../../../components/blog/Article.astro';
 import FeaturesSection from './FeaturesSection.astro';
+import FeaturesSectionHeader from './FeaturesSectionHeader.astro';
 
 type Props = {
   title: string;
@@ -20,13 +20,13 @@ const filteredArticles = articles
 ---
 
 <FeaturesSection>
-  <AiSectionHeader slot="header">
+  <FeaturesSectionHeader slot="header">
     <FilesIcon />
     <h2>{title}</h2>
     <p>
       {description} You can always <a href="mailto:hello@diploi.com">contact us</a> if you have any questions.
     </p>
-  </AiSectionHeader>
+  </FeaturesSectionHeader>
   <ul class="list">
     {
       filteredArticles.map((article) => (

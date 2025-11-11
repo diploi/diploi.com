@@ -1,18 +1,21 @@
 ---
 import Footer from '../../../components/Footer.astro';
 import Navigation from '../../../components/Navigation/Navigation.astro';
+import { features } from '../../../content/features';
 import Layout from '../../../layouts/Layout.astro';
 import { createWebsiteSchema } from '../../../utils/createWebsiteSchema';
-import AiCallouts from '../../ai/_components/AiCallouts.astro';
-import LovableCallout from '../../lovable/_components/LovableCallout.astro';
 import LovableEditors from '../../lovable/_components/LovableEditors.astro';
 import LovableHr from '../../lovable/_components/LovableHr.astro';
-import LovablePacks from '../../lovable/_components/LovablePacks.astro';
-import LovableResources from '../../lovable/_components/LovableResources.astro';
 import LovableTeamwork from '../../lovable/_components/LovableTeamwork.astro';
+import FeaturesCallouts from '../_components/FeaturesCallouts.astro';
 import DevHero from './_components/DevHero.astro';
+import DevLifecycle from './_components/DevLifecycle.astro';
+import DevResources from './_components/DevResources.astro';
+import DevStackBuilder from './_components/DevStackBuilder.astro';
 
 const schema = createWebsiteSchema();
+
+const feature = features.find((feature) => feature.id === 'dev')!;
 ---
 
 <Layout
@@ -27,15 +30,16 @@ const schema = createWebsiteSchema();
   <main>
     <DevHero />
     <LovableHr />
+    <DevLifecycle />
+    <LovableHr />
     <LovableEditors />
     <LovableHr />
     <LovableTeamwork />
     <LovableHr />
-    <LovablePacks />
+    <DevStackBuilder />
     <LovableHr />
-    <LovableResources />
-    <LovableCallout />
-    <AiCallouts />
+    <DevResources />
+    <FeaturesCallouts hide={['dev']} />
   </main>
   <Footer />
 </Layout>

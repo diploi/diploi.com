@@ -3,20 +3,16 @@ import { Image } from 'astro:assets';
 import {
   BrowserIcon,
   CaretDownIcon,
-  CodeIcon,
-  CpuIcon,
   FileTextIcon,
   GitDiffIcon,
-  GitPullRequestIcon,
   HardDrivesIcon,
   PlayCircleIcon,
   PlugsConnectedIcon,
-  SparkleIcon,
   StackIcon,
   TerminalIcon,
-  UsersIcon,
 } from '@phosphor-icons/react';
 import lovableIcon from '../../images/lovable-icon.svg';
+import { features } from '../../content/features';
 ---
 
 <button id="features-button" popovertarget="features-popover">
@@ -25,22 +21,16 @@ import lovableIcon from '../../images/lovable-icon.svg';
   <div popover id="features-popover">
     <section style={{ gridArea: 'groups' }}>
       <label>Diploi for</label>
-      <a data-event="ai_click" href="/features/dev">
-        <span><CodeIcon /> Developers</span>
-        <span>Zero-install remote dev</span>
-      </a>
-      <a data-event="ai_click" href="/features/teams">
-        <span><UsersIcon /> Teams</span>
-        <span>Ship faster with zero-config</span>
-      </a>
-      <a data-event="ai_click" href="/features/devops">
-        <span><GitPullRequestIcon />DevOps</span>
-        <span>GitOps & push to deploy</span>
-      </a>
-      <a data-event="ai_click" href="/ai">
-        <span><SparkleIcon />Vibes & AI</span>
-        <span>From vibes to prod with zero-config</span>
-      </a>
+      {
+        features.map((feature) => (
+          <a data-event={`${feature.id}_click`} href={feature.href}>
+            <span>
+              {<feature.icon />} {feature.title}
+            </span>
+            <span>{feature.description}</span>
+          </a>
+        ))
+      }
     </section>
     <hr />
     <section style={{ gridArea: 'features' }}>
@@ -145,7 +135,7 @@ import lovableIcon from '../../images/lovable-icon.svg';
 
       &:nth-of-type(3) {
         gap: 8px;
-        padding: 24px 32px 20px 32px;
+        padding: 24px 32px;
         background-color: var(--color-accent-primary-10);
       }
     }

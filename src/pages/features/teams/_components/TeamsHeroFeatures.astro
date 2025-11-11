@@ -1,30 +1,18 @@
 ---
-import { getCollection } from 'astro:content';
-import AiHr from '../../../ai/_components/AiHr.astro';
 import {
   ArrowsClockwiseIcon,
-  ChatsCircleIcon,
-  CodeBlockIcon,
-  DatabaseIcon,
   FastForwardIcon,
   FileCodeIcon,
   GitBranchIcon,
-  HandshakeIcon,
-  LaptopIcon,
   MagicWandIcon,
   MouseIcon,
   PlugsConnectedIcon,
-  SealCheckIcon,
   TimerIcon,
 } from '@phosphor-icons/react';
 import Bullets from '../../../../components/Bullets';
 import { SparkleElement } from '../../../../components';
-import AiLink from '../../../ai/_components/AiLink.astro';
-
-const components = await getCollection('component');
-const visibleComponents = components.filter((component) => !component.data.hidden && component.data.identifier !== 'supabase').slice(0, 24);
-
-const supabase = components.find((component) => component.data.identifier === 'supabase');
+import FeaturesHr from '../../_components/FeaturesHr.astro';
+import Link from '../../../../components/Link.astro';
 ---
 
 <ul class="features">
@@ -44,7 +32,7 @@ const supabase = components.find((component) => component.data.identifier === 's
       </Bullets.Item>
     </Bullets>
   </li>
-  <AiHr vertical />
+  <FeaturesHr vertical />
   <li>
     <ArrowsClockwiseIcon />
     <h3>Continuous Development</h3>
@@ -61,7 +49,7 @@ const supabase = components.find((component) => component.data.identifier === 's
       </Bullets.Item>
     </Bullets>
   </li>
-  <AiHr vertical />
+  <FeaturesHr vertical />
   <li>
     <FastForwardIcon />
     <h3>Streamlined Efficiency</h3>
@@ -70,7 +58,7 @@ const supabase = components.find((component) => component.data.identifier === 's
       <small>Hours saved for<br />every developer</small>
     </strong>
     <p>Diploi saves 300 hours for every developer, every year.</p>
-    <AiLink>Learn more</AiLink>
+    <Link href="#graphs">Learn more</Link>
   </li>
 </ul>
 

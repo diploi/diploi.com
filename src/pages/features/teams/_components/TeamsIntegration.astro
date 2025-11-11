@@ -2,33 +2,23 @@
 import {
   ChartPieSliceIcon,
   CircleIcon,
-  CopyIcon,
-  FastForwardIcon,
   FileCodeIcon,
-  FileTextIcon,
   GitBranchIcon,
-  GitMergeIcon,
-  HardDrivesIcon,
-  InfoIcon,
-  LinkIcon,
   MagicWandIcon,
-  MouseIcon,
   PlugsConnectedIcon,
-  ShareIcon,
   SquareIcon,
   TriangleIcon,
-  UsersThreeIcon,
 } from '@phosphor-icons/react';
 import { getCollection } from 'astro:content';
-import AiSectionHeader from '../../../ai/_components/AiSectionHeader.astro';
-import AiHr from '../../../ai/_components/AiHr.astro';
 import Bullets from '../../../../components/Bullets';
 import FeaturesSection from '../../_components/FeaturesSection.astro';
 import FeaturesComponentIcons from '../../_components/FeaturesComponentIcons.astro';
 import { Image } from 'astro:assets';
 import awsLogo from '../_images/aws-logo.svg';
 import diploiLogo from '../../../../images/diploi-logo.svg';
-import AiLink from '../../../ai/_components/AiLink.astro';
+import Help from '../../../../components/Help.astro';
+import FeaturesHr from '../../_components/FeaturesHr.astro';
+import FeaturesSectionHeader from '../../_components/FeaturesSectionHeader.astro';
 
 const calendlyUrl = import.meta.env.VITE_CALENDLY_URL;
 
@@ -47,14 +37,14 @@ const diploiComponents = components.filter((component) => !component.data.hidden
 ---
 
 <FeaturesSection>
-  <AiSectionHeader slot="header">
+  <FeaturesSectionHeader slot="header">
     <PlugsConnectedIcon />
     <h2>Built to Fit Your Existing Setup</h2>
     <p>
       We work with your existing infrastructure. Integrate Diploi with your current cloud to gradually adopt its features, or move your
       entire stack for maximum benefit.
     </p>
-  </AiSectionHeader>
+  </FeaturesSectionHeader>
   <ul class="features">
     <li>
       <TriangleIcon weight="thin" className="bg" aria-hidden />
@@ -68,7 +58,7 @@ const diploiComponents = components.filter((component) => !component.data.hidden
         <div class="aws">
           <span>
             <Image alt="aws logo" src={awsLogo} height={32} />
-            <p class="help"><InfoIcon /> Diploi can run your deployments in the same AWS VPC as your existing infrastucture.</p>
+            <Help>Diploi can run your deployments in the same AWS VPC as your existing infrastucture.</Help>
           </span>
           <div>
             Your cloud services
@@ -88,11 +78,9 @@ const diploiComponents = components.filter((component) => !component.data.hidden
         </div>
       </div>
       <a class="button" target="_blank" href={calendlyUrl}>Book a Call</a>
-      <p class="help">
-        <InfoIcon /> Private Cloud is available for Enterprise customers. Book a call and let's find the best solution for you!
-      </p>
+      <Help>Private Cloud is available for Enterprise customers. Book a call and let's find the best solution for you!</Help>
     </li>
-    <AiHr vertical />
+    <FeaturesHr vertical />
     <li>
       <SquareIcon weight="thin" className="bg" aria-hidden />
       <CircleIcon />
@@ -106,7 +94,7 @@ const diploiComponents = components.filter((component) => !component.data.hidden
         <div class="aws diploi">
           <span>
             <Image alt="diploi logo" src={diploiLogo} height={32} />
-            <p class="help"><InfoIcon /> Diploi supports even the most complex setups. If it can be containerized, it can run on Diploi.</p>
+            <Help>Diploi supports even the most complex setups. If it can be containerized, it can run on Diploi.</Help>
           </span>
           <FeaturesComponentIcons components={diploiComponents} />
         </div>
@@ -211,16 +199,6 @@ const diploiComponents = components.filter((component) => !component.data.hidden
     .diploi {
       background-image: linear-gradient(to bottom right, var(--color-accent-primary-20), transparent);
       border-color: var(--color-accent-primary);
-    }
-  }
-
-  .help {
-    max-width: 50ch;
-    font-size: 0.875rem;
-    color: var(--color-text-secondary);
-
-    > svg {
-      translate: -1px 3px;
     }
   }
 </style>

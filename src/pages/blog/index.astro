@@ -6,9 +6,9 @@ import Footer from '../../components/Footer.astro';
 import Article from '../../components/blog/Article.astro';
 import { Section, PageTitle } from '../../components';
 import { createBlogSchema } from './_utils/createBlogSchema';
-import AiHr from '../ai/_components/AiHr.astro';
 import LovableHr from '../lovable/_components/LovableHr.astro';
-import AiCallouts from '../ai/_components/AiCallouts.astro';
+import FeaturesHr from '../features/_components/FeaturesHr.astro';
+import FeaturesCallouts from '../features/_components/FeaturesCallouts.astro';
 
 const articles = await getCollection('blog');
 
@@ -39,18 +39,18 @@ const schema = createBlogSchema({
         <PageTitle tagText="Blog" title="See what the team has been up to" />
         <div class="hero">
           <Article {...latest.data} />
-          <AiHr vertical />
+          <FeaturesHr vertical />
           <div class="side">
             <Article {...highlight!.data} />
           </div>
         </div>
-        <AiHr />
+        <FeaturesHr />
         <div class="latest">
           {
             list.slice(0, 3).map((article, index) => (
               <>
                 <Article {...article.data} />
-                {index < 2 && <AiHr vertical />}
+                {index < 2 && <FeaturesHr vertical />}
               </>
             ))
           }
@@ -62,7 +62,7 @@ const schema = createBlogSchema({
       </div>
     </Section>
     <LovableHr />
-    <AiCallouts />
+    <FeaturesCallouts />
   </main>
   <Footer />
 </Layout>

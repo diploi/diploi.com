@@ -1,8 +1,9 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
-import { Navigation, Footer, Section } from '../../components';
-import { User, CalendarBlank, DevToLogo, ArrowSquareOut } from '@phosphor-icons/react';
+import { Footer, Section } from '../../components';
+import { User, CalendarBlank } from '@phosphor-icons/react';
+import Navigation from '../../components/Navigation/Navigation.astro';
 
 import 'github-markdown-css/github-markdown.css';
 
@@ -49,7 +50,6 @@ const { Content } = await render(entry);
 </Layout>
 
 <style>
-
   .title {
     display: flex;
     align-items: center;

@@ -2,7 +2,7 @@
 import { Heart, RocketLaunch, SealCheck } from '@phosphor-icons/react';
 import Tag from '../../../components/Tag.astro';
 import { getCollection } from 'astro:content';
-import AiLink from '../../ai/_components/AiLink.astro';
+import Link from '../../../components/Link.astro';
 
 const components = await getCollection('component');
 
@@ -32,8 +32,8 @@ const lovableComponent = components.find((component) => component.id === 'lovabl
             <Tag primary>New</Tag>
           </h4>
           <p>The PHP framework for web artisans. Running on FrankenPHP.</p>
-          <AiLink href="/component/laravel">Launch Laravel</AiLink>
-          <AiLink href="/blog/hosting_laravel_apps">Read guide</AiLink>
+          <Link href="/component/laravel">Launch Laravel</Link>
+          <Link href="/blog/hosting_laravel_apps">Read guide</Link>
         </li>
         <li>
           <h4>
@@ -42,8 +42,8 @@ const lovableComponent = components.find((component) => component.id === 'lovabl
             <Tag primary>New</Tag>
           </h4>
           <p>The next-generation JavaScript runtime. Now available with a single-click.</p>
-          <AiLink href="/component/deno">Launch Deno</AiLink>
-          <AiLink href="/blog/hosting_deno_apps">Read guide</AiLink>
+          <Link href="/component/deno">Launch Deno</Link>
+          <Link href="/blog/hosting_deno_apps">Read guide</Link>
         </li>
       </ul>
       <RocketLaunch weight="duotone" className="bg" />
@@ -63,8 +63,8 @@ const lovableComponent = components.find((component) => component.id === 'lovabl
             <Tag primary>New</Tag>
           </h4>
           <p>Modern, fast, web framework for building APIs with standard type hints.</p>
-          <AiLink href="/component/fastapi">Launch FastAPI</AiLink>
-          <AiLink href="/blog/hosting_fastapi_apps">Read guide</AiLink>
+          <Link href="/component/fastapi">Launch FastAPI</Link>
+          <Link href="/blog/hosting_fastapi_apps">Read guide</Link>
         </li>
         <li>
           <h4>
@@ -73,8 +73,8 @@ const lovableComponent = components.find((component) => component.id === 'lovabl
             <Tag primary>New</Tag>
           </h4>
           <p>Lightweight, easy, scalable WSGI web application framework.</p>
-          <AiLink href="/component/flask">Launch Flask</AiLink>
-          <AiLink href="/blog/hosting_flask_apps">Read guide</AiLink>
+          <Link href="/component/flask">Launch Flask</Link>
+          <Link href="/blog/hosting_flask_apps">Read guide</Link>
         </li>
       </ul>
       <RocketLaunch weight="duotone" className="bg" />
@@ -96,8 +96,8 @@ const lovableComponent = components.find((component) => component.id === 'lovabl
             Build with the precision of code or the speed of drag-n-drop. n8n gives you more freedom to implement multi-step AI agents and
             integrate apps than any other tool.
           </p>
-          <AiLink href="/component/n8n">Launch n8n</AiLink>
-          <AiLink href="/blog/hosting_n8n">Read guide</AiLink>
+          <Link href="/component/n8n">Launch n8n</Link>
+          <Link href="/blog/hosting_n8n">Read guide</Link>
         </li>
       </ul>
       <RocketLaunch weight="duotone" className="bg" />
@@ -121,8 +121,8 @@ const lovableComponent = components.find((component) => component.id === 'lovabl
             Start your project with a Postgres database, Authentication, instant APIs, Edge Functions, Realtime subscriptions, Storage, and
             Vector embeddings.
           </p>
-          <AiLink href="/component/supabase">Launch Supabase</AiLink>
-          <AiLink href="/blog/hosting_supabase">Read guide</AiLink>
+          <Link href="/component/supabase">Launch Supabase</Link>
+          <Link href="/blog/hosting_supabase">Read guide</Link>
         </li>
       </ul>
       <RocketLaunch weight="duotone" className="bg" />
@@ -148,7 +148,7 @@ const lovableComponent = components.find((component) => component.id === 'lovabl
             Official support for Lovable repositories. When logged into Diploi, create a new project and select "Import Repository" to get
             started.
           </p>
-          <AiLink href="/blog/importing_from_lovable_and_github">Read guide</AiLink>
+          <Link href="/blog/importing_from_lovable_and_github">Read guide</Link>
         </li>
       </ul>
       <Heart weight="duotone" className="bg" />

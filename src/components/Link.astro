@@ -1,14 +1,14 @@
 ---
-import { ArrowUpRight } from '@phosphor-icons/react';
+import { ArrowUpRightIcon } from '@phosphor-icons/react';
 
 type Props = {
   href: string;
 };
 
-const { href } = Astro.props;
+const { href, ...other } = Astro.props;
 ---
 
-<a href={href}><slot /> <ArrowUpRight /></a>
+<a href={href} {...other}><slot /> <ArrowUpRightIcon /></a>
 
 <style>
   a {

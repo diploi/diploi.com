@@ -1,12 +1,14 @@
 ---
-type Props = {
-  vertical?: boolean;
-};
+import type { HTMLAttributes } from 'astro/types';
 
-const { vertical } = Astro.props;
+interface Props extends HTMLAttributes<'hr'> {
+  vertical?: boolean;
+}
+
+const { vertical, ...other } = Astro.props;
 ---
 
-<hr class:list={{ vertical }} />
+<hr class:list={{ vertical }} {...other} />
 
 <style>
   hr {

@@ -1,0 +1,20 @@
+---
+import { InfoIcon } from '@phosphor-icons/react';
+---
+
+<p class="help">
+  <InfoIcon />
+  <slot />
+</p>
+
+<style lang="scss">
+  .help {
+    max-width: 50ch;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+
+    > svg {
+      translate: -1px 3px;
+    }
+  }
+</style>

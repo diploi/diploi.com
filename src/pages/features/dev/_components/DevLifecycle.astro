@@ -1,0 +1,30 @@
+---
+import { GitPullRequestIcon } from '@phosphor-icons/react';
+import FeaturesSection from '../../_components/FeaturesSection.astro';
+import Tag from '../../../../components/Tag.astro';
+import FeaturesSectionHeader from '../../_components/FeaturesSectionHeader.astro';
+---
+
+<FeaturesSection>
+  <FeaturesSectionHeader slot="header">
+    <GitPullRequestIcon />
+    <h2>Deploy to Production with <Tag>git push</Tag></h2>
+    <p>From staging to production, Diploi manages it all. Create environments in one-click and deploy updates with a Git push.</p>
+  </FeaturesSectionHeader>
+  <section>Incredible graph here</section>
+</FeaturesSection>
+
+<style lang="scss">
+  h2 {
+    > :global(span) {
+      margin-left: -0.5ch;
+      font-size: inherit;
+    }
+  }
+
+  section {
+    padding: 128px;
+    border: 2px solid red;
+    color: red;
+  }
+</style>
