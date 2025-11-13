@@ -1,91 +1,78 @@
 ---
 import {
-  CopyIcon,
-  FastForwardIcon,
+  CloudIcon,
   FileCodeIcon,
-  FileTextIcon,
-  GitBranchIcon,
-  GitMergeIcon,
   HardDrivesIcon,
-  LinkIcon,
-  MagicWandIcon,
-  MouseIcon,
+  KeyIcon,
+  LockSimpleIcon,
   PlugsConnectedIcon,
-  ShareIcon,
+  ShieldCheckIcon,
   SquareIcon,
+  ToggleRightIcon,
   TriangleIcon,
-  UsersThreeIcon,
 } from '@phosphor-icons/react';
-import Bullets from '../../../components/Bullets';
-import FeaturesHr from '../../features/_components/FeaturesHr.astro';
-import FeaturesSectionHeader from '../../features/_components/FeaturesSectionHeader.astro';
+import FeaturesHr from '../../_components/FeaturesHr.astro';
+import FeaturesSection from '../../_components/FeaturesSection.astro';
+import FeaturesSectionHeader from '../../_components/FeaturesSectionHeader.astro';
+import Bullets from '../../../../components/Bullets';
 ---
 
-<section class="main">
-  <FeaturesSectionHeader>
-    <UsersThreeIcon />
-    <h2>Built for Collaboration</h2>
+<FeaturesSection>
+  <FeaturesSectionHeader slot="header">
+    <LockSimpleIcon />
+    <h2>Secure by Default</h2>
     <p>
-      Teamwork on Diploi is effortless. From sharing a demo link to hopping into a teammate's command line, everything is just a click away.
+      Diploi runs fully in the cloud, with nothing installed locally. With no local installs, access is fully controlled and common attack
+      surfaces are eliminated.
     </p>
   </FeaturesSectionHeader>
   <ul class="features">
     <li>
       <SquareIcon weight="thin" className="bg" aria-hidden />
-      <HardDrivesIcon />
-      <h3>Individual Environments</h3>
-      <p>Your own environment. Your own IDE. Connect to others whenever you need to.</p>
-      <Bullets total={9}>
+      <CloudIcon />
+      <h3>Nothing Installed Locally</h3>
+      <p>Local devices hold no source code or infrastructure access, leaving malware and ransomware with nothing to target.</p>
+      <Bullets total={6}>
         <Bullets.Item>
           <PlugsConnectedIcon weight="bold" /> Zero-install remote development
         </Bullets.Item>
         <Bullets.Item>
-          <MouseIcon weight="bold" /> One-click environment setup
+          <CloudIcon weight="bold" /> Cloud IDE
+        </Bullets.Item>
+      </Bullets>
+    </li>
+    <FeaturesHr vertical />
+    <li>
+      <SquareIcon weight="thin" className="bg" aria-hidden />
+      <ToggleRightIcon />
+      <h3>Complete Control</h3>
+      <p>Centralize and manage access to your entire infrastructure from a single, unified control panel.</p>
+      <Bullets start={2} total={6}>
+        <Bullets.Item>
+          <LockSimpleIcon weight="bold" /> Central access control
         </Bullets.Item>
         <Bullets.Item>
-          <FastForwardIcon weight="bold" /> 30 second developer onboarding
+          <KeyIcon weight="bold" /> Central authentication
         </Bullets.Item>
       </Bullets>
     </li>
     <FeaturesHr vertical />
     <li>
       <TriangleIcon weight="thin" className="bg" aria-hidden />
-      <GitMergeIcon />
-      <h3>GitHub Workflow</h3>
-      <p>Git that works the way you do. Pull requests, Actions, or plain CLI.</p>
-
-      <Bullets start={3} total={9}>
+      <ShieldCheckIcon />
+      <h3>Isolated Environments</h3>
+      <p>Developers run in fully isolated VMs. No environment shares data, processes, or resources.</p>
+      <Bullets start={4} total={6}>
         <Bullets.Item>
-          <GitBranchIcon weight="bold" /> GitHub integration
-        </Bullets.Item>
-        <Bullets.Item>
-          <MagicWandIcon weight="bold" /> Automatic Git, CI/CD, SSL
+          <HardDrivesIcon weight="bold" /> Individual VMs
         </Bullets.Item>
         <Bullets.Item>
           <FileCodeIcon weight="bold" /> Infrastructure as code
         </Bullets.Item>
       </Bullets>
     </li>
-    <FeaturesHr vertical />
-    <li>
-      <SquareIcon weight="thin" className="bg" aria-hidden />
-      <ShareIcon />
-      <h3>Easy Previews</h3>
-      <p>Want to demo a feature? Share the link. You can spin up endless environments.</p>
-      <Bullets start={6} total={9}>
-        <Bullets.Item>
-          <LinkIcon weight="bold" /> Shareable environment URLs
-        </Bullets.Item>
-        <Bullets.Item>
-          <CopyIcon weight="bold" /> One-click environment cloning
-        </Bullets.Item>
-        <Bullets.Item>
-          <FileTextIcon weight="bold" /> Real-time logging
-        </Bullets.Item>
-      </Bullets>
-    </li>
   </ul>
-</section>
+</FeaturesSection>
 
 <style lang="scss">
   .main {
