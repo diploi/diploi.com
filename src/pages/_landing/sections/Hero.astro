@@ -2,8 +2,8 @@
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import { Icon } from '../../../components';
-import { Canvas } from '../../../components/react/Canvas';
 import { BlobCanvas } from '../../../components/BlobCanvas';
+import { Canvas } from '../../../components/react/Canvas';
 import lovableIcon from '../../../images/lovable-icon.svg';
 
 const calendlyUrl = import.meta.env.VITE_CALENDLY_URL;
@@ -86,7 +86,17 @@ const icons = components.filter((component) => !component.data.hidden).map((comp
           <Icon name="ArrowSquareOut" sizeRem={1} />
         </li>
       </a>
-      <a href="https://www.producthunt.com/products/diploi?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-diploi" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1030417&theme=dark&t=1762767364855" alt="Diploi - Zero&#0045;install&#0032;remote&#0032;development&#0044;&#0032;one&#0045;click&#0032;to&#0032;production | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+      <a
+        href="https://www.producthunt.com/products/diploi?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-diploi"
+        target="_blank"
+        ><img
+          src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1030417&theme=dark&t=1762767364855"
+          alt="Diploi - Zero-install remote development, one-click to production | Product Hunt"
+          style="width: 250px; height: 54px;"
+          width="250"
+          height="54"
+        /></a
+      >
     </ul>
   </div>
 </div>

@@ -1,7 +1,7 @@
 ---
 import Tag from '../../../components/Tag.astro';
-import { createStackBackgroundUri } from './featuresUtils';
 import FeaturesHeroIllustration from './FeaturesHeroIllustration.astro';
+import { createStackBackgroundUri } from './featuresUtils';
 
 const hasMask = Astro.slots.has('mask');
 const maskHtml = await Astro.slots.render('mask');

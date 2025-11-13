@@ -1,14 +1,13 @@
 ---
 import { Image } from 'astro:assets';
+import dockerLogo from '../../images/docker-logo.svg';
+import kubernetesLogo from '../../images/kubernetes-logo.svg';
 import Icon from '../Icon.astro';
 import type { TFeatureMasonryItem } from './types';
-import kubernetesLogo from '../../images/kubernetes-logo.svg';
-import dockerLogo from '../../images/docker-logo.svg';
 
 type Props = TFeatureMasonryItem;
 
-const { id, title, description, gridArea, icon, color, showDocker, showHelm } =
-  Astro.props;
+const { id, title, description, gridArea, icon, color, showDocker, showHelm } = Astro.props;
 ---
 
 <div
@@ -17,19 +16,8 @@ const { id, title, description, gridArea, icon, color, showDocker, showHelm } =
     gridArea,
   }}
 >
-  <Icon
-    name={icon}
-    sizeRem={2.5}
-    color={color}
-    weight="duotone"
-    class="feature-masonry-icon"
-  />
-  <Icon
-    name={icon}
-    color={color}
-    weight="light"
-    class="feature-masonry-bg-icon"
-  />
+  <Icon name={icon} sizeRem={2.5} color={color} weight="duotone" class="feature-masonry-icon" />
+  <Icon name={icon} color={color} weight="light" class="feature-masonry-bg-icon" />
   <div class="title-and-description">
     <h3>{title}</h3>
     <p class="description">
@@ -39,12 +27,7 @@ const { id, title, description, gridArea, icon, color, showDocker, showHelm } =
       {
         showHelm && (
           <span class="small feature-masonry-perk">
-            <Image
-              alt="kubernetes logo"
-              src={kubernetesLogo}
-              width={18}
-              height={18}
-            />
+            <Image alt="kubernetes logo" src={kubernetesLogo} width={18} height={18} />
             Kubernetes
           </span>
         )

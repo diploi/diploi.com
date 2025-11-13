@@ -1,14 +1,14 @@
 ---
 import { getCollection } from 'astro:content';
-import Layout from '../../layouts/Layout.astro';
-import Navigation from '../../components/Navigation/Navigation.astro';
+import { PageTitle, Section } from '../../components';
 import Footer from '../../components/Footer.astro';
+import Navigation from '../../components/Navigation/Navigation.astro';
 import Article from '../../components/blog/Article.astro';
-import { Section, PageTitle } from '../../components';
-import { createBlogSchema } from './_utils/createBlogSchema';
-import LovableHr from '../lovable/_components/LovableHr.astro';
-import FeaturesHr from '../features/_components/FeaturesHr.astro';
+import Layout from '../../layouts/Layout.astro';
 import FeaturesCallouts from '../features/_components/FeaturesCallouts.astro';
+import FeaturesHr from '../features/_components/FeaturesHr.astro';
+import LovableHr from '../lovable/_components/LovableHr.astro';
+import { createBlogSchema } from './_utils/createBlogSchema';
 
 const articles = await getCollection('blog');
 

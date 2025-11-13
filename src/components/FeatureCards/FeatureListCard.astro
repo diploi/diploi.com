@@ -1,12 +1,11 @@
 ---
-import type { FeatureCard } from './types'
-import { Target, ArrowRight } from '@phosphor-icons/react'
-import Icon from '../Icon.astro'
-import Card from '../Card.astro'
+import { ArrowRight } from '@phosphor-icons/react';
+import Icon from '../Icon.astro';
+import type { FeatureCard } from './types';
 
-type Props = TFeatureCard
+type Props = FeatureCard;
 
-const { title, items, icon } = Astro.props
+const { title, items, icon } = Astro.props;
 ---
 
 <article class="feature-card large">

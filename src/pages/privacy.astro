@@ -1,9 +1,8 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { Section, Footer, PageTitle } from '../components';
-import { getEntry } from 'astro:content';
-import { render } from 'astro:content';
+import { getEntry, render } from 'astro:content';
+import { Footer, PageTitle, Section } from '../components';
 import Navigation from '../components/Navigation/Navigation.astro';
+import Layout from '../layouts/Layout.astro';
 
 const documentTOS = await getEntry('legal', 'privacy');
 if (!documentTOS) {

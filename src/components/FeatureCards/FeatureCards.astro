@@ -1,12 +1,12 @@
 ---
-import type { FeatureCard } from './types'
-import FeatureListCard from './FeatureListCard.astro'
+import FeatureListCard from './FeatureListCard.astro';
+import type { FeatureCard } from './types';
 
 type Props = {
-  items: FeatureCard[]
-}
+  items: FeatureCard[];
+};
 
-const { items } = Astro.props
+const { items } = Astro.props;
 ---
 
 <div class="feature-cards">

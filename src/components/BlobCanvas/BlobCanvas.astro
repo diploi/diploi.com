@@ -9,7 +9,7 @@ const { size } = Astro.props;
 <canvas class="blob-canvas" data-size={size}></canvas>
 
 <script>
-  import { animateBlobs, INITIAL_LEFT_BLOB_DEFAULT, INITIAL_RIGHT_BLOB_DEFAULT } from './lib';
+  import { INITIAL_LEFT_BLOB_DEFAULT, INITIAL_RIGHT_BLOB_DEFAULT, animateBlobs } from './lib';
 
   window.addEventListener('load', () => {
     const canvases = document.querySelectorAll('.blob-canvas') as NodeListOf<HTMLCanvasElement>;

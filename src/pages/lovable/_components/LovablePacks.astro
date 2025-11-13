@@ -2,11 +2,11 @@
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import { StackIcon } from '@phosphor-icons/react';
+import Link from '../../../components/Link.astro';
 import cursorLogo from '../../../images/cursor-logo.webp';
 import vscodeLogo from '../../../images/vscode-logo.svg';
 import zedLogo from '../../../images/zed-logo.svg';
 import FeaturesHr from '../../features/_components/FeaturesHr.astro';
-import Link from '../../../components/Link.astro';
 import FeaturesSectionHeader from '../../features/_components/FeaturesSectionHeader.astro';
 
 const articles = await getCollection('blog');

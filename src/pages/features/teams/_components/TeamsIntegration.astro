@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
 import {
   ChartPieSliceIcon,
   CircleIcon,
@@ -9,16 +11,14 @@ import {
   SquareIcon,
   TriangleIcon,
 } from '@phosphor-icons/react';
-import { getCollection } from 'astro:content';
 import Bullets from '../../../../components/Bullets';
-import FeaturesSection from '../../_components/FeaturesSection.astro';
-import FeaturesComponentIcons from '../../_components/FeaturesComponentIcons.astro';
-import { Image } from 'astro:assets';
-import awsLogo from '../_images/aws-logo.svg';
-import diploiLogo from '../../../../images/diploi-logo.svg';
 import Help from '../../../../components/Help.astro';
+import diploiLogo from '../../../../images/diploi-logo.svg';
+import FeaturesComponentIcons from '../../_components/FeaturesComponentIcons.astro';
 import FeaturesHr from '../../_components/FeaturesHr.astro';
+import FeaturesSection from '../../_components/FeaturesSection.astro';
 import FeaturesSectionHeader from '../../_components/FeaturesSectionHeader.astro';
+import awsLogo from '../_images/aws-logo.svg';
 
 const calendlyUrl = import.meta.env.VITE_CALENDLY_URL;
 

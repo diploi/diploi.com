@@ -1,8 +1,8 @@
 ---
-import { Icon } from '../../../components';
-import { Canvas } from '../../../components/react/Canvas';
-import { BlobCanvas } from '../../../components/BlobCanvas';
 import { getCollection } from 'astro:content';
+import { Icon } from '../../../components';
+import { BlobCanvas } from '../../../components/BlobCanvas';
+import { Canvas } from '../../../components/react/Canvas';
 
 const components = await getCollection('component');
 const icons = components.filter((component) => !component.data.hidden).map((component) => component.data.icon);

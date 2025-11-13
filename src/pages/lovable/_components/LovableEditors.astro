@@ -1,17 +1,17 @@
 ---
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
-import vscodeLogo from '../../../images/vscode-logo.svg';
+import { AppWindowIcon, Minus, TerminalWindow } from '@phosphor-icons/react';
+import Link from '../../../components/Link.astro';
+import Tag from '../../../components/Tag.astro';
 import cursorLogo from '../../../images/cursor-logo.webp';
-import vscodePreview from '../../features/ai/_images/vscode.png';
+import vscodeLogo from '../../../images/vscode-logo.svg';
+import FeaturesHr from '../../features/_components/FeaturesHr.astro';
+import FeaturesSectionHeader from '../../features/_components/FeaturesSectionHeader.astro';
+import { createStackBackgroundUri } from '../../features/_components/featuresUtils';
 import cursorPreview from '../../features/ai/_images/cursor.png';
 import terminalPreview from '../../features/ai/_images/terminal.png';
-import { AppWindowIcon, Minus, TerminalWindow } from '@phosphor-icons/react';
-import Tag from '../../../components/Tag.astro';
-import FeaturesSectionHeader from '../../features/_components/FeaturesSectionHeader.astro';
-import FeaturesHr from '../../features/_components/FeaturesHr.astro';
-import Link from '../../../components/Link.astro';
-import { createStackBackgroundUri } from '../../features/_components/featuresUtils';
+import vscodePreview from '../../features/ai/_images/vscode.png';
 
 const articles = await getCollection('blog');
 const linkedFilterWords = [' ai ', 'remote development'];
