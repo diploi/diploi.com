@@ -1,21 +1,18 @@
 ---
 import Footer from '../../../components/Footer.astro';
 import Navigation from '../../../components/Navigation/Navigation.astro';
-import { features } from '../../../content/features';
 import Layout from '../../../layouts/Layout.astro';
 import { createWebsiteSchema } from '../../../utils/createWebsiteSchema';
-import LovableEditors from '../../lovable/_components/LovableEditors.astro';
 import LovableHr from '../../lovable/_components/LovableHr.astro';
 import LovableTeamwork from '../../lovable/_components/LovableTeamwork.astro';
 import FeaturesCallouts from '../_components/FeaturesCallouts.astro';
+import DevEditors from './_components/DevEditors.astro';
 import DevHero from './_components/DevHero.astro';
 import DevLifecycle from './_components/DevLifecycle.astro';
 import DevResources from './_components/DevResources.astro';
 import DevStackBuilder from './_components/DevStackBuilder.astro';
 
 const schema = createWebsiteSchema();
-
-const feature = features.find((feature) => feature.id === 'dev')!;
 ---
 
 <Layout
@@ -32,7 +29,7 @@ const feature = features.find((feature) => feature.id === 'dev')!;
     <LovableHr />
     <DevLifecycle />
     <LovableHr />
-    <LovableEditors />
+    <DevEditors />
     <LovableHr />
     <LovableTeamwork />
     <LovableHr />

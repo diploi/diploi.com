@@ -1,0 +1,160 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import { AppWindowIcon, CloudIcon, MinusIcon } from '@phosphor-icons/react';
+import Link from '../../../../components/Link.astro';
+import Tag from '../../../../components/Tag.astro';
+import cursorLogo from '../../../../images/cursor-logo.webp';
+import vscodeLogo from '../../../../images/vscode-logo.svg';
+import FeaturesHr from '../../_components/FeaturesHr.astro';
+import FeaturesSectionHeader from '../../_components/FeaturesSectionHeader.astro';
+import { createStackBackgroundUri } from '../../_components/featuresUtils';
+import cursorPreview from '../../ai/_images/cursor.png';
+import vscodePreview from '../../ai/_images/vscode.png';
+
+const articles = await getCollection('blog');
+const linkedFilterWords = [' ai ', 'remote development'];
+const linkedArticles = articles
+  .filter((article) => linkedFilterWords.some((word) => article.data.title.toLowerCase().includes(word)))
+  .slice(0, 3);
+
+const previewImageProps = {
+  width: 340,
+  quality: 'max',
+};
+
+const background = createStackBackgroundUri({
+  size: 16,
+  primary: 'rgba(255, 255, 255, 0.05)',
+  secondary: 'rgba(255, 255, 255, 0.05)',
+  chance: 0.1,
+});
+---
+
+<section class="main">
+  <div class="background" inert aria-hidden style={{ '--background': background }}></div>
+  <FeaturesSectionHeader>
+    <AppWindowIcon />
+    <h2>Use The Tools You Love</h2>
+    <p>
+      Diploi works with any IDE that supports SSH. We offer first-class support for the most popular AI-native editors, like Cursor and Zed.
+    </p>
+  </FeaturesSectionHeader>
+  <section class="list">
+    <article style={{ '--color-card-border': '#0098FF' }}>
+      <Image {...previewImageProps} src={vscodePreview} alt="vs code preview" />
+      <section>
+        <CloudIcon size={32} weight="duotone" />
+        <h3>Cloud IDE</h3>
+        <ul>
+          <li><MinusIcon /> Code in the browser</li>
+          <li><MinusIcon /> Full extensions support</li>
+        </ul>
+      </section>
+    </article>
+    <FeaturesHr vertical />
+    <article style={{ '--color-card-border': 'white' }}>
+      <Image {...previewImageProps} src={cursorPreview} alt="cursor preview" />
+      <section>
+        <Image width={32} height={32} src={cursorLogo} alt="cursor logo" />
+        <h3>Cursor <Tag primary>Officially supported</Tag></h3>
+        <ul>
+          <li><MinusIcon /> Agent mode, autocomplete, chat</li>
+          <li><MinusIcon /> Full extensions support</li>
+        </ul>
+      </section>
+    </article>
+    <FeaturesHr vertical />
+    <article style={{ '--color-card-border': '#0098FF' }}>
+      <Image {...previewImageProps} src={vscodePreview} alt="vs code preview" />
+      <section>
+        <Image width={32} height={32} src={vscodeLogo} alt="vs code logo" />
+        <h3>VS Code <Tag primary>Officially supported</Tag></h3>
+        <ul>
+          <li><MinusIcon /> Copilot, agent mode</li>
+          <li><MinusIcon /> Full extensions support</li>
+        </ul>
+      </section>
+    </article>
+  </section>
+  <div class="links">
+    <FeaturesHr />
+    <Link href="/dev">Remote development with Diploi</Link>
+    {linkedArticles.map((article) => <Link href={`/blog/${article.data.slug}`}>{article.data.title}</Link>)}
+  </div>
+</section>
+
+<style lang="scss">
+  .main {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: var(--max-width-page-section);
+  }
+
+  .list {
+    display: flex;
+    gap: 32px;
+
+    @media (max-width: 860px) {
+      flex-direction: column;
+    }
+
+    > article {
+      flex: 1;
+
+      > img {
+        max-width: 100%;
+      }
+
+      > section {
+        margin-top: 16px;
+
+        :global(span) {
+          transform: translateY(-2px);
+        }
+
+        > svg {
+          color: var(--color-primary);
+        }
+
+        > ul > li {
+          font-size: 1.25rem;
+          font-weight: 350;
+          color: var(--color-text-secondary);
+        }
+      }
+    }
+  }
+
+  .links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    :global(hr) {
+      margin: 0;
+      margin-bottom: 32px;
+      max-width: 500px;
+    }
+
+    :global(a) {
+      color: var(--color-text-secondary);
+    }
+  }
+
+  .background {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 60vh;
+    background-image: var(--background);
+    background-size: 896px;
+    overflow: hidden;
+    z-index: -1;
+
+    mask-image: linear-gradient(to bottom, transparent, white 50%, transparent);
+  }
+</style>
