@@ -34,23 +34,6 @@ import FeaturesHr from '../../_components/FeaturesHr.astro';
   </li>
   <FeaturesHr vertical />
   <li>
-    <ArrowsClockwiseIcon />
-    <h3>Continuous Development</h3>
-    <p>Let your developers focus on code — Diploi takes care of the rest.</p>
-    <Bullets start={3} total={6}>
-      <Bullets.Item>
-        <MagicWandIcon weight="bold" /> Automatic Git, CI/CD, SSL
-      </Bullets.Item>
-      <Bullets.Item>
-        <FileCodeIcon weight="bold" /> Infrastructure as code
-      </Bullets.Item>
-      <Bullets.Item>
-        <GitBranchIcon weight="bold" /> GitHub integration
-      </Bullets.Item>
-    </Bullets>
-  </li>
-  <FeaturesHr vertical />
-  <li>
     <FastForwardIcon />
     <h3>Streamlined Efficiency</h3>
     <strong class="hours">
@@ -65,7 +48,7 @@ import FeaturesHr from '../../_components/FeaturesHr.astro';
 <style lang="scss">
   .features {
     display: grid;
-    grid-template-columns: 1fr 1px 1fr 1px 1fr;
+    grid-template-columns: 1fr 1px 1fr;
     gap: 32px;
 
     @media (max-width: 860px) {
