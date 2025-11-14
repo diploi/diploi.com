@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
-import { MinusIcon, PlugsConnectedIcon, TerminalWindowIcon } from '@phosphor-icons/react';
+import { MinusIcon, PlugsConnectedIcon, PlugsIcon, TerminalWindowIcon } from '@phosphor-icons/react';
 import Link from '../../../../components/Link.astro';
 import Tag from '../../../../components/Tag.astro';
 import cursorLogo from '../../../../images/cursor-logo.webp';
@@ -35,8 +35,8 @@ const background = createStackBackgroundUri({
 
 <FeaturesSection>
   <FeaturesSectionHeader slot="header">
-    <PlugsConnectedIcon />
-    <h2>Use The Tools You Love</h2>
+    <PlugsIcon />
+    <h2 id="editors">Use The Tools You Love</h2>
     <p>Diploi works with any IDE that supports SSH. We offer first-class support for the most popular AI-native editors.</p>
   </FeaturesSectionHeader>
   <div class="background" inert aria-hidden style={{ '--background': background }}></div>

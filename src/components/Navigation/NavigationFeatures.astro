@@ -12,7 +12,7 @@ import {
   StackIcon,
   TerminalIcon,
 } from '@phosphor-icons/react';
-import { features } from '../../content/features';
+import { features, links } from '../../content/features';
 import lovableIcon from '../../images/lovable-icon.svg';
 ---
 
@@ -36,30 +36,15 @@ import lovableIcon from '../../images/lovable-icon.svg';
     <hr />
     <section style={{ gridArea: 'features' }}>
       <label>Features</label>
-      <a data-event="ai_click" href="/">
-        <span><PlugsConnectedIcon /> Remote Dev</span>
-      </a>
-      <a data-event="ai_click" href="/ai">
-        <span><HardDrivesIcon /> Prod & Staging</span>
-      </a>
-      <a data-event="ai_click" href="/features/teams">
-        <span><PlayCircleIcon /> CI/CD</span>
-      </a>
-      <a data-event="ai_click" href="/ai">
-        <span><FileTextIcon /> IaC</span>
-      </a>
-      <a data-event="ai_click" href="/ai">
-        <span><StackIcon /> Components</span>
-      </a>
-      <a data-event="ai_click" href="/ai">
-        <span><GitDiffIcon /> GitHub Integration</span>
-      </a>
-      <a data-event="ai_click" href="/ai">
-        <span><BrowserIcon /> Browser IDE</span>
-      </a>
-      <a data-event="ai_click" href="/ai">
-        <span><TerminalIcon /> SSH</span>
-      </a>
+      {
+        links.map((link) => (
+          <a data-event={`features_links_${link.id}_click`} href={link.href}>
+            <span>
+              {<link.icon />} {link.title}
+            </span>
+          </a>
+        ))
+      }
     </section>
     <section style={{ gridArea: 'imports' }}>
       <label>Import from</label>
