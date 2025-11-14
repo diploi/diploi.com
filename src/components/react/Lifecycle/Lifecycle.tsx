@@ -1,11 +1,10 @@
+import { useEffect, useState } from 'react';
+import { animated, useSpring, config, useSprings } from '@react-spring/web';
 import * as d3 from 'd3';
 import useMeasure from 'react-use-measure';
-import styles from './Lifecycle.module.scss';
-import { animated, useSpring, config, useSprings } from '@react-spring/web';
-
 import * as Icon from '@phosphor-icons/react';
-import { lifecyclePoints, type LifecyclePoint } from './data';
-import { useEffect, useState } from 'react';
+import { lifecyclePoints } from './data';
+import styles from './Lifecycle.module.scss';
 import { LifecycleDesktop } from './LifecycleDesktop';
 import { LifecycleMobile } from './LifecycleMobile';
 
@@ -25,15 +24,7 @@ const drawHalfCirclePath = (r: number, counterClockwise = false) => {
   return halfCirclePath.toString();
 };
 
-const getX = ({
-  ...args
-}: {
-  itemCount: number;
-  marginX?: number;
-  pointRadius: number;
-  containerWidth: number;
-  idx: number;
-}) => {
+const getX = ({ ...args }: { itemCount: number; marginX?: number; pointRadius: number; containerWidth: number; idx: number }) => {
   const leftX = (args.marginX || 0) + args.pointRadius;
   const rightX = args.containerWidth - (args.marginX || 0) - args.pointRadius;
   const segment = rightX - leftX;
@@ -59,13 +50,6 @@ export const LifecycleV2 = () => {
 
   const marginX = 128;
 
-  const xx2 = getX({
-    itemCount: lifecyclePoints.length,
-    marginX,
-    pointRadius,
-    containerWidth: bounds.width,
-    idx: currentPoint,
-  });
   const isLast = currentPoint === lifecyclePoints.length - 1;
 
   const [lineSpring2, lineSpringApi] = useSpring(() => ({
@@ -88,9 +72,7 @@ export const LifecycleV2 = () => {
   useEffect(() => {
     if (isManualControl) return;
     const timeout = setTimeout(() => {
-      setCurrentPoint((cur) =>
-        cur === lifecyclePoints.length - 1 ? 0 : cur + 1,
-      );
+      setCurrentPoint((cur) => (cur === lifecyclePoints.length - 1 ? 0 : cur + 1));
     }, 2000);
     return () => clearTimeout(timeout);
   }, [currentPoint, isManualControl]);
@@ -151,22 +133,8 @@ export const LifecycleV2 = () => {
             </linearGradient>
           </defs>
           <g className="lines">
-            <line
-              x1={0}
-              y1={height * 0.5}
-              x2={width}
-              y2={height * 0.5}
-              stroke="#36353a"
-              strokeWidth={2}
-            />
-            <animated.line
-              x2={lineSpring2.x2}
-              x1={0}
-              y1={height * 0.5}
-              y2={height * 0.5}
-              stroke="#6650fa"
-              strokeWidth={2}
-            />
+            <line x1={0} y1={height * 0.5} x2={width} y2={height * 0.5} stroke="#36353a" strokeWidth={2} />
+            <animated.line x2={lineSpring2.x2} x1={0} y1={height * 0.5} y2={height * 0.5} stroke="#6650fa" strokeWidth={2} />
           </g>
 
           <g transform={`translate(0, ${halfHeight - pointRadius})`}>

@@ -34,3 +34,13 @@
   from = "/launch/sveltekit"
   to = "/component/sveltekit"
   status = 301
+
+[[redirects]]
+  from = "/ai"
+  to = "/features/ai"
+  status = 301
+
+[[redirects]]
+  from = "/devops"
+  to = "/features/devops"
+  status = 301

@@ -1,0 +1,42 @@
+---
+const iconHtml = await Astro.slots.render('icon');
+const iconCss = `url('data:image/svg+xml,${iconHtml?.replaceAll('#', '%23')}')`;
+---
+
+<div class="illustration" style={{ '--mask': iconCss }}></div>
+
+<style lang="scss">
+  @property --rotation {
+    syntax: '<angle>';
+    inherits: true;
+    initial-value: 0deg;
+  }
+
+  .illustration {
+    --rotation: 0deg;
+
+    position: absolute;
+    right: calc(50% - (var(--max-width-page-section) / 2));
+    top: 0;
+    width: 900px;
+    height: auto;
+    aspect-ratio: 1/1;
+    translate: 35% -40%;
+    background-image: conic-gradient(from var(--rotation) in oklch, var(--color-primary), var(--color-secondary), var(--color-primary));
+    rotate: 0.5turn;
+
+    mask-image: var(--mask);
+    mask-size: 100%;
+
+    @keyframes rotate-illustration {
+      from {
+        --rotation: 0deg;
+      }
+      to {
+        --rotation: 360deg;
+      }
+    }
+
+    animation: rotate-illustration 5s infinite ease;
+  }
+</style>

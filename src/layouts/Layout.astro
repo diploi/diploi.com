@@ -1,9 +1,9 @@
 ---
 import { Font } from 'astro:assets';
+import GlobalStyles from '../components/GlobalStyles.astro';
 import Gradient from '../components/Gradient.astro';
 import icon from '../images/logo-icon.svg';
 import og from '../images/og.png';
-import GlobalStyles from '../components/GlobalStyles.astro';
 import { getFullImageUrl } from '../utils/ogUtils';
 
 interface Props {
@@ -16,7 +16,13 @@ interface Props {
 
 const defaultDescription = 'Single SaaS service for managing, developing and hosting your full application.';
 
-const { title, description = defaultDescription, ogTitle = 'Diploi', ogSocialImage: ogSocialImageProp, ogUrlMatchCanonical = false } = Astro.props;
+const {
+  title,
+  description = defaultDescription,
+  ogTitle = 'Diploi',
+  ogSocialImage: ogSocialImageProp,
+  ogUrlMatchCanonical = false,
+} = Astro.props;
 
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 const ogSocialImage = getFullImageUrl({ siteUrl: Astro.url.origin, imageUrl: ogSocialImageProp });

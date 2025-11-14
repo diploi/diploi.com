@@ -1,0 +1,154 @@
+---
+import { Image } from 'astro:assets';
+import {
+  ArrowClockwiseIcon,
+  CaretRightIcon,
+  CodeIcon,
+  CopyIcon,
+  FileTextIcon,
+  HardDriveIcon,
+  LinkSimpleIcon,
+  MagicWandIcon,
+  MouseIcon,
+  TerminalIcon,
+} from '@phosphor-icons/react';
+import Tag from '../../../../components/Tag.astro';
+import diploiLogo from '../../../../images/diploi-logo.svg';
+---
+
+<fieldset>
+  <legend><Image alt="diploi logo" src={diploiLogo} height={24} /></legend>
+  <section>
+    <h3>Development</h3>
+    <ul>
+      <li><HardDriveIcon /> Powerful VM for development</li>
+      <li><TerminalIcon /> Cloud IDE or any custom IDE</li>
+      <li><CodeIcon /> Stack Builder for scaffolding apps</li>
+    </ul>
+  </section>
+  <div>
+    <CaretRightIcon />
+    <Tag primary>git push</Tag>
+  </div>
+  <section>
+    <h3>Preview</h3>
+    <ul>
+      <li><LinkSimpleIcon /> Share with a link</li>
+      <li><FileTextIcon /> Tail logs, login with SSH</li>
+      <li><MagicWandIcon /> Automatic Git, CI/CD, SSL, e.g.</li>
+    </ul>
+  </section>
+  <div>
+    <CaretRightIcon />
+    <Tag primary class:list={{ btn: true }}>Apply Changes</Tag>
+  </div>
+  <section>
+    <h3>Production</h3>
+    <ul>
+      <li><CopyIcon /> Consistent with development</li>
+      <li><ArrowClockwiseIcon /> Optimized deployments</li>
+      <li><MouseIcon /> One-click setup</li>
+    </ul>
+  </section>
+</fieldset>
+
+<style lang="scss">
+  fieldset {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 32px 1fr 32px 1fr;
+    margin: 0;
+    padding-bottom: 64px;
+    border: 1px solid var(--color-border-highlight);
+    border-radius: var(--border-radius-medium);
+
+    @media (max-width: 860px) {
+      display: flex;
+      flex-direction: column;
+    }
+
+    > legend {
+      padding: 0 8px;
+      translate: 0 5px;
+    }
+
+    $spacing: 24px;
+    > section {
+      margin: $spacing;
+      padding: 24px;
+      border: 1px solid transparent;
+      border-radius: var(--border-radius-medium);
+      background:
+        linear-gradient(to bottom right in lab, color-mix(in lab, var(--color-border), var(--color-bg) 85%), var(--color-bg)) padding-box,
+        conic-gradient(var(--color-border), var(--color-bg), var(--color-border)) border-box;
+
+      > ul {
+        margin-top: 16px;
+
+        > li {
+          color: var(--color-text-secondary);
+        }
+      }
+    }
+
+    > div {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row-reverse;
+      gap: 12px;
+
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+        display: block;
+
+        @media (max-width: 860px) {
+          display: none;
+        }
+      }
+
+      &::before {
+        width: calc(32px + ($spacing * 2));
+        height: 1px;
+        background-color: var(--color-border);
+      }
+
+      &::after {
+        bottom: 0;
+        height: calc(50% - $spacing);
+        border-right: 1px dashed var(--color-border);
+      }
+
+      > :global(svg) {
+        position: absolute;
+        background-color: var(--color-bg);
+        color: var(--color-border);
+
+        @media (max-width: 860px) {
+          position: relative;
+          rotate: 0.25turn;
+        }
+      }
+
+      > :global(span) {
+        position: absolute;
+        width: max-content;
+        bottom: -40px;
+
+        @media (max-width: 860px) {
+          position: relative;
+          bottom: unset;
+        }
+      }
+
+      .btn {
+        padding-left: 8px;
+        padding-right: 8px;
+        border-radius: 99px;
+      }
+    }
+  }
+</style>

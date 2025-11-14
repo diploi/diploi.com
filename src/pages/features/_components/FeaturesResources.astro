@@ -1,0 +1,60 @@
+---
+import { getCollection } from 'astro:content';
+import { FilesIcon } from '@phosphor-icons/react';
+import Article from '../../../components/blog/Article.astro';
+import FeaturesSection from './FeaturesSection.astro';
+import FeaturesSectionHeader from './FeaturesSectionHeader.astro';
+
+type Props = {
+  title: string;
+  description: string;
+  filterByWords: string[];
+};
+
+const { title, description, filterByWords } = Astro.props;
+
+const articles = await getCollection('blog');
+const filteredArticles = articles
+  .filter((article) => filterByWords.some((word) => article.data.title.toLowerCase().includes(word)))
+  .slice(0, 5);
+---
+
+<FeaturesSection>
+  <FeaturesSectionHeader slot="header">
+    <FilesIcon />
+    <h2>{title}</h2>
+    <p>
+      {description} You can always <a href="mailto:hello@diploi.com">contact us</a> if you have any questions.
+    </p>
+  </FeaturesSectionHeader>
+  <ul class="list">
+    {
+      filteredArticles.map((article) => (
+        <li>
+          <Article {...article.data} image={false} />
+        </li>
+      ))
+    }
+  </ul>
+</FeaturesSection>
+
+<style lang="scss">
+  .list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    > li {
+      flex-direction: column;
+
+      &:not(:last-of-type)::after {
+        content: '';
+        display: block;
+        margin: 32px 0;
+        width: 100%;
+        height: 1px;
+        background-image: linear-gradient(to right, var(--color-border), transparent);
+      }
+    }
+  }
+</style>

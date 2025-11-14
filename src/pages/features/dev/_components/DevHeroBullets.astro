@@ -1,0 +1,80 @@
+---
+import {
+  BrowserIcon,
+  FastForwardIcon,
+  FileCodeIcon,
+  FileTextIcon,
+  GitBranchIcon,
+  MagicWandIcon,
+  MouseIcon,
+  PlugsConnectedIcon,
+  ToolboxIcon,
+} from '@phosphor-icons/react';
+import Bullets from '../../../../components/Bullets';
+import Link from '../../../../components/Link.astro';
+---
+
+<section class="bullets">
+  <Bullets total={9}>
+    <Bullets.Item>
+      <PlugsConnectedIcon weight="bold" /> Zero-install remote development
+    </Bullets.Item>
+    <Bullets.Item>
+      <GitBranchIcon weight="bold" /> GitHub integration
+    </Bullets.Item>
+    <Bullets.Item>
+      <BrowserIcon weight="bold" /> Code in the browser
+    </Bullets.Item>
+    <Bullets.Item>
+      <MouseIcon weight="bold" /> One-click environment setup
+    </Bullets.Item>
+    <Bullets.Item>
+      <FileCodeIcon weight="bold" /> Infrastructure as code
+    </Bullets.Item>
+    <Bullets.Item>
+      <FileTextIcon weight="bold" /> Real-time logging
+    </Bullets.Item>
+    <Bullets.Item>
+      <ToolboxIcon weight="bold" />
+      <a href="#stack-builder">Stack Builder</a> for scaffolding apps
+    </Bullets.Item>
+    <Bullets.Item>
+      <MagicWandIcon weight="bold" /> Automatic Git, CI/CD, SSL
+    </Bullets.Item>
+    <Bullets.Item>
+      <FastForwardIcon weight="bold" /> 30 second developer onboarding
+    </Bullets.Item>
+  </Bullets>
+  <Link data-event="documentation_click" href="https://docs.diploi.com/">Documentation</Link>
+</section>
+
+<style lang="scss">
+  @use 'sass:math';
+
+  section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
+
+    > svg {
+      width: 32px;
+      height: 32px;
+      color: var(--color-text-secondary);
+    }
+  }
+
+  .bullets {
+    > :global(.bullets) {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: calc(32px + 32px);
+      row-gap: 16px;
+      margin-top: 4px;
+      margin-bottom: 16px;
+
+      @media (max-width: 860px) {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+</style>

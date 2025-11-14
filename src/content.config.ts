@@ -9,6 +9,7 @@ const blogCollection = defineCollection({
   }),
   schema: ({ image }) =>
     z.object({
+      slug: z.string().optional(),
       title: z.string(),
       description: z.string(),
       image: image().nullable().optional(),
@@ -17,6 +18,8 @@ const blogCollection = defineCollection({
       author: z.string(),
       timestamp: z.string(),
       url: z.string().optional(),
+      type: z.string().optional(),
+      hightlight: z.boolean().optional(),
     }),
 });
 

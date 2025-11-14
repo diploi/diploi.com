@@ -1,0 +1,23 @@
+---
+import ContactUsCard from './ContactUsCard.astro';
+import GetStarted from './GetStarted.astro';
+---
+
+<section class="main">
+  <GetStarted />
+  <ContactUsCard />
+</section>
+
+<style lang="scss">
+  .main {
+    display: flex;
+    gap: 16px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: var(--max-width-page-section);
+
+    @media (max-width: 860px) {
+      flex-direction: column;
+    }
+  }
+</style>

@@ -7,6 +7,8 @@ timestamp: '2025-09-26T18:00:05.000Z'
 image: './importing_from_lovable_and_github_cover.png'
 social_image: './importing_from_lovable_and_github_og.png'
 draft: false
+type: 'Guide'
+hightlight: true
 ---
 
 Updated <time datetime="2025-10-28T11:20:05.000Z">October 28, 2025</time>

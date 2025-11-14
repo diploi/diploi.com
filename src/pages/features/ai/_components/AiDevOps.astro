@@ -1,0 +1,119 @@
+---
+import { SparkleIcon } from '@phosphor-icons/react';
+import Link from '../../../../components/Link.astro';
+import Tag from '../../../../components/Tag.astro';
+import FeaturesSectionHeader from '../../_components/FeaturesSectionHeader.astro';
+import AiYaml from './AiYaml.astro';
+---
+
+<article>
+  <section>
+    <FeaturesSectionHeader>
+      <SparkleIcon />
+      <h2>AI for DevOps <Tag primary>Coming soon</Tag></h2>
+      <p>
+        Our platform lets AI spin up new services by editing a few lines of config. Infrastructure adapts instantly. No tickets, no
+        bottlenecks.
+      </p>
+    </FeaturesSectionHeader>
+    <ol class="chat">
+      <li>Could you create a new Node.js microservice for proxying image requests?</li>
+      <li>Certainly! Adding a new Node.js component to <code>diploi.yaml</code>...</li>
+    </ol>
+    <Link href="https://dev.to/diploi/how-we-solved-infrastructure-as-code-2ldn">Our IaC implementation</Link>
+  </section>
+  <aside>
+    <AiYaml />
+  </aside>
+</article>
+
+<style lang="scss">
+  article {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    gap: 64px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: var(--max-width-page-section);
+
+    @media (max-width: 860px) {
+      grid-template-columns: 1fr;
+      column-gap: 0;
+    }
+
+    > section {
+      grid-column: span 2;
+    }
+
+    section {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    ul {
+      > li {
+        display: block;
+        font-size: 1.25rem;
+
+        > svg {
+          color: var(--color-primary);
+        }
+      }
+    }
+  }
+
+  .chat {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    > li {
+      padding: 8px 16px;
+      max-width: 50ch;
+      border-radius: 22px;
+      font-size: 1.25rem;
+      border: 1px solid var(--color-border);
+      color: var(--color-text-primary);
+
+      code {
+        padding: 3px 4px 0 4px;
+        font-size: 18px;
+        background-color: var(--color-border);
+        border-radius: 4px;
+      }
+    }
+
+    > li:first-of-type {
+      align-self: flex-end;
+      background-color: var(--color-border);
+      border-top-right-radius: 0px;
+    }
+
+    > li:last-of-type {
+      border-top-left-radius: 0px;
+    }
+  }
+
+  aside {
+    justify-self: center;
+
+    :global(.code-side) {
+      display: block;
+      width: 100%;
+
+      :global(pre) {
+        word-break: break-all;
+      }
+
+      @media (max-width: 860px) {
+        margin-top: 0;
+      }
+    }
+  }
+</style>

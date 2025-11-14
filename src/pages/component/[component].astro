@@ -1,14 +1,13 @@
 ---
 import { getCollection, render } from 'astro:content';
-import Layout from '../../layouts/Layout.astro';
-import Navigation from '../../components/Navigation.astro';
-import Footer from '../../components/Footer.astro';
 import { CursorClick, FileText, PlugsConnected, Target } from '@phosphor-icons/react';
-import logoImage from '../../images/diploi-logo.svg';
-import ComponentCard from '../../components/ComponentCard.astro';
 import { ArrowLink, Icon, SubSectionHeader } from '../../components';
+import ComponentCard from '../../components/ComponentCard.astro';
+import Footer from '../../components/Footer.astro';
+import Navigation from '../../components/Navigation/Navigation.astro';
 import StackBuilder from '../../components/StackBuilder/StackBuilder.astro';
-
+import logoImage from '../../images/diploi-logo.svg';
+import Layout from '../../layouts/Layout.astro';
 import 'github-markdown-css/github-markdown.css';
 
 export async function getStaticPaths() {
@@ -30,7 +29,12 @@ const description = `Launch a new ${component.name} project and you will instant
 const seoDescription = `Launch a new ${component.name} project with add-ons and you will instantly have access to a development environment. No registration required.`;
 ---
 
-<Layout title={`Diploi - Launch a ${component.name} Project`} description={seoDescription} ogTitle={`Launch a ${component.name} Project`} ogUrlMatchCanonical={true}>
+<Layout
+  title={`Diploi - Launch a ${component.name} Project`}
+  description={seoDescription}
+  ogTitle={`Launch a ${component.name} Project`}
+  ogUrlMatchCanonical={true}
+>
   <main>
     <Navigation />
 

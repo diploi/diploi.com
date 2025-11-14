@@ -1,20 +1,14 @@
 ---
 type Props = {
-  class?: string
-  isLarge?: boolean
-  isCardInMobile?: boolean
-}
+  class?: string;
+  isLarge?: boolean;
+  isCardInMobile?: boolean;
+};
 
-const { class: className, isLarge, isCardInMobile = false } = Astro.props
+const { class: className, isLarge, isCardInMobile = false } = Astro.props;
 ---
 
-<article
-  class:list={[
-    `card`,
-    isLarge && 'large',
-    isCardInMobile && 'is-card-in-mobile',
-  ]}
->
+<article class:list={[`card`, isLarge && 'large', isCardInMobile && 'is-card-in-mobile']}>
   <slot />
 </article>
 

@@ -1,0 +1,19 @@
+---
+import { features } from '../../../../content/features';
+import FeaturesHero from '../../_components/FeaturesHero.astro';
+import DevopsHeroFeatures from './DevopsHeroFeatures.astro';
+
+const feature = features.find((feature) => feature.id === 'devops')!;
+---
+
+<FeaturesHero>
+  <h1 slot="title">{feature.title}</h1>
+  <p slot="description">
+    Infrastructure that configures itself. Diploi gives you development, preview, and production environments with a single YAML file.
+  </p>
+  <DevopsHeroFeatures slot="features" />
+  <feature.bg weight="thin" slot="icon" />
+  <feature.bg slot="mask" />
+</FeaturesHero>
+
+<style lang="scss"></style>

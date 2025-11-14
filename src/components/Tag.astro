@@ -1,12 +1,14 @@
 ---
-type Props = {
-  primary?: boolean;
-};
+import type { HTMLAttributes } from 'astro/types';
 
-const { primary } = Astro.props;
+interface Props extends HTMLAttributes<'span'> {
+  primary?: boolean;
+}
+
+const { primary, ...other } = Astro.props;
 ---
 
-<span class:list={{ primary }}>
+<span class:list={[other.class, { primary }]} {...other}>
   <slot />
 </span>
 

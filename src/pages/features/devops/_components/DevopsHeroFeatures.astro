@@ -1,0 +1,171 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import {
+  CloudIcon,
+  FileCodeIcon,
+  FoldersIcon,
+  GitBranchIcon,
+  GitPullRequestIcon,
+  LaptopIcon,
+  MouseIcon,
+  SparkleIcon,
+  ToolboxIcon,
+} from '@phosphor-icons/react';
+import Bullets from '../../../../components/Bullets';
+import Help from '../../../../components/Help.astro';
+import Link from '../../../../components/Link.astro';
+import Tag from '../../../../components/Tag.astro';
+import cursorLogo from '../../../../images/cursor-logo.webp';
+import githubCopilotIcon from '../../../../images/github-copilot-icon.svg';
+import githubLogo from '../../../../images/github-logo.svg';
+import vscodeLogo from '../../../../images/vscode-logo.svg';
+import webstormLogo from '../../../../images/webstorm-logo.svg';
+import zedLogo from '../../../../images/zed-logo.svg';
+import FeaturesComponentIcons from '../../_components/FeaturesComponentIcons.astro';
+import FeaturesHr from '../../_components/FeaturesHr.astro';
+
+const components = await getCollection('component');
+
+const demoComponentIdentifiers = ['next', 'n8n', 'postgres', 'redis'];
+const demoComponents = components
+  .filter((component) => !component.data.hidden && demoComponentIdentifiers.includes(component.id))
+  .sort((a, b) => demoComponentIdentifiers.indexOf(a.id) - demoComponentIdentifiers.indexOf(b.id));
+const demoComponentIDs = demoComponents.map((component) => component.data.componentID);
+---
+
+<ul class="features" data-demo-components={JSON.stringify(demoComponentIDs)}>
+  <li>
+    <FileCodeIcon />
+    <h3>Infrastructure as Code Done Right</h3>
+    <p>
+      Your whole infrastructure is defined in one short YAML file, easy to edit in any IDE and instantly replicable. Click Launch to spin up
+      a live demo.
+    </p>
+    <div class="options">
+      <fieldset>
+        <legend>Demo Stack</legend>
+        <FeaturesComponentIcons components={demoComponents} />
+      </fieldset>
+      <p>or</p>
+      <Link href="#stack-builder">Pick your own stack</Link>
+    </div>
+    <button id="button-launch-demo" data-url={import.meta.env.VITE_API_URL}>Launch Demo</button>
+    <Help>Instant launch. No sign-up required.</Help>
+  </li>
+  <FeaturesHr vertical />
+  <li>
+    <GitPullRequestIcon />
+    <h3>GitOps & Push to Deploy</h3>
+    <p>
+      Git, CI/CD, and SSH all pre-configured. Connect any editor or use our built-in Cloud IDE to code. When it's time to deploy, just run <Tag
+        >git push</Tag
+      >.
+    </p>
+    <Bullets total={3}>
+      <Bullets.Item>
+        <CloudIcon weight="bold" /> Cloud IDE
+      </Bullets.Item>
+      <Bullets.Item>
+        <GitBranchIcon weight="bold" /> GitHub integration
+      </Bullets.Item>
+      <Bullets.Item>
+        <MouseIcon weight="bold" /> One-click environment setup
+      </Bullets.Item>
+    </Bullets>
+  </li>
+</ul>
+
+<script>
+  const demoComponentIds: number[] = JSON.parse(
+    (document.querySelector('[data-demo-components]') as HTMLElement).getAttribute('data-demo-components') || '[]'
+  );
+
+  const launchButton = document.getElementById('button-launch-demo') as HTMLButtonElement;
+  launchButton.addEventListener('click', async () => {
+    if (launchButton.disabled) return;
+    launchButton.disabled = true;
+
+    const { launchStack } = await import('../../../../components/StackBuilder/launchStack');
+
+    launchStack({ button: launchButton, componentIds: demoComponentIds, apiUrl: launchButton.getAttribute('data-url') || '' });
+
+    // @ts-ignore
+    if (umami) {
+      // @ts-ignore
+      umami.track('launch', { demo: true, page: location.pathname, componentIds: demoComponentIds });
+    }
+
+    // @ts-ignore
+    if (gtag) {
+      // @ts-ignore
+      gtag('event', 'conversion_event_default_1', { demo: true, page: location.pathname, componentIds: demoComponentIds });
+    }
+  });
+</script>
+
+<style lang="scss">
+  .features {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    gap: 64px;
+
+    @media (max-width: 860px) {
+      grid-template-columns: 1fr;
+      gap: 48px;
+
+      :global(hr) {
+        display: none;
+      }
+    }
+  }
+
+  li {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 0;
+  }
+
+  li > svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .logos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 4px;
+  }
+
+  .options {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 12px;
+
+    > fieldset {
+      margin: 0;
+      padding: 14px 18px;
+      padding-top: 10px;
+      background-image: linear-gradient(to bottom right, var(--color-accent-primary-20), transparent);
+      border: 1px solid var(--color-accent-primary);
+      border-radius: var(--border-radius-button);
+      translate: 0 -4px;
+
+      > legend {
+        padding: 0 4px;
+        color: var(--color-text-primary);
+      }
+
+      > :global(ul) {
+        gap: 12px;
+      }
+    }
+  }
+
+  button {
+    margin-top: 16px;
+  }
+</style>

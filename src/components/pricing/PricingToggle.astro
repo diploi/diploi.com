@@ -11,16 +11,8 @@ const { id, name, value, label, price } = Astro.props;
 ---
 
 <div class="toggle">
-  <input
-    type="radio"
-    id={value || id}
-    name={name}
-    value={value}
-    {...price ? { 'data-price': price } : {}}
-  />
-  <label for={value || id} class="background-gradient border-gradient"
-    >{label}</label
-  >
+  <input type="radio" id={value || id} name={name} value={value} {...price ? { 'data-price': price } : {}} />
+  <label for={value || id} class="background-gradient border-gradient">{label}</label>
 </div>
 
 <style lang="scss">
@@ -59,18 +51,13 @@ const { id, name, value, label, price } = Astro.props;
     background-color: var(--color-primary);
     position: relative;
 
-    background: linear-gradient(
-      to bottom,
-      transparent,
-      var(--color-accent-primary-20)
-    );
+    background: linear-gradient(to bottom, transparent, var(--color-accent-primary-20));
     &::before {
       content: '';
     }
     &::after {
       background: linear-gradient(to bottom, var(--color-primary), transparent);
-      --webkit-mask: linear-gradient(white 0 0) content-box,
-        linear-gradient(white 0 0);
+      --webkit-mask: linear-gradient(white 0 0) content-box, linear-gradient(white 0 0);
       mask:
         linear-gradient(white 0 0) content-box,
         linear-gradient(white 0 0);
@@ -80,6 +67,6 @@ const { id, name, value, label, price } = Astro.props;
   }
 
   .toggle input:checked ~ label::before {
-background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 256 256'%3E%3Ccircle cx='128' cy='128' r='104' fill='%236650FA'/%3E%3Cpath d='M173.66,109.66l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z' fill='%23fff'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 256 256'%3E%3Ccircle cx='128' cy='128' r='104' fill='%236650FA'/%3E%3Cpath d='M173.66,109.66l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z' fill='%23fff'/%3E%3C/svg%3E");
   }
 </style>

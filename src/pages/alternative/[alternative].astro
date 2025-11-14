@@ -1,9 +1,9 @@
 ---
 import { getCollection, render } from 'astro:content';
+import { CalendarBlank, User } from '@phosphor-icons/react';
+import { Footer, Section } from '../../components';
+import Navigation from '../../components/Navigation/Navigation.astro';
 import Layout from '../../layouts/Layout.astro';
-import { Navigation, Footer, Section } from '../../components';
-import { User, CalendarBlank, DevToLogo, ArrowSquareOut } from '@phosphor-icons/react';
-
 import 'github-markdown-css/github-markdown.css';
 
 export async function getStaticPaths() {
@@ -49,7 +49,6 @@ const { Content } = await render(entry);
 </Layout>
 
 <style>
-
   .title {
     display: flex;
     align-items: center;

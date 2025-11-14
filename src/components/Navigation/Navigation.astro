@@ -1,0 +1,265 @@
+---
+import Icon from '../Icon.astro';
+import Logo from '../Logo.astro';
+import NavigationFeatures from './NavigationFeatures.astro';
+
+interface Props {
+  selected?: 'home' | 'ai' | 'pricing' | 'blog' | 'jobs';
+}
+
+const { selected } = Astro.props;
+
+const isHome = selected === 'home';
+const isAi = selected === 'ai';
+const isPricing = selected === 'pricing';
+const isBlog = selected === 'blog';
+const isJobs = selected === 'jobs';
+---
+
+<header>
+  <div class="content">
+    <div class="logo-container">
+      <a href="/" data-selected={`${isHome}`}>
+        <Logo width={96} />
+      </a>
+    </div>
+    <nav>
+      <input aria-label="is menu open" id="menu" type="checkbox" />
+      <label aria-hidden for="menu" id="menu-label"></label>
+
+      <div class="links">
+        <a class="logo-mobile" href="/" data-selected={`${isHome}`}>
+          <Logo width={96} />
+        </a>
+        <NavigationFeatures />
+        <a data-event="pricing_click" href="/pricing" data-selected={`${isPricing}`}>
+          <Icon name="CreditCard" weight={isPricing ? 'duotone' : 'regular'} class="navigation-link-icon" /> Pricing
+        </a>
+        <a data-event="blog_click" href="/blog" data-selected={`${isBlog}`}>
+          <Icon name="Newspaper" weight={isBlog ? 'duotone' : 'regular'} class="navigation-link-icon" />
+          Blog
+        </a>
+        <a data-event="documentation_click" href="https://docs.diploi.com/">
+          <Icon name="BookBookmark" weight="regular" class="navigation-link-icon" />
+          Documentation
+        </a>
+        <a data-link="login" data-event="login_click" href="https://console.diploi.com">
+          <Icon name="SignIn" weight="regular" class="navigation-link-icon" />
+          Login / Sign Up
+        </a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<style lang="scss">
+  @use 'sass:math';
+  @use '../../styles/mixins';
+
+  header {
+    width: 100vw;
+    position: fixed;
+    display: flex;
+    padding: var(--space-l) var(--space-xl);
+    min-height: var(--header-height-px);
+    top: 0;
+    z-index: var(--z-index-andromeda);
+    backdrop-filter: blur(4px);
+    background-color: rgba(0, 0, 0, 0.5);
+    border-bottom: 1px solid var(--color-separator);
+
+    @include mixins.respond-to('tablet') {
+      padding: var(--space-l) var(--space-l);
+    }
+
+    .content {
+      position: relative;
+      display: flex;
+      flex-grow: 1;
+      max-width: var(--max-width-page-section);
+      justify-content: space-between;
+      align-items: center;
+      margin: 0 auto;
+    }
+  }
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    left: var(--space-xl);
+    left: 0;
+    @include mixins.respond-to('tablet') {
+      position: absolute;
+    }
+    > a {
+      display: flex;
+    }
+  }
+
+  nav {
+    overflow: hidden;
+    margin-left: auto;
+  }
+
+  #menu {
+    display: none;
+  }
+
+  #menu-label {
+    position: sticky;
+    color: var(--color-text-primary);
+    top: var(--space-l);
+    z-index: var(--z-index-andromeda);
+    &::after {
+      content: 'Menu';
+    }
+  }
+
+  nav > input:checked ~ #menu-label {
+    &::after {
+      content: 'Close';
+    }
+  }
+
+  nav > input:not(:checked) ~ div {
+    display: none;
+  }
+
+  nav > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: fixed;
+    inset: 0;
+    padding: var(--space-xl);
+    padding-top: var(--space-l);
+    background-color: var(--color-bg);
+    box-sizing: border-box;
+    height: 100vh;
+  }
+
+  .links {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: fixed;
+    inset: 0;
+    padding: var(--space-xl);
+    padding-top: var(--space-l);
+    background-color: var(--color-bg);
+    box-sizing: border-box;
+    height: 100vh;
+
+    > button,
+    > :global(button) {
+      padding: 0;
+      font-weight: 350;
+    }
+
+    > a,
+    > button,
+    > :global(button),
+    > :global(button) > :global([popover]) > :global(section) > :global(a) {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: var(--space-m);
+      padding: 12px 16px;
+      font-size: 1rem;
+      color: var(--color-text-primary);
+      text-decoration: none;
+      border-radius: var(--border-radius-button);
+      background-color: transparent !important;
+
+      &[data-selected='true'] {
+        color: var(--color-accent-primary-text);
+      }
+
+      :global(.navigation-link-icon) {
+        fill: currentColor;
+      }
+
+      @media (min-width: 900px) {
+        gap: var(--space-s);
+        // text-shadow: #000 0px 0px 8px;
+      }
+
+      &::before {
+        content: '';
+        position: absolute;
+        display: block;
+        inset: 0;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: inherit;
+        z-index: -1;
+
+        user-select: none;
+        pointer-events: none;
+
+        opacity: 0;
+        scale: 0.9;
+
+        transition:
+          opacity 250ms cubic-bezier(0.25, 1, 0.5, 1),
+          scale 200ms cubic-bezier(0.25, 1, 0.5, 1);
+      }
+
+      &:hover:not([data-selected='true']) {
+        color: white;
+
+        &::before {
+          opacity: 1;
+          scale: 1;
+        }
+      }
+    }
+  }
+
+  .logo-mobile {
+    position: absolute;
+    top: var(--space-s);
+    left: var(--space-l);
+  }
+
+  @media (min-width: 900px) {
+    #menu-label {
+      display: none;
+    }
+    nav {
+      justify-self: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      width: fit-content;
+      background-color: transparent;
+    }
+
+    nav > input:not(:checked) ~ div {
+      display: flex;
+    }
+
+    nav > div {
+      position: static;
+      display: flex;
+      flex-direction: row;
+      height: initial;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: var(--space-s);
+      background-color: transparent;
+      padding: 0;
+
+      & .logo-mobile {
+        display: none;
+      }
+    }
+
+    nav > div > a[data-selected='true']::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      padding: 1px;
+      border-radius: inherit;
+    }
+  }
+</style>

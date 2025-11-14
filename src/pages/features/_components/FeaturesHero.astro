@@ -1,0 +1,136 @@
+---
+import Tag from '../../../components/Tag.astro';
+import FeaturesHeroIllustration from './FeaturesHeroIllustration.astro';
+import { createStackBackgroundUri } from './featuresUtils';
+
+const hasMask = Astro.slots.has('mask');
+const maskHtml = await Astro.slots.render('mask');
+const maskCss = `url('data:image/svg+xml,${maskHtml?.replaceAll('#', '%23')}')`;
+
+const background = createStackBackgroundUri({ size: 32, primary: 'white', secondary: 'white', chance: 0.4 });
+const backgroundColor = createStackBackgroundUri({ size: 32, primary: 'white', secondary: 'white', chance: 0.5 });
+---
+
+<header>
+  <div
+    class="background"
+    inert
+    aria-hidden
+    style={{ '--background': background, '--backgroundColor': backgroundColor, ...(hasMask ? { '--mask': maskCss } : {}) }}
+  >
+    <div class="shapes"></div>
+    <FeaturesHeroIllustration>
+      <slot name="icon" slot="icon" />
+    </FeaturesHeroIllustration>
+    <slot name="background" />
+  </div>
+  <section>
+    <div class="title">
+      <Tag primary>Diploi for</Tag>
+      <slot name="title" />
+      <slot name="description" />
+    </div>
+    <slot name="features" />
+    <slot />
+    <slot name="callout" />
+  </section>
+</header>
+
+<style lang="scss">
+  @use 'sass:math';
+
+  header {
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: var(--max-width-page-section);
+  }
+
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-top: 64px;
+
+    .title {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 64px;
+
+      > :global(span) {
+        text-transform: uppercase;
+      }
+
+      > :global(p) {
+        text-shadow:
+          0px 0px 16px var(--color-bg),
+          0px 0px 8px var(--color-bg);
+      }
+
+      @media (max-width: 860px) {
+        h1 {
+          text-align: center;
+          font-size: 2.4em;
+        }
+      }
+    }
+
+    @media (max-width: 860px) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 0px;
+
+      > p {
+        text-align: center;
+      }
+    }
+  }
+
+  .background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60vh;
+    overflow: hidden;
+    z-index: -1;
+
+    mask-image: linear-gradient(to bottom, white 50%, transparent);
+  }
+
+  .shapes {
+    position: absolute;
+    inset: 0;
+
+    &::before {
+      position: absolute;
+      content: '';
+      display: block;
+      inset: 0;
+      background-image: var(--background);
+      background-size: 896px;
+      opacity: 0.05;
+    }
+
+    &::after {
+      position: absolute;
+      content: '';
+      display: block;
+      inset: 0;
+      background-image: var(--backgroundColor);
+      background-size: 896px;
+      opacity: 0.15;
+
+      $size: 1000px;
+      mask-image: var(--mask);
+      mask-size: $size;
+      mask-repeat: no-repeat;
+      mask-position: calc(70% + ((var(--max-width-page-section) / 2) - #{math.div($size, 2)})) 0px;
+    }
+  }
+</style>

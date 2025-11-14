@@ -1,0 +1,19 @@
+---
+import { FastForwardIcon } from '@phosphor-icons/react';
+import { Chart } from '../../../../components';
+import { chart } from '../../../../content';
+import FeaturesSection from '../../_components/FeaturesSection.astro';
+import FeaturesSectionHeader from '../../_components/FeaturesSectionHeader.astro';
+---
+
+<FeaturesSection>
+  <FeaturesSectionHeader id="graphs" slot="header">
+    <FastForwardIcon />
+    <h2>Save Time at Every Step</h2>
+    <p>These are real-life statistics from a web development company. Can you afford to ignore the benefits and savings from Diploi?</p>
+  </FeaturesSectionHeader>
+  <Chart {...chart.newProjectStartUp} />
+  <Chart {...chart.developerOnboarding} />
+  <Chart {...chart.creatingTestEnvironment} />
+  <Chart {...chart.updatingProduction} />
+</FeaturesSection>

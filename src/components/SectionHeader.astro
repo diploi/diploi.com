@@ -1,35 +1,23 @@
 ---
-import { SparkleElement } from './SparkleElement'
+import { SparkleElement } from './SparkleElement';
 
 type Props = {
-  title: string
-  highlightedText?: string
-  description?: string
-  descriptionSuffix?: string
-  descriptionStrong?: string
-  step?: number
-}
+  title: string;
+  highlightedText?: string;
+  description?: string;
+  descriptionSuffix?: string;
+  descriptionStrong?: string;
+  step?: number;
+};
 
-const {
-  title,
-  highlightedText,
-  description,
-  descriptionStrong,
-  descriptionSuffix,
-  step,
-} = Astro.props
+const { title, highlightedText, description, descriptionStrong, descriptionSuffix, step } = Astro.props;
 
-const hasHighlight = highlightedText && title.includes(highlightedText)
+const hasHighlight = highlightedText && title.includes(highlightedText);
 
-const [beforeHighlight, afterHighlight] = hasHighlight
-  ? title.split(highlightedText)
-  : [title, '']
+const [beforeHighlight, afterHighlight] = hasHighlight ? title.split(highlightedText) : [title, ''];
 
-const hasDescriptionStrong =
-  description && descriptionStrong && description.includes(descriptionStrong)
-const [beforeStrong, afterStrong] = hasDescriptionStrong
-  ? description.split(descriptionStrong)
-  : [description, '']
+const hasDescriptionStrong = description && descriptionStrong && description.includes(descriptionStrong);
+const [beforeStrong, afterStrong] = hasDescriptionStrong ? description.split(descriptionStrong) : [description, ''];
 ---
 
 <div class="section-header">

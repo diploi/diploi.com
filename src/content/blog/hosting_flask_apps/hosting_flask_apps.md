@@ -7,6 +7,7 @@ timestamp: '2025-09-22T18:00:05.000Z'
 image: './hosting_flask_apps_cover.png'
 social_image: './hosting_flask_apps_og.png'
 draft: false
+type: 'Guide'
 ---
 
 Updated <time datetime="2025-10-28T11:10:05.000Z">October 28, 2025</time>

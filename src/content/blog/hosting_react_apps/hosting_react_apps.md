@@ -7,6 +7,7 @@ timestamp: '2025-08-19T07:16:05.573Z'
 image: './hosting_react_apps_cover.png'
 social_image: './hosting_react_apps_og.png'
 draft: false
+type: 'Guide'
 ---
 
 Updated <time datetime="2025-10-28T11:17:05.000Z">October 28, 2025</time>

@@ -1,15 +1,12 @@
 ---
 interface Props {
-  size: 'xSmall' | 'small' | 'medium' | 'large' | number
+  size: 'xSmall' | 'small' | 'medium' | 'large' | number;
 }
 
-const { size } = Astro.props
+const { size } = Astro.props;
 ---
 
-<hr
-  style={typeof size === 'number' ? { margin: `${size}px 0` } : null}
-  class:list={[typeof size === 'string' && size]}
-/>
+<hr style={typeof size === 'number' ? { margin: `${size}px 0` } : null} class:list={[typeof size === 'string' && size]} />
 
 <style>
   hr {

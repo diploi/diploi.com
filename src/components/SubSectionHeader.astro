@@ -1,6 +1,7 @@
 ---
 import * as icons from '@phosphor-icons/react';
 import Icon from './Icon.astro';
+
 type Props = {
   title: string;
   description?: string;
@@ -17,6 +18,7 @@ const { title, description, class: className, icon } = Astro.props;
     {title}
   </h3>
   {description && <p>{description}</p>}
+  <slot />
 </div>
 
 <style>

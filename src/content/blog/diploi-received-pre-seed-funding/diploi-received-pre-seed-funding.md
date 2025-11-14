@@ -4,6 +4,7 @@ description: 'Diploi has completed its first pre-seed funding round. Founded in 
 image: './diploi-team-2024.jpg'
 author: 'Patrik'
 timestamp: '2024-09-27T07:11:05.573Z'
+type: 'News'
 ---
 
 Updated <time datetime="2025-10-28T11:01:05.000Z">October 28, 2025</time>

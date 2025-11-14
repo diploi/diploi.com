@@ -7,6 +7,7 @@ timestamp: '2025-08-18T07:11:05.573Z'
 image: './hosting_svelte_apps_cover.png'
 social_image: './hosting_svelte_apps_og.png'
 draft: false
+type: 'Guide'
 ---
 
 Updated <time datetime="2025-10-28T11:19:05.000Z">October 28, 2025</time>

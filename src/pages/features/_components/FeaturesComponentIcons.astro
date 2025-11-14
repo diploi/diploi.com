@@ -1,0 +1,37 @@
+---
+type Props = {
+  components: { data: { identifier: string; type: string; name: string; icon: string } }[];
+};
+
+const { components } = Astro.props;
+---
+
+<ul class="icons">
+  {
+    components.map((component) => {
+      const img = (
+        <img
+          title={component.data.name}
+          alt={`${component.data.name} icon`}
+          src={`data:image/svg+xml;base64,${component.data.icon}`}
+          width={32}
+          height={32}
+        />
+      );
+      return <li>{component.data.type === 'component' ? <a href={`/component/${component.data.identifier}`}>{img}</a> : img}</li>;
+    })
+  }
+</ul>
+
+<style lang="scss">
+  .icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    > li,
+    > li > a {
+      display: flex;
+    }
+  }
+</style>

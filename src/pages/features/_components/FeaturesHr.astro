@@ -1,0 +1,26 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'hr'> {
+  vertical?: boolean;
+}
+
+const { vertical, ...other } = Astro.props;
+---
+
+<hr class:list={{ vertical }} {...other} />
+
+<style>
+  hr {
+    background-image: linear-gradient(to right, var(--color-border), transparent);
+  }
+
+  hr.vertical {
+    flex-shrink: 0;
+    margin: 0;
+    width: 1px;
+    height: auto;
+    background: linear-gradient(to bottom, var(--color-border), transparent) left top transparent no-repeat;
+    background-size: 1px 100%;
+  }
+</style>

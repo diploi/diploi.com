@@ -1,0 +1,17 @@
+---
+import { CursorClickIcon } from '@phosphor-icons/react';
+import StackBuilder from '../../../../components/StackBuilder/StackBuilder.astro';
+import FeaturesSection from '../../_components/FeaturesSection.astro';
+import FeaturesSectionHeader from '../../_components/FeaturesSectionHeader.astro';
+---
+
+<FeaturesSection>
+  <FeaturesSectionHeader slot="header">
+    <CursorClickIcon />
+    <h2 id="stack-builder">Pick Your Own Stack</h2>
+    <p>Choose from a constantly growing list of technologies to build your ideal stack. We'll take care of configuring your monorepo.</p>
+  </FeaturesSectionHeader>
+  <StackBuilder hideCallouts />
+</FeaturesSection>
+
+<style lang="scss"></style>

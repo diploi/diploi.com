@@ -67,7 +67,7 @@ export const content = {
 
 export const chart = {
   newProjectStartUp: {
-    title: 'Starting a new project',
+    title: 'Starting a New Project',
     description: 'in minutes',
     bars: [
       { title: 'Diploi', value: 7 },
@@ -76,7 +76,7 @@ export const chart = {
     ],
   },
   developerOnboarding: {
-    title: 'Onboarding a new developer',
+    title: 'Onboarding a New Developer',
     description: 'in minutes',
     bars: [
       { title: 'Diploi', value: 10 },
@@ -85,7 +85,7 @@ export const chart = {
     ],
   },
   creatingTestEnvironment: {
-    title: 'Creating a new test environment',
+    title: 'Creating a New Test Environment',
     description: 'in minutes',
     bars: [
       { title: 'Diploi', value: 10 },
@@ -94,7 +94,7 @@ export const chart = {
     ],
   },
   updatingProduction: {
-    title: 'Updating production',
+    title: 'Updating Production',
     description: 'in minutes',
     bars: [
       { title: 'Diploi', value: 3.5 },

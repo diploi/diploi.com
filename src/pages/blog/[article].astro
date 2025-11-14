@@ -1,17 +1,17 @@
 ---
-import { getCollection, render } from 'astro:content';
 import { Image } from 'astro:assets';
-import { User, CalendarBlank, DevToLogo, ArrowSquareOut } from '@phosphor-icons/react';
+import { getCollection, render } from 'astro:content';
+import { ArrowSquareOut, CalendarBlank, DevToLogo, User } from '@phosphor-icons/react';
+import { Footer, GetStarted, Section } from '../../components';
+import Navigation from '../../components/Navigation/Navigation.astro';
 import Layout from '../../layouts/Layout.astro';
-import { Navigation, Footer, GetStarted, Section } from '../../components';
 import { createBlogPostSchema } from './_utils/createBlogPostSchema';
-
 import 'github-markdown-css/github-markdown.css';
 
 export async function getStaticPaths() {
   const articles = await getCollection('blog');
   return articles.map((article) => ({
-    params: { article: article.id },
+    params: { article: article.data.slug },
     props: { entry: article },
   }));
 }

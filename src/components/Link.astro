@@ -1,0 +1,25 @@
+---
+import { ArrowUpRightIcon } from '@phosphor-icons/react';
+
+type Props = {
+  href: string;
+};
+
+const { href, ...other } = Astro.props;
+---
+
+<a href={href} {...other}><slot /> <ArrowUpRightIcon /></a>
+
+<style>
+  a {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    color: var(--color-accent-primary-text);
+    text-underline-offset: 4px;
+  }
+
+  a > svg {
+    transform: translateY(1px);
+  }
+</style>
