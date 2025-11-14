@@ -1,0 +1,124 @@
+---
+import { DownloadIcon, FileCodeIcon, PuzzlePieceIcon } from '@phosphor-icons/react';
+import Link from '../../../../components/Link.astro';
+import Tag from '../../../../components/Tag.astro';
+import FeaturesHr from '../../_components/FeaturesHr.astro';
+import FeaturesSection from '../../_components/FeaturesSection.astro';
+import FeaturesSectionHeader from '../../_components/FeaturesSectionHeader.astro';
+import AiYaml from '../../ai/_components/AiYaml.astro';
+---
+
+<FeaturesSection>
+  <section>
+    <FeaturesSectionHeader>
+      <FileCodeIcon />
+      <h2>Infrastructure as Code</h2>
+      <p>
+        Diploi uses a simple, component-based IaC model that puts developers first. Your entire stack lives in one short YAML file that is
+        versioned with Git, self-documenting, and instantly replicable.
+      </p>
+    </FeaturesSectionHeader>
+  </section>
+  <section class="split">
+    <section>
+      <ul class="features">
+        <li>
+          <PuzzlePieceIcon />
+          <h3>Component-Based Model</h3>
+          <p>
+            Component configs (HELM, Docker, and more) live in dedicated GitHub repos, making them easy to share, version, and maintain.
+          </p>
+        </li>
+        <FeaturesHr />
+        <li>
+          <DownloadIcon />
+          <h3>Inline Components <Tag primary>Coming soon</Tag></h3>
+          <p>
+            You can inline components locally for full control. Create custom components for your project, or inline an existing component
+            to customize everything.
+          </p>
+        </li>
+      </ul>
+      <Link href="https://dev.to/diploi/how-we-solved-infrastructure-as-code-2ldn">Our IaC implementation</Link>
+    </section>
+    <aside>
+      <AiYaml />
+    </aside>
+  </section>
+</FeaturesSection>
+
+<style lang="scss">
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap: 64px;
+
+    @media (max-width: 860px) {
+      grid-template-columns: 1fr;
+      column-gap: 0;
+    }
+
+    section {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+  }
+
+  .features {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+    @media (max-width: 860px) {
+      :global(hr) {
+        display: none;
+      }
+    }
+
+    li {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      min-width: 0;
+
+      h3 > :global(span) {
+        translate: 4px -3px;
+      }
+
+      &:nth-of-type(2) .bg {
+        translate: -5% 2%;
+      }
+
+      &:nth-of-type(3) .bg {
+        translate: -5% -30%;
+      }
+    }
+
+    li > svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    a {
+      text-underline-offset: 4px;
+      color: inherit;
+    }
+  }
+
+  aside {
+    justify-self: center;
+
+    :global(.code-side) {
+      display: block;
+      width: 100%;
+      margin-top: 0;
+
+      :global(pre) {
+        word-break: break-all;
+      }
+    }
+  }
+</style>

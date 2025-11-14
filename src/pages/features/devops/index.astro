@@ -3,8 +3,13 @@ import Footer from '../../../components/Footer.astro';
 import Navigation from '../../../components/Navigation/Navigation.astro';
 import Layout from '../../../layouts/Layout.astro';
 import { createWebsiteSchema } from '../../../utils/createWebsiteSchema';
+import LovableHr from '../../lovable/_components/LovableHr.astro';
 import FeaturesCallouts from '../_components/FeaturesCallouts.astro';
+import DevLifecycle from '../dev/_components/DevLifecycle.astro';
+import TeamsIntegration from '../teams/_components/TeamsIntegration.astro';
 import DevopsHero from './_components/DevopsHero.astro';
+import DevopsIac from './_components/DevopsIac.astro';
+import DevopsResources from './_components/DevopsResources.astro';
 
 const schema = createWebsiteSchema();
 ---
@@ -20,6 +25,14 @@ const schema = createWebsiteSchema();
   <Navigation />
   <main>
     <DevopsHero />
+    <LovableHr />
+    <DevLifecycle />
+    <LovableHr />
+    <DevopsIac />
+    <LovableHr />
+    <TeamsIntegration />
+    <LovableHr />
+    <DevopsResources />
     <FeaturesCallouts hide={['devops']} />
   </main>
   <Footer />
