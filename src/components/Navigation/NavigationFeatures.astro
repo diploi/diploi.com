@@ -1,17 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import {
-  BrowserIcon,
-  CaretDownIcon,
-  FileTextIcon,
-  GitDiffIcon,
-  HardDrivesIcon,
-  ListIcon,
-  PlayCircleIcon,
-  PlugsConnectedIcon,
-  StackIcon,
-  TerminalIcon,
-} from '@phosphor-icons/react';
+import { CaretDownIcon, ListIcon } from '@phosphor-icons/react';
 import { features, links } from '../../content/features';
 import lovableIcon from '../../images/lovable-icon.svg';
 ---
@@ -60,9 +49,12 @@ import lovableIcon from '../../images/lovable-icon.svg';
 
   button {
     perspective-origin: 50% 50%;
+    anchor-name: --features-anchor;
   }
 
   #features-popover {
+    --popover-offset: 32px;
+    --popover-offset-x: 0;
     grid-template-columns: 1.3fr 1px 1fr;
     grid-template-rows: auto;
     grid-template-areas:
@@ -72,7 +64,7 @@ import lovableIcon from '../../images/lovable-icon.svg';
     margin: 0;
     margin-top: 64px;
     padding: 0;
-    transform: translateY(50%);
+    transform: translate(var(--popover-offset-x), var(--popover-offset));
     background: var(--color-bg);
     border-radius: 8px;
     cursor: default;
@@ -85,15 +77,29 @@ import lovableIcon from '../../images/lovable-icon.svg';
       linear-gradient(var(--color-bg)) padding-box,
       conic-gradient(var(--color-primary), var(--color-bg), var(--color-primary)) border-box;
 
+    @-moz-document url-prefix() {
+      --popover-offset: 50%;
+    }
+
+    @supports (top: anchor(bottom)) {
+      position: fixed;
+      position-anchor: --features-anchor;
+      margin-top: 0;
+      top: calc(anchor(bottom) + 8px);
+      left: anchor(center);
+      --popover-offset: 0;
+      --popover-offset-x: -50%;
+    }
+
     @keyframes popup-open {
       from {
         transform-origin: 50% 0%;
-        transform: perspective(1000px) translateY(50%) rotateX(-20deg);
+        transform: perspective(1000px) translate(var(--popover-offset-x), var(--popover-offset)) rotateX(-20deg);
         opacity: 0;
       }
       to {
         transform-origin: 50% 0%;
-        transform: perspective(1000px) translateY(50%) rotateX(0deg);
+        transform: perspective(1000px) translate(var(--popover-offset-x), var(--popover-offset)) rotateX(0deg);
         opacity: 1;
       }
     }
