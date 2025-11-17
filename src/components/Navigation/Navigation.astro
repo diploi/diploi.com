@@ -151,6 +151,12 @@ const isJobs = selected === 'jobs';
     box-sizing: border-box;
     height: 100vh;
 
+    @media (max-width: 899px) {
+      padding-top: calc(64px + 32px) !important;
+      justify-content: flex-start !important;
+      gap: var(--space-m);
+    }
+
     > button,
     > :global(button) {
       padding: 0;
@@ -160,11 +166,14 @@ const isJobs = selected === 'jobs';
     > a,
     > button,
     > :global(button),
-    > :global(button) > :global([popover]) > :global(section) > :global(a) {
+    > :global(button) > :global([popover]) > :global(section) > :global(a),
+    > :global(details) > :global(div) > :global(a),
+    > :global(details) > :global(summary) {
       position: relative;
       display: flex;
+      justify-content: flex-start;
       align-items: center;
-      gap: var(--space-m);
+      gap: var(--space-s);
       padding: 12px 16px;
       font-size: 1rem;
       color: var(--color-text-primary);
@@ -178,11 +187,6 @@ const isJobs = selected === 'jobs';
 
       :global(.navigation-link-icon) {
         fill: currentColor;
-      }
-
-      @media (min-width: 900px) {
-        gap: var(--space-s);
-        // text-shadow: #000 0px 0px 8px;
       }
 
       &::before {
@@ -213,13 +217,28 @@ const isJobs = selected === 'jobs';
           scale: 1;
         }
       }
+
+      @media (max-width: 899px) {
+        gap: var(--space-s);
+        width: 100%;
+
+        &::before {
+          opacity: 1;
+          scale: 1;
+        }
+      }
     }
   }
 
   .logo-mobile {
-    position: absolute;
-    top: var(--space-s);
-    left: var(--space-l);
+    position: absolute !important;
+    padding: 0 !important;
+    top: calc(var(--space-l) + 3px);
+    left: var(--space-xl);
+
+    &::before {
+      content: none !important;
+    }
   }
 
   @media (min-width: 900px) {

@@ -44,12 +44,35 @@ import lovableIcon from '../../images/lovable-icon.svg';
   </div>
 </button>
 
+<details class="mobile-features">
+  <summary class="button">
+    <ListIcon size={24} /> Features <CaretDownIcon />
+  </summary>
+  <div>
+    {
+      features.map((feature) => (
+        <a data-event={`${feature.id}_click`} href={feature.href}>
+          <span>
+            {<feature.icon />} {feature.title}
+          </span>
+          <span>{feature.description}</span>
+        </a>
+      ))
+    }
+  </div>
+</details>
+
 <style lang="scss">
   @use 'sass:math';
 
-  button {
+  #features-button {
+    justify-content: center;
     perspective-origin: 50% 50%;
     anchor-name: --features-anchor;
+
+    @media (max-width: 899px) {
+      display: none;
+    }
   }
 
   #features-popover {
@@ -104,7 +127,8 @@ import lovableIcon from '../../images/lovable-icon.svg';
       }
     }
 
-    &:popover-open {
+    &:popover-open,
+    &.\:popover-open {
       display: grid;
       animation: popup-open 250ms cubic-bezier(0.25, 1, 0.5, 1);
     }
@@ -182,34 +206,6 @@ import lovableIcon from '../../images/lovable-icon.svg';
       border: none;
     }
 
-    a {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0px;
-      padding: 0;
-
-      > span {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-
-        &:nth-of-type(2) {
-          padding-left: 34px;
-          color: var(--color-text-secondary);
-        }
-      }
-
-      svg {
-        width: 24px;
-        height: 24px;
-        color: var(--color-text-secondary);
-      }
-
-      &::before {
-        inset: -8px;
-      }
-    }
-
     label {
       color: var(--color-text-primary);
       text-transform: uppercase;
@@ -217,6 +213,69 @@ import lovableIcon from '../../images/lovable-icon.svg';
 
       &:not(:first-of-type) {
         margin-top: var(--space-xl);
+      }
+    }
+
+    a {
+      gap: 0px;
+      padding: 0;
+
+      &::before {
+        inset: -8px;
+      }
+    }
+  }
+
+  #features-popover a,
+  .mobile-features a {
+    flex-direction: column;
+    align-items: flex-start;
+
+    > span {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      &:nth-of-type(2) {
+        padding-left: 34px;
+        color: var(--color-text-secondary);
+      }
+    }
+
+    svg {
+      width: 24px;
+      height: 24px;
+      color: var(--color-text-secondary);
+    }
+  }
+
+  .mobile-features {
+    width: 100%;
+
+    &[open] {
+      > summary > svg:last-of-type {
+        rotate: 0.5turn;
+      }
+    }
+
+    @media (min-width: 900px) {
+      display: none;
+    }
+
+    > summary {
+      font-weight: 350;
+    }
+
+    > div {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-m);
+      margin-top: var(--space-m);
+      width: 100%;
+      padding-left: 48px;
+
+      > a {
+        align-items: flex-start !important;
       }
     }
   }
