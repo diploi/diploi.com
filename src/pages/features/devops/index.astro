@@ -1,8 +1,8 @@
 ---
 import Footer from '../../../components/Footer.astro';
 import Navigation from '../../../components/Navigation/Navigation.astro';
+import { features } from '../../../content/features';
 import Layout from '../../../layouts/Layout.astro';
-import { createWebsiteSchema } from '../../../utils/createWebsiteSchema';
 import LovableHr from '../../lovable/_components/LovableHr.astro';
 import FeaturesCallouts from '../_components/FeaturesCallouts.astro';
 import DevLifecycle from '../dev/_components/DevLifecycle.astro';
@@ -11,17 +11,14 @@ import DevopsHero from './_components/DevopsHero.astro';
 import DevopsIac from './_components/DevopsIac.astro';
 import DevopsResources from './_components/DevopsResources.astro';
 
-const schema = createWebsiteSchema();
+const feature = features.find((feature) => feature.id === 'devops')!;
 ---
 
 <Layout
-  title="Diploi - Built for Collaboration"
-  description="Extend apps built with Lovable by migrating to Diploi, to use Cursor, add databases or backend services, and deploy staging/production environments with zero DevOps."
+  title={`Diploi for ${feature.title} - ${feature.description}`}
+  description="Infrastructure that configures itself. Diploi gives you development, preview, and production environments with a single YAML file."
   ogUrlMatchCanonical={true}
 >
-  {/* Organization schema for Google */}
-  <script slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
-
   <Navigation />
   <main>
     <DevopsHero />

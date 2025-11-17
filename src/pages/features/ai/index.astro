@@ -1,6 +1,7 @@
 ---
 import Footer from '../../../components/Footer.astro';
 import Navigation from '../../../components/Navigation/Navigation.astro';
+import { features } from '../../../content/features';
 import Layout from '../../../layouts/Layout.astro';
 import LovableHr from '../../lovable/_components/LovableHr.astro';
 import FeaturesCallouts from '../_components/FeaturesCallouts.astro';
@@ -8,10 +9,12 @@ import AiDevOps from './_components/AiDevOps.astro';
 import AiEditors from './_components/AiEditors.astro';
 import AiHero from './_components/AiHero.astro';
 import AiStackBuilder from './_components/AiStackBuilder.astro';
+
+const feature = features.find((feature) => feature.id === 'ai')!;
 ---
 
 <Layout
-  title="Diploi - Dev Platform with Remote Dev Support for Cursor"
+  title={`Diploi for ${feature.title} - ${feature.description}`}
   description="Diploi allows you to integrates AI in your remote development environments instantly. Work in VS Code or Cursor AI with no local setup."
 >
   <Navigation selected="ai" />

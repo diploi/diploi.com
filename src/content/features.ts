@@ -24,7 +24,7 @@ export const features = [
     id: 'dev',
     href: '/features/dev',
     title: 'Developers',
-    description: 'Zero-install remote dev',
+    description: 'Zero-install cloud development',
     icon: CodeIcon,
     bg: TriangleIcon,
   },

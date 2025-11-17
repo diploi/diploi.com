@@ -165,6 +165,8 @@ import lovableIcon from '../../images/lovable-icon.svg';
 
       &:nth-of-type(1) {
         > a {
+          width: 100%;
+
           $items: 4;
           @for $i from 1 through $items {
             &:nth-of-type(#{$i}) {
@@ -181,6 +183,10 @@ import lovableIcon from '../../images/lovable-icon.svg';
 
         > label {
           margin-bottom: 6px;
+        }
+
+        > a {
+          width: 100%;
         }
 
         svg {
