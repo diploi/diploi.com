@@ -1,10 +1,8 @@
 ---
-import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import { Icon } from '../../../components';
 import { BlobCanvas } from '../../../components/BlobCanvas';
 import { Canvas } from '../../../components/react/Canvas';
-import lovableIcon from '../../../images/lovable-icon.svg';
 
 const calendlyUrl = import.meta.env.VITE_CALENDLY_URL;
 
@@ -17,13 +15,18 @@ const icons = components.filter((component) => !component.data.hidden).map((comp
     <BlobCanvas />
   </div>
   <div class="content">
-    <a data-event="news_launchweek_click" class="news" href="/lovable">
-      <Image id="lovable" width={16} height={16} src={lovableIcon} alt="lovable logo" /> Import From Lovable <Icon
-        name="ArrowUpRight"
-        weight="bold"
-        sizeRem={1}
-      />
-    </a>
+    <a
+      href="https://www.producthunt.com/products/diploi?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-diploi"
+      target="_blank"
+      data-event="news_producthunt_click"
+      class="pick"
+      ><img
+        src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1030417&theme=dark&t=1762767364855"
+        alt="Diploi - Zero-install remote development, one-click to production | Product Hunt"
+        width="222"
+        height="48"
+      /></a
+    >
     <h1 class="main-heading">
       <div class="diploi-canvas-container">
         <Canvas client:idle />
@@ -86,17 +89,6 @@ const icons = components.filter((component) => !component.data.hidden).map((comp
           <Icon name="ArrowSquareOut" sizeRem={1} />
         </li>
       </a>
-      <a
-        href="https://www.producthunt.com/products/diploi?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-diploi"
-        target="_blank"
-        ><img
-          src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1030417&theme=dark&t=1762767364855"
-          alt="Diploi - Zero-install remote development, one-click to production | Product Hunt"
-          style="width: 250px; height: 54px;"
-          width="250"
-          height="54"
-        /></a
-      >
     </ul>
   </div>
 </div>
@@ -181,11 +173,6 @@ const icons = components.filter((component) => !component.data.hidden).map((comp
     gap: 6px;
     margin-bottom: 16px;
     z-index: 1;
-
-    > img:last-of-type {
-      margin-left: 4px;
-      scale: -1 1;
-    }
 
     @media (max-width: 860px) {
       scale: 0.65;
