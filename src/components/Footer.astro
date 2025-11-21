@@ -40,6 +40,9 @@ const alternatives = (await getCollection('alternative'))
             <a data-event="documentation_click" href="https://docs.diploi.com/">Documentation</a>
           </li>
           <li>
+            <a data-event="glossary_click" href="https://docs.diploi.com/reference/glossary">Glossary</a>
+          </li>
+          <li>
             <a data-link="login" data-event="login_click" href="https://console.diploi.com/login">Login / Sign Up</a>
           </li>
         </ul>
@@ -112,6 +115,11 @@ const alternatives = (await getCollection('alternative'))
         <Icon name="Copyright" size={16} weight="light" />
         2025 Diploi Oy
       </p>
+    </div>
+    <div class="bottom-links">
+      <a href="/llms.txt">llm.txt</a>
+      <a href="/llms-small.txt">llm-small.txt</a>
+      <a href="/llms-full.txt">llm-full.txt</a>
     </div>
   </div>
 </footer>
@@ -291,6 +299,13 @@ const alternatives = (await getCollection('alternative'))
     }
   }
 
+  .bottom-links {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 0px;
+  }
   .bottom {
     display: flex;
     flex-direction: column;
