@@ -1,6 +1,7 @@
 import type { Loader } from 'astro/loaders';
 import { z } from 'astro:content';
 import DOMPurify from 'isomorphic-dompurify';
+import { parseRepositoryUrl } from '../utils/apiUtils';
 
 const componentTypeIDToString = {
   1: 'component',
@@ -84,6 +85,8 @@ export function componentLoader({ apiUrl, apiKey }: { apiUrl: string; apiKey: st
           identifier: string;
           readme: string;
           icon: string;
+          previewImageUrls?: string[];
+          url: string;
         };
 
         const body = entry.readme;
@@ -91,12 +94,22 @@ export function componentLoader({ apiUrl, apiKey }: { apiUrl: string; apiKey: st
           html: DOMPurify.sanitize((await renderMarkdown(body)).html),
         };
 
+        let previewImageUrls = undefined;
+        if (entry.previewImageUrls) {
+          const extractResult = parseRepositoryUrl(entry.url);
+          if (extractResult.status === 'ok') {
+            const { owner, repo, ref = 'main' } = extractResult;
+            previewImageUrls = entry.previewImageUrls.map((path) => `https://diploi.b-cdn.net/starter/${owner}/${repo}/${path}?ref=${ref}`);
+          }
+        }
+
         const entryData = await parseData({
           id: entry.identifier,
           data: {
             ...entry,
             icon: Buffer.from(entry.icon).toString('base64'),
             type: componentTypeIDToString[entry.componentTypeID as keyof typeof componentTypeIDToString],
+            previewImageUrls,
           },
         });
 
@@ -125,6 +138,7 @@ export function componentLoader({ apiUrl, apiKey }: { apiUrl: string; apiKey: st
         url: z.string(),
         readme: z.string(),
         icon: z.string(),
+        previewImageUrls: z.array(z.string()).optional(),
         hidden: z.boolean().optional(),
       }),
   };

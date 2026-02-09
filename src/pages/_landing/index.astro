@@ -18,6 +18,7 @@ import { Lifecycle } from '../../components/react/Lifecycle';
 import { chart, content, featureCards } from '../../content';
 import Layout from '../../layouts/Layout.astro';
 import FeaturesCallouts from '../features/_components/FeaturesCallouts.astro';
+import LandingShowcases from './_components/LandingShowcases.astro';
 
 interface Props {
   title?: string;
@@ -37,6 +38,7 @@ const { title = defaultTitle, description = defaultDescription } = Astro.props;
   <Navigation />
   <main>
     <slot name="hero" />
+    <LandingShowcases />
     <Section id="StackBuilder" {...content.pickStack}>
       <StackBuilder />
     </Section>
@@ -46,7 +48,7 @@ const { title = defaultTitle, description = defaultDescription } = Astro.props;
       <EffortlessDevelopment {...content.develop.effortlessDevelopment} />
       <FeatureMasonry />
       <SubSection {...content.develop.developerFaq}>
-        <DeveloperFaq page='homepage'/>
+        <DeveloperFaq page="homepage" />
       </SubSection>
     </Section>
     <hr />

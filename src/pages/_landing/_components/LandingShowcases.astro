@@ -1,0 +1,117 @@
+---
+import { getCollection } from 'astro:content';
+
+const SHOWCASE_COMPONENT_IDS = [
+  110, // Chat App
+  109, // Drawing App
+];
+
+const SHOWCASE_TAB_OVERRIDES: { [componentID: number]: { name?: string; description?: string } } = {
+  109: {
+    name: 'Drawing App',
+    description: 'A fun collaborative drawing app built with Refine and Supabase.',
+  },
+  110: {
+    description: 'A Slack like chat app built with Next.js and Supabase.',
+  },
+};
+
+const showcases = (await getCollection('component'))
+  .filter((component) => component.data.type === 'starter' && SHOWCASE_COMPONENT_IDS.includes(component.data.componentID))
+  .toSorted((a, b) => SHOWCASE_COMPONENT_IDS.indexOf(a.data.componentID) - SHOWCASE_COMPONENT_IDS.indexOf(b.data.componentID));
+---
+
+<article class="tabs">
+  {
+    showcases.map(({ data: { componentID, name, description } }, index) => (
+      <>
+        <input type="radio" name="showcase-tabs" id={`showcase-tabs-${index}`} checked={index === 0} />
+        <label for={`showcase-tabs-${index}`}>
+          <h3>{SHOWCASE_TAB_OVERRIDES[componentID]?.name || name}</h3>
+          <p>{SHOWCASE_TAB_OVERRIDES[componentID]?.description || description}</p>
+        </label>
+      </>
+    ))
+  }
+
+  {
+    showcases.map(({ data: { componentID, name, description, previewImageUrls } }, index) => (
+      <article class:list={['content', `showcase-content-${index}`]}>
+        <section>{previewImageUrls && <img src={previewImageUrls[0]} />}</section>
+        <section>
+          <h2>{name}</h2>
+          <p>{description}</p>
+        </section>
+      </article>
+    ))
+  }
+</article>
+
+<style lang="scss">
+  .tabs {
+    margin: 0 auto;
+    width: 100%;
+    max-width: var(--max-width-page-section);
+
+    /* Hide radio buttons */
+    input[type='radio'] {
+      display: none;
+
+      /* Active tab */
+      &:checked + label {
+        // background: white;
+      }
+    }
+
+    /* Style tab labels */
+    label {
+      display: inline-block;
+      padding: 16px 20px;
+      cursor: pointer;
+      margin-right: -1px;
+
+      --color: var(--color-border);
+
+      border: 1px solid transparent;
+      border-bottom: none;
+      border-radius: var(--border-radius-medium) var(--border-radius-medium) 0 0;
+      background:
+        linear-gradient(var(--color-bg-secondary), var(--color-bg-secondary)) padding-box,
+        conic-gradient(var(--color), var(--color-bg), var(--color)) border-box;
+
+      &:hover {
+        // background: #ddd;
+      }
+
+      p {
+        max-width: 30ch;
+        font-size: 0.875rem;
+      }
+    }
+  }
+
+  /* Content area */
+  .content {
+    display: none;
+    background-color: var(--color-bg-secondary);
+
+    > section {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      flex-shrink: 0;
+      padding: 24px;
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+  /* Show matching content */
+  @for $i from 0 through 9 {
+    #showcase-tabs-#{$i}:checked ~ .showcase-content-#{$i} {
+      display: flex;
+    }
+  }
+</style>
