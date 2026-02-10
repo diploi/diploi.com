@@ -1,57 +1,175 @@
 ---
+import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
+import { ImagesSquareIcon } from '@phosphor-icons/react';
+import FeaturesSection from '../../features/_components/FeaturesSection.astro';
+import FeaturesSectionHeader from '../../features/_components/FeaturesSectionHeader.astro';
+import chatPreview from '../_images/chat.png';
+import drawPreview from '../_images/draw.png';
 
 const SHOWCASE_COMPONENT_IDS = [
   110, // Chat App
   109, // Drawing App
+  108, // TODO: OpenClaw
 ];
 
-const SHOWCASE_TAB_OVERRIDES: { [componentID: number]: { name?: string; description?: string } } = {
+const SHOWCASE_TAB_OVERRIDES: { [componentID: number]: { name?: string; description?: string; image?: ImageMetadata } } = {
   109: {
     name: 'Drawing App',
-    description: 'A fun collaborative drawing app built with Refine and Supabase.',
+    description: 'Collaborative drawing app built with Refine & Supabase.',
+    image: drawPreview,
   },
   110: {
-    description: 'A Slack like chat app built with Next.js and Supabase.',
+    description: 'A Slack like chat app built with Next.js & Supabase.',
+    image: chatPreview,
+  },
+  108: {
+    name: 'OpenClaw',
+    description: 'Self-host OpenClaw with zero-config. Admin panel included.',
   },
 };
 
-const showcases = (await getCollection('component'))
+const components = await getCollection('component');
+const showcases = components
   .filter((component) => component.data.type === 'starter' && SHOWCASE_COMPONENT_IDS.includes(component.data.componentID))
   .toSorted((a, b) => SHOWCASE_COMPONENT_IDS.indexOf(a.data.componentID) - SHOWCASE_COMPONENT_IDS.indexOf(b.data.componentID));
+
+const supabaseIcon = components.find((component) => component.data.identifier === 'supabase')?.data.icon;
+const nextIcon = components.find((component) => component.data.identifier === 'next')?.data.icon;
+const reactIcon = components.find((component) => component.data.identifier === 'react-vite')?.data.icon;
+
+const SHOWCASE_COMPONENTS: { [componentID: number]: { icon?: string; name: string; description: string }[] } = {
+  109: [
+    {
+      icon: reactIcon,
+      name: 'React (Vite)',
+      description: 'Self-hosted frontend',
+    },
+    {
+      icon: supabaseIcon,
+      name: 'Supabase',
+      description: 'Self-hosted backend',
+    },
+  ],
+  110: [
+    {
+      icon: nextIcon,
+      name: 'Next.js',
+      description: 'Self-hosted frontend',
+    },
+    {
+      icon: supabaseIcon,
+      name: 'Supabase',
+      description: 'Self-hosted backend',
+    },
+  ],
+};
 ---
 
-<article class="tabs">
-  {
-    showcases.map(({ data: { componentID, name, description } }, index) => (
-      <>
-        <input type="radio" name="showcase-tabs" id={`showcase-tabs-${index}`} checked={index === 0} />
-        <label for={`showcase-tabs-${index}`}>
-          <h3>{SHOWCASE_TAB_OVERRIDES[componentID]?.name || name}</h3>
-          <p>{SHOWCASE_TAB_OVERRIDES[componentID]?.description || description}</p>
-        </label>
-      </>
-    ))
-  }
+<FeaturesSection>
+  <FeaturesSectionHeader slot="header">
+    <h2>See What's Possible With Diploi</h2>
+    <p>Diploi runs your entire stack, not just the app. Supabase, Postgres, and other services run inside your own deployment.</p>
+  </FeaturesSectionHeader>
+  <article class="tabs">
+    {
+      showcases.map(({ data: { componentID, name, description, icon } }, index) => (
+        <>
+          <input type="radio" name="showcase-tabs" id={`showcase-tabs-${index}`} checked={index === 0} />
+          <label for={`showcase-tabs-${index}`}>
+            <div class="bg" style={{ maskImage: `url('data:image/svg+xml;base64,${icon}')` }} />
+            <h3>{SHOWCASE_TAB_OVERRIDES[componentID]?.name || name}</h3>
+            <p>{SHOWCASE_TAB_OVERRIDES[componentID]?.description || description}</p>
+          </label>
+        </>
+      ))
+    }
 
-  {
-    showcases.map(({ data: { componentID, name, description, previewImageUrls } }, index) => (
-      <article class:list={['content', `showcase-content-${index}`]}>
-        <section>{previewImageUrls && <img src={previewImageUrls[0]} />}</section>
-        <section>
-          <h2>{name}</h2>
-          <p>{description}</p>
-        </section>
-      </article>
-    ))
-  }
-</article>
+    {
+      showcases.map(({ data: { componentID, name, description, previewImageUrls } }, index) => (
+        <article
+          class:list={['content', `showcase-content-${index}`]}
+          style={{ '--image': `url(${SHOWCASE_TAB_OVERRIDES[componentID]?.image?.src || previewImageUrls?.[0] || ''})` }}
+        >
+          {/* Blurry overflow */}
+          <svg class="bg" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
+            <>
+              <filter id={`displacement-${index}`}>
+                <>
+                  <feTurbulence type="turbulence" seed={index * 1234} baseFrequency="0.003" numOctaves="2" result="turbulence" />
+                  <feDisplacementMap in2="turbulence" in="SourceGraphic" scale="200" xChannelSelector="R" yChannelSelector="G" />
+                </>
+              </filter>
+              <rect width="90%" height="90%" filter={`url(#displacement-${index})`} />
+            </>
+          </svg>
+
+          {/* Cover image */}
+          <section class="image">
+            {previewImageUrls && (
+              <Image
+                src={(SHOWCASE_TAB_OVERRIDES[componentID]?.image as unknown as string) || previewImageUrls[0]}
+                width={1280}
+                height={720}
+                priority
+                quality="max"
+                alt="Showcase preview"
+              />
+            )}
+          </section>
+
+          {/* Components & CTA */}
+          <section class="actions">
+            {SHOWCASE_COMPONENTS[componentID] && (
+              <ul>
+                {SHOWCASE_COMPONENTS[componentID].map((component) => (
+                  <li>
+                    <img alt="component icon" src={`data:image/svg+xml;base64,${component.icon}`} width={32} height={32} />
+                    <section>
+                      <strong>{component.name}</strong>
+                      <span>{component.description}</span>
+                    </section>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <section>
+              <button class="secondary">Learn More</button>
+              <button>Launch Now</button>
+            </section>
+          </section>
+        </article>
+      ))
+    }
+  </article>
+</FeaturesSection>
 
 <style lang="scss">
+  @property --color {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: transparent;
+  }
+
   .tabs {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    column-gap: 8px;
     margin: 0 auto;
+    // margin-top: -64px;
     width: 100%;
     max-width: var(--max-width-page-section);
+
+    --rotation: 0deg;
+    --color-bg-left: color-mix(in lab, var(--color-accent-primary), var(--color-bg) 70%);
+    --color-bg-right: color-mix(in lab, var(--color-accent-secondary), var(--color-bg) 70%);
+
+    // border: 1px solid transparent;
+    // border-radius: var(--border-radius-medium);
+    // background:
+    //   linear-gradient(var(--color-bg), var(--color-bg)) padding-box,
+    //   conic-gradient(from var(--rotation), var(--color-accent-primary), var(--color-accent-secondary), var(--color-accent-primary))
+    //     border-box;
 
     /* Hide radio buttons */
     input[type='radio'] {
@@ -59,52 +177,84 @@ const showcases = (await getCollection('component'))
 
       /* Active tab */
       &:checked + label {
-        // background: white;
+        --color: var(--color-hover);
       }
     }
 
     /* Style tab labels */
     label {
+      position: relative;
       display: inline-block;
+      isolation: isolate;
       padding: 16px 20px;
+      background-color: var(--color-bg-secondary);
+      border-radius: var(--border-radius-medium);
+      user-select: none;
+      overflow: hidden;
       cursor: pointer;
-      margin-right: -1px;
 
       --color: var(--color-border);
 
-      border: 1px solid transparent;
-      border-bottom: none;
-      border-radius: var(--border-radius-medium) var(--border-radius-medium) 0 0;
-      background:
-        linear-gradient(var(--color-bg-secondary), var(--color-bg-secondary)) padding-box,
-        conic-gradient(var(--color), var(--color-bg), var(--color)) border-box;
+      transition: --color 250ms ease;
+
+      @for $i from 1 through 5 {
+        &:nth-of-type(#{$i}) {
+          --percentage: calc(((#{$i} - 1) / (5 - 1)) * 100%);
+          --color-hover: color-mix(in lab, var(--color-primary), var(--color-secondary) var(--percentage));
+        }
+      }
 
       &:hover {
-        // background: #ddd;
+        --color: var(--color-hover);
       }
+
+      border: 1px solid transparent;
+      border-radius: var(--border-radius-medium);
+      background:
+        linear-gradient(to bottom right in lab, color-mix(in lab, var(--color), var(--color-bg) 85%), var(--color-bg)) padding-box,
+        conic-gradient(from -20deg, var(--color), var(--color-bg), var(--color)) border-box;
 
       p {
         max-width: 30ch;
         font-size: 0.875rem;
+      }
+
+      > .bg {
+        position: absolute;
+        inset: 0;
+        mask-size: 150px 150px;
+        mask-position: -32px -32px;
+        mask-repeat: no-repeat;
+        background-color: var(--color);
+        opacity: 0.15;
+        z-index: -1;
       }
     }
   }
 
   /* Content area */
   .content {
+    position: relative;
     display: none;
-    background-color: var(--color-bg-secondary);
+    grid-column: span 5;
+    margin-top: 8px;
 
-    > section {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      flex-shrink: 0;
-      padding: 24px;
-
-      img {
-        width: 100%;
+    @for $i from 1 through 5 {
+      &:nth-of-type(#{$i}) {
+        --percentage: calc(((#{$i} - 1) / (5 - 1)) * 100%);
+        --color: color-mix(in lab, var(--color-primary), var(--color-secondary) var(--percentage));
       }
+    }
+
+    > .bg {
+      position: absolute;
+      inset: -64px;
+      fill: var(--color);
+      filter: blur(64px);
+      pointer-events: none;
+      translate: 0 24px;
+      opacity: 0.5;
+      z-index: -1;
     }
   }
 
@@ -112,6 +262,71 @@ const showcases = (await getCollection('component'))
   @for $i from 0 through 9 {
     #showcase-tabs-#{$i}:checked ~ .showcase-content-#{$i} {
       display: flex;
+    }
+  }
+
+  .image {
+    display: flex;
+    // margin-top: 10px;
+    // margin-left: -10px;
+    // margin-right: -10px;
+    // margin-bottom: -10px;
+    // width: calc(100% + 20px);
+    width: 100%;
+
+    > img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1280 / 720;
+      border-radius: var(--border-radius-medium);
+    }
+  }
+
+  .actions {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 24px;
+    padding-top: 64px;
+    padding-bottom: 0;
+    width: 100%;
+    bottom: 0;
+    background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.5));
+    border-radius: var(--border-radius-medium);
+
+    ul {
+      display: flex;
+      gap: 16px;
+      padding: 10px;
+      padding-left: 14px;
+      padding-right: 16px;
+      background-color: var(--color-bg);
+      border-radius: 64px;
+
+      li {
+        display: flex;
+        gap: 8px;
+
+        > section {
+          display: flex;
+          flex-direction: column;
+
+          span {
+            font-size: 0.875rem;
+          }
+        }
+      }
+    }
+
+    > section {
+      display: flex;
+      gap: 8px;
+      padding: 16px;
+      padding-bottom: 12px;
+      background-color: var(--color-bg);
+      border-radius: var(--border-radius-medium) var(--border-radius-medium) 0 0;
     }
   }
 </style>
