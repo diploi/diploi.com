@@ -1,0 +1,128 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'button'>;
+
+const { class: className, ...props } = Astro.props;
+---
+
+<button {...props} class:list={['secondary', className]}>
+  <span class="blobs"></span>
+  <span class="text">
+    <slot />
+    <span class="rocket">
+      <slot name="icon" />
+    </span>
+  </span>
+</button>
+
+<style lang="scss">
+  button {
+    padding-top: var(--space-l);
+    padding-bottom: var(--space-l);
+    font-size: 1.25rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 300ms ease;
+    cursor: pointer;
+
+    &::after {
+      content: '';
+      opacity: 0;
+      pointer-events: none;
+      position: absolute;
+      inset: 0px;
+      padding: 1px;
+      border-radius: inherit;
+      filter: saturate(2);
+      background: linear-gradient(to right, var(--color-accent-primary), var(--color-accent-secondary));
+      -webkit-mask:
+        linear-gradient(white 0 0) content-box,
+        linear-gradient(white 0 0);
+      mask:
+        linear-gradient(white 0 0) content-box,
+        linear-gradient(white 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      transition: opacity 300ms ease;
+    }
+
+    .text {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: var(--space-l);
+    }
+    .rocket {
+      display: flex;
+    }
+
+    @keyframes vibrate {
+      0% {
+        transform: translateX(0);
+      }
+      50% {
+        transform: translateX(2px);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+
+    > .blobs {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+        height: 300%;
+        aspect-ratio: 1/1;
+        background-color: red;
+        display: block;
+        border-radius: 50%;
+        opacity: 0.25;
+        filter: blur(30px) saturate(3);
+        animation: anime 16s linear infinite;
+        transform: scale(0);
+        transition: transform 300ms ease;
+      }
+      &::before {
+        left: -50%;
+        background-color: var(--color-accent-primary);
+      }
+      &::after {
+        right: -50%;
+        background-color: var(--color-accent-secondary);
+      }
+    }
+
+    &:not(:disabled) {
+      border-color: transparent;
+      .rocket {
+        animation: vibrate 160ms ease-in-out infinite;
+      }
+      .blobs {
+        &::before,
+        &::after {
+          transform: scale(1);
+        }
+      }
+      &::after {
+        opacity: 1;
+      }
+
+      &:hover {
+        > .blobs {
+          &::before,
+          &::after {
+            transform: scale(1.5);
+          }
+        }
+        background-color: transparent;
+      }
+    }
+  }
+</style>

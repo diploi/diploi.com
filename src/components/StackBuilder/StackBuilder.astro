@@ -3,6 +3,7 @@ import Icon from '../Icon.astro';
 import SubSectionHeader from '../SubSectionHeader.astro';
 import StackBuilderButtonCallout from './StackBuilderButtonCallout.astro';
 import StackBuilderButtonComponent from './StackBuilderButtonComponent.astro';
+import StackBuilderLaunchButton from './StackBuilderLaunchButton.astro';
 import StackBuilderYaml from './StackBuilderYaml.astro';
 import { ComponentType, type ComponentTypeLiteral } from './utils';
 
@@ -86,16 +87,10 @@ const lovableComponent = (data.components as Component[]).find((component) => co
     {!hideYaml && <StackBuilderYaml />}
   </div>
   <div class="ctas">
-    <button id="button-launch-stack" class="secondary" data-url={import.meta.env.VITE_API_URL} disabled>
-      <span class="blobs"></span>
-      <span class="text">
-        {launchButtonText}
-
-        <span class="rocket">
-          <Icon name="Rocket" weight="regular" />
-        </span>
-      </span>
-    </button>
+    <StackBuilderLaunchButton id="button-launch-stack" data-url={import.meta.env.VITE_API_URL} disabled>
+      {launchButtonText}
+      <Icon slot="icon" name="Rocket" weight="regular" />
+    </StackBuilderLaunchButton>
     <p class="small"><Icon name="Info" sizeRem={1} /><span id="button-launch-stack-info">Instant launch. No sign-up required.</span></p>
   </div>
 </div>

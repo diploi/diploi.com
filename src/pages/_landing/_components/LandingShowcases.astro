@@ -1,7 +1,8 @@
 ---
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
-import { ImagesSquareIcon } from '@phosphor-icons/react';
+import { ImagesSquareIcon, RocketIcon, RocketLaunchIcon } from '@phosphor-icons/react';
+import StackBuilderLaunchButton from '../../../components/StackBuilder/StackBuilderLaunchButton.astro';
 import FeaturesSection from '../../features/_components/FeaturesSection.astro';
 import FeaturesSectionHeader from '../../features/_components/FeaturesSectionHeader.astro';
 import chatPreview from '../_images/chat.png';
@@ -66,7 +67,7 @@ const SHOWCASE_COMPONENTS: { [componentID: number]: { icon?: string; name: strin
 };
 ---
 
-<FeaturesSection>
+<FeaturesSection class="showcases">
   <FeaturesSectionHeader slot="header">
     <h2>See What's Possible With Diploi</h2>
     <p>Diploi runs your entire stack, not just the app. Supabase, Postgres, and other services run inside your own deployment.</p>
@@ -135,7 +136,10 @@ const SHOWCASE_COMPONENTS: { [componentID: number]: { icon?: string; name: strin
             )}
             <section>
               <button class="secondary">Learn More</button>
-              <button>Launch Now</button>
+              <StackBuilderLaunchButton class="launch">
+                Launch Now
+                <RocketIcon slot="icon" size={24} weight="bold" />
+              </StackBuilderLaunchButton>
             </section>
           </section>
         </article>
@@ -149,6 +153,10 @@ const SHOWCASE_COMPONENTS: { [componentID: number]: { icon?: string; name: strin
     syntax: '<color>';
     inherits: true;
     initial-value: transparent;
+  }
+
+  .showcases {
+    margin-top: -64px;
   }
 
   .tabs {
@@ -327,6 +335,11 @@ const SHOWCASE_COMPONENTS: { [componentID: number]: { icon?: string; name: strin
       padding-bottom: 12px;
       background-color: var(--color-bg);
       border-radius: var(--border-radius-medium) var(--border-radius-medium) 0 0;
+    }
+
+    .launch {
+      padding-left: 32px;
+      padding-right: 24px;
     }
   }
 </style>
