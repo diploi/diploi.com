@@ -5,12 +5,12 @@ import { RocketIcon } from '@phosphor-icons/react';
 import StackBuilderLaunchButton from '../../../components/StackBuilder/StackBuilderLaunchButton.astro';
 import FeaturesSection from '../../features/_components/FeaturesSection.astro';
 import FeaturesSectionHeader from '../../features/_components/FeaturesSectionHeader.astro';
-import { chatPreview, chatPreviewVideo, drawPreview } from '../_utils/showcaseContent';
+import { chatPreview, chatPreviewVideo, drawPreview, webPreview } from '../_utils/showcaseContent';
 
 const SHOWCASE_COMPONENT_IDS = [
   110, // Chat App
   109, // Drawing App
-  108, // TODO: OpenClaw
+  108, // Web App
 ];
 
 const SHOWCASE_TAB_OVERRIDES: {
@@ -37,8 +37,8 @@ const SHOWCASE_TAB_OVERRIDES: {
     video: chatPreviewVideo,
   },
   108: {
-    name: 'OpenClaw',
-    description: 'Self-host OpenClaw with zero-config. Admin panel included.',
+    description: 'Modern, production-ready full-stack React app.',
+    image: webPreview,
     color: 'dark',
     background: '#fafafa',
   },
@@ -58,7 +58,7 @@ const SHOWCASE_COMPONENTS: { [componentID: number]: { icon?: string; name: strin
     {
       icon: reactIcon,
       name: 'React (Vite)',
-      description: 'Self-hosted frontend',
+      description: 'Blazing fast frontend',
     },
     {
       icon: supabaseIcon,
@@ -70,7 +70,19 @@ const SHOWCASE_COMPONENTS: { [componentID: number]: { icon?: string; name: strin
     {
       icon: nextIcon,
       name: 'Next.js',
-      description: 'Self-hosted frontend',
+      description: 'Modern frontend',
+    },
+    {
+      icon: supabaseIcon,
+      name: 'Supabase',
+      description: 'Self-hosted backend',
+    },
+  ],
+  108: [
+    {
+      icon: reactIcon,
+      name: 'React (Vite)',
+      description: 'Blazing fast frontend',
     },
     {
       icon: supabaseIcon,
@@ -85,8 +97,7 @@ const SHOWCASE_COMPONENTS: { [componentID: number]: { icon?: string; name: strin
   <FeaturesSectionHeader slot="header">
     <h2>Discover What's Possible</h2>
     <p>
-      (TODO: Example mention here) Diploi runs your entire stack, not just the app. Supabase, Postgres, and other services run inside your
-      own deployment.
+      Diploi runs your full stack, not just the app. Services like Supabase and Postgres run inside your deployment. Here are some examples.
     </p>
   </FeaturesSectionHeader>
   <article class="tabs">
@@ -110,7 +121,7 @@ const SHOWCASE_COMPONENTS: { [componentID: number]: { icon?: string; name: strin
     }
 
     {
-      showcases.map(({ data: { componentID, name, description, previewImageUrls } }, index) => (
+      showcases.map(({ id, data: { componentID, name, description, previewImageUrls } }, index) => (
         <article
           class:list={['content', `showcase-content-${index}`, SHOWCASE_TAB_OVERRIDES[componentID]?.color]}
           style={{
@@ -147,7 +158,9 @@ const SHOWCASE_COMPONENTS: { [componentID: number]: { icon?: string; name: strin
               </ul>
             )}
             <section>
-              <button class="secondary">Learn More</button>
+              <a class="button secondary" href={`/starter-kit/${id}`}>
+                Learn More
+              </a>
               <StackBuilderLaunchButton class="launch-showcase" data-id={componentID} data-url={import.meta.env.VITE_API_URL}>
                 Launch Now
                 <RocketIcon slot="icon" size={24} weight="bold" />
@@ -206,7 +219,7 @@ const SHOWCASE_COMPONENTS: { [componentID: number]: { icon?: string; name: strin
   }
 
   .showcases {
-    margin-top: -64px;
+    // margin-top: -64px;
   }
 
   .tabs {
@@ -217,6 +230,12 @@ const SHOWCASE_COMPONENTS: { [componentID: number]: { icon?: string; name: strin
     // margin-top: -64px;
     width: 100%;
     max-width: var(--max-width-page-section);
+
+    @media (max-width: 860px) {
+      grid-template-columns: 1fr;
+      column-gap: 0px;
+      row-gap: 8px;
+    }
 
     --rotation: 0deg;
     --color-bg-left: color-mix(in lab, var(--color-accent-primary), var(--color-bg) 70%);
@@ -285,6 +304,10 @@ const SHOWCASE_COMPONENTS: { [componentID: number]: { icon?: string; name: strin
         background-size: 1280px 720px;
         background-position: center 0;
         mask-image: url('data:image/svg+xml,<svg width="30" height="10" viewBox="0 0 30 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M30 10H0L15 0L30 10Z" fill="white"/></svg>');
+
+        @media (max-width: 860px) {
+          display: none !important;
+        }
       }
 
       border: 1px solid transparent;
@@ -323,6 +346,10 @@ const SHOWCASE_COMPONENTS: { [componentID: number]: { icon?: string; name: strin
     background-size: 100% auto;
     border-radius: var(--border-radius-medium);
 
+    @media (max-width: 860px) {
+      grid-column: unset;
+    }
+
     @for $i from 1 through 5 {
       &:nth-of-type(#{$i}) {
         --percentage: calc(((#{$i} - 1) / (5 - 1)) * 100%);
@@ -341,7 +368,8 @@ const SHOWCASE_COMPONENTS: { [componentID: number]: { icon?: string; name: strin
         }
       }
 
-      button {
+      button,
+      .button {
         color: black;
         filter: saturate(2);
       }
@@ -393,9 +421,22 @@ const SHOWCASE_COMPONENTS: { [componentID: number]: { icon?: string; name: strin
     backdrop-filter: blur(32px);
     border-radius: var(--border-radius-medium) var(--border-radius-medium) 0 0;
 
+    @media (max-width: 860px) {
+      flex-direction: column;
+      gap: 0;
+      padding-top: 16px;
+      padding-left: 0;
+    }
+
     ul {
       display: flex;
       gap: 16px;
+
+      @media (max-width: 500px) {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+      }
 
       li {
         display: flex;
@@ -414,11 +455,19 @@ const SHOWCASE_COMPONENTS: { [componentID: number]: { icon?: string; name: strin
 
     > section {
       display: flex;
+      flex-wrap: wrap;
       gap: 8px;
       padding: 16px;
       padding-bottom: 12px;
 
-      > :global(button) {
+      @media (max-width: 860px) {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      > :global(button),
+      :global(.button) {
+        min-height: 62px;
         background: transparent;
       }
     }
