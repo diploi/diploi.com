@@ -1,0 +1,269 @@
+---
+import { getCollection, render } from 'astro:content';
+import { CursorClick, FileText, PlugsConnected, Target } from '@phosphor-icons/react';
+import { ArrowLink, Icon, SubSectionHeader } from '../../components';
+import ComponentCard from '../../components/ComponentCard.astro';
+import Footer from '../../components/Footer.astro';
+import Navigation from '../../components/Navigation/Navigation.astro';
+import StackBuilder from '../../components/StackBuilder/StackBuilder.astro';
+import logoImage from '../../images/diploi-logo.svg';
+import Layout from '../../layouts/Layout.astro';
+import 'github-markdown-css/github-markdown.css';
+
+export async function getStaticPaths() {
+  const components = await getCollection('component');
+  return components
+    .filter((component) => component.data.type === 'starter' && !component.data.hidden)
+    .map((component) => ({
+      params: { starterkit: component.id },
+      props: { entry: component },
+    }));
+}
+
+const { entry } = Astro.props;
+const component = entry.data;
+
+const { Content } = await render(entry);
+
+const description = `Launch a new ${component.name} project and you will instantly have access to a development environment. No sign-up required.`;
+const seoDescription = `Launch a new ${component.name} project with add-ons and you will instantly have access to a development environment. No registration required.`;
+---
+
+<Layout
+  title={`Diploi - Launch a ${component.name} Project`}
+  description={seoDescription}
+  ogTitle={`Launch a ${component.name} Project`}
+  ogUrlMatchCanonical={true}
+>
+  <main>
+    <Navigation />
+
+    <article class="hero">
+      <h1>
+        Launch {component.icon && <img alt="component icon" src={`data:image/svg+xml;base64,${component.icon}`} width={40} height={40} />}
+        {component.name}
+        <small>{' '}with{' '}<img alt="Diploi" src={logoImage.src} width={100} height={29.66} /> </small>
+      </h1>
+      <p>{description}</p>
+    </article>
+
+    <article class="content">
+      <ComponentCard {...component} />
+
+      <section class="info">
+        <section>
+          <StackBuilder launchButtonText={`Launch ${component.name}`} defaultComponentIds={[component.componentID]} hideComponents hideYaml>
+            <SubSectionHeader
+              slot="addons-header"
+              title="Something extra?"
+              description={`Choose some optional add-ons to launch with ${component.name}`}
+            />
+          </StackBuilder>
+        </section>
+
+        <hr />
+
+        <section class="markdown-body">
+          <label class="h3 readme"><FileText style={{ fill: 'url(#gradient-one)' }} /> Readme</label>
+          <Content />
+        </section>
+
+        <hr />
+
+        <section class="showcase">
+          <h2>What is Diploi?</h2>
+          <p>Diploi is the single SaaS service for managing, developing and hosting your full application.</p>
+          <ul>
+            <li>
+              <h3>
+                <Target weight="bold" size={38} style={{ fill: 'url(#gradient-one)' }} slot="icon" /> Consistent
+              </h3>
+              <ul>
+                <li><Icon name="Minus" sizeRem={1} />Consistent environments from development to production</li>
+                <li><Icon name="Minus" sizeRem={1} />Adoptable incrementally - start easy, grow later</li>
+              </ul>
+            </li>
+            <li>
+              <h3>
+                <CursorClick weight="bold" size={38} style={{ fill: 'url(#gradient-two)' }} slot="icon" /> One-Click
+              </h3>
+              <ul>
+                <li><Icon name="Minus" sizeRem={1} />Fast 30 second new developer onboarding</li>
+                <li><Icon name="Minus" sizeRem={1} />One-click environment setup</li>
+                <li><Icon name="Minus" sizeRem={1} />Instantly shareable testing environments</li>
+              </ul>
+            </li>
+            <li>
+              <h3>
+                <PlugsConnected weight="bold" size={38} style={{ fill: 'url(#gradient-three)' }} slot="icon" /> Zero-Install
+              </h3>
+              <ul>
+                <li><Icon name="Minus" sizeRem={1} />Zero-install remote development</li>
+                <li><Icon name="Minus" sizeRem={1} />Versatile support for any stack pre-build or custom</li>
+              </ul>
+            </li>
+          </ul>
+          <div>
+            <ArrowLink href="/" text="Learn more" />
+          </div>
+        </section>
+      </section>
+    </article>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+  }
+
+  article,
+  section {
+    width: 100%;
+    max-width: 900px;
+  }
+
+  .hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 128px 0 40px 0;
+  }
+
+  .hero > h1 {
+    margin: 0;
+    margin-bottom: 18px;
+    font-size: var(--font-header-size);
+    font-weight: bold;
+    font-family: var(--font-header);
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  .hero > h1 > img {
+    transform: translateY(4px);
+  }
+
+  .hero > h1 > small {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    font-size: 22px;
+  }
+
+  .hero > h1 > small > img {
+    transform: translateY(1px);
+  }
+
+  .hero > p {
+    margin-bottom: 0;
+    text-align: center;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    display: block;
+    top: 0;
+    width: 100%;
+    max-width: 1920px;
+    height: 500px;
+    background-image: url("data:image/svg+xml,%3Csvg width='1839' height='861' viewBox='0 0 1839 861' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M90.2628 296.175C94.0686 298.428 81.0666 291.677 76.6516 289.096C72.2365 286.515 67.9438 283.713 63.8048 280.709C43.0733 265.665 26.2168 245.493 15.0946 222.419C-16.9097 156.022 3.3879 73.8924 62.6374 30.0482C121.887 -13.7959 206.362 -9.19775 260.503 40.8185C279.318 58.2003 293.681 80.2172 302.007 104.441C303.67 109.277 305.095 114.202 306.272 119.178C307.449 124.155 310.268 139.234 309.063 134.264C303.527 111.438 298.12 89.613 285.039 69.9335C282.659 66.3538 289.542 77.2564 291.798 80.9156C292.574 82.1756 290.332 78.3429 289.542 77.0911C288.296 75.1159 292.039 81.0389 293.246 83.0381C295.663 87.0423 298.208 90.9805 300.735 94.9169C308.332 106.748 315.994 118.532 323.7 130.293C346.623 165.279 370.474 199.691 394.924 233.625C468.672 335.984 548.013 434.961 636.777 524.761C721.168 610.136 820.046 698.913 936.843 735.743C1037.42 767.461 1150.29 752.539 1248.1 718.204C1296.69 701.151 1343.62 678.982 1387.73 652.421C1396.33 647.241 1443.1 612.186 1450.79 610.511C1457.84 608.977 1464.82 616.478 1460.67 623.229C1454.47 633.311 1440.43 645.139 1430.88 654.446C1392.54 691.816 1349.79 725.039 1304.71 753.86C1180.9 833.021 1028 880.078 880.873 852.561C659.742 811.203 442.044 639.66 277.485 493.168C221.747 443.549 167.805 391.987 115.383 338.884C91.0964 314.281 64.9234 289.813 43.183 262.846C42.5016 262.001 46.145 266.021 45.4194 265.214C42.5101 261.975 39.4163 258.894 36.6883 255.502C35.31 253.788 39.5471 258.846 41.0405 260.461C43.7681 263.41 46.5836 266.323 49.5686 269.012C62.0557 280.258 75.9857 287.721 90.2628 296.175ZM1453.06 610.215C1457.88 610.215 1461.79 614.123 1461.79 618.944C1461.79 623.765 1457.88 627.673 1453.06 627.673C1448.24 627.673 1444.33 623.765 1444.33 618.944C1444.33 614.123 1448.24 610.215 1453.06 610.215Z' fill='url(%23paint0_linear_1882_813)'/%3E%3Cpath opacity='0.2' d='M1482.81 583.25L1489.75 590.188C1489.75 590.188 1487.44 599.438 1473.56 599.438C1473.56 585.562 1482.81 583.25 1482.81 583.25ZM1501.31 557.812H1483.49C1482.88 557.813 1482.29 558.056 1481.86 558.489L1471.93 568.418C1471.63 568.722 1471.41 569.104 1471.32 569.522C1471.22 569.94 1471.24 570.377 1471.37 570.784C1471.51 571.191 1471.76 571.552 1472.08 571.827C1472.41 572.102 1472.81 572.28 1473.24 572.341L1485.12 574L1501.31 557.812ZM1499 587.875L1500.66 599.761C1500.72 600.186 1500.9 600.586 1501.17 600.915C1501.45 601.245 1501.81 601.491 1502.22 601.627C1502.62 601.763 1503.06 601.783 1503.48 601.685C1503.9 601.586 1504.28 601.374 1504.58 601.071L1514.51 591.141C1514.94 590.708 1515.19 590.121 1515.19 589.508V571.688L1499 587.875Z' fill='%23EC609C'/%3E%3Cpath d='M1492 590.749C1491.88 591.197 1489.06 601.75 1473.56 601.75C1472.95 601.75 1472.36 601.507 1471.93 601.073C1471.49 600.639 1471.25 600.051 1471.25 599.438C1471.25 583.935 1481.8 581.117 1482.25 581.004C1482.85 580.856 1483.48 580.949 1484 581.265C1484.53 581.581 1484.91 582.093 1485.06 582.688C1485.21 583.283 1485.11 583.913 1484.8 584.439C1484.48 584.966 1483.97 585.345 1483.37 585.493C1483.11 585.566 1476.89 587.384 1475.98 597.015C1485.62 596.108 1487.44 589.899 1487.51 589.61C1487.67 589.015 1488.05 588.506 1488.58 588.194C1489.11 587.882 1489.74 587.793 1490.33 587.946C1490.93 588.099 1491.44 588.483 1491.75 589.011C1492.06 589.54 1492.15 590.171 1492 590.766V590.749ZM1518.88 571.266L1517.5 572.645V589.506C1517.5 590.115 1517.39 590.72 1517.15 591.283C1516.92 591.847 1516.58 592.359 1516.15 592.789L1506.23 602.704C1505.8 603.135 1505.29 603.477 1504.73 603.71C1504.17 603.943 1503.57 604.063 1502.96 604.063C1502.46 604.063 1501.96 603.982 1501.49 603.823C1500.67 603.553 1499.95 603.06 1499.39 602.4C1498.84 601.74 1498.49 600.939 1498.37 600.088L1496.82 588.962L1484.04 576.183L1472.92 574.63C1472.07 574.511 1471.26 574.156 1470.6 573.605C1469.94 573.055 1469.45 572.331 1469.17 571.514C1468.9 570.698 1468.86 569.822 1469.06 568.984C1469.26 568.147 1469.69 567.381 1470.3 566.774L1480.21 556.853C1480.64 556.421 1481.15 556.079 1481.72 555.847C1482.28 555.615 1482.89 555.497 1483.49 555.5H1500.36L1501.73 554.121C1509.45 546.412 1518.74 546.08 1522.38 546.297C1523.5 546.365 1524.57 546.844 1525.37 547.643C1526.17 548.441 1526.64 549.505 1526.71 550.632C1526.92 554.26 1526.59 563.554 1518.88 571.266H1518.88ZM1473.56 570.052L1484.3 571.549L1495.73 560.125H1483.49L1473.56 570.052ZM1488.4 574L1499 584.603L1515.61 567.996C1517.84 565.774 1519.58 563.097 1520.7 560.148C1521.82 557.198 1522.29 554.043 1522.09 550.896C1518.94 550.7 1515.79 551.179 1512.84 552.299C1509.9 553.419 1507.22 555.155 1505 557.391L1488.4 574ZM1512.88 577.27L1501.45 588.696L1502.95 599.438L1512.88 589.506V577.27Z' fill='url(%23paint1_linear_1882_813)'/%3E%3Cdefs%3E%3ClinearGradient id='paint0_linear_1882_813' x1='-49.0562' y1='206.002' x2='1461.92' y2='610.909' gradientUnits='userSpaceOnUse'%3E%3Cstop stop-color='%236650FA' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%23EC609C'/%3E%3C/linearGradient%3E%3ClinearGradient id='paint1_linear_1882_813' x1='1527' y1='546' x2='1469' y2='604' gradientUnits='userSpaceOnUse'%3E%3Cstop stop-color='%236650FA'/%3E%3Cstop offset='1' stop-color='%23EC609C'/%3E%3C/linearGradient%3E%3C/defs%3E%3C/svg%3E%0A");
+    background-size: 100% auto;
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    z-index: -1;
+
+    mask-image: linear-gradient(to bottom, white 60%, transparent);
+  }
+
+  @media (max-width: 900px) {
+    .hero > div {
+      flex-direction: column;
+    }
+
+    .hero::before {
+      background-size: 200% auto;
+      background-position: center bottom;
+    }
+  }
+
+  .content {
+    display: flex;
+    align-items: flex-start;
+    gap: 32px;
+    max-width: 1200px;
+    width: 100%;
+  }
+
+  @media (max-width: 900px) {
+    .content {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .info {
+      max-width: 55ch;
+    }
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    gap: 96px;
+    padding: 0 32px;
+  }
+
+  .showcase {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .showcase > ul {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    padding: 0;
+    list-style: none;
+  }
+
+  .showcase > ul > li {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .showcase > ul h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .showcase > ul h3 > svg {
+    transform: translate(-2px, -1px);
+  }
+
+  .showcase > ul ul > li {
+    padding-left: 26px;
+    opacity: 0.7;
+  }
+
+  .markdown-body > label.h3.readme {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    > svg {
+      transform: translateY(1px);
+    }
+  }
+</style>
