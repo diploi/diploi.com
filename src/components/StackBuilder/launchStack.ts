@@ -29,6 +29,26 @@ export const launchStack = async ({
   const data = await response.json();
   if (data.result.data.status === 'ok') {
     clearUtmParams();
+
+    try {
+      // @ts-ignore
+      console.log('track', window.umami, window.gtag);
+
+      // @ts-ignore
+      if (umami) {
+        // @ts-ignore
+        umami.track('launch', { page: location.pathname, componentIds });
+      }
+
+      // @ts-ignore
+      if (gtag) {
+        // @ts-ignore
+        gtag('event', 'conversion_event_default_1', { page: location.pathname, componentIds });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+
     if (data.result.data.isVerificationRequired) {
       window.location.href = `${apiUrl}/launch/verify?t=${data.result.data.token}`;
     } else {
