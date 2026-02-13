@@ -122,8 +122,10 @@ const { component: Component, class: className, ...other } = Astro.props;
     }
 
     :global(.icon) {
-      width: 1.75rem;
-      height: 1.75rem;
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      object-position: center;
     }
   }
 </style>

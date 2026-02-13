@@ -22,6 +22,7 @@ const { class: className, ...props } = Astro.props;
     padding-bottom: var(--space-l);
     font-size: 1.25rem;
     position: relative;
+    border: none;
     overflow: hidden;
     transition: border-color 300ms ease;
     cursor: pointer;
@@ -78,7 +79,7 @@ const { class: className, ...props } = Astro.props;
       &::after {
         content: '';
         position: absolute;
-        height: 300%;
+        width: 90%;
         aspect-ratio: 1/1;
         background-color: red;
         display: block;
