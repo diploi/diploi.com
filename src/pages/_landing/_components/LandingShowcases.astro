@@ -1,12 +1,11 @@
 ---
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
-import { ImagesSquareIcon, RocketIcon, RocketLaunchIcon } from '@phosphor-icons/react';
+import { RocketIcon } from '@phosphor-icons/react';
 import StackBuilderLaunchButton from '../../../components/StackBuilder/StackBuilderLaunchButton.astro';
 import FeaturesSection from '../../features/_components/FeaturesSection.astro';
 import FeaturesSectionHeader from '../../features/_components/FeaturesSectionHeader.astro';
-import chatPreview from '../_images/chat.png';
-import drawPreview from '../_images/draw.png';
+import { chatPreview, chatPreviewVideo, drawPreview } from '../_utils/showcaseContent';
 
 const SHOWCASE_COMPONENT_IDS = [
   110, // Chat App
@@ -15,22 +14,33 @@ const SHOWCASE_COMPONENT_IDS = [
 ];
 
 const SHOWCASE_TAB_OVERRIDES: {
-  [componentID: number]: { name?: string; description?: string; image?: ImageMetadata; color?: 'light' | 'dark' };
+  [componentID: number]: {
+    name?: string;
+    description?: string;
+    image?: ImageMetadata;
+    color?: 'light' | 'dark';
+    background?: string;
+    video?: string;
+  };
 } = {
   109: {
     name: 'Drawing App',
     description: 'Collaborative drawing app built with Refine & Supabase.',
     image: drawPreview,
     color: 'dark',
+    background: '#efeef1',
   },
   110: {
     description: 'A Slack like chat app built with Next.js & Supabase.',
     image: chatPreview,
+    background: '#1b2234',
+    video: chatPreviewVideo,
   },
   108: {
     name: 'OpenClaw',
     description: 'Self-host OpenClaw with zero-config. Admin panel included.',
     color: 'dark',
+    background: '#fafafa',
   },
 };
 
@@ -86,7 +96,10 @@ const SHOWCASE_COMPONENTS: { [componentID: number]: { icon?: string; name: strin
           <input type="radio" name="showcase-tabs" id={`showcase-tabs-${index}`} checked={index === 0} />
           <label
             for={`showcase-tabs-${index}`}
-            style={{ '--image': `url(${SHOWCASE_TAB_OVERRIDES[componentID]?.image?.src || previewImageUrls?.[0] || ''})` }}
+            style={{
+              '--image': `url(${SHOWCASE_TAB_OVERRIDES[componentID]?.image?.src || previewImageUrls?.[0] || ''})`,
+              '--image-color': SHOWCASE_TAB_OVERRIDES[componentID]?.background,
+            }}
           >
             <div class="bg" style={{ maskImage: `url('data:image/svg+xml;base64,${icon}')` }} />
             <h3>{SHOWCASE_TAB_OVERRIDES[componentID]?.name || name}</h3>
@@ -100,7 +113,10 @@ const SHOWCASE_COMPONENTS: { [componentID: number]: { icon?: string; name: strin
       showcases.map(({ data: { componentID, name, description, previewImageUrls } }, index) => (
         <article
           class:list={['content', `showcase-content-${index}`, SHOWCASE_TAB_OVERRIDES[componentID]?.color]}
-          style={{ '--image': `url(${SHOWCASE_TAB_OVERRIDES[componentID]?.image?.src || previewImageUrls?.[0] || ''})` }}
+          style={{
+            '--image': `url(${SHOWCASE_TAB_OVERRIDES[componentID]?.image?.src || previewImageUrls?.[0] || ''})`,
+            '--image-color': SHOWCASE_TAB_OVERRIDES[componentID]?.background,
+          }}
         >
           {/* Blurry overflow */}
           <svg class="bg" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
@@ -132,7 +148,7 @@ const SHOWCASE_COMPONENTS: { [componentID: number]: { icon?: string; name: strin
             )}
             <section>
               <button class="secondary">Learn More</button>
-              <StackBuilderLaunchButton class="launch">
+              <StackBuilderLaunchButton class="launch-showcase" data-id={componentID} data-url={import.meta.env.VITE_API_URL}>
                 Launch Now
                 <RocketIcon slot="icon" size={24} weight="bold" />
               </StackBuilderLaunchButton>
@@ -141,7 +157,12 @@ const SHOWCASE_COMPONENTS: { [componentID: number]: { icon?: string; name: strin
 
           {/* Cover image */}
           <section class="image">
-            {previewImageUrls && (
+            {SHOWCASE_TAB_OVERRIDES[componentID]?.video && (
+              <video autoplay muted loop>
+                <source src={SHOWCASE_TAB_OVERRIDES[componentID].video} type="video/mp4" />
+              </video>
+            )}
+            {!SHOWCASE_TAB_OVERRIDES[componentID]?.video && previewImageUrls && (
               <Image
                 src={(SHOWCASE_TAB_OVERRIDES[componentID]?.image as unknown as string) || previewImageUrls[0]}
                 width={1280}
@@ -157,6 +178,25 @@ const SHOWCASE_COMPONENTS: { [componentID: number]: { icon?: string; name: strin
     }
   </article>
 </FeaturesSection>
+
+<script>
+  const launchButtons = document.querySelectorAll('.launch-showcase[data-id]') as NodeListOf<HTMLButtonElement>;
+
+  for (const launchButton of launchButtons) {
+    launchButton.addEventListener('click', async () => {
+      if (launchButton.disabled) return;
+      launchButton.disabled = true;
+
+      const { launchStack } = await import('../../../components/StackBuilder/launchStack.ts');
+
+      launchStack({
+        button: launchButton,
+        componentIds: [parseInt(launchButton.getAttribute('data-id') || '')],
+        apiUrl: launchButton.getAttribute('data-url') || '',
+      });
+    });
+  }
+</script>
 
 <style lang="scss">
   @property --color {
@@ -240,6 +280,7 @@ const SHOWCASE_COMPONENTS: { [componentID: number]: { icon?: string; name: strin
         margin: 0 auto;
         width: 30px;
         height: 10px;
+        background-color: var(--image-color);
         background-image: var(--image);
         background-size: 1280px 720px;
         background-position: center 0;
@@ -277,6 +318,7 @@ const SHOWCASE_COMPONENTS: { [componentID: number]: { icon?: string; name: strin
     flex-direction: column;
     grid-column: span 5;
     margin-top: 16px;
+    background-color: var(--image-color);
     background-image: var(--image);
     background-size: 100% auto;
     border-radius: var(--border-radius-medium);
@@ -311,7 +353,8 @@ const SHOWCASE_COMPONENTS: { [componentID: number]: { icon?: string; name: strin
       fill: var(--color);
       filter: blur(64px);
       pointer-events: none;
-      translate: 0 24px;
+      translate: 0 52px;
+      scale: 1 1.08;
       opacity: 0.5;
       z-index: -1;
     }
@@ -328,7 +371,8 @@ const SHOWCASE_COMPONENTS: { [componentID: number]: { icon?: string; name: strin
     display: flex;
     width: 100%;
 
-    > img {
+    > img,
+    > video {
       width: 100%;
       height: auto;
       aspect-ratio: 1280 / 720;
@@ -345,10 +389,7 @@ const SHOWCASE_COMPONENTS: { [componentID: number]: { icon?: string; name: strin
     gap: 8px;
     padding: 0px;
     padding-left: 24px;
-    // margin-bottom: 8px;
     width: 100%;
-    // background-color: var(--color-bg);
-    // background-color: rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(32px);
     border-radius: var(--border-radius-medium) var(--border-radius-medium) 0 0;
 
@@ -382,7 +423,7 @@ const SHOWCASE_COMPONENTS: { [componentID: number]: { icon?: string; name: strin
       }
     }
 
-    .launch {
+    .launch-showcase {
       padding-left: 32px;
       padding-right: 24px;
     }

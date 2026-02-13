@@ -1,5 +1,6 @@
 ---
 import { createWebsiteSchema } from '../utils/createWebsiteSchema';
+import { preloadContent } from './_landing/_utils/showcaseContent';
 import Landing from './_landing/index.astro';
 import Hero from './_landing/sections/Hero.astro';
 
@@ -7,8 +8,13 @@ const schema = createWebsiteSchema();
 ---
 
 <Landing>
-  {/* Organization schema for Google */}
-  <script slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <Fragment slot="head">
+    {/* Organization schema for Google */}
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+    {/* Preload images & videos for showcases */}
+    {preloadContent.map((props) => <link rel="preload" {...props} />)}
+  </Fragment>
 
   <Hero slot="hero" />
 </Landing>
