@@ -8,10 +8,9 @@ image: './2025_recap_cover.png'
 social_image: './2025_recap_og.png'
 draft: false
 type: 'Recap'
-highlight: false
 ---
 
-Updated <time datetime="2026-01-05T12:44:00.000Z">January 05, 2026</time>
+Updated <time datetime="2026-02-19T17:30:00.000Z">February 19, 2026</time>
 
 ***
 

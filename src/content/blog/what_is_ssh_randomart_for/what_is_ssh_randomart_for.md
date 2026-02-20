@@ -8,10 +8,9 @@ image: './what_is_randomart_cover.png'
 social_image: './what_is_randomart_og.png'
 draft: false
 type: 'Explainer'
-highlight: true
 ---
 
-Updated <time datetime="2025-12-04T12:43:00.000Z">December 04, 2025</time>
+Updated <time datetime="2026-02-19T16:30:00.000Z">February 19, 2026</time>
 
 ---
 

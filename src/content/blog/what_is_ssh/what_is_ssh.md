@@ -8,10 +8,9 @@ image: './what_is_ssh_cover.png'
 social_image: './what_is_ssh_og.png'
 draft: false
 type: 'Explainer'
-highlight: true
 ---
 
-Updated <time datetime="2025-11-25T15:45:05.000Z">November 25, 2025</time>
+Updated <time datetime="2026-02-19T17:40:00.000Z">February 19, 2026</time>
 
 ---
 

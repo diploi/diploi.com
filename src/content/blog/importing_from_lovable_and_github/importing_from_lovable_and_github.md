@@ -8,10 +8,9 @@ image: './importing_from_lovable_and_github_cover.png'
 social_image: './importing_from_lovable_and_github_og.png'
 draft: false
 type: 'Guide'
-highlight: true
 ---
 
-Updated <time datetime="2025-10-28T11:20:05.000Z">October 28, 2025</time>
+Updated <time datetime="2026-02-19T17:20:00.000Z">February 19, 2026</time>
 
 ## Table of contents
 

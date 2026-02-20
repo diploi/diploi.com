@@ -8,7 +8,7 @@ draft: false
 highlight: true
 ---
 
-Updated <time datetime="2026-01-05T13:00:00.000Z">January 05, 2026</time>
+Updated <time datetime="2026-02-19T17:10:00.000Z">February 19, 2026</time>
 
 ###### DevOps can be painful. We know from experience 🤕
 
@@ -72,7 +72,7 @@ https://youtu.be/2m2osV-eBE4?feature=shared
 
 ---
 
-## Sherpa
+## Sherpa (defunct since 2026)
 
 https://www.sherpa.sh/
 
