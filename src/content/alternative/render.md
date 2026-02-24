@@ -1,10 +1,10 @@
 ---
 title: "Diploi as an Alternative to Render"
 description: "Diploi is an alternative to Render, in this article we compare both in terms of their ease of use, remote development capabilities, deployment workflow, user experience, and pricing."
-slug: "render"
+slug: "to-render"
 author: "Javier"
 competitor: "Render"
-timestamp: '2025-11-24T16:00:00.000Z'
+timestamp: '2026-01-05T17:00:00.000Z'
 ---
 
 This article provides a comparison between the features of Render and Diploi to explain how both platforms overlap and what features might be unique to each.

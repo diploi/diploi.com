@@ -29,10 +29,27 @@ export const launchStack = async ({
   const data = await response.json();
   if (data.result.data.status === 'ok') {
     clearUtmParams();
-    window.location.href = `${apiUrl}/launch/${data.result.data.token}`;
+
+    try {
+      const umami = (window as any).umami;
+      if (umami && typeof umami.track === 'function') {
+        umami.track('launch', { page: location.pathname, componentIds });
+      }
+      const gtag = (window as any).gtag;
+      if (typeof gtag === 'function') {
+        gtag('event', 'conversion_event_default_1', { page: location.pathname, componentIds });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+
+    if (data.result.data.isVerificationRequired) {
+      window.location.href = `${apiUrl}/launch/verify?t=${data.result.data.token}`;
+    } else {
+      window.location.href = `${apiUrl}/launch?t=${data.result.data.token}`;
+    }
   } else {
-    // FIXME: This is too ugly...
-    alert('Failed to start trial, please try again later...');
-    button.disabled = false;
+    // Move to the login screen as a fallback
+    window.location.href = `${apiUrl}/login`;
   }
 };

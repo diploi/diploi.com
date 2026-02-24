@@ -1,13 +1,14 @@
 ---
-title: 'Skip the YAML and Server Configs: 7 Easy Deployment Platforms You Haven’t Tried'
-description: 'We created a list of deployment platforms (us included) that you should check out to make your development workflow faster'
+title: 'Exploring 7 lesser known alternatives to Vercel, Render, Heroku, and Railway you haven’t tried yet'
+description: 'We created a list of deployment platforms (us included) which exclude the usual suspects when it comes to app hosting'
 author: 'Javier'
 timestamp: '2025-05-27T07:11:05.573Z'
 devtoUrl: 'https://dev.to/diploi/skip-the-yaml-and-server-configs-7-easy-deployment-platforms-you-havent-tried-50d4'
 draft: false
+highlight: true
 ---
 
-Updated <time datetime="2025-10-28T11:02:05.000Z">October 28, 2025</time>
+Updated <time datetime="2026-01-05T13:00:00.000Z">January 05, 2026</time>
 
 ###### DevOps can be painful. We know from experience 🤕
 

@@ -44,3 +44,69 @@
   from = "/devops"
   to = "/features/devops"
   status = 301
+
+[[redirects]]
+  from = "/blog/importing_from_lovable"
+  to = "/blog/importing_from_lovable_and_github"
+  status = 301
+
+[[redirects]]
+  from = "/blog/hosting_react_apps/hosting_react_apps"
+  to = "/blog/hosting_react_apps"
+  status = 301
+
+[[redirects]]
+  from = "/alternative/railway"
+  to = "/alternative/to-railway"
+  status = 301
+
+[[redirects]]
+  from = "/alternative/vercel"
+  to = "/alternative/to-vercel"
+  status = 301
+
+[[redirects]]
+  from = "/alternative/render"
+  to = "/alternative/to-render"
+  status = 301
+
+[[redirects]]
+  from = "/blog/recap_2025/recap_2025"
+  to = "/blog/recap_2025"
+  status = 301
+
+
+[[redirects]]
+  from = "/blog/our_first_press_release/our_first_press_release"
+  to = "/blog/our_first_press_release"
+  status = 301
+
+[[redirects]]
+  from = "/blog/using_cursor_with_lovable_apps_and_how_to_deploy/exporting_from_lovable_to_cursor"
+  to = "/blog/exporting_from_lovable_to_cursor"
+  status = 301
+
+[[redirects]]
+  from = "/blog/how_to_generate_ssh_keys_using_ssh-keygen/how_to_generate_ssh_keys_using_ssh-keygen"
+  to = "/blog/how_to_generate_ssh_keys_using_ssh-keygen"
+  status = 301
+
+[[redirects]]
+  from = "/blog/hosting_bun_apps/hosting_bun_apps"
+  to = "/blog/hosting_bun_apps"
+  status = 301
+
+[[redirects]]
+  from = "/blog/hosting_laravel_apps/hosting_laravel_apps"
+  to = "/blog/hosting_laravel_apps"
+  status = 301
+
+[[redirects]]
+  from = "/blog/exploring-7-lesser-known-ai-coding-extensions/exploring-7-lesser-known-ai-coding-extensions"
+  to = "/blog/exploring-7-lesser-known-ai-coding-extensions"
+  status = 301
+
+[[redirects]]
+  from = "/blog/hosting_supabase/hosting_supabase"
+  to = "/blog/hosting_supabase"
+  status = 301

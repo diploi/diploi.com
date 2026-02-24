@@ -2,6 +2,8 @@
 import { Font } from 'astro:assets';
 import GlobalStyles from '../components/GlobalStyles.astro';
 import Gradient from '../components/Gradient.astro';
+import icon48 from '../images/logo-icon-48.png';
+import icon96 from '../images/logo-icon-96.png';
 import icon from '../images/logo-icon.svg';
 import og from '../images/og.png';
 import { getFullImageUrl } from '../utils/ogUtils';
@@ -36,10 +38,16 @@ const ogSocialImage = getFullImageUrl({ siteUrl: Astro.url.origin, imageUrl: ogS
 
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="icon" type="image/svg" href={icon.src} />
     <link rel="canonical" href={canonicalUrl} />
 
-    {/* Open Graph (social media link previews eg.) */}
+    {/* SVG favicon first, for all who support it */}
+    <link rel="icon" type="image/svg" href={icon.src} />
+
+    {/* PNG favicon fallbacks, for those do don't (Google) */}
+    <link rel="icon" type="image/png" sizes="48x48" href={icon48.src} />
+    <link rel="icon" type="image/png" sizes="96x96" href={icon96.src} />
+
+    {/* Open Graph (social media link previews e.g.) */}
     <meta property="og:title" content={ogTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
@@ -47,7 +55,7 @@ const ogSocialImage = getFullImageUrl({ siteUrl: Astro.url.origin, imageUrl: ogS
     <meta property="og:image" content={ogSocialImage || og.src} />
     <meta property="og:image:alt" content={ogSocialImage ? `Cover image - ${ogTitle}` : 'Diploi logo'} />
 
-    {/* X twitter preview */}
+    {/* X / Twitter preview */}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@DiploiDev" />
     <meta name="twitter:creator" content="@DiploiDev" />

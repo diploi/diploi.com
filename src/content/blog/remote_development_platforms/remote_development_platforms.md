@@ -1,6 +1,6 @@
 ---
-title: '7 Remote Development Platforms in 2025, to Code without a Local Setup'
-description: 'We discuss 7 remote development platforms that you can use in 2025 to code, run, and test applications in the cloud without the need for a local setup'
+title: '7 Remote Development Platforms you should have tried back in 2025. You still can btw'
+description: 'We discuss 7 remote development platforms that you did not discover back in 2025. To code and test applications without running anything locally'
 author: 'Javier'
 timestamp: '2025-06-10T07:11:05.573Z'
 devtoUrl: 'https://dev.to/diploi/7-remote-development-platforms-in-2025-to-code-without-a-local-setup-1f92'
@@ -9,7 +9,7 @@ social_image: './remote_development_platforms_og.png'
 draft: false
 ---
 
-Updated <time datetime="2025-10-28T11:21:05.000Z">October 28, 2025</time>
+Updated <time datetime="2026-01-15T09:40:05.000Z">January 15, 2026</time>
 
 ###### If you code locally, probably you heard this at least once
 

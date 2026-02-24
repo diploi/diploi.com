@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import playformInline from '@playform/inline';
 import sentry from '@sentry/astro';
 import astroLLMsGenerator from 'astro-llms-generate';
-import { defineConfig, fontProviders, envField } from 'astro/config';
+import { defineConfig, envField, fontProviders } from 'astro/config';
 import llmsTxtReplacer from './buildUtils/llmsTxtReplacer';
 import { diploiDescription } from './buildUtils/seoVariables';
 
@@ -20,7 +20,7 @@ export default defineConfig({
     },
   },
   image: {
-    domains: ['media2.dev.to', 'dev.to'],
+    domains: ['media2.dev.to', 'dev.to', 'diploi.b-cdn.net'],
     remotePatterns: [
       {
         protocol: 'https',

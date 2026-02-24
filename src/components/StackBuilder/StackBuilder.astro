@@ -3,7 +3,9 @@ import Icon from '../Icon.astro';
 import SubSectionHeader from '../SubSectionHeader.astro';
 import StackBuilderButtonCallout from './StackBuilderButtonCallout.astro';
 import StackBuilderButtonComponent from './StackBuilderButtonComponent.astro';
+import StackBuilderLaunchButton from './StackBuilderLaunchButton.astro';
 import StackBuilderYaml from './StackBuilderYaml.astro';
+import { ComponentType, type ComponentTypeLiteral } from './utils';
 
 interface Props {
   launchButtonText?: string;
@@ -24,7 +26,7 @@ if (!data || data.status !== 'ok') {
 
 interface Component {
   componentID: number;
-  type: 'component' | 'addon';
+  componentTypeID: ComponentTypeLiteral;
   identifier: string;
   name: string;
   url: string;
@@ -56,7 +58,7 @@ const lovableComponent = (data.components as Component[]).find((component) => co
             <div class="blocks-container components">
               <div class="blocks components">
                 {components
-                  .filter((component) => component.type === 'component')
+                  .filter((component) => component.componentTypeID === ComponentType.COMPONENT)
                   .map((component) => (
                     <StackBuilderButtonComponent {...component} class="component" />
                   ))}
@@ -75,7 +77,7 @@ const lovableComponent = (data.components as Component[]).find((component) => co
         <div class="blocks addons">
           {
             components
-              .filter((component) => component.type === 'addon')
+              .filter((component) => component.componentTypeID === ComponentType.ADDON)
               .map((addon) => <StackBuilderButtonComponent {...addon} class="addon" />)
           }
         </div>
@@ -85,22 +87,23 @@ const lovableComponent = (data.components as Component[]).find((component) => co
     {!hideYaml && <StackBuilderYaml />}
   </div>
   <div class="ctas">
-    <button id="button-launch-stack" class="secondary" data-url={import.meta.env.VITE_API_URL} disabled>
-      <span class="blobs"></span>
-      <span class="text">
-        {launchButtonText}
-
-        <span class="rocket">
-          <Icon name="Rocket" weight="regular" />
-        </span>
-      </span>
-    </button>
-    <p class="small"><Icon name="Info" sizeRem={1} /> Instant launch. No sign-up required.</p>
+    <StackBuilderLaunchButton id="button-launch-stack" data-url={import.meta.env.VITE_API_URL} disabled>
+      {launchButtonText}
+      <Icon slot="icon" name="Rocket" weight="regular" />
+    </StackBuilderLaunchButton>
+    <p class="small"><Icon name="Info" sizeRem={1} /><span id="button-launch-stack-info">Instant launch. No sign-up required.</span></p>
   </div>
 </div>
 
 <script>
+  import { ComponentType } from './utils';
+
   const buttons = document.querySelectorAll('.stack-builder-button[data-id]');
+  const info = document.getElementById('button-launch-stack-info');
+  const defaultInfoText = info?.textContent;
+  const components = JSON.parse(document.querySelector('[data-components]')?.getAttribute('data-components') || '[]');
+
+  const componentTypeIDs = [ComponentType.COMPONENT, ComponentType.STARTER] as number[];
 
   let selectedComponentIds: number[] = JSON.parse(
     (document.querySelector('[data-components-defaults]') as HTMLElement).getAttribute('data-components-defaults') || '[]'
@@ -139,7 +142,18 @@ const lovableComponent = (data.components as Component[]).find((component) => co
       const componentsEvent = new CustomEvent('components', { detail: selectedComponentIds });
       window.dispatchEvent(componentsEvent);
 
-      launchButton.disabled = selectedComponentIds.length === 0;
+      // Check that at least one component is selected
+      const isComponentSelected = selectedComponentIds.some((componentID) =>
+        components.find(
+          (component: { componentID: number; componentTypeID: number }) =>
+            component.componentID === componentID && componentTypeIDs.includes(component.componentTypeID)
+        )
+      );
+      if (info) {
+        info.textContent = (isComponentSelected ? defaultInfoText : 'Please select at least one component') ?? null;
+      }
+
+      launchButton.disabled = selectedComponentIds.length === 0 || !isComponentSelected;
     });
   });
 
@@ -150,18 +164,6 @@ const lovableComponent = (data.components as Component[]).find((component) => co
     const { launchStack } = await import('./launchStack');
 
     launchStack({ button: launchButton, componentIds: selectedComponentIds, apiUrl: launchButton.getAttribute('data-url') || '' });
-
-    // @ts-ignore
-    if (umami) {
-      // @ts-ignore
-      umami.track('launch', { page: location.pathname, componentIds: selectedComponentIds });
-    }
-
-    // @ts-ignore
-    if (gtag) {
-      // @ts-ignore
-      gtag('event', 'conversion_event_default_1', { page: location.pathname, componentIds: selectedComponentIds });
-    }
   });
 </script>
 

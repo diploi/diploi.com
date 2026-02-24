@@ -1,0 +1,142 @@
+---
+import { ContactUsCard, Footer, GetStarted, PageTitle, Section, SubSection, SubSectionHeader } from '../../components';
+import Navigation from '../../components/Navigation/Navigation.astro';
+import Layout from '../../layouts/Layout.astro';
+import DiploiTeam from './diploi-team.jpg';
+import DiploiTeamMeeting from './team-meeting.jpg';
+
+---
+
+<Layout title="Diploi - About us" description="Get to know who we are, what our story and mission are.">
+  <Navigation selected="about" />
+  <main>
+    <Section isNarrow>
+      <PageTitle tagText="Build by Developers, for Developers" title="Creating Tools that Feel Like Magic" />
+      <SubSection>
+        <SubSectionHeader title="Who We Are" icon="HandWaving" />
+        <p>
+          Happily based in <span class="text-gradient">Helsinki, Finland</span> 🇫🇮, we are an agile and very focused team, working since 2023
+          on removing all busy work from the developer workflow.
+          <br /><br />
+          More specifically, the busy work we had to do on a regular basis while running a successful software agency. Things like:
+          <br /><br />
+          - <b>Every new project requires a fresh setup</b>, a new GitHub repo, add CI/CD, SSL certificates, Staging, and Production
+          environments and a way to share test environments, plus setting up the initial scaffold that will be used as a starting point.
+          <br /><br />
+          - <b>Developer environment drift</b>, which led to the horrifying sentence "Works on my machine". ENV variables are not in sync,
+          dependencies were installed globally but not in the project.
+          <br /><br />
+          - <b>Onboarding being too slow</b>, so new team members spend a disproportionate amount of time configuring their environment,
+          installing dependencies, and debugging setup issues instead of contributing.
+          <br /><br />
+          - <b>Context switching is fight</b>, for developers working across multiple projects, a "minor" change ends up being a major
+          struggle. They must switch Node versions, or activate the right virtual environment, or shut down a Docker container to enable a
+          different one, or switch databases, and many more issues like that.
+          <br /><br />
+          Working on multiple projects, either as a freelancer or running an agency, comes with these "busy" work costs that add up quickly.
+          <br /><br />
+          And this is non-billable work. <b>The kind of work that leads to burnout</b>.
+          <br /><br />
+          We decided we had enough with this situation and with a simple question:
+        </p>
+        <blockquote>
+          Why is so much developer time wasted on things that aren't actually building software? Between environment setup, configuration
+          management, and keeping dev/staging/production in sync, teams lose hours every week to work that doesn't move the product forward.
+        </blockquote>
+        <b class="text-gradient">We set out to fix that.</b>
+        <p>
+          With our small team and ambition, we created a platform we are proud of, fixing our own problem and making development much more
+          enjoyable.
+        </p>
+      </SubSection>
+      <SubSection>
+        <SubSectionHeader title="This Is Us" icon="Smiley" />
+        <figure>
+          <img class="full-width" loading="lazy" src={DiploiTeam.src} alt="the Diploi team" />
+          <figcaption>The Diploi Team, 2026!</figcaption>
+        </figure>
+        <p>
+          From left to right:
+          <br /><br />
+          <b class="text-gradient">Giao Ngo</b>, Junior Full-stack Developer and AI implementation
+          <br /><br />
+          <b class="text-gradient">Patrik Lindberg</b>, Business Development and Operations
+          <br /><br />
+          <b class="text-gradient">Marcus Ahlfors</b>, CEO and Senior Developer
+          <br /><br />
+          <b class="text-gradient">Javier Hernandez</b>, Growth and DevRel
+          <br /><br />
+          <b class="text-gradient">Tuomas Pöyry</b>, Lead Developer and Product Designer
+        </p>
+      </SubSection>
+      <SubSection>
+        <SubSectionHeader title="Our Story" icon="BookBookmark" />
+        <p>
+          Diploi began when Marcus, Patrik, and Tuomas, who wanted to spend more time shipping code than reconfiguring their local
+          environments every time they needed to switch projects. In early 2024, they got the MVP ready and started actively testing it and
+          gathering feedback from early users.
+          <br /><br />
+          With the early success of the platform, the team raised pre-seed funding by September 2024, which allowed us to take the MVP into a
+          polished product.
+          <br /><br />
+          In 2025, the team grew! First, Javier joined to help spread the word, and Giao came on board to accelerate our development cycles.
+          <br /><br />
+          By December 2025, we hit 1,000 registered users! By the end of the year, we had support for Python, PHP, C#, and .NET. We added Ghost,
+          Supabase, n8n, MinIO, and MariaDB. We built integrations with AI coding tools so developers can use LLMs without having to add API keys,
+          and made it easy to import projects from Lovable, Next.js, React, and Node.js.
+          <br /><br />
+          We are on a mission! 🫡
+        </p>
+      </SubSection>
+      <SubSection>
+        <SubSectionHeader title="Our Way of Working" icon="RoadHorizon" />
+        <p>
+          We trust the people in our team to do great work, without having anyone looking over their shoulders.
+          <br /><br />
+          We do not like micromanagement, we do not ask for constant check-ins, or wasting time with meetings to look busy. You own your work,
+          you manage your time, and you keep the team in the loop.
+          <br /><br />
+          That's our way. 😌
+          <br /><br />
+          Even though we care about shipping fast, we know that there's more to life than work, so we encourage our team to touch grass as often
+          as possible, and prioritize your long-term health over short-term speed.
+          <br /><br />
+          A sustainable pace wins over time. Go outside. Take your evenings back. We're building something for the long haul.
+        </p>
+        <figure>
+          <img class="full-width" loading="lazy" src={DiploiTeamMeeting.src} alt="Diploi team meeting" />
+          <figcaption>That means taking care of the people doing the building. 🤗</figcaption>
+        </figure>
+      </SubSection>
+    </Section>
+    <Section>
+      <div class="callout">
+        <GetStarted />
+        <ContactUsCard />
+      </div>
+    </Section>
+  </main>
+  <Footer />
+</Layout>
+
+<style lang="scss">
+  @use '../../styles/mixins';
+
+  p {
+    max-width: unset;
+  }
+
+  .full-width {
+    width: 100%;
+  }
+
+  .callout {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xxl);
+    @include mixins.respond-to('tablet') {
+      flex-direction: row;
+      gap: var(--space-l);
+    }
+  }
+</style>

@@ -8,6 +8,8 @@ import Tag from './Tag.astro';
 
 const calendlyUrl = import.meta.env.VITE_CALENDLY_URL;
 
+const currentYear = new Date().getFullYear();
+
 const alternatives = (await getCollection('alternative'))
   .sort((a, b) => a.data.competitor.localeCompare(b.data.competitor))
   .map((entry) => ({
@@ -21,13 +23,13 @@ const alternatives = (await getCollection('alternative'))
     <div class="footer-content">
       <div class="logo-and-socials">
         <Logo class="footer-logo" />
-        <a class="launch-week" data-event="footer_launchweek_click" href="/launchweek">
+        <!-- ENABLE DURING LAUNCHWEEK <a class="launch-week" data-event="footer_launchweek_click" href="/launchweek">
           <Tag><RocketLaunchIcon weight="fill" /> Launch Week <ArrowUpRightIcon /></Tag>
-        </a>
+        </a> -->
       </div>
       <div class="clickable">
         <ul class="links">
-          <label>Product</label>
+          <label role="listitem">Product</label>
           <li>
             <a data-event="pricing_click" href="/pricing">Pricing</a>
           </li>
@@ -44,12 +46,15 @@ const alternatives = (await getCollection('alternative'))
             <a data-event="glossary_click" href="https://docs.diploi.com/reference/glossary">Glossary</a>
           </li>
           <li>
+            <a data-event="faq_click" href="/faq">FAQ</a>
+          </li>
+          <li>
             <a data-link="login" data-event="login_click" href="https://console.diploi.com/login">Login / Sign Up</a>
           </li>
         </ul>
 
         <ul class="links">
-          <label>Alternative to</label>
+          <label role="listitem">Alternative to</label>
           {
             alternatives.map((alternative) => {
               return (
@@ -63,7 +68,10 @@ const alternatives = (await getCollection('alternative'))
 
         <div class="links">
           <ul class="links">
-            <label>Legal</label>
+            <label role="listitem">Legal</label>
+            <li>
+              <a href="/about">About us</a>
+            </li>
             <li>
               <a href="/privacy">Privacy Policy</a>
             </li>
@@ -72,7 +80,7 @@ const alternatives = (await getCollection('alternative'))
             </li>
           </ul>
           <ul class="links" style={{ marginTop: '16px' }}>
-            <label>LLM</label>
+            <label role="listitem">LLM</label>
             <li>
               <a href="/llms.txt">llm.txt</a>
             </li>
@@ -87,11 +95,13 @@ const alternatives = (await getCollection('alternative'))
 
         <address>
           <label>Contact</label>
+          <p>Malminkatu 30, Helsinki, Finland</p>
           <a href="mailto:hello@diploi.com" class="mail">hello@diploi.com</a>
           <a data-event="calendly_click" href={calendlyUrl} target="_blank"><PhoneIcon /> Book a Demo</a>
         </address>
+
         <ul class="links socials">
-          <label>Socials</label>
+          <label role="listitem">Socials</label>
           <li>
             <Icon name="GithubLogo" class="footer-social-link-icon github" />
             <a data-event="github_click" href="https://github.com/diploi">GitHub</a>
@@ -123,7 +133,7 @@ const alternatives = (await getCollection('alternative'))
       <EuLogo width={156} height={32} style={{ opacity: 0.8 }} />
       <p class="small cp">
         <Icon name="Copyright" size={16} weight="light" />
-        2025 Diploi Oy
+        {currentYear} Diploi Oy
       </p>
     </div>
   </div>
@@ -331,7 +341,7 @@ const alternatives = (await getCollection('alternative'))
       justify-content: center;
       color: inherit;
       gap: var(--space-xs);
-      color: var(--color-text-tertiary);
+      color: var(--color-text-secondary);
 
       > svg {
         fill: currentColor;

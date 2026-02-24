@@ -45,8 +45,8 @@ const { component: Component, class: className, ...other } = Astro.props;
       }
     }
 
-    > :global(label.new),
-    > :global(label.beta) {
+    > :global(strong.new),
+    > :global(strong.beta) {
       --light: color-mix(in lch, var(--color-accent-primary), var(--color-bg) 20%);
       --dark: color-mix(in lch, var(--color-accent-primary), var(--color-bg) 50%);
 
@@ -71,6 +71,19 @@ const { component: Component, class: className, ...other } = Astro.props;
         --dark: color-mix(in lch, var(--color-accent-secondary), var(--color-bg) 55%);
         background-color: var(--color-accent-secondary);
       }
+    }
+
+    // Hidden label for screen-reader only
+    :global(.root > .label) {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
 
     :global(.label) {
@@ -109,8 +122,10 @@ const { component: Component, class: className, ...other } = Astro.props;
     }
 
     :global(.icon) {
-      width: 1.75rem;
-      height: 1.75rem;
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      object-position: center;
     }
   }
 </style>

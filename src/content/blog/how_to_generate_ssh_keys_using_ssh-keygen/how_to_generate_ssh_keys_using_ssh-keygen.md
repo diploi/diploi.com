@@ -8,10 +8,10 @@ image: './how_to_generate_ssh_keys_cover.png'
 social_image: './how_to_generate_ssh_keys_og.png'
 draft: false
 type: 'Guide'
-highlight: true
+highlight: false
 ---
 
-Updated <time datetime="2025-12-04T12:44:00.000Z">December 04, 2025</time>
+Updated <time datetime="2026-01-05T11:44:00.000Z">January 05, 2026</time>
 
 ---
 
@@ -80,7 +80,7 @@ The key's randomart image is:
 +----[SHA256]-----+
 ```
 
-Now you have a private and public key files, along with a randomart image ([we'll talk more randomart later](/blog/blog/what_is_ssh_randomart_for)), for we'll only focus on the keys generated.
+Now you have a private and public key files, along with a randomart image ([we'll talk more randomart later](/blog/what_is_ssh_randomart_for)), for we'll only focus on the keys generated.
 
 ### 2. Adding the public key to a server or service using SSH for authentication
 
@@ -121,7 +121,7 @@ By clicking on the "Connect +" button, you'll get an SSH connection string, whic
 
 ```
 javi@diploi:~$ ssh app-3-bun-qkaleob14c5m@console.diploi.com
-bun@app-3:/app/bun$ 
+bun@app-3:/app/bun$
 ```
 
 **If you add a passphrase when creating an SSH key pair**, whenever you try to connect to a server, the SSH agent will ask for the passphrase in order to decrypt your private key. To avoid having to input the passphrase every time you start a connection, add your private key to the SSH agent using `ssh-add <path-to-private-key>/<private-key-file>`
@@ -129,6 +129,7 @@ bun@app-3:/app/bun$
 ```
 javi@diploi:~$ ssh-add ./files/my-ssh-key
 ```
+
 ---
 
 ## How to install openSSH
@@ -145,9 +146,10 @@ Most MacOS machines come with openSSH pre-installed by default, but in case it's
 
 ### In Windows
 
-OpenSSH comes as an optional feature which you can activate from Windows Control Panel. Depending on your Windows version, the process is slighly different, but follows a similar formula. In Windows 11, go to *Settings*, then *System*, and then *View features* where you can search by writing `openssh` and you'll see the OpenSSH client listed. For more information about it and explanations for other versions of Windows, [check this article from Windows Club](https://www.thewindowsclub.com/openssh-on-windows-10).
+OpenSSH comes as an optional feature which you can activate from Windows Control Panel. Depending on your Windows version, the process is slighly different, but follows a similar formula. In Windows 11, go to _Settings_, then _System_, and then _View features_ where you can search by writing `openssh` and you'll see the OpenSSH client listed. For more information about it and explanations for other versions of Windows, [check this article from Windows Club](https://www.thewindowsclub.com/openssh-on-windows-10).
 
 ---
+
 ## Wrapping all up
 
 You now know how to connect to another computer, server or service using SSH, and in a nutshell, it all boils down to:

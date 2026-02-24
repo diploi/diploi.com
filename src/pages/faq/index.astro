@@ -1,0 +1,57 @@
+---
+import {
+  ContactUsCard,
+  DeveloperFaq,
+  Footer,
+  GetStarted,
+  Section,
+  SectionHeader,
+} from '../../components';
+import Navigation from '../../components/Navigation/Navigation.astro';
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  title="Frequenly Asked Questions - Diploi FAQ"
+  description="A list of common questions we have received, and you might want to know too."
+  ogUrlMatchCanonical={true}
+>
+  <Navigation/>
+  <main>
+    <Section>
+      <SectionHeader title="FAQ" highlightedText="FAQ" description="Things you might want to learn about us. Contact us if you need more information." />
+      <DeveloperFaq page="faq" />
+    </Section>
+    <Section>
+      <div class="callout">
+        <GetStarted />
+        <ContactUsCard />
+      </div>
+    </Section>
+  </main>
+  <Footer />
+</Layout>
+
+<style lang="scss">
+  @use '../../styles/mixins';
+
+  .callout {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xxl);
+    @include mixins.respond-to('tablet') {
+      flex-direction: row;
+      gap: var(--space-l);
+    }
+  }
+
+  .callout {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xxl);
+    @include mixins.respond-to('tablet') {
+      flex-direction: row;
+      gap: var(--space-l);
+    }
+  }
+</style>

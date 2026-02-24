@@ -3,13 +3,15 @@ import { Image } from 'astro:assets';
 import { DownloadSimpleIcon, FlaskIcon, SparkleIcon } from '@phosphor-icons/react';
 import Checkbox from '../Checkbox.astro';
 import StackBuilderButton from './StackBuilderButton.astro';
-import type { TStackBuilderBlock } from './types';
+import { componentTypeIDToString, type StackBuilderBlock } from './utils';
 
-type Props = TStackBuilderBlock & {
+type Props = StackBuilderBlock & {
   class: string;
 };
 
-const { componentID, type, identifier, name, url, class: className, badge, count } = Astro.props;
+const { componentID, componentTypeID, identifier, name, url, class: className, badge, count } = Astro.props;
+
+const type = componentTypeIDToString[componentTypeID];
 
 export const extractRepositoryOwnerAndRepo = (repositoryUrl: string) => {
   let url = repositoryUrl;
@@ -33,32 +35,35 @@ const numberFormatter = new Intl.NumberFormat('fi-FI', {
 <StackBuilderButton component="button" class={className} data-id={componentID} data-component={identifier}>
   {
     badge === 'new' && (
-      <label class="new">
-        <SparkleIcon weight="fill" size={12} /> New
-      </label>
+      <strong class="new">
+        <SparkleIcon weight="fill" aria-hidden="true" size={12} /> New
+      </strong>
     )
   }
   {
     badge === 'beta' && (
-      <label class="beta">
-        <FlaskIcon weight="fill" size={12} /> Beta
-      </label>
+      <strong class="beta">
+        <FlaskIcon weight="fill" aria-hidden="true" size={12} /> Beta
+      </strong>
     )
   }
   <div class="label">
-    <Image alt={`${type} icon`} src={imageSrc} class="icon" width={28} height={28} />
+    <Image alt={`${type} icon`} src={imageSrc} class="icon" aria-hidden="true" width={28} height={28} />
     <span>
       <span>{name}</span>
       {
         !!count && (
           <span class="downloads">
-            <DownloadSimpleIcon /> <span data-component-count={componentID}>{numberFormatter.format(count)}</span>
+            <DownloadSimpleIcon aria-hidden="true" />{' '}
+            <span aria-label="Times used" data-component-count={componentID}>
+              {numberFormatter.format(count)}
+            </span>
           </span>
         )
       }
     </span>
   </div>
-  <Checkbox id={`${componentID}-checkbox`} tabIndex={-1} checked={className.includes('is-selected')} />
+  <Checkbox id={`${componentID}-checkbox`} tabIndex={-1} label="Include in stack" checked={className.includes('is-selected')} />
 </StackBuilderButton>
 
 <style lang="scss"></style>

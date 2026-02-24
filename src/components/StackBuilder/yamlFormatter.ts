@@ -1,6 +1,8 @@
+import { ComponentType, type ComponentTypeLiteral } from './utils';
+
 interface ComponentsToYamlHtmlParams {
   selectedComponentIds: number[];
-  components: { componentID: number; type: 'component' | 'addon'; identifier: string; name: string; url: string }[];
+  components: { componentID: number; componentTypeID: ComponentTypeLiteral; identifier: string; name: string; url: string }[];
 }
 
 export const componentsToYamlHtml = ({ selectedComponentIds, components }: ComponentsToYamlHtmlParams) => {
@@ -32,13 +34,13 @@ export const componentsToYamlHtml = ({ selectedComponentIds, components }: Compo
   content.append(createField({ name: 'diploiVersion', content: 'v1.0' }));
   content.append(createField({ name: 'components' }));
 
-  for (const item of items.filter((item) => item.type === 'component')) {
+  for (const item of items.filter((item) => item.componentTypeID === ComponentType.COMPONENT)) {
     content.append(...createComponent(item));
   }
 
   content.append(createField({ name: 'addons' }));
 
-  for (const item of items.filter((item) => item.type === 'addon')) {
+  for (const item of items.filter((item) => item.componentTypeID === ComponentType.ADDON)) {
     content.append(...createComponent(item));
   }
 

@@ -2,7 +2,7 @@
 title: 'Exporting apps built with Lovable to Cursor, and hosting without Lovable Cloud'
 description: 'Export and deploy Lovable AI apps directly from your GitHub account or public repositories and code with Cursor'
 author: 'Javier'
-timestamp: '2025-10-17T12:00:05.000Z'
+timestamp: '2026-01-14T12:00:00.000Z'
 devtoUrl: 'https://dev.to/diploi/using-cursor-with-apps-built-with-lovable-and-hosting-without-lovable-cloud-1m43'
 image: './deploying_lovable_apps_cover.png'
 social_image: './deploying_lovable_apps_og.png'
@@ -11,7 +11,7 @@ type: 'Guide'
 highlight: true
 ---
 
-Updated <time datetime="2025-11-25T15:49:05.000Z">November 25, 2025</time>
+Updated <time datetime="2026-01-14T12:00:00.000Z">January 14, 2026</time>
 
 ---
 
@@ -25,6 +25,7 @@ Updated <time datetime="2025-11-25T15:49:05.000Z">November 25, 2025</time>
 - [Creating a Production deployment for your Lovable app](#creating-a-production-deployment-for-your-lovable-app)
 - [Adding a custom domain to your deployed Lovable app](#adding-a-custom-domain-to-your-deployed-lovable-app)
 - [Expanding your Lovable app with Components and Add-ons](#expanding-your-lovable-app-with-components-and-add-ons)
+- [Example apps](#example-apps)
 - [Bringing It All Together](#bringing-it-all-together)
 - [References](#references)
 
@@ -75,7 +76,7 @@ In this walkthrough, we'll be importing an application stored on GitHub and buil
 
 If you want to use this same application for testing, here's the public repository which you can use to import the app to your own Diploi account: https://github.com/wickathou/vibe-tune-podcast
 
-You can see the live app here: https://demo--soundboarded.diploi.me/
+You can see the live app here: [https://soundboarded.enddesign.co/](https://soundboarded.enddesign.co/)
 
 Let's get started by creating a new project and starting a Development environment, where you can start coding with Cursor right away.
 
@@ -328,6 +329,48 @@ After modifying the `diploi.yaml` file, if you go back to your deployment's dash
 By clicking **"Apply Changes"**, Diploi will proceed to start additional containers to host the new component and addons as pods in the same cluster that already hosts your Lovable app.
 
 ![Deployment running newly added components and addons](deployment-running-newly-added-components-and-addons.png)
+
+---
+
+## Example apps
+
+In a nutshell, any app built with Lovable can be imported to Diploi, and there are many interesting cases you could host. We collected some apps built and hosted on Lovable for reference, some ready to be remixed, and others we fully migrated from Lovable to Diploi.
+
+### Hideout
+
+Link: https://hideout-now.lovable.app/
+
+An interesting web project that allows you to run applications, browse, use AI, and even play games online. Most features are still being developed but you can play videogames right away.
+
+### HelloGraduate
+
+Link: https://www.hellograduate.io/
+
+A tool that reviews resumes and CV, and generates a report to improve how ATS systems would score your resume. Also offers additional tools to help job seekers prepare for interviews and track job openings.
+
+### MarketPulse
+
+Link: https://market-mosaic-online.lovable.app/
+
+A ready-for-remix investment tracking platform, which you can remix on Lovable to extend the base capabilities
+
+### Crypto Dashboard
+
+Link: https://cryptocurrency-trading-dashboard.lovable.app/
+
+A crypto tracking dashboard, that tracks the performance of a set of assets defined by you. This project is available to be remixed.
+
+### ATMFees
+
+Link: https://atmfees.dev/
+
+Crowdsourcing website, which shows users the ATM withdrawal fees charged to foreign debit/credit cards around the world.
+
+### SEO Checker
+
+Link: https://seo.enddesign.co/
+
+A microsite where you can preview common SEO parameters for a URL, along with open graph variables such as social share image, titles, descriptions, and favicon.
 
 ---
 

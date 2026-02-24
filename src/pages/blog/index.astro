@@ -20,7 +20,7 @@ const schema = createBlogSchema({
   url: new URL(Astro.url.pathname, Astro.site),
   blogPosts: articles.map((article) => ({
     ...article.data,
-    url: new URL(`/blog/${article.id}`, Astro.site),
+    url: new URL(`/blog/${article.data.slug}`, Astro.site),
     externalUrl: article.data.url,
   })),
 });

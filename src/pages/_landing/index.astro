@@ -18,15 +18,16 @@ import { Lifecycle } from '../../components/react/Lifecycle';
 import { chart, content, featureCards } from '../../content';
 import Layout from '../../layouts/Layout.astro';
 import FeaturesCallouts from '../features/_components/FeaturesCallouts.astro';
+import LandingShowcases from './_components/LandingShowcases.astro';
 
 interface Props {
   title?: string;
   description?: string;
 }
 
-const defaultTitle = 'Diploi - The App Development and Deployment Platform for Busy Agencies and Freelancers';
+const defaultTitle = 'Diploi - The App Development and Deployment Platform for Busy Developers';
 const defaultDescription =
-  'Diploi is a platform that lets you build using remote development and host web apps online with one click, without configuring servers manually.';
+  'Diploi is a platform that lets you build apps using cloud development environments and host them online with a single click, without configuring servers manually.';
 
 const { title = defaultTitle, description = defaultDescription } = Astro.props;
 ---
@@ -37,6 +38,7 @@ const { title = defaultTitle, description = defaultDescription } = Astro.props;
   <Navigation />
   <main>
     <slot name="hero" />
+    <LandingShowcases />
     <Section id="StackBuilder" {...content.pickStack}>
       <StackBuilder />
     </Section>
@@ -46,7 +48,7 @@ const { title = defaultTitle, description = defaultDescription } = Astro.props;
       <EffortlessDevelopment {...content.develop.effortlessDevelopment} />
       <FeatureMasonry />
       <SubSection {...content.develop.developerFaq}>
-        <DeveloperFaq page='homepage'/>
+        <DeveloperFaq page="homepage" />
       </SubSection>
     </Section>
     <hr />

@@ -1,10 +1,10 @@
 ---
 title: "Diploi as an Alternative to Vercel"
 description: "Diploi vs Vercel, a deep-dive into how both platforms compare."
-slug: "vercel"
+slug: "to-vercel"
 author: "Javier"
 competitor: "Vercel"
-timestamp: '2025-11-24T17:30:00.000Z'
+timestamp: '2026-01-05T17:00:00.000Z'
 ---
 
 In this article we explore a comparison between the features of **Vercel** and **Diploi**, to explain how both platforms overlap and what features are unique to each.

@@ -4,7 +4,7 @@ import Logo from '../Logo.astro';
 import NavigationFeatures from './NavigationFeatures.astro';
 
 interface Props {
-  selected?: 'home' | 'ai' | 'pricing' | 'blog' | 'jobs';
+  selected?: 'home' | 'ai' | 'pricing' | 'blog' | 'jobs' | 'about';
 }
 
 const { selected } = Astro.props;
@@ -13,6 +13,7 @@ const isHome = selected === 'home';
 const isAi = selected === 'ai';
 const isPricing = selected === 'pricing';
 const isBlog = selected === 'blog';
+const isAbout = selected === 'about';
 const isJobs = selected === 'jobs';
 ---
 

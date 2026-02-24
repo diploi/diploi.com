@@ -1,10 +1,10 @@
 ---
 title: "Diploi as an Alternative to Railway"
 description: "Diploi compared with Railway, in this article we explore the differences between both platforms and their strengths."
-slug: "railway"
+slug: "to-railway"
 author: "Javier"
 competitor: "Railway"
-timestamp: '2025-11-24T17:00:00.000Z'
+timestamp: '2026-01-05T17:00:00.000Z'
 ---
 
 Let's explore how the two platforms overlap and what might be unique to each. Both target freelancers, agencies, and startups looking to simplify deployment and development workflows.

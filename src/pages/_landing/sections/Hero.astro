@@ -55,27 +55,21 @@ const icons = components.filter((component) => !component.data.hidden).map((comp
         </ul>
       </div>
     </div>
-    <a data-event="hero_cta_click" href="#StackBuilder">
+    <a data-event="hero_cta_click" href="#showcases">
       <button>Get Started</button>
     </a>
     <ul class="links">
-      <a data-event="calendly_click" target="_blank" href={calendlyUrl}>
-        <li>
-          <Icon name="Phone" sizeRem={1.275} /> Book a Demo
-          <Icon name="ArrowSquareOut" sizeRem={1} />
-        </li>
+      <a role="listitem" data-event="calendly_click" target="_blank" href={calendlyUrl}>
+        <Icon name="Phone" sizeRem={1.275} /> Book a Demo
+        <Icon name="ArrowSquareOut" sizeRem={1} />
       </a>
-      <a data-event="github_click" target="_blank" href="https://github.com/diploi">
-        <li>
-          <Icon name="GithubLogo" sizeRem={1.275} /> GitHub
-          <Icon name="ArrowSquareOut" sizeRem={1} />
-        </li>
+      <a role="listitem" data-event="github_click" target="_blank" href="https://github.com/diploi">
+        <Icon name="GithubLogo" sizeRem={1.275} /> GitHub
+        <Icon name="ArrowSquareOut" sizeRem={1} />
       </a>
-      <a data-event="discord_click" target="_blank" href="https://discord.gg/vvgQxVjC8G">
-        <li>
-          <Icon name="DiscordLogo" sizeRem={1.275} /> Discord
-          <Icon name="ArrowSquareOut" sizeRem={1} />
-        </li>
+      <a role="listitem" data-event="discord_click" target="_blank" href="https://discord.gg/vvgQxVjC8G">
+        <Icon name="DiscordLogo" sizeRem={1.275} /> Discord
+        <Icon name="ArrowSquareOut" sizeRem={1} />
       </a>
     </ul>
   </div>
@@ -351,14 +345,11 @@ const icons = components.filter((component) => !component.data.hidden).map((comp
     margin-top: 24px;
 
     a {
-      font-size: 1rem;
-      text-decoration: none;
-    }
-
-    li {
       display: flex;
       align-items: center;
       gap: 5px;
+      font-size: 1rem;
+      text-decoration: none;
 
       > :global(svg:last-of-type) {
         opacity: 0.8;

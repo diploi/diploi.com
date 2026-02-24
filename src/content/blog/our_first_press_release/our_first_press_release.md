@@ -8,10 +8,10 @@ image: './our_first_press_release_cover.png'
 social_image: './our_first_press_release_og.png'
 draft: false
 type: 'Press Release'
-highlight: true
+highlight: false
 ---
 
-Updated <time datetime="2025-12-23T10:00:00.000Z">December 23, 2025</time>
+Updated <time datetime="2026-01-05T11:45:00.000Z">January 05, 2026</time>
 
 ***
 
