@@ -23,6 +23,7 @@
 .root {
   position: relative;
   display: none;
+  overflow: hidden;
 
   @media (min-width: 984px) {
     display: block;

@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
-import { animated, useSpring, config, useSprings } from '@react-spring/web';
-import * as d3 from 'd3';
+import { animated, config, useSpring, useSprings } from '@react-spring/web';
+import { path as d3Path } from 'd3';
 import useMeasure from 'react-use-measure';
 import * as Icon from '@phosphor-icons/react';
-import { lifecyclePoints } from './data';
 import styles from './Lifecycle.module.scss';
 import { LifecycleDesktop } from './LifecycleDesktop';
 import { LifecycleMobile } from './LifecycleMobile';
+import { lifecyclePoints } from './data';
 
 const drawHalfCirclePath = (r: number, counterClockwise = false) => {
-  const halfCirclePath = d3.path();
+  const halfCirclePath = d3Path();
 
   const cx = r;
   const cy = r;

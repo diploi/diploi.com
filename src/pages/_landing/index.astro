@@ -53,7 +53,7 @@ const { title = defaultTitle, description = defaultDescription } = Astro.props;
     </Section>
     <hr />
     <Section {...content.publishApp} isWide>
-      <Lifecycle client:visible={{ rootMargin: '600px' }} />
+      <Lifecycle client:only="react" />
     </Section>
     <hr />
     <Section {...content.timeAndResources}>
