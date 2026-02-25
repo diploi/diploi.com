@@ -7,7 +7,9 @@ import { Canvas } from '../../../components/react/Canvas';
 const calendlyUrl = import.meta.env.VITE_CALENDLY_URL;
 
 const components = await getCollection('component');
-const icons = components.filter((component) => !component.data.hidden).map((component) => component.data.icon);
+const icons = components
+  .filter((component) => !component.data.hidden && component.data.type !== 'starter')
+  .map((component) => component.data.icon);
 ---
 
 <div class="hero">
