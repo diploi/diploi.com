@@ -7,9 +7,10 @@ devtoUrl: 'https://dev.to/diploi/exploring-7-lesser-known-ai-coding-extensions-f
 image: './exploring-7-lesser-known-ai-coding-extensions_cover.png'
 social_image: './exploring-7-lesser-known-ai-coding-extensions_og.png'
 draft: false
+highlight: true
 ---
 
-Updated <time datetime="2025-10-28T11:00:05.000Z">October 28, 2025</time>
+Updated <time datetime="2026-02-19T17:00:00.000Z">February 19, 2026</time>
 
 ###### Beyond the popular tools that most people are using
 

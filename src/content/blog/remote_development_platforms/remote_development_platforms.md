@@ -7,9 +7,10 @@ devtoUrl: 'https://dev.to/diploi/7-remote-development-platforms-in-2025-to-code-
 image: './remote_development_platforms_cover.png'
 social_image: './remote_development_platforms_og.png'
 draft: false
+highlight: true
 ---
 
-Updated <time datetime="2026-01-15T09:40:05.000Z">January 15, 2026</time>
+Updated <time datetime="2026-02-19T17:40:00.000Z">February 19, 2026</time>
 
 ###### If you code locally, probably you heard this at least once
 
