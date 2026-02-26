@@ -2,7 +2,7 @@
 title: 'Easiest OpenClaw available anywhere? Batteries included'
 description: 'Run OpenClaw on Diploi in a few clicks, even without adding your own AI keys.'
 author: 'Javier'
-timestamp: '2026-02-20T15:00:00.000Z'
+timestamp: '2026-02-26T11:00:00.000Z'
 # devtoUrl: ''
 image: './hosting_openclaw_cover.png'
 social_image: './hosting_openclaw_og.png'
@@ -11,7 +11,7 @@ type: 'Guide'
 highlight: true
 ---
 
-Updated <time datetime="2026-02-20T15:00:00.000Z">February 20, 2026</time>
+Updated <time datetime="2026-02-26T11:00:00.000Z">February 20, 2026</time>
 
 ---
 
