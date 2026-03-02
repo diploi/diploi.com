@@ -44,16 +44,16 @@ import PricingCard from './PricingCard.astro';
       <ul>
         <li><HardDrive /> Powerful cluster tuned for development</li>
         <li><Code /> Stack Builder for scaffolding apps</li>
-        <li><Terminal /> Browser, VS Code, Cursor, and custom IDE support</li>
-        <li><MagicWand /> Automatic Git, CI/CD, SSL, eg. configuration</li>
+        <li><Terminal /> Cloud, VS Code, Cursor, and custom IDE support</li>
+        <li><MagicWand /> Automatic Git, CI/CD, SSL, e.g. configuration</li>
         <li><Plus /> And more</li>
       </ul>
     </section>
 
     <footer slot="footer">
-      <p class="help"><Info /> Estimate, assuming use of the size M cluster for 7 hours / workday</p>
+      <p class="help"><Info /> Estimate, assuming use of the size M cluster with 5 GB storage for 7 hours / workday</p>
       <section class="price">
-        <strong>4<abbr>€</abbr></strong>
+        <strong>2<small>.90</small><abbr>€</abbr></strong>
         <label>/ month</label>
       </section>
     </footer>
@@ -69,18 +69,18 @@ import PricingCard from './PricingCard.astro';
 
     <section slot="content">
       <ul>
+        <li><Mouse /> One-click setup</li>
         <li><Fire /> Always hot, no cold-starts</li>
         <li><Code /> Consistent with development</li>
         <li><ArrowClockwise /> Automated optimized deployments</li>
-        <li><Mouse /> One-click setup</li>
         <li><Plus /> And more</li>
       </ul>
     </section>
 
     <footer slot="footer">
-      <p class="help"><Info /> Estimate, using size S cluster</p>
+      <p class="help"><Info /> Estimate, using size XS cluster with 5 GB storage</p>
       <section class="price">
-        <strong>19<abbr>€</abbr></strong>
+        <strong>5<small>.89</small><abbr>€</abbr></strong>
         <label>/ month</label>
       </section>
     </footer>
@@ -154,7 +154,8 @@ import PricingCard from './PricingCard.astro';
         line-height: 0.8;
         color: var(--color-text-primary);
 
-        > abbr {
+        > abbr,
+        > small {
           font-size: 2rem;
         }
       }
@@ -185,9 +186,13 @@ import PricingCard from './PricingCard.astro';
 
     p.help {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 4px;
       font-size: 0.875rem;
+
+      > svg {
+        translate: 0 2px;
+      }
 
       &.footer {
         position: absolute;

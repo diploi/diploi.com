@@ -33,7 +33,7 @@ const formatterLong = new Intl.NumberFormat('fi-FI', {
 ---
 
 <div>
-  <table>
+  <table id="price-table" class="development">
     <colgroup>
       <col span="1" style="width: 26%" />
       <col span="1" style="width: 16%;" />
@@ -53,7 +53,7 @@ const formatterLong = new Intl.NumberFormat('fi-FI', {
     <tbody>
       {
         pricing.coreInstancePrice.map((core) => (
-          <tr>
+          <tr data-size={core.name}>
             <td>{core.name}</td>
             <td>{core.memoryGiB} GB</td>
             <td>{core.vCpu}</td>
@@ -90,7 +90,7 @@ const formatterLong = new Intl.NumberFormat('fi-FI', {
       <tr>
         <td>Storage</td>
         <td>
-          <input id="storage" type="number" value="10" />
+          <input id="storage" type="number" value="5" />
         </td>
         <td>
           <span id="storage-price-hour">
@@ -99,7 +99,7 @@ const formatterLong = new Intl.NumberFormat('fi-FI', {
         </td>
         <td>
           <span id="storage-price-month">
-            {formatter.format(pricing.storagePerGiB * 10 * averageDaysInMonth * 24)}
+            {formatter.format(pricing.storagePerGiB * 5 * averageDaysInMonth * 24)}
           </span>
         </td>
       </tr>
@@ -178,6 +178,11 @@ const formatterLong = new Intl.NumberFormat('fi-FI', {
     }
   }
 
+  /* Hide XS in dev */
+  table.development tr[data-size='XS'] {
+    display: none;
+  }
+
   table th {
     text-align: left;
     font-weight: 400;
@@ -188,6 +193,7 @@ const formatterLong = new Intl.NumberFormat('fi-FI', {
     padding: var(--space-s) var(--space-l);
     font-size: 1rem;
   }
+
   td {
     padding: var(--space-l);
     font-size: 1rem;
