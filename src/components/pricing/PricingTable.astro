@@ -30,6 +30,12 @@ const formatterLong = new Intl.NumberFormat('fi-FI', {
   currency: 'EUR',
   minimumFractionDigits: 3,
 });
+
+const formatterLongest = new Intl.NumberFormat('fi-FI', {
+  style: 'currency',
+  currency: 'EUR',
+  minimumFractionDigits: 4,
+});
 ---
 
 <div>
@@ -94,7 +100,7 @@ const formatterLong = new Intl.NumberFormat('fi-FI', {
         </td>
         <td>
           <span id="storage-price-hour">
-            {formatter.format(pricing.storagePerGiB)}
+            {formatterLongest.format(pricing.storagePerGiB)}
           </span>
         </td>
         <td>
@@ -109,19 +115,12 @@ const formatterLong = new Intl.NumberFormat('fi-FI', {
 
 <script define:vars={{ averageDaysInMonth, storagePerGiB }}>
   const storageInput = document.getElementById('storage');
-  const storagePriceHourElement = document.getElementById('storage-price-hour');
   const storagePriceMonthElement = document.getElementById('storage-price-month');
 
   const formatter = new Intl.NumberFormat('fi-FI', {
     style: 'currency',
     currency: 'EUR',
     minimumFractionDigits: 2,
-  });
-
-  const formatterLong = new Intl.NumberFormat('fi-FI', {
-    style: 'currency',
-    currency: 'EUR',
-    minimumFractionDigits: 3,
   });
 
   const getHours = () => parseFloat(document.querySelector('[data-hours]')?.getAttribute('data-hours'));
@@ -135,7 +134,6 @@ const formatterLong = new Intl.NumberFormat('fi-FI', {
   const updateStoragePrice = () => {
     const price = getStoragePrice();
 
-    storagePriceHourElement.innerHTML = formatterLong.format(price);
     storagePriceMonthElement.innerHTML = formatter.format(price * averageDaysInMonth * 24);
   };
 
