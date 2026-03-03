@@ -16,6 +16,11 @@
   status = 301
 
 [[redirects]]
+  from = "/deploy"
+  to = "/"
+  status = 301
+
+[[redirects]]
   from = "/in"
   to = "/?utm=in"
   status = 302
@@ -74,7 +79,6 @@
   from = "/blog/recap_2025/recap_2025"
   to = "/blog/recap_2025"
   status = 301
-
 
 [[redirects]]
   from = "/blog/our_first_press_release/our_first_press_release"

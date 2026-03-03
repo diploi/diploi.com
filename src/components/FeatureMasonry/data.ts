@@ -80,8 +80,3 @@ export const featureMasonryItems: TFeatureMasonryItem[] = [
     showHelm: true,
   },
 ];
-
-export const featureMasonryText = {
-  description:
-    'Zero-install development environments with a single click. Edit your code directly with our powerful Browser IDE, or connect remotely with your favorite IDE.',
-};

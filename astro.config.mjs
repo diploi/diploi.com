@@ -45,6 +45,7 @@ export default defineConfig({
         project: 'website',
         authToken: process.env.SENTRY_AUTH_TOKEN,
       },
+      telemetry: false,
     }),
     playformInline({
       Beasties: {

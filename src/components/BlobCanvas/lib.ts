@@ -1,6 +1,5 @@
 import { createNoise3D } from 'simplex-noise';
 
-
 type GenerateBlobPoints = {
   cx: number;
   cy: number;
@@ -12,14 +11,7 @@ type GenerateBlobPoints = {
 const noiseScale = 100;
 const noise3D = createNoise3D();
 
-export function generateBlobPoints({
-  cx,
-  cy,
-  pointCount,
-  baseRadius,
-  radiusVariation,
-  time,
-}: GenerateBlobPoints & { time: number }) {
+function generateBlobPoints({ cx, cy, pointCount, baseRadius, radiusVariation, time }: GenerateBlobPoints & { time: number }) {
   const points = [];
   for (let i = 0; i < pointCount; i++) {
     const angle = Math.PI * 2 * (i / pointCount);
@@ -49,7 +41,7 @@ type DrawCardinalSplineOptions = {
   color?: string;
 };
 
-export const drawCardinalSpline = ({
+const drawCardinalSpline = ({
   ctx,
   points,
   tension = 0.5,
@@ -66,9 +58,7 @@ export const drawCardinalSpline = ({
     pts.push(pts[1]);
   } else {
     // for open curves, we can optionally pad with first/last duplicates
-    pts = [[pts[0][0], pts[0][1]]]
-      .concat(pts)
-      .concat([[pts[pts.length - 1][0], pts[pts.length - 1][1]]]);
+    pts = [[pts[0][0], pts[0][1]]].concat(pts).concat([[pts[pts.length - 1][0], pts[pts.length - 1][1]]]);
   }
 
   // tension scale factor
@@ -155,7 +145,7 @@ const drawThreeSplineGroup = (
   time: number,
   color: { large: string; medium: string; small: string },
   cx: number,
-  cy: number,
+  cy: number
 ) => {
   const pointsSmall = generateBlobPoints({
     ...blobConfig,
@@ -233,7 +223,7 @@ export const animateBlobs = ({
         small: pink,
       },
       cxL,
-      cyL,
+      cyL
     );
 
     if (!leftOnly) {
@@ -249,7 +239,7 @@ export const animateBlobs = ({
           small: pink,
         },
         cxR,
-        cyR,
+        cyR
       );
     }
     requestAnimationFrame(animate);

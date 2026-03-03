@@ -1,12 +1,11 @@
-import useMeasure from 'react-use-measure';
-import styles from './Lifecycle.module.scss';
-import { animated } from '@react-spring/web';
-
-import * as Icon from '@phosphor-icons/react';
-import { type LifecyclePoint } from './data';
 import { useCallback, useEffect, useState, type ReactNode } from 'react';
-import { useLifecycleSprings } from './useLifecycleSprings';
+import { animated } from '@react-spring/web';
+import useMeasure from 'react-use-measure';
+import * as Icon from '@phosphor-icons/react';
+import styles from './Lifecycle.module.scss';
+import { type LifecyclePoint } from './data';
 import { drawHalfCirclePath, getX } from './lib';
+import { useLifecycleSprings } from './useLifecycleSprings';
 
 const CARD_HEIGHT_PX = 160 + 16;
 const TIMEOUT_MS = 3000;
@@ -68,11 +67,7 @@ const LifecycleDesktopCard = ({
   );
 };
 
-export const LifecycleDesktopSvg = ({
-  width,
-  height,
-  lifecyclePoints,
-}: LifecycleDesktopProps & { width: number; height: number }) => {
+const LifecycleDesktopSvg = ({ width, height, lifecyclePoints }: LifecycleDesktopProps & { width: number; height: number }) => {
   const [isManualControl, setIsManualControl] = useState(false);
   const [currentPoint, setCurrentPoint] = useState<number>(0);
   const halfHeight = height * 0.5;
@@ -87,14 +82,13 @@ export const LifecycleDesktopSvg = ({
 
   const marginX = 128;
 
-  const { lineSpring, strokeSprings, pointBgSprings, verticalLineSprings } =
-    useLifecycleSprings({
-      currentPoint,
-      lifecyclePoints,
-      width,
-      pointRadius,
-      marginX,
-    });
+  const { lineSpring, strokeSprings, pointBgSprings, verticalLineSprings } = useLifecycleSprings({
+    currentPoint,
+    lifecyclePoints,
+    width,
+    pointRadius,
+    marginX,
+  });
 
   const handleMouseEnter = useCallback(
     (idx: number) => {
@@ -102,7 +96,7 @@ export const LifecycleDesktopSvg = ({
       if (idx === currentPoint) return;
       setCurrentPoint(idx);
     },
-    [currentPoint, isManualControl, setIsManualControl, setCurrentPoint],
+    [currentPoint, isManualControl, setIsManualControl, setCurrentPoint]
   );
 
   const handleMouseLeave = useCallback(() => {
@@ -112,9 +106,7 @@ export const LifecycleDesktopSvg = ({
   useEffect(() => {
     if (isManualControl) return;
     const timeout = setTimeout(() => {
-      setCurrentPoint((cur) =>
-        cur === lifecyclePoints.length - 1 ? 0 : cur + 1,
-      );
+      setCurrentPoint((cur) => (cur === lifecyclePoints.length - 1 ? 0 : cur + 1));
     }, TIMEOUT_MS);
     return () => clearTimeout(timeout);
   }, [currentPoint, isManualControl]);
@@ -141,22 +133,8 @@ export const LifecycleDesktopSvg = ({
           </linearGradient>
         </defs>
         <g className="lines">
-          <line
-            x1={0}
-            y1={height * 0.5}
-            x2={width}
-            y2={height * 0.5}
-            stroke="#36353a"
-            strokeWidth={2}
-          />
-          <animated.line
-            x2={lineSpring.x2}
-            x1={0}
-            y1={height * 0.5}
-            y2={height * 0.5}
-            stroke="#6650fa"
-            strokeWidth={2}
-          />
+          <line x1={0} y1={height * 0.5} x2={width} y2={height * 0.5} stroke="#36353a" strokeWidth={2} />
+          <animated.line x2={lineSpring.x2} x1={0} y1={height * 0.5} y2={height * 0.5} stroke="#6650fa" strokeWidth={2} />
         </g>
 
         <g transform={`translate(0, ${halfHeight - pointRadius})`}>
@@ -287,9 +265,7 @@ export const LifecycleDesktopSvg = ({
   );
 };
 
-export const LifecycleDesktop = ({
-  lifecyclePoints,
-}: LifecycleDesktopProps) => {
+export const LifecycleDesktop = ({ lifecyclePoints }: LifecycleDesktopProps) => {
   const [ref, bounds] = useMeasure();
   const { width, height } = bounds;
 
@@ -304,11 +280,7 @@ export const LifecycleDesktop = ({
       <div ref={ref} style={{ width: '100%', height: '100%' }}>
         {width > 0 && height > 0 && (
           <>
-            <LifecycleDesktopSvg
-              lifecyclePoints={lifecyclePoints}
-              width={width}
-              height={height}
-            />
+            <LifecycleDesktopSvg lifecyclePoints={lifecyclePoints} width={width} height={height} />
           </>
         )}
       </div>

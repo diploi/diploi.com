@@ -1,2 +1,1 @@
-export { Lifecycle } from './Lifecycle'
-export { lifecyclePoints } from './data'
+export { Lifecycle } from './Lifecycle';

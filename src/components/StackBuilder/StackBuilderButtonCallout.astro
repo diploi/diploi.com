@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import { ArrowUpRightIcon, SparkleIcon } from '@phosphor-icons/react';
 import StackBuilderButton from './StackBuilderButton.astro';
+import { extractRepositoryOwnerAndRepo } from './utils';
 
 type Props = {
   name: string;
@@ -10,16 +11,6 @@ type Props = {
 };
 
 const { name, url, href } = Astro.props;
-
-export const extractRepositoryOwnerAndRepo = (repositoryUrl: string) => {
-  let url = repositoryUrl;
-  if (!url.endsWith('.git')) url = `${url}.git`;
-
-  const regex = /https:\/\/github\.com\/(.*)\.git/g.exec(url);
-  if (!regex || !regex[1]) throw new Error('Failed to parse Git repo');
-  const [owner, repo] = regex[1]?.split('/') || [];
-  return { owner, repo };
-};
 
 const { owner, repo } = extractRepositoryOwnerAndRepo(url);
 

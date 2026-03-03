@@ -103,7 +103,7 @@ const animateCubeAssembly = (ctx: CanvasRenderingContext2D, startX: number, star
   requestAnimationFrame(animate);
 };
 
-export const CanvasComponent = ({ width, height }: { width: number; height: number }) => {
+const CanvasComponent = ({ width, height }: { width: number; height: number }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   const sideLength = width < 500 ? 100 : SIDE_LENGTH;

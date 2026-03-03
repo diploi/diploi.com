@@ -1,4 +1,4 @@
-export const createBackgroundSvg = ({
+const createBackgroundSvg = ({
   size: items = 4,
   gap = 18,
   primary = 'black',
