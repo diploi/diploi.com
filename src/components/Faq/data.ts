@@ -1,8 +1,13 @@
-import type { TDeveloperFaqItem } from './types';
-
 const calendlyUrl = import.meta.env.VITE_CALENDLY_URL;
 
-export const developerFaqItems: TDeveloperFaqItem[] = [
+export interface FaqItem {
+  id: string;
+  page: 'homepage' | 'pricing' | 'dev' | 'teams' | 'devops' | 'ai' | 'jobs' | 'faq';
+  question: string;
+  answer: string;
+}
+
+export const faqItems: FaqItem[] = [
   {
     id: 'homepage-what-is-diploi',
     page: 'homepage',

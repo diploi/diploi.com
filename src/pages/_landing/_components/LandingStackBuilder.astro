@@ -1,0 +1,124 @@
+---
+import { getCollection } from 'astro:content';
+import { createStackBackgroundUri } from '../../features/_components/featuresUtils';
+
+const components = await getCollection('component');
+const icons = components
+  .filter((component) => !component.data.hidden && component.data.type !== 'starter')
+  .map((component) => component.data.icon);
+
+const background = createStackBackgroundUri({
+  size: 16,
+  primary: 'rgba(255, 255, 255, 0.05)',
+  secondary: 'rgba(255, 255, 255, 0.05)',
+  chance: 0.1,
+});
+---
+
+<section>
+  <div class="background" inert aria-hidden style={{ '--background': background }}></div>
+  <h2>Want To Create a Custom Stack?</h2>
+  <p>Choose from a constantly growing list of technologies to build your ideal stack. We'll take care of configuring your monorepo.</p>
+  <div class="icons">
+    <ul>
+      {
+        icons.map((icon) => (
+          <li>
+            <img alt="component icon" src={`data:image/svg+xml;base64,${icon}`} width={24} height={24} />
+          </li>
+        ))
+      }
+    </ul>
+    <div>
+      <ul>
+        {
+          icons.map((icon) => (
+            <li>
+              <img alt="component icon" src={`data:image/svg+xml;base64,${icon}`} width={24} height={24} />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+  <a class="button" href="/features/dev#stack-builder">Open Stack Builder</a>
+</section>
+
+<style lang="scss">
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: var(--max-width-page-section);
+
+    > h2 {
+      margin: 0;
+    }
+
+    > p {
+      text-align: center;
+    }
+  }
+
+  @keyframes scroll {
+    0% {
+      translate: 0 0 10px;
+    }
+    100% {
+      translate: calc((100% + 16px) * -1) 0 10px;
+    }
+  }
+
+  .icons {
+    position: relative;
+    display: flex;
+    width: min(600px, 90vw);
+    user-select: none;
+    pointer-events: none;
+
+    mask-image: linear-gradient(to right, transparent, white 20%, white 80%, transparent);
+
+    > ul,
+    > div > ul {
+      display: flex;
+      gap: 16px;
+      margin-right: 16px;
+
+      animation: scroll 30s linear infinite;
+
+      > li {
+        @media (prefers-reduced-motion: reduce) {
+          animation: none;
+        }
+
+        @for $i from 1 through 20 {
+          &:nth-child(#{$i}) {
+            animation-delay: (200ms + ($i * 50ms));
+          }
+        }
+      }
+    }
+
+    > div {
+      position: absolute;
+      translate: 100% 0;
+    }
+  }
+
+  .background {
+    position: absolute;
+    left: 0;
+    margin-top: -120px;
+    width: 100%;
+    height: 500px;
+    background-image: var(--background);
+    background-size: 896px;
+    overflow: hidden;
+    z-index: -1;
+
+    mask-image: linear-gradient(to bottom, transparent, white 50%, transparent);
+  }
+</style>

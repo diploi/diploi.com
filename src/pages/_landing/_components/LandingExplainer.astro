@@ -1,0 +1,165 @@
+---
+import { Image } from 'astro:assets';
+import {
+  CopyIcon,
+  FastForwardIcon,
+  FileCodeIcon,
+  FileTextIcon,
+  GitBranchIcon,
+  GitMergeIcon,
+  HardDrivesIcon,
+  LinkIcon,
+  MagicWandIcon,
+  MouseIcon,
+  PlugsConnectedIcon,
+  ShareIcon,
+  SquareIcon,
+  TriangleIcon,
+  UsersThreeIcon,
+} from '@phosphor-icons/react';
+import Bullets from '../../../components/Bullets';
+import FeaturesHr from '../../features/_components/FeaturesHr.astro';
+import FeaturesSectionHeader from '../../features/_components/FeaturesSectionHeader.astro';
+import codeImage from '../_images/explainer-code.png';
+import deployImage from '../_images/explainer-deploy.png';
+import launchImage from '../_images/explainer-launch.png';
+---
+
+<section class="main">
+  <FeaturesSectionHeader>
+    <UsersThreeIcon />
+    <h2>Unified Development and Hosting Experience</h2>
+    <p>
+      Designed to make life easier for developers who code with multiple coding languages, and for whom context switching costs countless
+      hours of unbillable environment setup work to focus on the code that delivers the actual value.
+    </p>
+  </FeaturesSectionHeader>
+  <ul class="features">
+    <li>
+      <SquareIcon weight="thin" className="bg" aria-hidden />
+      <Image alt="user selecting from a list of components and clicking launch" src={launchImage} />
+      <h3>Ship Apps With Zero DevOps</h3>
+      <p>Launch with the frameworks and databases you like, and skip all the usual configuration work that slows you down.</p>
+      <Bullets total={9}>
+        <Bullets.Item>
+          <PlugsConnectedIcon weight="bold" /> Zero-install remote development
+        </Bullets.Item>
+        <Bullets.Item>
+          <MouseIcon weight="bold" /> One-click environment setup
+        </Bullets.Item>
+        <Bullets.Item>
+          <FastForwardIcon weight="bold" /> 30 second developer onboarding
+        </Bullets.Item>
+      </Bullets>
+    </li>
+    <FeaturesHr vertical />
+    <li>
+      <TriangleIcon weight="thin" className="bg" aria-hidden />
+      <Image alt="a list of popular ide choices: cloud ide, vs code, cursor, zed" src={codeImage} />
+      <h3>Code Instantly From Anywhere</h3>
+      <p>Directly from the browser or by connecting your own IDE via SSH, without using git clone or running your project locally.</p>
+      <Bullets start={3} total={9}>
+        <Bullets.Item>
+          <GitBranchIcon weight="bold" /> GitHub integration
+        </Bullets.Item>
+        <Bullets.Item>
+          <MagicWandIcon weight="bold" /> Automatic Git, CI/CD, SSL
+        </Bullets.Item>
+        <Bullets.Item>
+          <FileCodeIcon weight="bold" /> Infrastructure as code
+        </Bullets.Item>
+      </Bullets>
+    </li>
+    <FeaturesHr vertical />
+    <li>
+      <SquareIcon weight="thin" className="bg" aria-hidden />
+      <Image alt="view app button that opens a list of running applications: fastapi, n8n, supabase" src={deployImage} />
+      <h3>Deploy Online With One Click</h3>
+      <p>Your app is online from the start and your code edits are visible instantly, SSL-protected and ready for production.</p>
+      <Bullets start={6} total={9}>
+        <Bullets.Item>
+          <LinkIcon weight="bold" /> Shareable environment URLs
+        </Bullets.Item>
+        <Bullets.Item>
+          <CopyIcon weight="bold" /> One-click environment cloning
+        </Bullets.Item>
+        <Bullets.Item>
+          <FileTextIcon weight="bold" /> Real-time logging
+        </Bullets.Item>
+      </Bullets>
+    </li>
+  </ul>
+</section>
+
+<style lang="scss">
+  .main {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    margin: 0 auto;
+    margin-bottom: 64px;
+    width: 100%;
+    max-width: var(--max-width-page-section);
+  }
+
+  .features {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr 1px 1fr;
+    gap: 32px;
+
+    @media (max-width: 860px) {
+      grid-template-columns: 1fr;
+      gap: 48px;
+
+      :global(hr) {
+        display: none;
+      }
+    }
+
+    li {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      min-width: 0;
+
+      &:nth-of-type(2) .bg {
+        translate: -5% 2%;
+      }
+
+      &:nth-of-type(3) .bg {
+        translate: -5% -30%;
+      }
+
+      > img {
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    li > svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    a {
+      text-underline-offset: 4px;
+      color: inherit;
+    }
+
+    .bg {
+      position: absolute;
+      width: 150% !important;
+      height: 150% !important;
+      aspect-ratio: 1/1;
+      translate: -40% -22%;
+      color: white;
+      opacity: 0.02;
+      z-index: -1;
+
+      @media (max-width: 860px) {
+        display: none;
+      }
+    }
+  }
+</style>

@@ -1,4 +1,3 @@
-export { DeveloperFaq } from './DeveloperFaq';
 export { FeatureMasonry } from './FeatureMasonry';
 export { SparkleElement } from './SparkleElement';
 export * from './FeatureCards';

@@ -1,0 +1,276 @@
+---
+import {
+  ArrowSquareOutIcon,
+  ArrowUpRightIcon,
+  CaretRightIcon,
+  CheckCircleIcon,
+  CodeIcon,
+  DiscordLogoIcon,
+  FlaskIcon,
+  GithubLogoIcon,
+  HardDrivesIcon,
+  LinkIcon,
+  PhoneIcon,
+  UploadSimpleIcon,
+} from '@phosphor-icons/react';
+import { createStackBackgroundUri } from '../../features/_components/featuresUtils';
+import illustration from '../_images/hero.svg?raw';
+
+const calendlyUrl = import.meta.env.VITE_CALENDLY_URL;
+
+const maskCss = `url('data:image/svg+xml,${illustration?.replace(/\n/g, '')?.replaceAll('#', '%23')?.trim()}')`;
+
+const background = createStackBackgroundUri({ size: 32, primary: 'white', secondary: 'white', chance: 0.4 });
+const backgroundColor = createStackBackgroundUri({ size: 32, primary: 'white', secondary: 'white', chance: 0.5 });
+---
+
+<header>
+  <div class="background" inert aria-hidden style={{ '--background': background, '--backgroundColor': backgroundColor, '--mask': maskCss }}>
+    <div class="shapes"></div>
+    <div class="illustration"></div>
+    <slot name="background" />
+  </div>
+  <section>
+    <div class="title">
+      <h1>Stop Setting Up.<br />Start Building</h1>
+    </div>
+    <ol class="features">
+      <li><CodeIcon /> Cloud Dev</li>
+      <li inert aria-hidden class="arrow"><CaretRightIcon /></li>
+      <li><LinkIcon /> Preview Link</li>
+      <li inert aria-hidden class="arrow"><CaretRightIcon /></li>
+      <li><UploadSimpleIcon /> One-Click Prod</li>
+    </ol>
+    <p>One platform to build, preview, and ship your app.<br />No local setup required.</p>
+    <a class="button" data-event="hero_cta_click" href="#showcases">Start in 60 Seconds</a>
+    <ul class="links">
+      <a role="listitem" data-event="calendly_click" target="_blank" href={calendlyUrl}>
+        <PhoneIcon /> Book a Demo
+        <ArrowUpRightIcon />
+      </a>
+      <a role="listitem" data-event="github_click" target="_blank" href="https://github.com/diploi">
+        <GithubLogoIcon /> GitHub
+        <ArrowUpRightIcon />
+      </a>
+      <a role="listitem" data-event="discord_click" target="_blank" href="https://discord.gg/vvgQxVjC8G">
+        <DiscordLogoIcon /> Discord
+        <ArrowUpRightIcon />
+      </a>
+    </ul>
+  </section>
+</header>
+
+<style lang="scss">
+  @use 'sass:math';
+
+  header {
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: var(--max-width-page-section);
+    height: 75vh;
+    min-height: 600px;
+    max-height: 800px;
+  }
+
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-top: 32px;
+
+    .title {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 16px;
+      width: 100%;
+
+      > h1 {
+        margin-bottom: 0;
+        text-align: center;
+
+        .text-gradient {
+          filter: saturate(1.5);
+        }
+      }
+
+      @media (max-width: 860px) {
+        > :global(h1) {
+          font-size: 2.4em;
+        }
+      }
+
+      @media (max-width: 400px) {
+        > :global(h1) {
+          font-size: 2em;
+        }
+      }
+    }
+
+    > p {
+      text-align: center;
+    }
+
+    .features {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin: 0;
+      padding: 0 8px;
+      list-style: none;
+      background-color: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 64px;
+
+      > li {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px;
+        color: var(--color-text-primary);
+
+        --start: 0;
+        --total: 6;
+        @for $i from 1 through 6 {
+          &:nth-child(#{$i}) {
+            > svg {
+              --percentage: calc(((#{$i} + var(--start) - 1) / (var(--total) - 1)) * 100%);
+              color: color-mix(in lab, var(--color-primary), var(--color-secondary) var(--percentage));
+            }
+          }
+        }
+
+        &.arrow {
+          > svg {
+            color: var(--color-text-secondary);
+          }
+        }
+      }
+    }
+
+    > .button {
+      margin-top: 24px;
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+
+      a {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 1rem;
+        text-decoration: none;
+
+        > :global(svg:last-of-type) {
+          opacity: 0.8;
+        }
+      }
+    }
+
+    @media (max-width: 860px) {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      margin-top: 0px;
+
+      > p {
+        text-align: center;
+      }
+    }
+  }
+
+  .background {
+    isolation: isolate;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 90vh;
+    min-height: 900px;
+    max-height: 1200px;
+    overflow: hidden;
+    z-index: -1;
+
+    mask-image: linear-gradient(to bottom, white 50%, transparent);
+  }
+
+  .shapes {
+    position: absolute;
+    inset: 0;
+    bottom: 15vh;
+
+    mask-image: linear-gradient(to bottom, white 50%, transparent);
+
+    &::before {
+      position: absolute;
+      content: '';
+      display: block;
+      inset: 0;
+      background-image: var(--background);
+      background-size: 896px;
+      opacity: 0.05;
+    }
+
+    &::after {
+      position: absolute;
+      content: '';
+      display: block;
+      inset: 0;
+      background-image: var(--backgroundColor);
+      background-size: 896px;
+      opacity: 0.15;
+
+      $size: 1000px;
+      mask-image: var(--mask);
+      mask-size: $size;
+      mask-repeat: no-repeat;
+      mask-position: calc(70% + ((var(--max-width-page-section) / 2) - #{math.div($size, 2)})) 0px;
+    }
+  }
+
+  @property --rotation {
+    syntax: '<angle>';
+    inherits: true;
+    initial-value: 0deg;
+  }
+
+  .illustration {
+    --rotation: 0deg;
+
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    margin: 0 auto;
+    max-width: 1600px;
+    width: 90vw;
+    height: auto;
+    aspect-ratio: 1/1;
+    background-image: conic-gradient(from var(--rotation) in oklch, var(--color-primary), var(--color-secondary), var(--color-primary));
+    // rotate: 0.5turn;
+    translate: 0 -400px;
+
+    mask-image: var(--mask);
+    mask-size: 100%;
+
+    @keyframes rotate-illustration {
+      from {
+        --rotation: 0deg;
+      }
+      to {
+        --rotation: 360deg;
+      }
+    }
+
+    animation: rotate-illustration 5s infinite ease;
+  }
+</style>

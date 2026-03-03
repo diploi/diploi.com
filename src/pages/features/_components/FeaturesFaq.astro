@@ -1,0 +1,26 @@
+---
+import { QuestionIcon } from '@phosphor-icons/react';
+import { Faq, type FaqItem } from '../../../components/Faq';
+import FeaturesSection from './FeaturesSection.astro';
+import FeaturesSectionHeader from './FeaturesSectionHeader.astro';
+
+type Props = {
+  page: FaqItem['page'];
+  description: string;
+};
+
+const { page, description } = Astro.props;
+---
+
+<FeaturesSection>
+  <FeaturesSectionHeader slot="header">
+    <QuestionIcon />
+    <h2>FAQ</h2>
+    <slot name="description">
+      <p>{description} You can always <a href="mailto:hello@diploi.com">contact us</a> if you have any questions.</p>
+    </slot>
+  </FeaturesSectionHeader>
+  <Faq page={page} />
+</FeaturesSection>
+
+<style lang="scss"></style>

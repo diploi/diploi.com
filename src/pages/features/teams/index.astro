@@ -1,11 +1,11 @@
 ---
-import { DeveloperFaq, Section, SectionHeader } from '../../../components';
 import Footer from '../../../components/Footer.astro';
 import Navigation from '../../../components/Navigation/Navigation.astro';
 import { features } from '../../../content/features';
 import Layout from '../../../layouts/Layout.astro';
 import LovableHr from '../../lovable/_components/LovableHr.astro';
 import FeaturesCallouts from '../_components/FeaturesCallouts.astro';
+import TeamsFaq from './_components/TeamsFaq.astro';
 import TeamsGraphs from './_components/TeamsGraphs.astro';
 import TeamsHero from './_components/TeamsHero.astro';
 import TeamsIntegration from './_components/TeamsIntegration.astro';
@@ -35,10 +35,7 @@ const feature = features.find((feature) => feature.id === 'teams')!;
     <LovableHr />
     <TeamsResources />
     <LovableHr />
-    <Section>
-      <SectionHeader title='FAQ' description="Answers to common questions about Diploi's features for teams"/>
-      <DeveloperFaq page='teams'/>
-    </Section>
+    <TeamsFaq />
     <FeaturesCallouts hide={['teams']} />
   </main>
   <Footer />

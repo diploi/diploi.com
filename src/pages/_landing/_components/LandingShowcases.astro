@@ -117,10 +117,8 @@ const SHOWCASE_COMPONENTS: { [componentID: number]: { icon?: string; name: strin
 
 <FeaturesSection class="showcases">
   <FeaturesSectionHeader slot="header">
-    <h2 id="showcases">Discover What's Possible</h2>
-    <p>
-      Diploi runs your full stack, not just the app. Services like Supabase and Postgres run inside your deployment. Here are some examples.
-    </p>
+    <h2 id="showcases">Build Anything</h2>
+    <p>Your idea, live in under a minute. Pick a starting point and go.</p>
   </FeaturesSectionHeader>
   <article class="tabs">
     {
@@ -241,7 +239,21 @@ const SHOWCASE_COMPONENTS: { [componentID: number]: { icon?: string; name: strin
   }
 
   .showcases {
-    // margin-top: -64px;
+    > :global(header) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      h2 {
+        font-size: 3rem;
+        font-weight: 650;
+        text-align: center;
+      }
+
+      p {
+        text-align: center;
+      }
+    }
   }
 
   .tabs {
