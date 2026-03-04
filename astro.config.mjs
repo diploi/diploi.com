@@ -69,4 +69,9 @@ export default defineConfig({
       },
     ],
   },
+  vite: {
+    server: {
+      allowedHosts: ['.diploi.app', '.diploi.me'],
+    },
+  },
 });
