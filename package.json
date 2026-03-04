@@ -3,9 +3,9 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
+    "dev": "astro dev --host",
     "build": "astro build",
+    "start": "node ./dist/server/entry.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -70,5 +70,10 @@
       }
     ]
   },
-  "packageManager": "pnpm@10.30.3"
+  "overrides": {
+    "@react-spring/web": {
+      "react": "$react",
+      "react-dom": "$react-dom"
+    }
+  }
 }
