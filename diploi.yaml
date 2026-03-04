@@ -2,5 +2,5 @@ diploiVersion: 'v1.0'
 components:
   - name: Astro
     identifier: astro
-    package: https://github.com/diploi/component-astro#v5.2.3
+    package: https://github.com/diploi/component-astro#v5.17.1
     folder: /

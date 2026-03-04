@@ -70,5 +70,10 @@
       }
     ]
   },
-  "packageManager": "pnpm@10.30.2"
+  "overrides": {
+    "@react-spring/web": {
+      "react": "$react",
+      "react-dom": "$react-dom"
+    }
+  }
 }
