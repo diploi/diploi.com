@@ -1,16 +1,160 @@
-<section>A cloud of good feedback here.</section>
+---
+import { ChatCircleIcon, ChatsCircleIcon, CircleIcon, HeartIcon, StarIcon, UserIcon } from '@phosphor-icons/react';
+import FeaturesSection from '../../features/_components/FeaturesSection.astro';
+import FeaturesSectionHeader from '../../features/_components/FeaturesSectionHeader.astro';
+
+const reviews = [
+  {
+    name: 'Marcus Nygren',
+    text: 'Looks awesome at first glance, GREAT job! Reminds me a little bit of Jumpstarter back in the day which did a number of things super well versus giants like Heroku etc.…',
+    width: 2,
+  },
+  {
+    name: 'Mehnoush Amin',
+    text: 'I’m really intrigued by Diploi and its approach to simplifying development and deployment workflows. …',
+  },
+  {
+    name: 'Shuang Wu',
+    text: 'I really enjoyed the experience and appreciated the smooth setup and thoughtful UX.',
+  },
+  {
+    name: 'Darko Jecinac',
+    text: "This app is fantastic, it's the beginning of the future!",
+  },
+  {
+    name: 'Fatih Karaca',
+    text: 'I’m genuinely impressed…',
+  },
+  {
+    name: 'Thomas Welén',
+    text: 'Really nice quick start with fast value/site and code editor up and running. …',
+  },
+  {
+    name: 'Jaro Heinonen',
+    text: 'Everything is very intuitive, easy and FAST to deploy. …',
+  },
+  {
+    name: 'Håkan Ströberg',
+    text: '…I really like configuration as code as it makes things predictable and well documented. …',
+  },
+  {
+    name: 'Tarmo Kalling',
+    text: "I tried it now. It's impressive. Truly is. …",
+  },
+  {
+    name: 'Edy Musajevs',
+    text: '…And the very best part: allowing for instantly creating an app on it without signing up. I don’t know who your UX/product person is who came up with that but give him/her some praise haha',
+    width: 2,
+  },
+  {
+    name: 'Ziqi Wang',
+    text: 'I believe it is definitely useful for small teams and individuals web developers.',
+  },
+  {
+    name: 'Sreyeesh Garimella',
+    text: '…I have to say, it really caught my interest. I’ve been developing DevOps-style tooling and pipelines lately, and seeing a platform that simplifies environments from development to production hits close to home.',
+    width: 2,
+  },
+];
+---
+
+<FeaturesSection class="feedback">
+  <FeaturesSectionHeader slot="header">
+    <ChatCircleIcon />
+    <h2>Don't Take Our Word For It</h2>
+    <p>See why developers love Diploi.</p>
+  </FeaturesSectionHeader>
+  <HeartIcon weight="thin" className="bg" aria-hidden />
+  <ul class="reviews" style={{ '--total': reviews.length }}>
+    {
+      reviews.map((review) => (
+        <li style={{ gridColumn: `span ${review.width || 1}` }}>
+          <p>{review.text}</p>
+          <p>
+            <UserIcon /> {review.name}
+          </p>
+        </li>
+      ))
+    }
+  </ul>
+</FeaturesSection>
 
 <style lang="scss">
-  section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 48px;
-    margin: 0 auto;
-    padding: 300px 0;
-    width: 100%;
-    max-width: var(--max-width-page-section);
+  .feedback {
+    isolation: isolate;
+    position: relative;
+    max-width: calc(var(--max-width-page-section) + 256px);
 
-    border: 2px solid red;
+    > :global(header) {
+      margin: 0 auto;
+      width: min(100%, var(--max-width-page-section));
+    }
+  }
+
+  .reviews {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+
+    > li {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 16px 20px;
+      border: 1px solid transparent;
+      border-radius: var(--border-radius-medium);
+
+      --color: var(--color-border);
+      --deg: -40deg;
+
+      &:nth-of-type(odd) {
+        --deg: 40deg;
+      }
+
+      --start: 0;
+      @for $i from 1 through 16 {
+        &:nth-of-type(#{$i}) {
+          svg {
+            --percentage: calc(((#{$i} + var(--start) - 1) / (var(--total) - 1)) * 100%);
+            color: color-mix(in lab, var(--color-primary), var(--color-secondary) var(--percentage));
+          }
+        }
+      }
+
+      translate: -32px 0;
+      &:nth-of-type(n + 4) {
+        translate: 32px 0;
+      }
+
+      &:nth-of-type(n + 8) {
+        translate: -32px 0;
+      }
+
+      &:nth-of-type(n + 11) {
+        translate: 64px 0;
+      }
+
+      background:
+        linear-gradient(to bottom right in lab, color-mix(in lab, var(--color-bg), var(--color-bg) 85%), var(--color-bg)) padding-box,
+        conic-gradient(from var(--deg), var(--color), var(--color-bg), var(--color)) border-box;
+
+      > p {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+    }
+  }
+
+  .bg {
+    position: absolute;
+    top: -160px;
+    width: 100%;
+    aspect-ratio: 1/1;
+    height: auto;
+    color: white;
+    opacity: 0.02;
+    z-index: -1;
   }
 </style>
