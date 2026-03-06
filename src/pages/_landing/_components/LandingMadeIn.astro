@@ -1,16 +1,115 @@
-<section>Diploi is made with Diploi</section>
+---
+import { CheckCircleIcon, MapPinSimpleIcon, RecycleIcon } from '@phosphor-icons/react';
+import Logo from '../../../components/Logo.astro';
+import FeaturesSection from '../../features/_components/FeaturesSection.astro';
+import FeaturesSectionHeader from '../../features/_components/FeaturesSectionHeader.astro';
+---
+
+<FeaturesSection class="made">
+  <FeaturesSectionHeader slot="header">
+    <RecycleIcon />
+    <h2>Dogfooding Since Day One</h2>
+    <p>Everything you see here was built and runs on Diploi.</p>
+  </FeaturesSectionHeader>
+  <ul class="sites">
+    <li>
+      <h3><Logo width={96} /> Console</h3>
+      <hr />
+      <ul>
+        <li><CheckCircleIcon weight="fill" /> Developed on Diploi</li>
+      </ul>
+    </li>
+    <li>
+      <h3><Logo width={96} />.com</h3>
+      <hr />
+      <ul>
+        <li><CheckCircleIcon weight="fill" /> Developed on Diploi</li>
+        <li><CheckCircleIcon weight="fill" /> Hosted on Diploi</li>
+      </ul>
+      <p><MapPinSimpleIcon weight="fill" /> You're here</p>
+    </li>
+    <li>
+      <h3><Logo width={96} /> Docs</h3>
+      <hr />
+      <ul>
+        <li><CheckCircleIcon weight="fill" /> Developed on Diploi</li>
+        <li><CheckCircleIcon weight="fill" /> Hosted on Diploi</li>
+      </ul>
+    </li>
+  </ul>
+</FeaturesSection>
 
 <style lang="scss">
-  section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 48px;
-    margin: 0 auto;
-    padding: 300px 0;
-    width: 100%;
-    max-width: var(--max-width-page-section);
+  .made {
+    > :global(header) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
 
-    border: 2px solid red;
+      > h2,
+      > p {
+        text-align: center;
+      }
+
+      > h2 {
+        margin-top: 16px;
+      }
+    }
+  }
+
+  .sites {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    @media (max-width: 860px) {
+      gap: 64px;
+      grid-template-columns: 1fr;
+    }
+
+    > li {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      > h3 {
+        user-select: none;
+
+        > :global(svg) {
+          translate: 0 7.5px;
+        }
+      }
+
+      > hr {
+        margin: 8px 0;
+      }
+
+      > ul {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      > p,
+      > ul > li {
+        font-weight: 350;
+        font-size: 1.25rem;
+        color: var(--color-text-secondary);
+
+        > svg {
+          color: var(--color-green);
+        }
+      }
+
+      > p {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 1rem;
+
+        > svg {
+          color: var(--color-secondary);
+        }
+      }
+    }
   }
 </style>

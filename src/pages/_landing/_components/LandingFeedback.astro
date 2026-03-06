@@ -1,57 +1,57 @@
 ---
-import { ChatCircleIcon, ChatsCircleIcon, CircleIcon, HeartIcon, StarIcon, UserIcon } from '@phosphor-icons/react';
+import { ChatCircleIcon, HeartIcon, UserIcon } from '@phosphor-icons/react';
 import FeaturesSection from '../../features/_components/FeaturesSection.astro';
 import FeaturesSectionHeader from '../../features/_components/FeaturesSectionHeader.astro';
 
 const reviews = [
   {
-    name: 'Marcus Nygren',
+    name: 'Marcus',
     text: 'Looks awesome at first glance, GREAT job! Reminds me a little bit of Jumpstarter back in the day which did a number of things super well versus giants like Heroku etc.…',
     width: 2,
   },
   {
-    name: 'Mehnoush Amin',
+    name: 'Mehnoush',
     text: 'I’m really intrigued by Diploi and its approach to simplifying development and deployment workflows. …',
   },
   {
-    name: 'Shuang Wu',
+    name: 'Shuang',
     text: 'I really enjoyed the experience and appreciated the smooth setup and thoughtful UX.',
   },
   {
-    name: 'Darko Jecinac',
+    name: 'Darko',
     text: "This app is fantastic, it's the beginning of the future!",
   },
   {
-    name: 'Fatih Karaca',
+    name: 'Fatih',
     text: 'I’m genuinely impressed…',
   },
   {
-    name: 'Thomas Welén',
+    name: 'Thomas',
     text: 'Really nice quick start with fast value/site and code editor up and running. …',
   },
   {
-    name: 'Jaro Heinonen',
+    name: 'Jaro',
     text: 'Everything is very intuitive, easy and FAST to deploy. …',
   },
   {
-    name: 'Håkan Ströberg',
+    name: 'Håkan',
     text: '…I really like configuration as code as it makes things predictable and well documented. …',
   },
   {
-    name: 'Tarmo Kalling',
+    name: 'Tarmo',
     text: "I tried it now. It's impressive. Truly is. …",
   },
   {
-    name: 'Edy Musajevs',
+    name: 'Edy',
     text: '…And the very best part: allowing for instantly creating an app on it without signing up. I don’t know who your UX/product person is who came up with that but give him/her some praise haha',
     width: 2,
   },
   {
-    name: 'Ziqi Wang',
+    name: 'Ziqi',
     text: 'I believe it is definitely useful for small teams and individuals web developers.',
   },
   {
-    name: 'Sreyeesh Garimella',
+    name: 'Sreyeesh',
     text: '…I have to say, it really caught my interest. I’ve been developing DevOps-style tooling and pipelines lately, and seeing a platform that simplifies environments from development to production hits close to home.',
     width: 2,
   },
@@ -68,7 +68,7 @@ const reviews = [
   <ul class="reviews" style={{ '--total': reviews.length }}>
     {
       reviews.map((review) => (
-        <li style={{ gridColumn: `span ${review.width || 1}` }}>
+        <li style={{ '--width': `span ${review.width || 1}` }}>
           <p>{review.text}</p>
           <p>
             <UserIcon /> {review.name}
@@ -81,7 +81,6 @@ const reviews = [
 
 <style lang="scss">
   .feedback {
-    isolation: isolate;
     position: relative;
     max-width: calc(var(--max-width-page-section) + 256px);
 
@@ -96,6 +95,18 @@ const reviews = [
     grid-template-columns: repeat(4, 1fr);
     gap: 24px;
 
+    @media (max-width: 1500px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (max-width: 900px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 600px) {
+      grid-template-columns: 1fr;
+    }
+
     > li {
       display: flex;
       flex-direction: column;
@@ -104,6 +115,18 @@ const reviews = [
       padding: 16px 20px;
       border: 1px solid transparent;
       border-radius: var(--border-radius-medium);
+
+      grid-column: var(--width);
+
+      @media (max-width: 900px) {
+        grid-column: unset;
+      }
+
+      @media (max-width: 600px) {
+        &:nth-of-type(odd) {
+          display: none;
+        }
+      }
 
       --color: var(--color-border);
       --deg: -40deg;
@@ -122,17 +145,23 @@ const reviews = [
         }
       }
 
-      translate: -32px 0;
+      --variation: 32px;
+
+      @media (max-width: 1500px) {
+        --variation: 0;
+      }
+
+      translate: calc(var(--variation) * -1) 0;
       &:nth-of-type(n + 4) {
-        translate: 32px 0;
+        translate: var(--variation) 0;
       }
 
       &:nth-of-type(n + 8) {
-        translate: -32px 0;
+        translate: calc(var(--variation) * -1) 0;
       }
 
       &:nth-of-type(n + 11) {
-        translate: 64px 0;
+        translate: calc(var(--variation) * 2) 0;
       }
 
       background:
