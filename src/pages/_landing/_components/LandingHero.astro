@@ -42,7 +42,7 @@ const backgroundColor = createStackBackgroundUri({ size: 32, primary: 'white', s
       <li><UploadSimpleIcon /> One-Click Prod</li>
     </ol>
     <p>One platform to build, preview, and ship your app.<br />No local setup required.</p>
-    <a class="button" data-event="hero_cta_click" href="#showcases">Start in 60 Seconds</a>
+    <a class="button" data-event="hero_cta_click" href="#showcases">Start in 10 Seconds</a>
     <ul class="links">
       <a role="listitem" data-event="calendly_click" target="_blank" href={calendlyUrl}>
         <PhoneIcon /> Book a Demo
@@ -112,6 +112,7 @@ const backgroundColor = createStackBackgroundUri({ size: 32, primary: 'white', s
     }
 
     > p {
+      margin: 0 auto;
       text-align: center;
     }
 
@@ -125,6 +126,10 @@ const backgroundColor = createStackBackgroundUri({ size: 32, primary: 'white', s
       background-color: var(--color-bg);
       border: 1px solid var(--color-border);
       border-radius: 64px;
+
+      @media (max-width: 860px) {
+        display: none;
+      }
 
       > li {
         display: flex;
@@ -229,11 +234,10 @@ const backgroundColor = createStackBackgroundUri({ size: 32, primary: 'white', s
       background-size: 896px;
       opacity: 0.15;
 
-      $size: 1000px;
       mask-image: var(--mask);
-      mask-size: $size;
+      mask-size: 100%;
       mask-repeat: no-repeat;
-      mask-position: calc(70% + ((var(--max-width-page-section) / 2) - #{math.div($size, 2)})) 0px;
+      mask-position: center;
     }
   }
 
@@ -251,8 +255,9 @@ const backgroundColor = createStackBackgroundUri({ size: 32, primary: 'white', s
     left: 0;
     top: 0;
     margin: 0 auto;
-    max-width: 1600px;
     width: 90vw;
+    max-width: 1600px;
+    // min-width: 1400px;
     height: auto;
     aspect-ratio: 1/1;
     background-image: conic-gradient(from var(--rotation) in oklch, var(--color-primary), var(--color-secondary), var(--color-primary));
@@ -261,6 +266,17 @@ const backgroundColor = createStackBackgroundUri({ size: 32, primary: 'white', s
 
     mask-image: var(--mask);
     mask-size: 100%;
+    mask-repeat: no-repeat;
+    mask-position: center 0;
+
+    @media (max-width: 1700px) {
+      translate: 0 -300px;
+    }
+
+    @media (max-width: 1550px) {
+      width: 100%;
+      mask-size: 1400px;
+    }
 
     @keyframes rotate-illustration {
       from {

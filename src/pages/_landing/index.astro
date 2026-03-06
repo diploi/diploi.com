@@ -34,15 +34,21 @@ const { title = defaultTitle, description = defaultDescription } = Astro.props;
     <LandingShowcases />
     <LandingStackBuilder />
     <LovableHr />
-    <LandingComparison />
-    <LovableHr />
+    <!-- <LandingComparison /> -->
+    <!-- <LovableHr /> -->
     <LandingExplainer />
+    <LovableHr />
+    <FeaturesCallouts>
+      <Fragment slot="callouts"></Fragment>
+    </FeaturesCallouts>
     <LovableHr />
     <LandingFeedback />
     <LandingMadeIn />
     <LovableHr />
     <LandingFaq />
-    <FeaturesCallouts />
+    <FeaturesCallouts>
+      <Fragment slot="features"></Fragment>
+    </FeaturesCallouts>
   </main>
 </Layout>
 <Footer />
