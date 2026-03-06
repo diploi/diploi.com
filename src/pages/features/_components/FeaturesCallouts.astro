@@ -12,28 +12,32 @@ const { hide = [] } = Astro.props;
 ---
 
 <div>
-  <article style={{ '--total': 4 - (hide?.length ?? 0) }}>
-    {
-      features
-        .filter((feature) => !hide.includes(feature.id))
-        .map((feature) => (
-          <a data-event={`${feature.id}_click`} href={feature.href}>
-            <section>
-              {<feature.icon />}
-              <h3>
-                <small>Diploi for</small>
-                <span>{feature.title}</span>
-              </h3>
-              <p>{feature.description}</p>
-              <ArrowUpRightIcon className="arrow" />
-              <feature.bg className="bg" />
-            </section>
-          </a>
-        ))
-    }
-  </article>
-  <LovableHr />
-  <Callouts />
+  <slot name="features">
+    <article style={{ '--total': 4 - (hide?.length ?? 0) }}>
+      {
+        features
+          .filter((feature) => !hide.includes(feature.id))
+          .map((feature) => (
+            <a data-event={`${feature.id}_click`} href={feature.href}>
+              <section>
+                {<feature.icon />}
+                <h3>
+                  <small>Diploi for</small>
+                  <span>{feature.title}</span>
+                </h3>
+                <p>{feature.description}</p>
+                <ArrowUpRightIcon className="arrow" />
+                <feature.bg className="bg" />
+              </section>
+            </a>
+          ))
+      }
+    </article>
+  </slot>
+  <slot name="callouts">
+    <LovableHr />
+    <Callouts />
+  </slot>
 </div>
 
 <style lang="scss">
@@ -55,6 +59,10 @@ const { hide = [] } = Astro.props;
     margin: 0 auto;
     width: 100%;
     max-width: var(--max-width-page-section);
+
+    @media (max-width: 680px) {
+      flex-direction: column;
+    }
 
     > a {
       display: flex;

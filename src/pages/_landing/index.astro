@@ -1,24 +1,16 @@
 ---
-import {
-  Chart,
-  DeveloperFaq,
-  EffortlessDevelopment,
-  FeatureCards,
-  FeatureMasonry,
-  Footer,
-  ImpactMetric,
-  Section,
-  SubSection,
-  Video,
-} from '../../components';
+import Footer from '../../components/Footer.astro';
 import GlobalStyles from '../../components/GlobalStyles.astro';
 import Navigation from '../../components/Navigation/Navigation.astro';
-import StackBuilder from '../../components/StackBuilder/StackBuilder.astro';
-import { Lifecycle } from '../../components/react/Lifecycle';
-import { chart, content, featureCards } from '../../content';
 import Layout from '../../layouts/Layout.astro';
 import FeaturesCallouts from '../features/_components/FeaturesCallouts.astro';
+import LovableHr from '../lovable/_components/LovableHr.astro';
+import LandingExplainer from './_components/LandingExplainer.astro';
+import LandingFaq from './_components/LandingFaq.astro';
+import LandingFeedback from './_components/LandingFeedback.astro';
+import LandingMadeIn from './_components/LandingMadeIn.astro';
 import LandingShowcases from './_components/LandingShowcases.astro';
+import LandingStackBuilder from './_components/LandingStackBuilder.astro';
 
 interface Props {
   title?: string;
@@ -39,32 +31,21 @@ const { title = defaultTitle, description = defaultDescription } = Astro.props;
   <main>
     <slot name="hero" />
     <LandingShowcases />
-    <Section id="StackBuilder" {...content.pickStack}>
-      <StackBuilder />
-    </Section>
-    <hr />
-    <Section {...content.develop}>
-      <Video />
-      <EffortlessDevelopment {...content.develop.effortlessDevelopment} />
-      <FeatureMasonry />
-      <SubSection {...content.develop.developerFaq}>
-        <DeveloperFaq page="homepage" />
-      </SubSection>
-    </Section>
-    <hr />
-    <Section {...content.publishApp} isWide>
-      <Lifecycle client:only="react" />
-    </Section>
-    <hr />
-    <Section {...content.timeAndResources}>
-      <FeatureCards items={featureCards} />
-      <Chart {...chart.newProjectStartUp} />
-      <Chart {...chart.developerOnboarding} />
-      <Chart {...chart.creatingTestEnvironment} />
-      <Chart {...chart.updatingProduction} />
-      <ImpactMetric {...content.timeAndResources.impactMetric} />
-    </Section>
-    <FeaturesCallouts />
+    <LandingStackBuilder />
+    <LovableHr />
+    <LandingExplainer />
+    <LovableHr />
+    <FeaturesCallouts>
+      <Fragment slot="callouts"></Fragment>
+    </FeaturesCallouts>
+    <LovableHr />
+    <LandingFeedback />
+    <LandingMadeIn />
+    <LovableHr />
+    <LandingFaq />
+    <FeaturesCallouts>
+      <Fragment slot="features"></Fragment>
+    </FeaturesCallouts>
   </main>
 </Layout>
 <Footer />

@@ -1,0 +1,112 @@
+---
+import { Image } from 'astro:assets';
+import { RocketLaunchIcon, SquareIcon, TriangleIcon } from '@phosphor-icons/react';
+import FeaturesHr from '../../features/_components/FeaturesHr.astro';
+import FeaturesSectionHeader from '../../features/_components/FeaturesSectionHeader.astro';
+import codeImage from '../_images/explainer-code.png';
+import deployImage from '../_images/explainer-deploy.png';
+import launchImage from '../_images/explainer-launch.png';
+---
+
+<section class="main">
+  <FeaturesSectionHeader>
+    <RocketLaunchIcon />
+    <h2>Develop and Deploy, All in One Place</h2>
+    <p>Diploi isn't just where your app lives. It's where you write the code, preview changes, and ship.</p>
+  </FeaturesSectionHeader>
+  <ul class="features">
+    <li>
+      <SquareIcon weight="thin" className="bg" aria-hidden />
+      <Image alt="user selecting from a list of components and clicking launch" src={launchImage} />
+      <h3>Ship With Zero DevOps</h3>
+      <p>Your stack is configured automatically. SSL, CI/CD, databases and all. No DevOps required.</p>
+    </li>
+    <FeaturesHr vertical />
+    <li>
+      <TriangleIcon weight="thin" className="bg" aria-hidden />
+      <Image alt="a list of popular ide choices: cloud ide, vs code, cursor, zed" src={codeImage} />
+      <h3>Code From Anywhere</h3>
+      <p>Code directly in the browser or connect Cursor, VS Code, or any SSH-capable editor. No local setup required.</p>
+    </li>
+    <FeaturesHr vertical />
+    <li>
+      <SquareIcon weight="thin" className="bg" aria-hidden />
+      <Image alt="view app button that opens a list of running applications: fastapi, n8n, supabase" src={deployImage} />
+      <h3>Go Live From Day One</h3>
+      <p>Every environment has a live URL from the start. Push code and it updates automatically.</p>
+    </li>
+  </ul>
+</section>
+
+<style lang="scss">
+  .main {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    margin: 0 auto;
+    margin-bottom: 64px;
+    width: 100%;
+    max-width: var(--max-width-page-section);
+  }
+
+  .features {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr 1px 1fr;
+    gap: 32px;
+
+    @media (max-width: 860px) {
+      grid-template-columns: 1fr;
+      gap: 48px;
+
+      :global(hr) {
+        display: none;
+      }
+    }
+
+    li {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      min-width: 0;
+
+      &:nth-of-type(2) .bg {
+        translate: -5% 2%;
+      }
+
+      &:nth-of-type(3) .bg {
+        translate: -5% -30%;
+      }
+
+      > img {
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    li > svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    a {
+      text-underline-offset: 4px;
+      color: inherit;
+    }
+
+    .bg {
+      position: absolute;
+      width: 150% !important;
+      height: 150% !important;
+      aspect-ratio: 1/1;
+      translate: -40% -22%;
+      color: white;
+      opacity: 0.02;
+      z-index: -1;
+
+      @media (max-width: 860px) {
+        display: none;
+      }
+    }
+  }
+</style>

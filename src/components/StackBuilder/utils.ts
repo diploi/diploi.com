@@ -21,3 +21,13 @@ export type StackBuilderBlock = {
   count?: number;
   badge?: 'new' | 'beta';
 };
+
+export const extractRepositoryOwnerAndRepo = (repositoryUrl: string) => {
+  let url = repositoryUrl;
+  if (!url.endsWith('.git')) url = `${url}.git`;
+
+  const regex = /https:\/\/github\.com\/(.*)\.git/g.exec(url);
+  if (!regex || !regex[1]) throw new Error('Failed to parse Git repo');
+  const [owner, repo] = regex[1]?.split('/') || [];
+  return { owner, repo };
+};

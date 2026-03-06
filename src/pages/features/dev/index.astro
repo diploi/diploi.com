@@ -1,5 +1,4 @@
 ---
-import { DeveloperFaq, Section, SectionHeader } from '../../../components';
 import Footer from '../../../components/Footer.astro';
 import Navigation from '../../../components/Navigation/Navigation.astro';
 import { features } from '../../../content/features';
@@ -8,6 +7,7 @@ import LovableHr from '../../lovable/_components/LovableHr.astro';
 import LovableTeamwork from '../../lovable/_components/LovableTeamwork.astro';
 import FeaturesCallouts from '../_components/FeaturesCallouts.astro';
 import DevEditors from './_components/DevEditors.astro';
+import DevFaq from './_components/DevFaq.astro';
 import DevHero from './_components/DevHero.astro';
 import DevLifecycle from './_components/DevLifecycle.astro';
 import DevResources from './_components/DevResources.astro';
@@ -35,10 +35,7 @@ const feature = features.find((feature) => feature.id === 'dev')!;
     <LovableHr />
     <DevResources />
     <LovableHr />
-    <Section>
-      <SectionHeader title='FAQ' description="Common questions about Diploi's features for developers"/>
-      <DeveloperFaq page='dev'/>
-    </Section>
+    <DevFaq />
     <FeaturesCallouts hide={['dev']} />
   </main>
   <Footer />
