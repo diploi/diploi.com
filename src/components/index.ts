@@ -1,6 +1,4 @@
-export { FeatureMasonry } from './FeatureMasonry';
 export { SparkleElement } from './SparkleElement';
-export * from './FeatureCards';
 export { default as Icon } from './Icon.astro';
 export { default as Chart } from './Chart.astro';
 export { default as GetStarted } from './GetStarted.astro';
@@ -9,9 +7,6 @@ export { default as Section } from './Section.astro';
 export { default as SectionHeader } from './SectionHeader.astro';
 export { default as SubSection } from './SubSection.astro';
 export { default as SubSectionHeader } from './SubSectionHeader.astro';
-export { default as Video } from './Video.astro';
-export { default as ImpactMetric } from './ImpactMetric.astro';
-export { default as EffortlessDevelopment } from './EffortlessDevelopment.astro';
 export { default as PricingType } from './pricing/PricingType.astro';
 export { default as PricingTable } from './pricing/PricingTable.astro';
 export { default as ContactUsCard } from './ContactUsCard.astro';
