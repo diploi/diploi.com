@@ -1,0 +1,68 @@
+---
+import { getHighlighter } from '../utils/shikiHighlighter';
+
+type Props = { codeContent: string, language?: string, windowHeight: '100px' | '200px' | '300px' | '400px' | '800px' };
+const { codeContent, language = 'markdown', windowHeight = '400px'} = Astro.props;
+
+const highlighter = await getHighlighter(language);
+
+const highlightedHtml = highlighter.codeToHtml(codeContent, {
+  lang: language,
+  theme: 'github-dark',
+});
+---
+
+<div style=`height: ${windowHeight};` class="code-window">
+  <button class="copy-btn" data-code={codeContent}>Copy</button>
+  <Fragment set:html={highlightedHtml} />
+</div>
+
+<script>
+  document.querySelectorAll('.copy-btn').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const code = btn.nextElementSibling?.textContent ?? '';
+      await navigator.clipboard.writeText(code);
+      btn.textContent = 'Copied!';
+      setTimeout(() => (btn.textContent = 'Copy'), 2000);
+    });
+  });
+</script>
+
+<style>
+    .copy-btn {
+        position: sticky;
+        top: 0;
+        float: right;
+        background: rgb(54, 0, 90);
+        color: white;
+        border: none;
+        padding: 4px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.85rem;
+    }
+
+    .copy-btn:hover {
+        opacity: 0.8;
+    }
+
+    .code-window {
+        overflow: scroll;
+        overflow-x: hidden;
+        margin: 32px 0px;
+        border: 2px solid white;
+        border-radius: 16px;
+    }
+
+    .code-window :global(pre) {
+        margin: 0;
+        padding: 16px;
+        background: transparent !important;
+        overflow-x: auto;
+    }
+
+    .code-window :global(code) {
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+</style>
