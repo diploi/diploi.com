@@ -39,7 +39,7 @@ With Lovable reaching a $6 billion valuation just two years after being founded 
 
 A recent Diploi developer survey found 68% of respondents reported moderate to high effort in setting up and managing development and production environments, whereas 73% said creating and sharing test environments was similarly burdensome. Surprisingly, only 11.6% were fully using remote development tools, highlighting the need for more zero-install remote environments.
 
-“We actually love vibe coding – it’s one of the amazing range of tools available to devs today, and more are sure to come. As the market continues to develop, we plan to continuously expand integrations, improve AI-assisted workflows, and make Diploi the go-to platform for teams and agencies looking to ship real software reliably,” concludes Ahlfors.
+“We actually love vibe coding - it’s one of the amazing range of tools available to devs today, and more are sure to come. As the market continues to develop, we plan to continuously expand integrations, improve AI-assisted workflows, and make Diploi the go-to platform for teams and agencies looking to ship real software reliably,” concludes Ahlfors.
 
 ***
 
