@@ -1,158 +1,68 @@
 ---
 import { getCollection } from 'astro:content';
-import { Heart, RocketLaunch, SealCheck } from '@phosphor-icons/react';
+import { HeartIcon, RocketLaunchIcon, SealCheckIcon } from '@phosphor-icons/react';
 import Link from '../../../components/Link.astro';
 import Tag from '../../../components/Tag.astro';
+import type { LaunchweekData } from '../../../content/launchweek';
+
+interface Props {
+  data: LaunchweekData;
+}
+
+const { data } = Astro.props;
 
 const components = await getCollection('component');
-
-const laravelComponent = components.find((component) => component.id === 'laravel')!.data;
-const denoComponent = components.find((component) => component.id === 'deno')!.data;
-const fastapiComponent = components.find((component) => component.id === 'fastapi')!.data;
-const flaskComponent = components.find((component) => component.id === 'flask')!.data;
-const n8nComponent = components.find((component) => component.id === 'n8n')!.data;
-const supabaseComponent = components.find((component) => component.id === 'supabase')!.data;
-const lovableComponent = components.find((component) => component.id === 'lovable')!.data;
+const componentMap = new Map(components.map((c) => [c.id, c.data]));
 ---
 
 <section class="main">
   <ol>
-    <li class="released">
-      <h3><SealCheck weight="bold" style={{ fill: 'url(#gradient-two)' }} /> Monday</h3>
-      <p>
-        Day one brings two big additions: <a href="/component/laravel">Laravel</a> and <a href="/component/deno">Deno</a>. Laravel
-        introduces <strong>official PHP support on Diploi</strong>, while Deno expands our JS/TS roster with powerful package management and
-        fine-grained process permissions.
-      </p>
-      <ul>
-        <li>
-          <h4>
-            <img alt="Laravel icon" src={`data:image/svg+xml;base64,${laravelComponent.icon}`} width={32} height={32} />
-            {laravelComponent.name}
-            <Tag primary>New</Tag>
-          </h4>
-          <p>The PHP framework for web artisans. Running on FrankenPHP.</p>
-          <Link href="/component/laravel">Launch Laravel</Link>
-          <Link href="/blog/hosting_laravel_apps">Read guide</Link>
+    {
+      data.days.map((day) => (
+        <li class:list={[{ released: day.released }]}>
+          <h3>
+            {day.released && <SealCheckIcon weight="bold" style={{ fill: 'url(#gradient-two)' }} />}
+            {day.name}
+          </h3>
+          {day.released ? (
+            <>
+              <p set:html={day.description} />
+              <ul>
+                {day.items.map((item) => {
+                  const comp = item.componentId ? componentMap.get(item.componentId) : null;
+                  const iconSrc = comp
+                    ? `data:image/svg+xml;base64,${comp.icon}`
+                    : item.customIconBase64
+                      ? `data:image/svg+xml;base64,${item.customIconBase64}`
+                      : null;
+                  const name = comp ? comp.name : item.customName ?? item.componentId ?? '';
+                  return (
+                    <li class:list={[{ wide: item.wide }]}>
+                      <h4>
+                        {iconSrc && <img alt={`${name} icon`} src={iconSrc} width={32} height={32} />}
+                        {name}
+                        {item.tag && <Tag primary>{item.tag}</Tag>}
+                      </h4>
+                      <p>{item.description}</p>
+                      {item.links.map((link) => (
+                        <Link href={link.href}>{link.label}</Link>
+                      ))}
+                    </li>
+                  );
+                })}
+              </ul>
+            </>
+          ) : (
+            <p class="coming-soon">Coming soon - stay tuned!</p>
+          )}
+          {day.backgroundIcon === 'heart' ? (
+            <HeartIcon weight="duotone" className="bg" />
+          ) : (
+            <RocketLaunchIcon weight="duotone" className="bg" />
+          )}
         </li>
-        <li>
-          <h4>
-            <img alt="Deno icon" src={`data:image/svg+xml;base64,${denoComponent.icon}`} width={32} height={32} />
-            {denoComponent.name}
-            <Tag primary>New</Tag>
-          </h4>
-          <p>The next-generation JavaScript runtime. Now available with a single-click.</p>
-          <Link href="/component/deno">Launch Deno</Link>
-          <Link href="/blog/hosting_deno_apps">Read guide</Link>
-        </li>
-      </ul>
-      <RocketLaunch weight="duotone" className="bg" />
-    </li>
-    <li class="released">
-      <h3><SealCheck weight="bold" style={{ fill: 'url(#gradient-two)' }} /> Tuesday</h3>
-      <p>
-        It's Python's turn! Day two brings <strong>two of the most popular Python web frameworks</strong>, <a href="/component/fastapi"
-          >FastAPI</a
-        > and <a href="/component/flask">Flask</a>, to Diploi. Launch them with a single-click and start building faster than ever.
-      </p>
-      <ul>
-        <li>
-          <h4>
-            <img alt="FastAPI icon" src={`data:image/svg+xml;base64,${fastapiComponent.icon}`} width={32} height={32} />
-            {fastapiComponent.name}
-            <Tag primary>New</Tag>
-          </h4>
-          <p>Modern, fast, web framework for building APIs with standard type hints.</p>
-          <Link href="/component/fastapi">Launch FastAPI</Link>
-          <Link href="/blog/hosting_fastapi_apps">Read guide</Link>
-        </li>
-        <li>
-          <h4>
-            <img alt="Flask icon" src={`data:image/svg+xml;base64,${flaskComponent.icon}`} width={32} height={32} />
-            {flaskComponent.name}
-            <Tag primary>New</Tag>
-          </h4>
-          <p>Lightweight, easy, scalable WSGI web application framework.</p>
-          <Link href="/component/flask">Launch Flask</Link>
-          <Link href="/blog/hosting_flask_apps">Read guide</Link>
-        </li>
-      </ul>
-      <RocketLaunch weight="duotone" className="bg" />
-    </li>
-    <li class="released">
-      <h3><SealCheck weight="bold" style={{ fill: 'url(#gradient-two)' }} /> Wednesday</h3>
-      <p>
-        Day three expands Diploi's advanced toolkit with <a href="/component/n8n">n8n</a>. Build powerful automations, schedule tasks
-        seamlessly, and take advantage of <strong>custom nodes right out of the box</strong>.
-      </p>
-      <ul>
-        <li class="wide">
-          <h4>
-            <img alt="n8n icon" src={`data:image/svg+xml;base64,${n8nComponent.icon}`} width={32} height={32} />
-            {n8nComponent.name}
-            <Tag primary>New</Tag>
-          </h4>
-          <p>
-            Build with the precision of code or the speed of drag-n-drop. n8n gives you more freedom to implement multi-step AI agents and
-            integrate apps than any other tool.
-          </p>
-          <Link href="/component/n8n">Launch n8n</Link>
-          <Link href="/blog/hosting_n8n">Read guide</Link>
-        </li>
-      </ul>
-      <RocketLaunch weight="duotone" className="bg" />
-    </li>
-    <li class="released">
-      <h3><SealCheck weight="bold" style={{ fill: 'url(#gradient-two)' }} /> Thursday</h3>
-      <p>
-        Day four brings our biggest component yet: <a href="/component/supabase">Supabase</a>! With a full Postgres database, built-in
-        authentication, powerful storage, and edge functions, Supabase makes it effortless to add <strong
-          >a complete backend to your project</strong
-        >. From idea to production, you now have everything you need with zero-setup.
-      </p>
-      <ul>
-        <li class="wide">
-          <h4>
-            <img alt="n8n icon" src={`data:image/svg+xml;base64,${supabaseComponent.icon}`} width={32} height={32} />
-            {supabaseComponent.name}
-            <Tag primary>New</Tag>
-          </h4>
-          <p>
-            Start your project with a Postgres database, Authentication, instant APIs, Edge Functions, Realtime subscriptions, Storage, and
-            Vector embeddings.
-          </p>
-          <Link href="/component/supabase">Launch Supabase</Link>
-          <Link href="/blog/hosting_supabase">Read guide</Link>
-        </li>
-      </ul>
-      <RocketLaunch weight="duotone" className="bg" />
-    </li>
-    <li class="released">
-      <h3><SealCheck weight="bold" style={{ fill: 'url(#gradient-two)' }} /> Friday</h3>
-      <p>
-        We're closing Launch Week with something special: <strong>direct imports from Lovable</strong>. <a
-          href="https://lovable.dev/"
-          target="_blank">Lovable</a
-        > is perfect for vibe-coding, while Diploi gives you the power to take projects further. <strong
-          >Just connect your Lovable project to GitHub, select it in Diploi</strong
-        >, and you're ready to go. You can even keep working across both platforms at the same time.
-      </p>
-      <ul>
-        <li class="wide">
-          <h4>
-            <img alt="n8n icon" src={`data:image/svg+xml;base64,${lovableComponent.icon}`} width={32} height={32} />
-            {lovableComponent.name}
-            <Tag primary>New</Tag>
-          </h4>
-          <p>
-            Official support for Lovable repositories. When logged into Diploi, create a new project and select "Import Repository" to get
-            started.
-          </p>
-          <Link href="/blog/importing_from_lovable_and_github">Read guide</Link>
-        </li>
-      </ul>
-      <Heart weight="duotone" className="bg" />
-    </li>
+      ))
+    }
   </ol>
 </section>
 
@@ -222,6 +132,13 @@ const lovableComponent = components.find((component) => component.id === 'lovabl
           text-underline-offset: 4px;
           font-weight: 600;
         }
+      }
+
+      > .coming-soon {
+        font-size: 1.25rem;
+        font-weight: 350;
+        color: var(--color-text-secondary);
+        font-style: italic;
       }
 
       > time {

@@ -8,14 +8,14 @@ import AiStackBuilder from '../features/ai/_components/AiStackBuilder.astro';
 import LaunchweekFeatures from './_components/LaunchweekFeatures.astro';
 import LaunchweekHero from './_components/LaunchweekHero.astro';
 import LaunchweekRoadmap from './_components/LaunchweekRoadmap.astro';
-import { launchweek2026 } from '../../content/launchweek';
+import { launchweek2025 } from '../../content/launchweek';
 
 const schema = createWebsiteSchema();
 ---
 
 <Layout
-  title="Diploi - Launch Week"
-  description="Launch Week is here! We're rolling out new features and components to make your development flow smoother, faster, and more magical."
+  title="Diploi - Launch Week 2025"
+  description="Our first Launch Week! This is an archive page where you can learn about what we released in our first Launch Week."
   ogUrlMatchCanonical={true}
 >
   {/* Organization schema for Google */}
@@ -23,9 +23,8 @@ const schema = createWebsiteSchema();
 
   <Navigation />
   <main>
-    <LaunchweekHero slot="hero" />
-    <a style="text-align: center;" href="launchweek/2025">Check our 2025 Launch Week</a>
-    <LaunchweekRoadmap data={launchweek2026} />
+    <LaunchweekHero title={launchweek2025.hero.title} description={launchweek2025.hero.description} slot="hero" />
+    <LaunchweekRoadmap data={launchweek2025} />
     <hr />
     <LaunchweekFeatures />
     <hr />

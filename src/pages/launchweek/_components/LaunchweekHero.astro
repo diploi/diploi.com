@@ -1,8 +1,18 @@
 ---
 import { Image } from 'astro:assets';
+import type { string } from 'astro:schema';
 import { Heart, RocketLaunch } from '@phosphor-icons/react';
 import logo from '../../../../public/logo-icon.svg';
 import { createStackBackgroundUri } from '../../features/_components/featuresUtils';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const {
+  title = 'Launch Week',
+  description = "Launch Week is here! We're rolling out new features and components to make your development flow smoother, faster, and more magical.",
+} = Astro.props;
 
 const background = createStackBackgroundUri({
   size: 16,
@@ -21,9 +31,9 @@ const backgroundColor = createStackBackgroundUri({ size: 16, primary: '#6650fa',
       <Heart size={32} weight="fill" />
       <RocketLaunch size={64 + 16} weight="duotone" style={{ fill: 'url(#gradient-one)' }} />
     </div>
-    <h1>Launch Week</h1>
+    <h1>{title}</h1>
     <p>
-      Launch Week is here! We're rolling out new features and components to make your development flow smoother, faster, and more magical.
+      {description}
     </p>
   </section>
 </header>
