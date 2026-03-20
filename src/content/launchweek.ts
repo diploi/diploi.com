@@ -152,7 +152,7 @@ export const launchweek2026: LaunchweekData = {
 	id: '2026',
 	hero: {
 		title: 'Launch Week 2026',
-		description: 'We have a lot of new features coming up! Stay tuned.',
+		description: 'We have a lot of new features coming up! From the 30th of March to the 3rd of April.  Stay tuned.',
 	},
 	days: [
 		{
