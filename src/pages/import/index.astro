@@ -1,0 +1,46 @@
+---
+import Footer from '../../components/Footer.astro';
+import Navigation from '../../components/Navigation/Navigation.astro';
+import Layout from '../../layouts/Layout.astro';
+import { createWebsiteSchema } from '../../utils/createWebsiteSchema';
+import LandingExplainer from '../_landing/_components/LandingExplainer.astro';
+import FeaturesCallouts from '../features/_components/FeaturesCallouts.astro';
+import DevopsIac from '../features/devops/_components/DevopsIac.astro';
+import LovableHr from '../lovable/_components/LovableHr.astro';
+import ImportCta from './_components/ImportCta.astro';
+import ImportHero from './_components/ImportHero.astro';
+
+const schema = createWebsiteSchema();
+---
+
+<Layout
+  title="Diploi - Deploy Any App With AI"
+  description="Extend apps built with Lovable by migrating to Diploi, to use Cursor, add databases or backend services, and deploy staging/production environments with zero DevOps."
+  ogUrlMatchCanonical={true}
+>
+  {/* Organization schema for Google */}
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+  <Navigation />
+  <main>
+    <ImportHero />
+    <ImportCta />
+    <LovableHr />
+    <LandingExplainer />
+    <LovableHr />
+    <DevopsIac />
+    <LovableHr />
+    <FeaturesCallouts />
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  main {
+    gap: 128px;
+
+    @media (max-width: 860px) {
+      gap: 64px;
+    }
+  }
+</style>

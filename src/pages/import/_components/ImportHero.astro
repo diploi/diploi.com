@@ -1,18 +1,19 @@
 ---
 import {
+  ArrowRightIcon,
   ArrowUpRightIcon,
   CaretRightIcon,
   CodeIcon,
   DiscordLogoIcon,
   GithubLogoIcon,
+  GlobeIcon,
   LinkIcon,
   PhoneIcon,
+  SparkleIcon,
   UploadSimpleIcon,
 } from '@phosphor-icons/react';
 import { createStackBackgroundUri } from '../../features/_components/featuresUtils';
 import illustration from '../_images/hero.svg?raw';
-
-const calendlyUrl = import.meta.env.VITE_CALENDLY_URL;
 
 const maskCss = `url('data:image/svg+xml,${illustration?.replace(/\n/g, '')?.replaceAll('#', '%23')?.trim()}')`;
 
@@ -28,22 +29,18 @@ const backgroundColor = createStackBackgroundUri({ size: 32, primary: 'white', s
   </div>
   <section>
     <div class="title">
-      <h1>Skip Setting Up.<br />Start Building</h1>
+      <h1>Deploy<br />Anything</h1>
     </div>
     <ol class="features">
-      <li><CodeIcon /> Cloud Dev</li>
-      <li inert aria-hidden class="arrow"><CaretRightIcon /></li>
-      <li><LinkIcon /> Preview Link</li>
-      <li inert aria-hidden class="arrow"><CaretRightIcon /></li>
-      <li><UploadSimpleIcon /> One-Click Prod</li>
+      <li><CodeIcon /> GitHub</li>
+      <li inert aria-hidden class="arrow"><ArrowRightIcon /></li>
+      <li><SparkleIcon /> AI Import</li>
+      <li inert aria-hidden class="arrow"><ArrowRightIcon /></li>
+      <li><GlobeIcon /> Live App</li>
     </ol>
     <p>One platform to build, preview, and ship your app.<br />No local setup required.</p>
-    <a class="button" data-event="hero_cta_click" href="#showcases">Start in 10 Seconds</a>
+    <a class="button" data-event="hero_cta_click" href="#showcases">Go Live in 10 Seconds</a>
     <ul class="links">
-      <a role="listitem" data-event="calendly_click" target="_blank" href={calendlyUrl}>
-        <PhoneIcon /> Book a Demo
-        <ArrowUpRightIcon />
-      </a>
       <a role="listitem" data-event="github_click" target="_blank" href="https://github.com/diploi">
         <GithubLogoIcon /> GitHub
         <ArrowUpRightIcon />

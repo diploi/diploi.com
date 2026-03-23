@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import { CaretDownIcon, ListIcon } from '@phosphor-icons/react';
 import { features, links } from '../../content/features';
+import githubLogo from '../../images/github-logo.svg';
 import lovableIcon from '../../images/lovable-icon.svg';
 ---
 
@@ -37,9 +38,14 @@ import lovableIcon from '../../images/lovable-icon.svg';
     </section>
     <section style={{ gridArea: 'imports' }}>
       <label>Import from</label>
-      <a data-event="ai_click" href="/lovable">
-        <span><Image id="lovable" width={18} height={18} src={lovableIcon} alt="lovable logo" /> Lovable</span>
-      </a>
+      <div class="list">
+        <a data-event="github_click" href="/import">
+          <span><Image id="github" width={18} height={18} src={githubLogo} alt="github logo" /> GitHub</span>
+        </a>
+        <a data-event="ai_click" href="/lovable">
+          <span><Image id="lovable" width={18} height={18} src={lovableIcon} alt="lovable logo" /> Lovable</span>
+        </a>
+      </div>
     </section>
   </div>
 </button>
@@ -292,5 +298,10 @@ import lovableIcon from '../../images/lovable-icon.svg';
         align-items: flex-start !important;
       }
     }
+  }
+
+  .list {
+    display: flex;
+    gap: 16px;
   }
 </style>
