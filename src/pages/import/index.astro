@@ -8,7 +8,9 @@ import FeaturesCallouts from '../features/_components/FeaturesCallouts.astro';
 import DevopsIac from '../features/devops/_components/DevopsIac.astro';
 import LovableHr from '../lovable/_components/LovableHr.astro';
 import ImportCta from './_components/ImportCta.astro';
+import ImportFeatures from './_components/ImportFeatures.astro';
 import ImportHero from './_components/ImportHero.astro';
+import ImportResources from './_components/ImportResources.astro';
 
 const schema = createWebsiteSchema();
 ---
@@ -28,8 +30,11 @@ const schema = createWebsiteSchema();
     <LovableHr />
     <LandingExplainer />
     <LovableHr />
+    <ImportFeatures />
+    <LovableHr />
     <DevopsIac />
     <LovableHr />
+    <ImportResources />
     <FeaturesCallouts />
   </main>
   <Footer />

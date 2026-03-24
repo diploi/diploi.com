@@ -1,19 +1,7 @@
 ---
-import {
-  ArrowRightIcon,
-  ArrowUpRightIcon,
-  CaretRightIcon,
-  CodeIcon,
-  DiscordLogoIcon,
-  GithubLogoIcon,
-  GlobeIcon,
-  LinkIcon,
-  PhoneIcon,
-  SparkleIcon,
-  UploadSimpleIcon,
-} from '@phosphor-icons/react';
+import { ArrowRightIcon, ArrowUpRightIcon, CodeIcon, DiscordLogoIcon, GithubLogoIcon, GlobeIcon, SparkleIcon } from '@phosphor-icons/react';
 import { createStackBackgroundUri } from '../../features/_components/featuresUtils';
-import illustration from '../_images/hero.svg?raw';
+import illustration from '../_images/hero-bg.svg?raw';
 
 const maskCss = `url('data:image/svg+xml,${illustration?.replace(/\n/g, '')?.replaceAll('#', '%23')?.trim()}')`;
 
@@ -249,13 +237,13 @@ const backgroundColor = createStackBackgroundUri({ size: 32, primary: 'white', s
     top: 0;
     margin: 0 auto;
     width: 90vw;
-    max-width: 1600px;
+    max-width: 1900px;
     // min-width: 1400px;
-    height: auto;
-    aspect-ratio: 1/1;
+    height: 150vh;
+    // aspect-ratio: 1/1;
     background-image: conic-gradient(from var(--rotation) in oklch, var(--color-primary), var(--color-secondary), var(--color-primary));
     // rotate: 0.5turn;
-    translate: 0 -400px;
+    translate: 0 -200px;
 
     mask-image: var(--mask);
     mask-size: 100%;
@@ -263,12 +251,16 @@ const backgroundColor = createStackBackgroundUri({ size: 32, primary: 'white', s
     mask-position: center 0;
 
     @media (max-width: 1700px) {
-      translate: 0 -300px;
+      translate: 0 -100px;
     }
 
     @media (max-width: 1550px) {
       width: 100%;
       mask-size: 1400px;
+    }
+
+    @media (max-width: 800px) {
+      display: none;
     }
 
     @keyframes rotate-illustration {

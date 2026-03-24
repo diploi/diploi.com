@@ -40,7 +40,7 @@ const icons = components
       <section>
         <h2>Import From GitHub</h2>
         <p>Pick one of your own GItHub repositories. We'll analyze it, spin up a deployment, and give you a live URL.</p>
-        <button>Import From GitHub</button>
+        <a class="button" href={`${import.meta.env.VITE_API_URL}/import/github`}>Import From GitHub</a>
       </section>
       <FeaturesHr vertical />
       <section>
@@ -127,6 +127,16 @@ const icons = components
     gap: 48px;
     margin-top: 48px;
 
+    @media (max-width: 860px) {
+      flex-direction: column;
+
+      > section,
+      > section > h2,
+      > section > p {
+        text-align: center !important;
+      }
+    }
+
     > section {
       flex: 1;
       text-align: right;
@@ -142,7 +152,7 @@ const icons = components
       }
 
       > p {
-        margin-bottom: 18px;
+        margin-bottom: 24px;
       }
 
       &:last-of-type {
