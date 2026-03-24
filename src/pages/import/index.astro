@@ -5,8 +5,8 @@ import Layout from '../../layouts/Layout.astro';
 import { createWebsiteSchema } from '../../utils/createWebsiteSchema';
 import LandingExplainer from '../_landing/_components/LandingExplainer.astro';
 import FeaturesCallouts from '../features/_components/FeaturesCallouts.astro';
-import DevopsIac from '../features/devops/_components/DevopsIac.astro';
 import LovableHr from '../lovable/_components/LovableHr.astro';
+import ImportAi from './_components/ImportAi.astro';
 import ImportCta from './_components/ImportCta.astro';
 import ImportFeatures from './_components/ImportFeatures.astro';
 import ImportHero from './_components/ImportHero.astro';
@@ -28,11 +28,11 @@ const schema = createWebsiteSchema();
     <ImportHero />
     <ImportCta />
     <LovableHr />
+    <ImportAi />
+    <LovableHr />
     <LandingExplainer />
     <LovableHr />
     <ImportFeatures />
-    <LovableHr />
-    <DevopsIac />
     <LovableHr />
     <ImportResources />
     <FeaturesCallouts />
