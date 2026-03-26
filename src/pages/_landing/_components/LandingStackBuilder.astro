@@ -93,12 +93,6 @@ const background = createStackBackgroundUri({
         @media (prefers-reduced-motion: reduce) {
           animation: none;
         }
-
-        @for $i from 1 through 20 {
-          &:nth-child(#{$i}) {
-            animation-delay: (200ms + ($i * 50ms));
-          }
-        }
       }
     }
 
