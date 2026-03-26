@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
-import { CodeBlock, Database, SealCheckIcon } from '@phosphor-icons/react';
+import { CodeBlockIcon, DatabaseIcon, SealCheckIcon } from '@phosphor-icons/react';
 import cursorLogo from '../../../images/cursor-logo.webp';
 import githubActionsIcon from '../../../images/github-actions-icon.svg';
 import githubCopilotIcon from '../../../images/github-copilot-icon.svg';
@@ -12,7 +12,9 @@ import zedLogo from '../../../images/zed-logo.svg';
 import FeaturesHr from '../../features/_components/FeaturesHr.astro';
 
 const components = await getCollection('component');
-const visibleComponents = components.filter((component) => !component.data.hidden && component.data.identifier !== 'supabase').slice(0, 24);
+const visibleComponents = components
+  .filter((component) => !component.data.hidden && component.data.identifier !== 'supabase' && component.data.type !== 'starter')
+  .slice(0, 24);
 
 const supabase = components.find((component) => component.data.identifier === 'supabase');
 ---
@@ -30,7 +32,7 @@ const supabase = components.find((component) => component.data.identifier === 's
   </li>
   <FeaturesHr vertical />
   <li>
-    <CodeBlock />
+    <CodeBlockIcon />
     <h3>Use Any Editor</h3>
     <ul class="logos">
       <li><Image width={40} height={40} src={cursorLogo} title="Cursor" alt="cursor logo" /></li>
@@ -42,7 +44,7 @@ const supabase = components.find((component) => component.data.identifier === 's
   </li>
   <FeaturesHr vertical />
   <li>
-    <Database />
+    <DatabaseIcon />
     <h3>Add Any Service</h3>
     <div class="components">
       <ul>

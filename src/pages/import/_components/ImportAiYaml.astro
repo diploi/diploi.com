@@ -1,14 +1,16 @@
 ---
-import StackBuilderYamlCard from '../../../../components/StackBuilder/StackBuilderYamlCard.astro';
+import StackBuilderYamlCard from '../../../components/StackBuilder/StackBuilderYamlCard.astro';
 
 const yamlHtml = `<span><b>diploiVersion</b>: "v1.0"
 </span><span><b>components</b>:
-</span><span>  - <b>name</b>: "Next.js"
-</span><span>    <b>identifier</b>: "next"
-</span><span>    <b>package</b>: "https://github.com/diploi/component-nextjs#main"
 </span><span class="add">  - <b>name</b>: "Node.js"
 </span><span class="add">    <b>identifier</b>: "node"
+</span><span class="add">    <b>folder</b>: "/"
 </span><span class="add">    <b>package</b>: "https://github.com/diploi/component-nodejs#main"
+</span><span><b>addons</b>:
+</span><span class="add">  - <b>name</b>: "PostgreSQL"
+</span><span class="add">    <b>identifier</b>: "postgres"
+</span><span class="add">    <b>package</b>: "https://github.com/diploi/addon-postgres#main"
 </span>`;
 ---
 

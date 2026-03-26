@@ -183,7 +183,8 @@ const isJobs = selected === 'jobs';
     > :global(button),
     > :global(button) > :global([popover]) > :global(section) > :global(a),
     > :global(details) > :global(div) > :global(a),
-    > :global(details) > :global(summary) {
+    > :global(details) > :global(summary),
+    > :global(button) > :global([popover]) > :global(section) > :global(.list) > :global(a) {
       position: relative;
       display: flex;
       justify-content: flex-start;
