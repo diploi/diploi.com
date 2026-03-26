@@ -46,10 +46,10 @@ const icons = components
       <section>
         <h2>Import From URL</h2>
         <p>Pick any public GitHub repository and we'll take care of the rest. A perfect way to try out that new trending framework.</p>
-        <div class="url">
-          <input placeholder="https://github.com/..." />
-          <button>Import</button>
-        </div>
+        <form method="get" action={`${import.meta.env.VITE_API_URL}/login`} class="url">
+          <input name="import" placeholder="https://github.com/..." pattern="https://github\.com/.+" required />
+          <button type="submit">Import</button>
+        </form>
       </section>
     </article>
   </FeaturesSectionHeader>
