@@ -1,7 +1,8 @@
 ---
-import { ArrowRightIcon, ArrowUpRightIcon, CodeIcon, DiscordLogoIcon, GithubLogoIcon, GlobeIcon, SparkleIcon } from '@phosphor-icons/react';
+import ComponentIcons from '../../../components/ComponentIcons.astro';
 import { createStackBackgroundUri } from '../../features/_components/featuresUtils';
 import illustration from '../_images/hero-bg.svg?raw';
+import ImportHeroCta from './ImportHeroCta.astro';
 
 const maskCss = `url('data:image/svg+xml,${illustration?.replace(/\n/g, '')?.replaceAll('#', '%23')?.trim()}')`;
 
@@ -19,25 +20,9 @@ const backgroundColor = createStackBackgroundUri({ size: 32, primary: 'white', s
     <div class="title">
       <h1>Deploy<br />Anything</h1>
     </div>
-    <ol class="features">
-      <li><CodeIcon /> GitHub</li>
-      <li inert aria-hidden class="arrow"><ArrowRightIcon /></li>
-      <li><SparkleIcon /> AI Import</li>
-      <li inert aria-hidden class="arrow"><ArrowRightIcon /></li>
-      <li><GlobeIcon /> Live App</li>
-    </ol>
-    <p>Point us at a GitHub repo. We'll handle the rest.<br />No local setup required.</p>
-    <a class="button" data-event="hero_cta_click" href="#showcases">Go Live in 10 Seconds</a>
-    <ul class="links">
-      <a role="listitem" data-event="github_click" target="_blank" href="https://github.com/diploi">
-        <GithubLogoIcon /> GitHub
-        <ArrowUpRightIcon />
-      </a>
-      <a role="listitem" data-event="discord_click" target="_blank" href="https://discord.gg/vvgQxVjC8G">
-        <DiscordLogoIcon /> Discord
-        <ArrowUpRightIcon />
-      </a>
-    </ul>
+    <ComponentIcons />
+    <p>Pick any repository and we'll make it run.</p>
+    <ImportHeroCta />
   </section>
 </header>
 
@@ -51,9 +36,8 @@ const backgroundColor = createStackBackgroundUri({ size: 32, primary: 'white', s
     margin: 0 auto;
     width: 100%;
     max-width: var(--max-width-page-section);
-    height: 75vh;
+    height: max(75vh, min-content);
     min-height: 600px;
-    max-height: 800px;
   }
 
   section {
@@ -67,7 +51,7 @@ const backgroundColor = createStackBackgroundUri({ size: 32, primary: 'white', s
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-bottom: 16px;
+      margin-bottom: 8px;
       width: 100%;
 
       > h1 {
@@ -94,6 +78,7 @@ const backgroundColor = createStackBackgroundUri({ size: 32, primary: 'white', s
 
     > p {
       margin: 0 auto;
+      margin-top: 8px;
       text-align: center;
     }
 

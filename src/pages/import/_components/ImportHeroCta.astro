@@ -1,0 +1,91 @@
+---
+import FeaturesHr from '../../features/_components/FeaturesHr.astro';
+---
+
+<article class="content">
+  <section>
+    <h2>Import From GitHub</h2>
+    <p>Pick one of your own GitHub repos. We'll analyze it, spin up a deployment, and give you a live URL.</p>
+    <a class="button" href={`${import.meta.env.VITE_API_URL}/import/github`}>Import From GitHub</a>
+  </section>
+  <FeaturesHr vertical />
+  <section>
+    <h2>Import From URL</h2>
+    <p>Pick any public GitHub repo and we'll handle the rest. A perfect way to try out that new trending framework.</p>
+    <form method="get" action={`${import.meta.env.VITE_API_URL}/login`} class="url">
+      <input name="import" placeholder="https://github.com/..." pattern="https://github\.com/.+" required />
+      <button type="submit">Import</button>
+    </form>
+  </section>
+</article>
+
+<style lang="scss">
+  .content {
+    display: flex;
+    gap: 48px;
+    margin-top: 48px;
+
+    > section {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      flex: 1;
+      text-align: right;
+
+      > h2 {
+        margin-bottom: 12px;
+        font-size: 2rem;
+      }
+
+      > h2,
+      > p {
+        text-align: right;
+      }
+
+      > p {
+        max-width: 45ch;
+        margin-bottom: 24px;
+      }
+
+      &:last-of-type {
+        align-items: flex-start;
+        text-align: left;
+
+        > h2,
+        p {
+          align-items: flex-start;
+          text-align: left;
+        }
+      }
+    }
+
+    @media (max-width: 860px) {
+      flex-direction: column;
+
+      > section,
+      > section > h2,
+      > section > p {
+        align-items: center !important;
+        text-align: center !important;
+      }
+    }
+  }
+
+  .url {
+    display: flex;
+
+    > input {
+      padding-top: 18px;
+      padding-bottom: 18px;
+      border: 2px solid var(--color-primary);
+      border-right: 0;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    > button {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+</style>
