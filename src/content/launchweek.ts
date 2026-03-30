@@ -152,24 +152,23 @@ export const launchweek2026: LaunchweekData = {
 	id: '2026',
 	hero: {
 		title: 'Launch Week 2026',
-		description: 'We have a lot of new features coming up! From the 30th of March to the 3rd of April.  Stay tuned.',
+		description: 'We have a lot of new features coming up! From the 30th of March to the 3rd of April.',
 	},
 	days: [
 		{
 			name: 'Monday',
-			released: false,
+			released: true,
 			description:
-				'',
-			backgroundIcon: 'rocket',
+				'<strong>Automagically import any existing app:</strong> If we support the technologies you use, then you can host it and without configuring anything. So if you have Full-stack apps + database(s), Static websites, Laravel projects, Python based APIs, etc. You can try importing your own projects now, all you need is a GitHub account.',
+			backgroundIcon: 'heart',
 			items: [
 				{
 					componentId: '',
-					description: '',
+					description: 'Host any of your existing apps',
 					links: [
-						{ label: '', href: '' },
-						{ label: '', href: '' },
+						{ label: 'Try importing now', href: '/import' },
 					],
-					tag: '',
+					tag: 'Improved ✨',
 				},
 			],
 		},
