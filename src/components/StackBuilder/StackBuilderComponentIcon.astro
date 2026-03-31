@@ -1,0 +1,18 @@
+---
+import { Image, type RemoteImageProps } from 'astro:assets';
+import { extractRepositoryOwnerAndRepo } from './utils';
+
+type Props = {
+  name: string;
+  url: string;
+  size?: number;
+} & Omit<RemoteImageProps, 'alt' | 'src' | 'widths' | 'layout' | 'fit' | 'position'>;
+
+const { name, url, size = 28, ...other } = Astro.props;
+
+const { owner, repo } = extractRepositoryOwnerAndRepo(url);
+
+const imageSrc = `https://diploi.b-cdn.net/component/${owner}/${repo}/icon.svg?ref=main`;
+---
+
+<Image alt={`${name} icon`} src={imageSrc} class="icon" width={size} height={size} {...other} />

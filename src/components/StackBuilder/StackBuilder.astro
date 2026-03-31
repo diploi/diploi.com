@@ -1,9 +1,10 @@
 ---
+import FeaturesHr from '../../pages/features/_components/FeaturesHr.astro';
 import Icon from '../Icon.astro';
 import SubSectionHeader from '../SubSectionHeader.astro';
-import StackBuilderButtonCallout from './StackBuilderButtonCallout.astro';
 import StackBuilderButtonComponent from './StackBuilderButtonComponent.astro';
 import StackBuilderLaunchButton from './StackBuilderLaunchButton.astro';
+import StackBuilderShowcases from './StackBuilderShowcases.astro';
 import StackBuilderYaml from './StackBuilderYaml.astro';
 import { ComponentType, type ComponentTypeLiteral } from './utils';
 
@@ -12,10 +13,10 @@ interface Props {
   defaultComponentIds?: number[];
   hideComponents?: boolean;
   hideYaml?: boolean;
-  hideCallouts?: boolean;
+  showShowcases?: boolean;
 }
 
-const { launchButtonText = 'Launch Stack', defaultComponentIds = [1, 101], hideComponents, hideYaml, hideCallouts } = Astro.props;
+const { launchButtonText = 'Launch Stack', defaultComponentIds = [1, 101], hideComponents, hideYaml, showShowcases } = Astro.props;
 
 const {
   result: { data },
@@ -29,31 +30,39 @@ interface Component {
   componentTypeID: ComponentTypeLiteral;
   identifier: string;
   name: string;
+  description?: string;
   url: string;
   count?: number;
+  previewImageUrls?: string[];
   badge?: 'new' | 'beta';
   hidden?: boolean;
 }
 
 const components = (data.components as Component[]).filter((component) => !component.hidden);
-const lovableComponent = (data.components as Component[]).find((component) => component.identifier === 'lovable');
 ---
 
 <div class="stack-builder" data-components={JSON.stringify(components)} data-components-defaults={JSON.stringify(defaultComponentIds)}>
+  {
+    showShowcases && (
+      <>
+        <StackBuilderShowcases components={components} />
+        <FeaturesHr />
+      </>
+    )
+  }
   <div class="grid">
     <div class="list">
       {
         !hideComponents && (
           <>
-            {!hideCallouts && (
-              <div class="callouts">{!!lovableComponent && <StackBuilderButtonCallout {...lovableComponent} href="/lovable" />}</div>
-            )}
             <div class="header components">
-              <SubSectionHeader
-                title="Components"
-                description="Base blocks of your Stack. Include editable code."
-                class="header-components"
-              />
+              <slot name="components-header">
+                <SubSectionHeader
+                  title="Components"
+                  description="Base blocks of your Stack. Include editable code."
+                  class="header-components"
+                />
+              </slot>
             </div>
             <div class="blocks-container components">
               <div class="blocks components">
@@ -330,6 +339,13 @@ const lovableComponent = (data.components as Component[]).find((component) => co
   .header {
     margin-bottom: var(--space-l);
 
+    &.addons {
+      &:empty,
+      &:not(:has(*)) {
+        margin-top: -32px;
+      }
+    }
+
     @include mixins.respond-to('tablet') {
       &.components,
       &.addons {
@@ -365,9 +381,20 @@ const lovableComponent = (data.components as Component[]).find((component) => co
       display: grid;
       grid-template-columns: repeat(2, 1fr);
     }
+
     @include mixins.respond-to('laptop') {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
+    }
+
+    &.starters {
+      @include mixins.respond-to('tablet') {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      @include mixins.respond-to('laptop') {
+        grid-template-columns: repeat(4, 1fr);
+      }
     }
   }
 

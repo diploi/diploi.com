@@ -1,21 +1,15 @@
 ---
-import { Image } from 'astro:assets';
 import { DownloadSimpleIcon, FlaskIcon, SparkleIcon } from '@phosphor-icons/react';
 import Checkbox from '../Checkbox.astro';
 import StackBuilderButton from './StackBuilderButton.astro';
-import { componentTypeIDToString, extractRepositoryOwnerAndRepo, type StackBuilderBlock } from './utils';
+import StackBuilderComponentIcon from './StackBuilderComponentIcon.astro';
+import type { StackBuilderBlock } from './utils';
 
 type Props = StackBuilderBlock & {
   class: string;
 };
 
-const { componentID, componentTypeID, identifier, name, url, class: className, badge, count } = Astro.props;
-
-const type = componentTypeIDToString[componentTypeID];
-
-const { owner, repo } = extractRepositoryOwnerAndRepo(url);
-
-const imageSrc = `https://diploi.b-cdn.net/component/${owner}/${repo}/icon.svg?ref=main`;
+const { componentID, identifier, name, url, class: className, badge, count } = Astro.props;
 
 const numberFormatter = new Intl.NumberFormat('fi-FI', {
   style: 'decimal',
@@ -38,7 +32,7 @@ const numberFormatter = new Intl.NumberFormat('fi-FI', {
     )
   }
   <div class="label">
-    <Image alt={`${type} icon`} src={imageSrc} class="icon" aria-hidden="true" width={28} height={28} />
+    <StackBuilderComponentIcon name={name} url={url} class="icon" aria-hidden="true" />
     <span>
       <span>{name}</span>
       {

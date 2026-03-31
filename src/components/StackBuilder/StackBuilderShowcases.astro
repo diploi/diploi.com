@@ -1,0 +1,249 @@
+---
+import { ArrowUpRightIcon } from '@phosphor-icons/react';
+import { chatPreview, chatPreviewVideo, drawPreview, openclawPreview, webPreview } from '../../pages/_landing/_utils/showcaseContent';
+import FeaturesHr from '../../pages/features/_components/FeaturesHr.astro';
+import SubSectionHeader from '../SubSectionHeader.astro';
+import StackBuilderComponentIcon from './StackBuilderComponentIcon.astro';
+import { ComponentType, type ComponentTypeLiteral } from './utils';
+
+interface Component {
+  componentID: number;
+  componentTypeID: ComponentTypeLiteral;
+  name: string;
+  url: string;
+  previewImageUrls?: string[];
+}
+
+type Props = {
+  components: Component[];
+};
+
+const { components } = Astro.props;
+
+const SHOWCASE_COMPONENT_IDS = [
+  110, // Chat App
+  111, // OpenClaw
+  // 109, // Drawing App
+  108, // Web App
+];
+
+const SHOWCASE_TAB_OVERRIDES: {
+  [componentID: number]: {
+    name?: string;
+    description?: string;
+    image?: ImageMetadata;
+    color?: 'light' | 'dark';
+    background?: string;
+    video?: string;
+  };
+} = {
+  109: {
+    name: 'Drawing App',
+    description: 'Collaborative drawing app built with Refine & Supabase.',
+    image: drawPreview,
+    color: 'dark',
+    background: '#efeef1',
+  },
+  108: {
+    description: 'Modern, production-ready full-stack React app.',
+    image: webPreview,
+    color: 'dark',
+    background: '#fafafa',
+  },
+  110: {
+    description: 'A Slack like chat app built with Next.js & Supabase.',
+    image: chatPreview,
+    background: '#1b2234',
+    video: chatPreviewVideo,
+  },
+  111: {
+    name: 'OpenClaw',
+    description: 'Dedicated OpenClaw instance with admin panel. Zero-config.',
+    image: openclawPreview,
+    background: '#fafafa',
+    color: 'dark',
+  },
+};
+
+const showcases = components
+  .filter((component) => component.componentTypeID === ComponentType.STARTER && SHOWCASE_COMPONENT_IDS.includes(component.componentID))
+  .toSorted((a, b) => SHOWCASE_COMPONENT_IDS.indexOf(a.componentID) - SHOWCASE_COMPONENT_IDS.indexOf(b.componentID));
+---
+
+<article class="starters">
+  <section>
+    <SubSectionHeader title="Showcases" description="One-click launch of a fully working app." />
+    <div class="list">
+      {
+        showcases.map(({ componentID, name, url, previewImageUrls }) => (
+          <button
+            class="starter launch-showcase"
+            data-id={componentID}
+            data-url={import.meta.env.VITE_API_URL}
+            style={{
+              '--image': `url(${SHOWCASE_TAB_OVERRIDES[componentID]?.image?.src || previewImageUrls?.[0] || ''})`,
+            }}
+          >
+            <ArrowUpRightIcon weight="bold" />
+            <span>
+              <StackBuilderComponentIcon name={name} url={url} size={20} class="icon" aria-hidden="true" />
+              {SHOWCASE_TAB_OVERRIDES[componentID]?.name || name}
+            </span>
+          </button>
+        ))
+      }
+    </div>
+  </section>
+  <FeaturesHr vertical />
+  <section>
+    <SubSectionHeader
+      title="Import From GitHub"
+      description="Pick any GitHub repo and we'll handle the rest. A perfect way to try out that new trending framework."
+    />
+    <form method="get" action={`${import.meta.env.VITE_API_URL}/login`} class="url">
+      <input name="import" placeholder="https://github.com/..." pattern="https://github\.com/.+" required />
+      <button type="submit">Import</button>
+    </form>
+  </section>
+</article>
+
+<script>
+  const launchButtons = document.querySelectorAll('.launch-showcase[data-id]') as NodeListOf<HTMLButtonElement>;
+
+  for (const launchButton of launchButtons) {
+    launchButton.addEventListener('click', async () => {
+      if (launchButton.disabled) return;
+      launchButton.disabled = true;
+
+      const { launchStack } = await import('./launchStack.ts');
+
+      launchStack({
+        button: launchButton,
+        componentIds: [parseInt(launchButton.getAttribute('data-id') || '')],
+        apiUrl: launchButton.getAttribute('data-url') || '',
+      });
+    });
+  }
+</script>
+
+<style lang="scss">
+  .starters {
+    display: flex;
+    gap: 32px;
+
+    > section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      > :global(div) {
+        margin-bottom: 16px;
+      }
+    }
+
+    @media (max-width: 860px) {
+      flex-direction: column;
+    }
+  }
+
+  .list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 0 !important;
+
+    @media (max-width: 860px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .starter {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: 0;
+    aspect-ratio: 1280 / 720;
+    background-image: var(--image);
+    background-size: cover;
+    background-position: center 0;
+    overflow: hidden;
+
+    &:hover {
+      > svg {
+        translate: 4px -4px;
+        color: white;
+      }
+
+      &::before {
+        opacity: 1;
+      }
+    }
+
+    > svg {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      color: var(--color-primary);
+      z-index: 2;
+
+      transition:
+        translate 250ms ease,
+        color 250ms ease;
+    }
+
+    > span {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 1px 7px 0 0;
+      font-size: 1rem;
+      background-color: var(--color-bg-secondary);
+      border-top-right-radius: 8px;
+      z-index: 2;
+    }
+
+    > span,
+    > svg,
+    &::before {
+      user-select: none;
+      pointer-events: none;
+    }
+
+    &::before {
+      content: 'Launch Now';
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      inset: 0;
+      color: white;
+      background-color: color-mix(var(--color-primary), transparent 10%);
+      z-index: 1;
+
+      opacity: 0;
+
+      transition: opacity 250ms ease;
+    }
+  }
+
+  .url {
+    display: flex;
+
+    > input {
+      padding-top: 18px;
+      padding-bottom: 18px;
+      border: 2px solid var(--color-primary);
+      border-right: 0;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    > button {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+</style>
