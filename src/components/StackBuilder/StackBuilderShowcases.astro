@@ -1,4 +1,5 @@
 ---
+import { ArrowUpRightIcon } from '@phosphor-icons/react';
 import { chatPreview, chatPreviewVideo, drawPreview, openclawPreview, webPreview } from '../../pages/_landing/_utils/showcaseContent';
 import FeaturesHr from '../../pages/features/_components/FeaturesHr.astro';
 import SubSectionHeader from '../SubSectionHeader.astro';
@@ -83,6 +84,7 @@ const showcases = components
               '--image': `url(${SHOWCASE_TAB_OVERRIDES[componentID]?.image?.src || previewImageUrls?.[0] || ''})`,
             }}
           >
+            <ArrowUpRightIcon weight="bold" />
             <span>
               <StackBuilderComponentIcon name={name} url={url} size={20} class="icon" aria-hidden="true" />
               {SHOWCASE_TAB_OVERRIDES[componentID]?.name || name}
@@ -157,6 +159,7 @@ const showcases = components
   }
 
   .starter {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -166,6 +169,30 @@ const showcases = components
     background-image: var(--image);
     background-size: cover;
     background-position: center 0;
+    overflow: hidden;
+
+    &:hover {
+      > svg {
+        translate: 4px -4px;
+        color: white;
+      }
+
+      &::before {
+        opacity: 1;
+      }
+    }
+
+    > svg {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      color: var(--color-primary);
+      z-index: 2;
+
+      transition:
+        translate 250ms ease,
+        color 250ms ease;
+    }
 
     > span {
       display: flex;
@@ -175,6 +202,30 @@ const showcases = components
       font-size: 1rem;
       background-color: var(--color-bg-secondary);
       border-top-right-radius: 8px;
+      z-index: 2;
+    }
+
+    > span,
+    > svg,
+    &::before {
+      user-select: none;
+      pointer-events: none;
+    }
+
+    &::before {
+      content: 'Launch Now';
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      inset: 0;
+      color: white;
+      background-color: color-mix(var(--color-primary), transparent 10%);
+      z-index: 1;
+
+      opacity: 0;
+
+      transition: opacity 250ms ease;
     }
   }
 
