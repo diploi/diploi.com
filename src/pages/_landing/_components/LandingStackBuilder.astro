@@ -1,11 +1,6 @@
 ---
-import { getCollection } from 'astro:content';
 import { createStackBackgroundUri } from '../../features/_components/featuresUtils';
-
-const components = await getCollection('component');
-const icons = components
-  .filter((component) => !component.data.hidden && component.data.type !== 'starter')
-  .map((component) => component.data.icon);
+import ImportHeroCta from '../../import/_components/ImportHeroCta.astro';
 
 const background = createStackBackgroundUri({
   size: 16,
@@ -17,31 +12,9 @@ const background = createStackBackgroundUri({
 
 <section>
   <div class="background" inert aria-hidden style={{ '--background': background }}></div>
-  <h2>Have Something Else in Mind?</h2>
-  <p>Choose from a constantly growing list of technologies to build your ideal stack. We'll take care of configuring your monorepo.</p>
-  <div class="icons">
-    <ul>
-      {
-        icons.map((icon) => (
-          <li>
-            <img alt="component icon" src={`data:image/svg+xml;base64,${icon}`} width={24} height={24} />
-          </li>
-        ))
-      }
-    </ul>
-    <div>
-      <ul>
-        {
-          icons.map((icon) => (
-            <li>
-              <img alt="component icon" src={`data:image/svg+xml;base64,${icon}`} width={24} height={24} />
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </div>
-  <a class="button" href="/features/dev#stack-builder">Open Stack Builder</a>
+  <h2>Already Working on Something?</h2>
+  <p>Pick any repository and we'll make it run.</p>
+  <ImportHeroCta />
 </section>
 
 <style lang="scss">
