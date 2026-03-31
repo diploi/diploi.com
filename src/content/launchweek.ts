@@ -168,34 +168,63 @@ export const launchweek2026: LaunchweekData = {
 					links: [
 						{ label: 'Try importing now', href: '/import' },
 					],
+					wide: true,
 					tag: 'Improved ✨',
 				},
 			],
 		},
 		{
 			name: 'Tuesday',
-			released: false,
+			released: true,
 			description:
-				'',
+				'In our mission to help coders ship faster, we added <strong>Starter Kits</strong>, which give you a complete app scaffold, so you can begin your next idea with a pre-configured applications, ready to launch instantly on Diploi.',
 			backgroundIcon: 'rocket',
 			items: [
 				{
-					componentId: '',
-					description: '',
+					customName: 'Chat App',
+					description:
+						'A fully setup chat application, that uses Next.js and Supabase, all wired and ready to use.',
 					links: [
-						{ label: '', href: '' },
-						{ label: '', href: '' },
+						{ label: 'Chat app', href: '/starter-kit/chat' },
+						{ label: 'Docs', href: 'https://docs.diploi.com/building/starter-kits/chat-app' },
+						{ label: 'Repo', href: 'https://github.com/diploi/starter-chat' },
 					],
-					tag: '',
+					wide: true,
+					tag: 'Updated',
 				},
 				{
-					componentId: '',
-					description: '',
+					customName: 'Web App',
+					description:
+						'Ready-to-launch scaffold that uses React and Supabase.',
 					links: [
-						{ label: '', href: '' },
-						{ label: '', href: '' },
+						{ label: 'Web app', href: '/starter-kit/web-app' },
+						{ label: 'Docs', href: 'https://docs.diploi.com/building/starter-kits/web-app' },
+						{ label: 'Repo', href: 'https://github.com/diploi/starter-web-app' },
 					],
-					tag: '',
+					wide: true,
+					tag: 'Updated',
+				},
+				{
+					customName: 'Collaborative Drawing App',
+					description:
+						'An app that uses React+Vite, Supabase and the Refine framework, with realtime features.',
+					links: [
+						{ label: 'Chat app', href: '/starter-kit/refine-pixels' },
+						{ label: 'Docs', href: 'https://docs.diploi.com/building/starter-kits/drawing-app' },
+						{ label: 'Repo', href: 'https://github.com/diploi/starter-refine-pixels' },
+					],
+					wide: true,
+					tag: 'Updated',
+				},
+				{
+					customName: 'File2ai',
+					description:
+						'A minimal application to transcribe images, audio and video files to plain text. It comes pre-configured with an LLM out of the box.',
+					links: [
+						{ label: 'File2ai', href: '/starter-kit/file2ai' },
+					],
+					wide: true,
+					tag: 'New',
 				},
 			],
 		},
@@ -203,19 +232,20 @@ export const launchweek2026: LaunchweekData = {
 			name: 'Wednesday',
 			released: false,
 			description:
-				'',
-			backgroundIcon: 'rocket',
+				'Agents have been the focus for 2026 so far, and a big factor has been the release of <strong>OpenClaw</strong>. It is an incredible tool! But it is a bit of a hassle to get it safely deployed on a VPS, which we could let stand! We added OpenClaw support in Diploi as the easiest way to host, available anywhere, with <strong>gpt-4.1 nano pre-configured and browser terminal to skip having to use SSH</strong>, all out of the box.',
+			backgroundIcon: 'heart',
 			items: [
 				{
-					componentId: '',
+					customName: 'OpenClaw',
 					description:
-						'',
+						'A self-hosted AI assistant that connects to WhatsApp, Telegram, Slack, Discord, and more. Launches with a pre-configured AI model via the Diploi AI Gateway, to avoid using API keys.',
 					links: [
-						{ label: '', href: '' },
-						{ label: '', href: 'n' },
+						{ label: 'Launch OpenClaw', href: '/starter-kit/openclaw' },
+						{ label: 'Read guide', href: '/blog/hosting_openclaw' },
+						{ label: 'Documentation', href: 'https://docs.diploi.com/building/starter-kits' },
 					],
 					wide: true,
-					tag: '',
+					tag: 'Starter Kit 🦞',
 				},
 			],
 		},
