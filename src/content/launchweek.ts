@@ -230,7 +230,7 @@ export const launchweek2026: LaunchweekData = {
 		},
 		{
 			name: 'Wednesday',
-			released: false,
+			released: true,
 			description:
 				'Agents have been the focus for 2026 so far, and a big factor has been the release of <strong>OpenClaw</strong>. It is an incredible tool! But it is a bit of a hassle to get it safely deployed on a VPS, which we could let stand! We added OpenClaw support in Diploi as the easiest way to host, available anywhere, with <strong>gpt-4.1 nano pre-configured and browser terminal to skip having to use SSH</strong>, all out of the box.',
 			backgroundIcon: 'heart',
