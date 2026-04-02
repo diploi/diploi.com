@@ -267,7 +267,7 @@ export const launchweek2026: LaunchweekData = {
 						{ label: 'Import an existing Python app', href: '/import' },
 					],
 					wide: true,
-					tag: '',
+					tag: 'Improved 🐍',
 				},
 			],
 		},
