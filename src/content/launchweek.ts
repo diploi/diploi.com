@@ -261,9 +261,9 @@ export const launchweek2026: LaunchweekData = {
 					description:
 						'A better way to handle the Python versions of your projects, to help you focus on building code, rather than worrying about Dockerfiles commands.',
 					links: [
-						{ label: 'Django', href: '/components/django' },
-						{ label: 'FastAPI', href: '/components/fastapi' },
-						{ label: 'Flask', href: '/components/flask' },
+						{ label: 'Django', href: '/component/django' },
+						{ label: 'FastAPI', href: '/component/fastapi' },
+						{ label: 'Flask', href: '/component/flask' },
 						{ label: 'Import an existing Python app', href: '/import' },
 					],
 					wide: true,
