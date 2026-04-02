@@ -251,18 +251,20 @@ export const launchweek2026: LaunchweekData = {
 		},
 		{
 			name: 'Thursday',
-			released: false,
+			released: true,
 			description:
-				'',
-			backgroundIcon: 'heart',
+				'If you use Python for web development, this is for you! We recently added dynamic runtimes to our Python based components, which means that now you can import your existing projects without worrying about the Python version, since now the import system will dynamically load the right version.',
+			backgroundIcon: 'rocket',
 			items: [
 				{
-					componentId: '',
+					customName: 'Dynamic Python Runtimes',
 					description:
-						'',
+						'A better way to handle the Python versions of your projects, to help you focus on building code, rather than worrying about Dockerfiles commands.',
 					links: [
-						{ label: '', href: '' },
-						{ label: '', href: '' },
+						{ label: 'Django', href: '/components/django' },
+						{ label: 'FastAPI', href: '/components/fastapi' },
+						{ label: 'Flask', href: '/components/flask' },
+						{ label: 'Import an existing Python app', href: '/import' },
 					],
 					wide: true,
 					tag: '',
