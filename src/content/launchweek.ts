@@ -273,18 +273,23 @@ export const launchweek2026: LaunchweekData = {
 		},
 		{
 			name: 'Friday',
-			released: false,
+			released: true,
 			description:
-				'',
-			backgroundIcon: 'rocket',
+				'Major updates to all components and add-ons available on Diploi!',
+			backgroundIcon: 'heart',
 			items: [
 				{
-					componentId: '',
 					description:
-						'',
-					links: [{ label: '', href: '' }],
+						'This concludes our first LaunchWeek for 2026. Join us on Discord and share your feedback, we want to know what we can do better.',
+					links: [
+						{ label: 'PostgreSQL Version Upgrade', href: 'https://www.postgresql.org/docs/release/' },
+						{ label: 'n8n updated to latest', href: '/component/n8n' },
+						{ label: 'Flask internal version release v.3.1.3-uv', href: '/component/flask' },
+						{ label: 'New Python runtime, internal version v04.2026', href: 'https://github.com/diploi/component-python' },
+						{ label: 'Support for new Django v6.0.3', href: '/component/django' }
+					],
 					wide: true,
-					tag: 'New',
+					tag: 'Updated 🌠',
 				},
 			],
 		},
