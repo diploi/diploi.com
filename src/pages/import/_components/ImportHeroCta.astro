@@ -19,6 +19,15 @@ import FeaturesHr from '../../features/_components/FeaturesHr.astro';
   </section>
 </article>
 
+<script>
+  const repoURL = new URLSearchParams(document.location.search).get('url');
+  const repoInput = document.querySelector<HTMLInputElement>('#url_repo_input');
+  if (repoInput && repoURL) {
+    repoInput.value = repoURL;
+    document.querySelector<HTMLFormElement>('form.url')?.submit()
+  }
+</script>
+
 <style lang="scss">
   .content {
     display: flex;
