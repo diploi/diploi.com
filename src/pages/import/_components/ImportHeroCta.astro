@@ -13,7 +13,7 @@ import FeaturesHr from '../../features/_components/FeaturesHr.astro';
     <h2>Import From URL</h2>
     <p>Pick any public GitHub repo and we'll handle the rest. A perfect way to try out that new trending framework.</p>
     <form method="get" action={`${import.meta.env.VITE_API_URL}/login`} class="url">
-      <input name="import" placeholder="https://github.com/..." pattern="https://github\.com/.+" required />
+      <input id="url_repo_input" name="import" placeholder="https://github.com/..." pattern="https://github\.com/.+" required />
       <button type="submit">Import</button>
     </form>
   </section>
