@@ -1,5 +1,6 @@
 import { glob } from 'astro/loaders';
-import { z, defineCollection } from 'astro:content';
+import { z } from 'astro/zod';
+import { defineCollection } from 'astro:content';
 import { blogLoader } from './loaders/blogLoader';
 import { componentLoader } from './loaders/componentLoader';
 
@@ -49,11 +50,11 @@ const alternativesCollection = defineCollection({
     author: z.string(),
     competitor: z.string(),
   }),
-})
+});
 
 export const collections = {
   blog: blogCollection,
   legal: legalCollection,
   component: componentCollection,
-  alternative: alternativesCollection
+  alternative: alternativesCollection,
 };

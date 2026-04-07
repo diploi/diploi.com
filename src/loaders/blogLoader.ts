@@ -1,5 +1,5 @@
-import { type Loader, glob } from 'astro/loaders';
-import { z } from 'astro:content';
+import { glob, type Loader } from 'astro/loaders';
+import { z } from 'astro/zod';
 import DOMPurify from 'isomorphic-dompurify';
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -115,19 +115,18 @@ export function blogLoader({ apiKey }: { apiKey: string }): Loader {
         });
       }
     },
-    schema: async () =>
-      z.object({
-        slug: z.string(),
-        title: z.string(),
-        description: z.string(),
-        image: z.string().nullable().optional(),
-        social_image: z.string().nullable().optional(),
-        external_image: z.string().nullable().optional(),
-        author: z.string(),
-        timestamp: z.string(),
-        url: z.string().optional(),
-        type: z.string().optional(),
-        highlight: z.boolean().optional(),
-      }),
+    schema: z.object({
+      slug: z.string(),
+      title: z.string(),
+      description: z.string(),
+      image: z.string().nullable().optional(),
+      social_image: z.string().nullable().optional(),
+      external_image: z.string().nullable().optional(),
+      author: z.string(),
+      timestamp: z.string(),
+      url: z.string().optional(),
+      type: z.string().optional(),
+      highlight: z.boolean().optional(),
+    }),
   };
 }

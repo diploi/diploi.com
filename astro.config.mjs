@@ -54,22 +54,20 @@ export default defineConfig({
       },
     }),
   ],
-  experimental: {
-    fonts: [
-      {
-        provider: fontProviders.google(),
-        name: 'Montserrat',
-        cssVariable: '--font-header',
-        weights: ['600 800'],
-      },
-      {
-        provider: fontProviders.google(),
-        name: 'Source Sans 3',
-        cssVariable: '--font-body',
-        weights: ['200 900'],
-      },
-    ],
-  },
+  fonts: [
+    {
+      provider: fontProviders.google(),
+      name: 'Montserrat',
+      cssVariable: '--font-header',
+      weights: ['600 800'],
+    },
+    {
+      provider: fontProviders.google(),
+      name: 'Source Sans 3',
+      cssVariable: '--font-body',
+      weights: ['200 900'],
+    },
+  ],
   vite: {
     server: {
       allowedHosts: ['.diploi.app', '.diploi.me'],
