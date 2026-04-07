@@ -1,4 +1,5 @@
 import mdx from '@astrojs/mdx';
+import node from '@astrojs/node';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import playformInline from '@playform/inline';
@@ -10,6 +11,8 @@ import { diploiDescription } from './buildUtils/seoVariables';
 
 // https://astro.build/config
 export default defineConfig({
+  adapter: node({ mode: 'standalone' }),
+  output: 'static',
   site: 'https://diploi.com',
   trailingSlash: 'never',
   env: {

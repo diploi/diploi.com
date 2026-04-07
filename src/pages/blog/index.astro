@@ -10,7 +10,9 @@ import FeaturesHr from '../features/_components/FeaturesHr.astro';
 import LovableHr from '../lovable/_components/LovableHr.astro';
 import { createBlogSchema } from './_utils/createBlogSchema';
 
-const articles = await getCollection('blog');
+const articles = (await getCollection('blog')).sort(
+  (a, b) => new Date(b.data.timestamp).getTime() - new Date(a.data.timestamp).getTime()
+);
 
 const latest = articles[0];
 const highlight = articles.find((article) => article.data.highlight === true && article.id !== latest.id);

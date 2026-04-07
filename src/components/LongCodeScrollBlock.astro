@@ -1,8 +1,9 @@
 ---
+import { CopyIcon } from '@phosphor-icons/react';
 import { getHighlighter } from '../utils/shikiHighlighter';
 
-type Props = { codeContent: string, language?: string, windowHeight: '100px' | '200px' | '300px' | '400px' | '800px' };
-const { codeContent, language = 'markdown', windowHeight = '400px'} = Astro.props;
+type Props = { codeContent: string; language?: string; windowHeight?: '100px' | '200px' | '300px' | '400px' | '800px' | 'auto' };
+const { codeContent, language = 'markdown', windowHeight = '400px' } = Astro.props;
 
 const highlighter = await getHighlighter(language);
 
@@ -13,7 +14,7 @@ const highlightedHtml = highlighter.codeToHtml(codeContent, {
 ---
 
 <div style=`height: ${windowHeight};` class="code-window">
-  <button class="copy-btn" data-code={codeContent}>Copy</button>
+  <button class="secondary copy-btn" data-code={codeContent}><CopyIcon /> Copy</button>
   <Fragment set:html={highlightedHtml} />
 </div>
 
@@ -28,41 +29,48 @@ const highlightedHtml = highlighter.codeToHtml(codeContent, {
   });
 </script>
 
-<style>
-    .copy-btn {
-        position: sticky;
-        top: 0;
-        float: right;
-        background: rgb(54, 0, 90);
-        color: white;
-        border: none;
-        padding: 4px 12px;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 0.85rem;
-    }
+<style lang="scss">
+  .copy-btn {
+    position: sticky;
+    top: 0;
+    float: right;
+    background: white;
+    color: white;
+    border: none;
+    padding: 4px 12px;
+    padding-left: 8px;
+    gap: 4px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: black;
 
-    .copy-btn:hover {
-        opacity: 0.8;
+    &:hover:not(:disabled) {
+      background-color: rgba(255, 255, 255, 0.9);
     }
+  }
 
-    .code-window {
-        overflow: scroll;
-        overflow-x: hidden;
-        margin: 32px 0px;
-        border: 2px solid white;
-        border-radius: 16px;
-    }
+  .copy-btn:hover {
+    opacity: 0.8;
+  }
 
-    .code-window :global(pre) {
-        margin: 0;
-        padding: 16px;
-        background: transparent !important;
-        overflow-x: auto;
-    }
+  .code-window {
+    overflow: scroll;
+    overflow-x: hidden;
+    margin: 32px 0px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius-button);
+  }
 
-    .code-window :global(code) {
-        font-size: 0.9rem;
-        line-height: 1.5;
-    }
+  .code-window :global(pre) {
+    margin: 0;
+    padding: 16px;
+    background: transparent !important;
+    overflow-x: auto;
+  }
+
+  .code-window :global(code) {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
 </style>

@@ -4,7 +4,9 @@ import { FilesIcon } from '@phosphor-icons/react';
 import Article from '../../../components/blog/Article.astro';
 import FeaturesSectionHeader from '../../features/_components/FeaturesSectionHeader.astro';
 
-const articles = await getCollection('blog');
+const articles = (await getCollection('blog')).sort(
+  (a, b) => new Date(b.data.timestamp).getTime() - new Date(a.data.timestamp).getTime()
+);
 const lovableFilterWords = ['lovable', 'supabase', 'import', ' ai ', 'remote development'];
 const lovableArticles = articles.filter((article) => lovableFilterWords.some((word) => article.data.title.toLowerCase().includes(word)));
 ---

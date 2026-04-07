@@ -9,7 +9,9 @@ import zedLogo from '../../../images/zed-logo.svg';
 import FeaturesHr from '../../features/_components/FeaturesHr.astro';
 import FeaturesSectionHeader from '../../features/_components/FeaturesSectionHeader.astro';
 
-const articles = await getCollection('blog');
+const articles = (await getCollection('blog')).sort(
+  (a, b) => new Date(b.data.timestamp).getTime() - new Date(a.data.timestamp).getTime()
+);
 const linkedFilterWords = ['supabase', 'n8n', 'node', 'ghost', 'laravel', 'postgres'];
 const linkedArticles = articles
   .filter((article) => linkedFilterWords.some((word) => article.data.title.toLowerCase().includes(word)))
