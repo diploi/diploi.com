@@ -51,6 +51,7 @@ export default defineConfig({
       Beasties: {
         fonts: false,
         allowRules: ['.text-gradient', '.title-and-description', '.button'],
+        logLevel: 'silent',
       },
     }),
   ],
