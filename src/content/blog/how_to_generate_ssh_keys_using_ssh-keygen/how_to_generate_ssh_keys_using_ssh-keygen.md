@@ -92,11 +92,11 @@ To access the containers or the development environment, you need to add a publi
 
 To add a public key in Diploi, you must navigate to "Settings" and then look for the section "Authentication".
 
-![Settings page in Diploi](image.png)
+![Settings page in Diploi](settings_page_in_diploi.png)
 
 Once you find it, you can add a new SSH key by clicking the "Add New SSH Key +" button.
 
-![Adding a public key in Diploi](image-1.png)
+![Adding a public key in Diploi](adding_a_public_key_in_diploi.png)
 
 Now you need to copy the contents of your public key file. You can copy the contents of the file by reading the file with the terminal command `cat` or you can open it directly with a text editor.
 
@@ -107,7 +107,7 @@ ssh-ed25519 AREA4NzaC1lZDI1NTE5BABAIN3pEF1KbTcnBTjclOfq3pK8/2Voydn3h0q59qcIaB18 
 
 After you copy the contents of the `.pub` file, paste it into the input field in Diploi.
 
-![Pasting the public SSH key](image-2.png)
+![Pasting the public SSH key](pasting_the_public_ssh_key.png)
 
 ### 3. Connecting to a service or server using SSH
 
@@ -115,7 +115,7 @@ After adding the public SSH key, you should be able to use SSH to connect to a s
 
 Let's continue with our example using Diploi. I created a Project on Diploi using Bun for an API and React for the frontend, and now I'll try connecting to the container hosting the Bun API.
 
-![Connecting to a container hosting a Bun API](image-4.png)
+![Connecting to a container hosting a Bun API](connecting_to_a_container_hosting_a_bun_api.png)
 
 By clicking on the "Connect +" button, you'll get an SSH connection string, which you can paste directly into your terminal. The copied string will look something like this: `ssh app-3-bun-qkaleob14c5m@console.diploi.com`
 
