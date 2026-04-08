@@ -55,11 +55,15 @@ const highlightedHtml = highlighter.codeToHtml(codeContent, {
   }
 
   .code-window {
-    overflow: scroll;
     overflow-x: hidden;
     margin: 32px 0px;
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: var(--border-radius-button);
+    scrollbar-color: rgba(255, 255, 255, 0.9) rgba(255, 255, 255, 0.1);
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   .code-window :global(pre) {
