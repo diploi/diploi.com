@@ -13,7 +13,9 @@ type Props = {
 
 const { title, description, filterByWords } = Astro.props;
 
-const articles = await getCollection('blog');
+const articles = (await getCollection('blog')).sort(
+  (a, b) => new Date(b.data.timestamp).getTime() - new Date(a.data.timestamp).getTime()
+);
 const filteredArticles = articles
   .filter((article) => filterByWords.some((word) => article.data.title.toLowerCase().includes(word)))
   .slice(0, 5);

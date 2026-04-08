@@ -13,7 +13,9 @@ import cursorPreview from '../../features/ai/_images/cursor.png';
 import terminalPreview from '../../features/ai/_images/terminal.png';
 import vscodePreview from '../../features/ai/_images/vscode.png';
 
-const articles = await getCollection('blog');
+const articles = (await getCollection('blog')).sort(
+  (a, b) => new Date(b.data.timestamp).getTime() - new Date(a.data.timestamp).getTime()
+);
 const linkedFilterWords = [' ai ', 'remote development'];
 const linkedArticles = articles
   .filter((article) => linkedFilterWords.some((word) => article.data.title.toLowerCase().includes(word)))

@@ -1,5 +1,5 @@
 import type { Loader } from 'astro/loaders';
-import { z } from 'astro:content';
+import { z } from 'astro/zod';
 import DOMPurify from 'isomorphic-dompurify';
 import { parseRepositoryUrl } from '../utils/apiUtils';
 
@@ -206,25 +206,24 @@ export function componentLoader({ apiUrl, apiKey }: { apiUrl: string; apiKey: st
         });
       }
     },
-    schema: async () =>
-      z.object({
-        componentID: z.number().int(),
-        type: z.union([z.literal('component'), z.literal('addon'), z.literal('starter')]),
-        identifier: z.string(),
+    schema: z.object({
+      componentID: z.number().int(),
+      type: z.union([z.literal('component'), z.literal('addon'), z.literal('starter')]),
+      identifier: z.string(),
+      name: z.string(),
+      description: z.string(),
+      features: z.array(z.string()).optional(),
+      versions: z.array(z.string()),
+      layer: z.union([z.literal('frontend'), z.literal('backend'), z.literal('fullstack')]).optional(),
+      owner: z.strictObject({
         name: z.string(),
-        description: z.string(),
-        features: z.array(z.string()).optional(),
-        versions: z.array(z.string()),
-        layer: z.union([z.literal('frontend'), z.literal('backend'), z.literal('fullstack')]).optional(),
-        owner: z.strictObject({
-          name: z.string(),
-          isVerified: z.boolean(),
-        }),
-        url: z.string(),
-        readme: z.string(),
-        icon: z.string(),
-        previewImageUrls: z.array(z.string()).optional(),
-        hidden: z.boolean().optional(),
+        isVerified: z.boolean(),
       }),
+      url: z.string(),
+      readme: z.string(),
+      icon: z.string(),
+      previewImageUrls: z.array(z.string()).optional(),
+      hidden: z.boolean().optional(),
+    }),
   };
 }

@@ -1,4 +1,5 @@
 import mdx from '@astrojs/mdx';
+import node from '@astrojs/node';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import playformInline from '@playform/inline';
@@ -10,6 +11,8 @@ import { diploiDescription } from './buildUtils/seoVariables';
 
 // https://astro.build/config
 export default defineConfig({
+  adapter: node({ mode: 'standalone' }),
+  output: 'static',
   site: 'https://diploi.com',
   trailingSlash: 'never',
   env: {
@@ -51,25 +54,24 @@ export default defineConfig({
       Beasties: {
         fonts: false,
         allowRules: ['.text-gradient', '.title-and-description', '.button'],
+        logLevel: 'silent',
       },
     }),
   ],
-  experimental: {
-    fonts: [
-      {
-        provider: fontProviders.google(),
-        name: 'Montserrat',
-        cssVariable: '--font-header',
-        weights: ['600 800'],
-      },
-      {
-        provider: fontProviders.google(),
-        name: 'Source Sans 3',
-        cssVariable: '--font-body',
-        weights: ['200 900'],
-      },
-    ],
-  },
+  fonts: [
+    {
+      provider: fontProviders.google(),
+      name: 'Montserrat',
+      cssVariable: '--font-header',
+      weights: ['600 800'],
+    },
+    {
+      provider: fontProviders.google(),
+      name: 'Source Sans 3',
+      cssVariable: '--font-body',
+      weights: ['200 900'],
+    },
+  ],
   vite: {
     server: {
       allowedHosts: ['.diploi.app', '.diploi.me'],
