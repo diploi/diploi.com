@@ -10,7 +10,7 @@ draft: false
 type: 'Explainer'
 ---
 
-Updated <time datetime="2026-02-19T16:30:00.000Z">February 19, 2026</time>
+Updated <time datetime="2026-04-07T12:30:00.000Z">April 7, 2026</time>
 
 ---
 
@@ -91,7 +91,7 @@ and
 
 Which makes it much easier to catch that the two strings are, in fact, different.
 
-We made an API where you can generate randomart from a string https://gen--randomart.diploi.me/
+We made an API where you can generate randomart from a string you can try on your own https://github.com/wickathou/randomart-gen
 
 ### How randomart is generated
 
