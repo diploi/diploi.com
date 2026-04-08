@@ -2,5 +2,9 @@ diploiVersion: 'v1.0'
 components:
   - name: Astro
     identifier: astro
-    package: https://github.com/diploi/component-astro#v5.18.0
+    package: https://github.com/diploi/component-astro#v6.1.4
     folder: /
+    env:
+      include:
+        - name: __VITE_RUNTIME_BUILD
+          value: true
