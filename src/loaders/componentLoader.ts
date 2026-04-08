@@ -130,6 +130,11 @@ export function componentLoader({ apiUrl, apiKey }: { apiUrl: string; apiKey: st
     load: async ({ store, logger, parseData, meta, generateDigest, renderMarkdown }) => {
       logger.info(`Loading a list of components from "${apiUrl}"...`);
 
+      if (!apiUrl) {
+        logger.error('Could not load components due to a missing API URL');
+        return;
+      }
+
       const {
         result: { data },
       } = await fetch(`${apiUrl}/api/trpc/stack.listPreviewComponents`).then((response) => response.json());

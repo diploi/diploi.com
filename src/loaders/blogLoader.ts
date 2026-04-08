@@ -18,6 +18,11 @@ export function blogLoader({ apiKey }: { apiKey: string }): Loader {
         .map(([id, entry]) => entry)
         .filter((entry) => entry.rendered?.metadata?.frontmatter?.draft !== true);
 
+      if (!apiKey) {
+        logger.error('Could not load blog posts due to a missing API key');
+        return;
+      }
+
       // FIXME: Pagination!
       const blogsResponse = await fetch(`https://dev.to/api/articles?username=diploi&state=all&page=1&per_page=20`, {
         headers: {
