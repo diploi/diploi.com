@@ -19,7 +19,7 @@ jobs:
         uses: diploi/action-components@v1.8
   run-builds:
     name: Build ${{ matrix.name }} ${{ matrix.stage }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     needs: define-components
     strategy:
       fail-fast: false
@@ -29,7 +29,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Diploi build
-        uses: diploi/action-build@v1.9
+        uses: diploi/action-build@v1.11
         with: ${{ matrix }}
         env:
           project: ${{ secrets.DIPLOI_REGISTRY_PROJECT }}
