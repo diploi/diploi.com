@@ -23,6 +23,11 @@ COPY . /app
 WORKDIR ${FOLDER}
 COPY --from=deps ${FOLDER}/node_modules ./node_modules
 
+ARG VITE_API_URL
+ENV VITE_API_URL=$VITE_API_URL
+ARG VITE_CALENDLY_URL
+ENV VITE_CALENDLY_URL=$VITE_CALENDLY_URL
+
 RUN --mount=type=secret,id=API_KEY \
     --mount=type=secret,id=DEVTO_API_KEY \
     --mount=type=secret,id=SENTRY_AUTH_TOKEN \
