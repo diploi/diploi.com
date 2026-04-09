@@ -19,7 +19,8 @@ export function blogLoader({ apiKey }: { apiKey: string }): Loader {
         .filter((entry) => entry.rendered?.metadata?.frontmatter?.draft !== true);
 
       if (!apiKey) {
-        logger.error('Could not load blog posts due to a missing API key');
+        logger.warn('DEVTO_API_KEY is not set, skipping all blog posts');
+        store.clear();
         return;
       }
 
