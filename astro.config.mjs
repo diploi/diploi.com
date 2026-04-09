@@ -41,6 +41,10 @@ export default defineConfig({
     }),
     sitemap({
       customPages: ['https://diploi.com/llms.txt', 'https://diploi.com/llms-small.txt', 'https://diploi.com/llms-full.txt'],
+      filter: (page) => {
+        if (page.endsWith('/louhi')) return false;
+        return true;
+      },
     }),
     mdx(),
     sentry({

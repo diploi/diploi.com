@@ -21,12 +21,8 @@ const backgroundColor = createStackBackgroundUri({ size: 32, primary: 'white', s
       <h1>Deploy<br />Anything</h1>
     </div>
     <ComponentIcons />
-    <slot name="description">
-      <p>Pick any repository and we'll make it run.</p>
-    </slot>
-    <slot name="cta">
-      <ImportHeroCta />
-    </slot>
+    <p>Pick any repository and we'll make it run.</p>
+    <ImportHeroCta />
   </section>
 </header>
 
@@ -61,6 +57,10 @@ const backgroundColor = createStackBackgroundUri({ size: 32, primary: 'white', s
       > h1 {
         margin-bottom: 0;
         text-align: center;
+
+        .text-gradient {
+          filter: saturate(1.5);
+        }
       }
 
       @media (max-width: 860px) {
@@ -76,10 +76,34 @@ const backgroundColor = createStackBackgroundUri({ size: 32, primary: 'white', s
       }
     }
 
-    > :global(p) {
+    > p {
       margin: 0 auto;
       margin-top: 8px;
       text-align: center;
+    }
+
+    > .button {
+      margin-top: 24px;
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+
+      a {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 1rem;
+        text-decoration: none;
+
+        > :global(svg:last-of-type) {
+          opacity: 0.8;
+        }
+      }
     }
 
     @media (max-width: 860px) {
@@ -88,7 +112,7 @@ const backgroundColor = createStackBackgroundUri({ size: 32, primary: 'white', s
       align-items: stretch;
       margin-top: 0px;
 
-      > :global(p) {
+      > p {
         text-align: center;
       }
     }
@@ -158,8 +182,11 @@ const backgroundColor = createStackBackgroundUri({ size: 32, primary: 'white', s
     margin: 0 auto;
     width: 90vw;
     max-width: 1900px;
+    // min-width: 1400px;
     height: 150vh;
+    // aspect-ratio: 1/1;
     background-image: conic-gradient(from var(--rotation) in oklch, var(--color-primary), var(--color-secondary), var(--color-primary));
+    // rotate: 0.5turn;
     translate: 0 -200px;
 
     mask-image: var(--mask);

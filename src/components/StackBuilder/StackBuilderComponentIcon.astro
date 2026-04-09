@@ -15,4 +15,4 @@ const { owner, repo } = extractRepositoryOwnerAndRepo(url);
 const imageSrc = `https://diploi.b-cdn.net/component/${owner}/${repo}/icon.svg?ref=main`;
 ---
 
-<Image alt={`${name} icon`} src={imageSrc} class="icon" width={size} height={size} {...other} />
+<Image alt={`${name} icon`} src={imageSrc} class="icon" fit="contain" width={size} height={size} {...other} />

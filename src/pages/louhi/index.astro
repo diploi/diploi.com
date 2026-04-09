@@ -1,0 +1,46 @@
+---
+import Footer from '../../components/Footer.astro';
+import Navigation from '../../components/Navigation/Navigation.astro';
+import Layout from '../../layouts/Layout.astro';
+import LandingExplainer from '../_landing/_components/LandingExplainer.astro';
+import FeaturesCallouts from '../features/_components/FeaturesCallouts.astro';
+import ImportAi from '../import/_components/ImportAi.astro';
+import ImportFeatures from '../import/_components/ImportFeatures.astro';
+import ImportHero from '../import/_components/ImportHero.astro';
+import LovableHr from '../lovable/_components/LovableHr.astro';
+import LouhiCta from './_components/LouhiCta.astro';
+---
+
+<Layout
+  title="Diploi - Deploy And Develop Any App"
+  description="Diploi is the all-in-one remote development platform - one platform from code to deployment."
+  ogUrlMatchCanonical={true}
+>
+  <meta slot="head" name="robots" content="noindex" />
+
+  <Navigation />
+  <main>
+    <ImportHero>
+      <p slot="description">One platform to build, preview, and ship your app.<br />No local setup required.</p>
+      <LouhiCta slot="cta" />
+    </ImportHero>
+    <LandingExplainer />
+    <LovableHr />
+    <ImportFeatures />
+    <LovableHr />
+    <ImportAi />
+    <LovableHr />
+    <FeaturesCallouts />
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  main {
+    gap: 128px;
+
+    @media (max-width: 860px) {
+      gap: 64px;
+    }
+  }
+</style>
