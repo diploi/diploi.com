@@ -15,7 +15,6 @@
     "@astrojs/react": "^5.0.3",
     "@astrojs/sitemap": "^3.7.2",
     "@phosphor-icons/react": "^2.1.10",
-    "@playform/inline": "^0.1.4",
     "@sentry/astro": "^10.47.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
@@ -25,8 +24,7 @@
     "isomorphic-dompurify": "^3.7.1",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
-    "sass": "^1.99.0",
-    "simplex-noise": "^4.0.3"
+    "sass": "^1.99.0"
   },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^4.7.1",

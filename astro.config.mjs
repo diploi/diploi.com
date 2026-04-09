@@ -2,7 +2,6 @@ import mdx from '@astrojs/mdx';
 import node from '@astrojs/node';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
-import playformInline from '@playform/inline';
 import sentry from '@sentry/astro';
 import astroLLMsGenerator from 'astro-llms-generate';
 import { defineConfig, envField, fontProviders } from 'astro/config';
@@ -50,13 +49,6 @@ export default defineConfig({
         authToken: process.env.SENTRY_AUTH_TOKEN,
       },
       telemetry: false,
-    }),
-    playformInline({
-      Beasties: {
-        fonts: false,
-        allowRules: ['.text-gradient', '.title-and-description', '.button'],
-        logLevel: 'silent',
-      },
     }),
   ],
   fonts: [
