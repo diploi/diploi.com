@@ -1,5 +1,4 @@
-FROM node:22-alpine AS base
-RUN npm install -g npm@latest
+FROM node:24-alpine AS base
 
 # This will be set by the GitHub action to the folder containing this component.
 ARG FOLDER=/app
