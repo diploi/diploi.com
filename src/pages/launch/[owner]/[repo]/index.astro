@@ -50,6 +50,7 @@ const description = `Launch ${repository.name} with Diploi and you will instantl
 const seoDescription = `Launch ${repository.name} and you will instantly have access to a development environment. Zero-config required.`;
 
 const repoUrl = encodeURIComponent(`https://github.com/${repository.name}`);
+const pageUrl = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <Layout
@@ -86,21 +87,18 @@ const repoUrl = encodeURIComponent(`https://github.com/${repository.name}`);
       </FeaturesSectionHeader>
       <section class="list">
         <section>
-          <a href={Astro.url}>🚀 Launch with Diploi</a>
-          <LongCodeScrollBlock windowHeight="auto" codeContent={`[🚀 Launch with Diploi](${Astro.url})`} />
+          <a href={pageUrl}>🚀 Launch with Diploi</a>
+          <LongCodeScrollBlock windowHeight="auto" codeContent={`[🚀 Launch with Diploi](${pageUrl})`} />
         </section>
         <section>
-          <a href={Astro.url}><img src={`https://${Astro.url.host}/launch.svg`} /></a>
-          <LongCodeScrollBlock
-            windowHeight="auto"
-            codeContent={`[![launch with diploi badge](https://${Astro.url.host}/launch.svg)](${Astro.url})`}
-          />
+          <a href={pageUrl}><img alt="launch with diploi badge" src={`${Astro.site}/launch.svg`} /></a>
+          <LongCodeScrollBlock windowHeight="auto" codeContent={`[![launch with diploi badge](${Astro.site}/launch.svg)](${pageUrl})`} />
         </section>
         <section>
-          <a href={Astro.url}><img src={`https://${Astro.url.host}/launch-big.svg`} /></a>
+          <a href={pageUrl}><img alt="launch with diploi button" src={`${Astro.site}/launch-big.svg`} /></a>
           <LongCodeScrollBlock
             windowHeight="auto"
-            codeContent={`[![launch with diploi button](https://${Astro.url.host}/launch-big.svg)](${Astro.url})`}
+            codeContent={`[![launch with diploi button](${Astro.site}/launch-big.svg)](${pageUrl})`}
           />
         </section>
       </section>

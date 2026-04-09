@@ -1,6 +1,5 @@
 ---
 import Footer from '../../components/Footer.astro';
-import GlobalStyles from '../../components/GlobalStyles.astro';
 import Navigation from '../../components/Navigation/Navigation.astro';
 import Layout from '../../layouts/Layout.astro';
 import FeaturesCallouts from '../features/_components/FeaturesCallouts.astro';
@@ -10,7 +9,6 @@ import LandingFaq from './_components/LandingFaq.astro';
 import LandingFeedback from './_components/LandingFeedback.astro';
 import LandingMadeIn from './_components/LandingMadeIn.astro';
 import LandingShowcases from './_components/LandingShowcases.astro';
-import LandingStackBuilder from './_components/LandingStackBuilder.astro';
 
 interface Props {
   title?: string;
@@ -24,7 +22,6 @@ const defaultDescription =
 const { title = defaultTitle, description = defaultDescription } = Astro.props;
 ---
 
-<GlobalStyles />
 <Layout title={title} description={description}>
   <slot name="head" slot="head" />
   <Navigation />
