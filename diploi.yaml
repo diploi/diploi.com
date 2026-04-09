@@ -6,5 +6,7 @@ components:
     folder: /
     env:
       include:
-        - name: __VITE_RUNTIME_BUILD
-          value: true
+        - name: VITE_API_URL
+          value: https://console.diploi.com
+        - name: VITE_CALENDLY_URL
+          value: https://calendly.com/hello-diploi/30min

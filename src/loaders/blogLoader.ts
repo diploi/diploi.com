@@ -19,7 +19,7 @@ export function blogLoader({ apiKey }: { apiKey: string }): Loader {
         .filter((entry) => entry.rendered?.metadata?.frontmatter?.draft !== true);
 
       if (!apiKey) {
-        logger.warn('DEVTO_API_KEY is not set, skipping all blog posts');
+        logger.error('DEVTO_API_KEY is not set, skipping all blog posts');
         store.clear();
         return;
       }

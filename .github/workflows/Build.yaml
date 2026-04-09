@@ -29,10 +29,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Diploi build
-        uses: diploi/action-build@v1.11
+        uses: diploi/action-build@v1.12
         with: ${{ matrix }}
         env:
           project: ${{ secrets.DIPLOI_REGISTRY_PROJECT }}
           registry: ${{ secrets.DIPLOI_REGISTRY_HOSTNAME }}
           username: ${{ secrets.DIPLOI_REGISTRY_USERNAME }}
           password: ${{ secrets.DIPLOI_REGISTRY_PASSWORD }}
+          secrets: |
+            API_KEY=${{ secrets.API_KEY }}
+            DEVTO_API_KEY=${{ secrets.DEVTO_API_KEY }}
+            SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}

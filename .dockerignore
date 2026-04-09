@@ -1,0 +1,7 @@
+node_modules
+dist
+.astro
+.github
+.vscode
+Dockerfile*
+README.md

@@ -17,9 +17,10 @@ export default defineConfig({
   trailingSlash: 'never',
   env: {
     schema: {
-      VITE_API_URL: envField.string({ context: 'client', access: 'public', optional: true }),
-      API_KEY: envField.string({ context: 'server', access: 'secret', optional: true }),
-      DEVTO_API_KEY: envField.string({ context: 'server', access: 'secret', optional: true }),
+      VITE_API_URL: envField.string({ context: 'client', access: 'public', optional: false }),
+      VITE_CALENDLY_URL: envField.string({ context: 'client', access: 'public', optional: true }),
+      API_KEY: envField.string({ context: 'server', access: 'secret', optional: false }),
+      DEVTO_API_KEY: envField.string({ context: 'server', access: 'secret', optional: false }),
     },
   },
   image: {

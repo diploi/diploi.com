@@ -23,12 +23,18 @@ COPY . /app
 WORKDIR ${FOLDER}
 COPY --from=deps ${FOLDER}/node_modules ./node_modules
 
-RUN \
-  if [ -f yarn.lock ]; then yarn run build; \
-  elif [ -f package-lock.json ]; then npm run build; \
-  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm run build; \
-  else echo "Lockfile not found." && exit 1; \
-  fi
+RUN --mount=type=secret,id=API_KEY \
+    --mount=type=secret,id=DEVTO_API_KEY \
+    --mount=type=secret,id=SENTRY_AUTH_TOKEN \
+  API_KEY=$(cat /run/secrets/API_KEY) \
+  DEVTO_API_KEY=$(cat /run/secrets/DEVTO_API_KEY) \
+  SENTRY_AUTH_TOKEN=$(cat /run/secrets/SENTRY_AUTH_TOKEN) \
+  sh -c ' \
+    if [ -f yarn.lock ]; then yarn run build; \
+    elif [ -f package-lock.json ]; then npm run build; \
+    elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm run build; \
+    else echo "Lockfile not found." && exit 1; \
+    fi'
 
 # Production image, copy all the files and run "npm start"
 FROM base AS runner
