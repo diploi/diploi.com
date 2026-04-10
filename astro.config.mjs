@@ -78,6 +78,7 @@ export default defineConfig({
     '/survey': 'https://c8t6ztfj4ah.typeform.com/to/nblWkc7m',
     '/yaml': 'https://docs.diploi.com/reference/diploi-yaml',
     '/dev': 'https://docs.diploi.com/building/remote-development',
+    '/ci': 'https://docs.diploi.com/reference/github-action',
     '/launch': '/',
     '/deploy': '/',
     '/in': { destination: '/?utm=in', status: 302 },
