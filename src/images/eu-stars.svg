@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+	<g id="s" transform="translate(150,30)" fill="#fff" style="opacity: 0.05">
+		<path d="M 0,-20 4.49,-6.18 19.02,-6.18 7.27,2.36 11.76,16.18 0,7.64 -11.76,16.18 -7.27,2.36 -19.02,-6.18 -4.49,-6.18 Z"/>
+	</g>
+	<use href="#s" transform="rotate(30 150,150) rotate(330 150,30)"/>
+	<use href="#s" transform="rotate(60 150,150) rotate(300 150,30)"/>
+	<use href="#s" transform="rotate(90 150,150) rotate(270 150,30)"/>
+	<use href="#s" transform="rotate(120 150,150) rotate(240 150,30)"/>
+	<use href="#s" transform="rotate(150 150,150) rotate(210 150,30)"/>
+	<use href="#s" transform="rotate(180 150,150) rotate(180 150,30)"/>
+	<use href="#s" transform="rotate(210 150,150) rotate(150 150,30)"/>
+	<use href="#s" transform="rotate(240 150,150) rotate(120 150,30)"/>
+	<use href="#s" transform="rotate(270 150,150) rotate(90 150,30)"/>
+	<use href="#s" transform="rotate(300 150,150) rotate(60 150,30)"/>
+	<use href="#s" transform="rotate(330 150,150) rotate(30 150,30)"/>
+</svg>

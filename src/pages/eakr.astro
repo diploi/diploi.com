@@ -1,0 +1,66 @@
+---
+import { Footer, PageTitle } from '../components';
+import Navigation from '../components/Navigation/Navigation.astro';
+import EuStars from '../images/eu-stars.svg';
+import EuLogo from '../images/eu.svg';
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Diploi - Co-funded by the European Union"
+  description="The project aims to develop a commercial product for the innovative Magical Developer Experience DX service Diploi.com."
+>
+  <Navigation />
+  <main>
+    <EuStars class="bg" />
+    <PageTitle tagText="Co-funded by the European Union" title="Magical Developer Experience" />
+    <p>
+      The project aims to develop a commercial product for the innovative Magical Developer Experience DX service Diploi.com and create the
+      actual productisation and commercialisation plans to launch the service to developers and teams across Europe and the world.
+    </p>
+    <ul>
+      <li><strong>Duration:</strong> 1.5.2025 - 28.2.2026</li>
+      <li><strong>Source of Funds:</strong> EAKR</li>
+    </ul>
+    <EuLogo height={64} style={{ maxWidth: '90%' }} />
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 64px;
+    flex-shrink: 0;
+    flex-grow: 1;
+    padding-top: 192px;
+    color: white;
+    overflow-x: clip;
+  }
+
+  p {
+    text-align: center;
+  }
+
+  ul {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+
+    @media (max-width: 860px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+
+  .bg {
+    position: absolute;
+    top: -32px;
+    width: 80%;
+    max-width: 900px;
+    height: auto;
+    aspect-ratio: 1/1;
+    z-index: -1;
+  }
+</style>
