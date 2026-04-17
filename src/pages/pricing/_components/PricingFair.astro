@@ -1,0 +1,75 @@
+---
+import { GitPullRequestIcon, PlugsConnectedIcon, SealCheckIcon, ShapesIcon, UsersThreeIcon } from '@phosphor-icons/react';
+import Tag from '../../../components/Tag.astro';
+import FeaturesSection from '../../features/_components/FeaturesSection.astro';
+import FeaturesSectionHeader from '../../features/_components/FeaturesSectionHeader.astro';
+---
+
+<FeaturesSection>
+  <FeaturesSectionHeader class="header" slot="header">
+    <SealCheckIcon />
+    <h2>What We Don’t Charge For</h2>
+    <p>Our pricing is based on actual usage, not on artificial limits.</p>
+  </FeaturesSectionHeader>
+  <ul>
+    <li>
+      <PlugsConnectedIcon size={32} />
+      <h3>Requests <Tag>Free</Tag></h3>
+      <p>No request limits or fees. You only pay for the compute your app uses.</p>
+    </li>
+    <li>
+      <UsersThreeIcon size={32} />
+      <h3>Seats <Tag>Free</Tag></h3>
+      <p>Invite as many team members as you'd like with no extra costs.</p>
+    </li>
+    <li>
+      <ShapesIcon size={32} />
+      <h3>App Features <Tag>Free</Tag></h3>
+      <p>We run real open-source frameworks, not modified versions with paid add-ons.</p>
+    </li>
+  </ul>
+</FeaturesSection>
+
+<style lang="scss">
+  .header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h2 {
+      margin-top: 24px;
+    }
+
+    h2,
+    p {
+      text-align: center;
+    }
+  }
+
+  ul {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 64px;
+    margin-top: 24px;
+
+    @media (max-width: 860px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+
+    > li {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      > h3 {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      > p {
+        text-align: center;
+      }
+    }
+  }
+</style>

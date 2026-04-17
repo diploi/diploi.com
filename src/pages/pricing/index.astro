@@ -5,6 +5,7 @@ import Navigation from '../../components/Navigation/Navigation.astro';
 import Layout from '../../layouts/Layout.astro';
 import PricingDeployments from './_components/PricingDeployments.astro';
 import PricingEnterpriceBanner from './_components/PricingEnterpriceBanner.astro';
+import PricingFair from './_components/PricingFair.astro';
 import PricingTrialBanner from './_components/PricingTrialBanner.astro';
 
 const { pricing } = await fetch('https://console.diploi.com/api/business/pricing').then((response) => response.json());
@@ -30,6 +31,8 @@ if (!pricing) {
         <hr />
         <PricingEnterpriceBanner />
       </div>
+
+      <PricingFair />
 
       <hr />
 
