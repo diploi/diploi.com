@@ -9,6 +9,7 @@ import LandingFaq from './_components/LandingFaq.astro';
 import LandingFeedback from './_components/LandingFeedback.astro';
 import LandingMadeIn from './_components/LandingMadeIn.astro';
 import LandingShowcases from './_components/LandingShowcases.astro';
+import LandingVideo from './_components/LandingVideo.astro';
 
 interface Props {
   title?: string;
@@ -28,6 +29,8 @@ const { title = defaultTitle, description = defaultDescription } = Astro.props;
   <main>
     <slot name="hero" />
     <LandingShowcases />
+    <LovableHr />
+    <LandingVideo />
     <LovableHr />
     <LandingExplainer />
     <LovableHr />

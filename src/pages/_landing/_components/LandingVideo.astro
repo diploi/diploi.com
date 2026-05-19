@@ -1,0 +1,40 @@
+---
+import Video from '../../../components/Video.astro';
+import { createStackBackgroundUri } from '../../features/_components/featuresUtils';
+
+const background = createStackBackgroundUri({
+  size: 16,
+  primary: 'rgba(255, 255, 255, 0.05)',
+  secondary: 'rgba(255, 255, 255, 0.05)',
+  chance: 0.1,
+});
+---
+
+<section class="main">
+  <div class="background" inert aria-hidden style={{ '--background': background }}></div>
+  <Video />
+</section>
+
+<style lang="scss">
+  .main {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: calc(var(--max-width-page-section) + 200px);
+  }
+
+  .background {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 70vh;
+    background-image: var(--background);
+    background-size: 896px;
+    overflow: hidden;
+    z-index: -1;
+
+    mask-image: linear-gradient(to bottom, transparent, white 50%, transparent);
+  }
+</style>
