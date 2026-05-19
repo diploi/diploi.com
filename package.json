@@ -10,28 +10,28 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/mdx": "^5.0.3",
-    "@astrojs/node": "^10.0.4",
-    "@astrojs/react": "^5.0.3",
+    "@astrojs/mdx": "^5.0.6",
+    "@astrojs/node": "^10.1.1",
+    "@astrojs/react": "^5.0.5",
     "@astrojs/sitemap": "^3.7.2",
     "@phosphor-icons/react": "^2.1.10",
-    "@sentry/astro": "^10.47.0",
+    "@sentry/astro": "^10.53.1",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "astro": "^6.1.4",
+    "astro": "^6.3.5",
     "astro-llms-generate": "^1.3.3",
     "github-markdown-css": "^5.9.0",
-    "isomorphic-dompurify": "^3.7.1",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
+    "isomorphic-dompurify": "^3.13.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
     "sass": "^1.99.0"
   },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
-    "prettier": "^3.8.1",
+    "prettier": "^3.8.3",
     "prettier-plugin-astro": "^0.14.1",
     "sharp": "^0.34.5",
-    "typescript": "^6.0.2"
+    "typescript": "^6.0.3"
   },
   "prettier": {
     "printWidth": 140,

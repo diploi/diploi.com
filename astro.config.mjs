@@ -30,6 +30,7 @@ export default defineConfig({
         hostname: '**.dev.to',
       },
     ],
+    dangerouslyProcessSVG: true,
   },
   integrations: [
     astroLLMsGenerator({
