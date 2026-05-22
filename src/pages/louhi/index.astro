@@ -35,6 +35,16 @@ import LouhiCta from './_components/LouhiCta.astro';
   <Footer />
 </Layout>
 
+<script is:inline>
+  try {
+    if (window && window.localStorage) {
+      const params = new URLSearchParams(document.location.search);
+      const ref = params.get('ref') || 'louhi';
+      window.localStorage.setItem('ref', JSON.stringify({ value: ref, time: Date.now() }));
+    }
+  } catch (e) {}
+</script>
+
 <style>
   main {
     gap: 128px;

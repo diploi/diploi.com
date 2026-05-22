@@ -80,6 +80,9 @@ const ogSocialImage = getFullImageUrl({ siteUrl: Astro.url.origin, imageUrl: ogS
           if (Object.keys(params).length > 0) {
             window.localStorage.setItem('utm', JSON.stringify({ params, time: Date.now() }));
           }
+          if (params.ref) {
+            window.localStorage.setItem('ref', JSON.stringify({ value: params.ref, time: Date.now() }));
+          }
         }
       } catch (error) {
         console.error('Failed to use localStorage', error);
