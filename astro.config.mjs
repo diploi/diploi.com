@@ -41,7 +41,14 @@ export default defineConfig({
       include: ['**/react/*'],
     }),
     sitemap({
-      customPages: ['https://diploi.com/llms.txt', 'https://diploi.com/llms-small.txt', 'https://diploi.com/llms-full.txt'],
+      customPages: [
+        'https://diploi.com/llms.txt',
+        'https://diploi.com/llms-small.txt',
+        'https://diploi.com/llms-full.txt',
+        'https://diploi.com/launch/devxoshakya/anveshna',
+        'https://diploi.com/launch/akshitkrnagpal/open-placeholder',
+        'https://diploi.com/launch/mdkasif0/gitroasted',
+      ],
       filter: (page) => {
         if (page.endsWith('/louhi')) return false;
         return true;

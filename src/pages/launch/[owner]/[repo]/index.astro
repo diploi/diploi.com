@@ -10,11 +10,20 @@ import FeaturesSectionHeader from '../../../features/_components/FeaturesSection
 import ImportFeatures from '../../../import/_components/ImportFeatures.astro';
 import LovableHr from '../../../lovable/_components/LovableHr.astro';
 
+const REPO_BLOCK_LIST = ['CobyPear/obsidian-diy-sync'].map((value) => value.toLowerCase());
+
 export const prerender = false;
 
 Astro.response.headers.set('Cache-Control', 'public, max-age=86400, s-maxage=86400');
 
 const { owner, repo } = Astro.params;
+
+if (REPO_BLOCK_LIST.includes(`${owner}/${repo}`.toLowerCase())) {
+  return new Response(null, {
+    status: 404,
+    statusText: 'Not Found',
+  });
+}
 
 const {
   result: { data },
