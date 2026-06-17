@@ -8,6 +8,7 @@ import Navigation from '../../components/Navigation/Navigation.astro';
 import StackBuilder from '../../components/StackBuilder/StackBuilder.astro';
 import logoImage from '../../images/diploi-logo.svg';
 import Layout from '../../layouts/Layout.astro';
+import { iconSrc } from '../../utils/iconUtils';
 import 'github-markdown-css/github-markdown.css';
 
 export async function getStaticPaths() {
@@ -25,6 +26,7 @@ const component = entry.data;
 
 const { Content } = await render(entry);
 
+const componentIconSrc = iconSrc(component.icon, component.url);
 const description = `Launch a new ${component.name} project and you will instantly have access to a development environment. No sign-up required.`;
 const seoDescription = `Launch a new ${component.name} project with add-ons and you will instantly have access to a development environment. No registration required.`;
 ---
@@ -40,7 +42,7 @@ const seoDescription = `Launch a new ${component.name} project with add-ons and 
 
     <article class="hero">
       <h1>
-        Launch {component.icon && <img alt="component icon" src={`data:image/svg+xml;base64,${component.icon}`} width={40} height={40} />}
+        Launch {componentIconSrc && <img alt="component icon" src={componentIconSrc} width={40} height={40} />}
         {component.name}
         <small>{' '}with{' '}<img alt="Diploi" src={logoImage.src} width={100} height={29.66} /> </small>
       </h1>

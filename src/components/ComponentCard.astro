@@ -1,5 +1,6 @@
 ---
 import { Package } from '@phosphor-icons/react';
+import { iconSrc } from '../utils/iconUtils';
 import ArrowLink from './ArrowLink.astro';
 import Icon from './Icon.astro';
 
@@ -15,12 +16,13 @@ type Props = {
 };
 
 const { name, icon, features, url, owner } = Astro.props;
+const iconUrl = iconSrc(icon, url);
 ---
 
 <article>
   <div class="border" inert></div>
   <header>
-    {icon && <img alt="component icon" src={`data:image/svg+xml;base64,${icon}`} width={40} height={40} />}
+    {iconUrl && <img alt="component icon" src={iconUrl} width={40} height={40} />}
     {!icon && <Package size={40} style={{ fill: 'url(#gradient-three)' }} />}
     <section>
       <h3 class="h4">{name}</h3>

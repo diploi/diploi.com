@@ -9,6 +9,7 @@ import githubLogo from '../../../images/github-logo.svg';
 import vscodeLogo from '../../../images/vscode-logo.svg';
 import webstormLogo from '../../../images/webstorm-logo.svg';
 import zedLogo from '../../../images/zed-logo.svg';
+import { iconSrc } from '../../../utils/iconUtils';
 import FeaturesHr from '../../features/_components/FeaturesHr.astro';
 
 const components = await getCollection('component');
@@ -50,7 +51,7 @@ const supabase = components.find((component) => component.data.identifier === 's
       <ul>
         <li>
           <a href="/component/supabase">
-            <img title="Supabase" alt="Supabase icon" src={`data:image/svg+xml;base64,${supabase?.data.icon}`} width={40} height={40} />
+            <img title="Supabase" alt="Supabase icon" src={iconSrc(supabase?.data.icon, supabase?.data.url)} width={40} height={40} />
           </a>
         </li>
       </ul>
@@ -61,7 +62,7 @@ const supabase = components.find((component) => component.data.identifier === 's
               <img
                 title={component.data.name}
                 alt={`${component.data.name} icon`}
-                src={`data:image/svg+xml;base64,${component.data.icon}`}
+                src={iconSrc(component.data.icon, component.data.url)}
                 width={16}
                 height={16}
               />

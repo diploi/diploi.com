@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import { InfoIcon } from '@phosphor-icons/react';
 import lovableIcon from '../../../images/lovable-icon.svg';
+import { iconSrc } from '../../../utils/iconUtils';
 import { createStackBackgroundUri } from '../../features/_components/featuresUtils';
 import LovableHeroFeatures from './LovableHeroFeatures.astro';
 
@@ -20,7 +21,7 @@ const components = await getCollection('component');
 const icons = components
   .filter((component) => !component.data.hidden && !componentBlocklist.includes(component.data.identifier))
   .slice(0, 18)
-  .map((component) => component.data.icon);
+  .map((component) => ({ icon: component.data.icon, url: component.data.url }));
 ---
 
 <header>
@@ -32,9 +33,9 @@ const icons = components
         <Image id="lovable" width={200} height={200} src={lovableIcon} alt="lovable logo" />
         <ul class="icons">
           {
-            icons.map((icon) => (
+            icons.map(({ icon, url }) => (
               <li>
-                <img alt="component icon" src={`data:image/svg+xml;base64,${icon}`} width={16} height={16} />
+                <img alt="component icon" src={iconSrc(icon, url)} width={16} height={16} />
               </li>
             ))
           }

@@ -1,4 +1,8 @@
 diploiVersion: 'v1.0'
+development:
+  env:
+    include:
+      - astro.*
 components:
   - name: Astro
     identifier: astro

@@ -1,6 +1,8 @@
 ---
+import { iconSrc } from '../../../utils/iconUtils';
+
 type Props = {
-  components: { data: { identifier: string; type: string; name: string; icon: string } }[];
+  components: { data: { identifier: string; type: string; name: string; icon: string; url: string } }[];
 };
 
 const { components } = Astro.props;
@@ -13,7 +15,7 @@ const { components } = Astro.props;
         <img
           title={component.data.name}
           alt={`${component.data.name} icon`}
-          src={`data:image/svg+xml;base64,${component.data.icon}`}
+          src={iconSrc(component.data.icon, component.data.url)}
           width={32}
           height={32}
         />

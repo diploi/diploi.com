@@ -1,18 +1,19 @@
 ---
 import { getCollection } from 'astro:content';
+import { iconSrc } from '../utils/iconUtils';
 
 const components = await getCollection('component');
 const icons = components
   .filter((component) => !component.data.hidden && component.data.type !== 'starter')
-  .map((component) => component.data.icon);
+  .map((component) => ({ icon: component.data.icon, url: component.data.url }));
 ---
 
 <div class="icons">
   <ul>
     {
-      icons.map((icon) => (
+      icons.map(({ icon, url }) => (
         <li>
-          <img alt="component icon" src={`data:image/svg+xml;base64,${icon}`} width={24} height={24} />
+          <img alt="component icon" src={iconSrc(icon, url)} width={24} height={24} />
         </li>
       ))
     }
@@ -20,9 +21,9 @@ const icons = components
   <div>
     <ul>
       {
-        icons.map((icon) => (
+        icons.map(({ icon, url }) => (
           <li>
-            <img alt="component icon" src={`data:image/svg+xml;base64,${icon}`} width={24} height={24} />
+            <img alt="component icon" src={iconSrc(icon, url)} width={24} height={24} />
           </li>
         ))
       }
