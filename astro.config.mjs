@@ -52,6 +52,7 @@ export default defineConfig({
       filter: (page) => {
         if (page.endsWith('/louhi')) return false;
         if (page.startsWith('/error/')) return false;
+        if (page.startsWith('/api/')) return false;
         return true;
       },
     }),

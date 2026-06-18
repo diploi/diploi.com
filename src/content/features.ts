@@ -1,5 +1,4 @@
 import {
-  BrowserIcon,
   CircleIcon,
   CloudIcon,
   CodeIcon,
@@ -11,10 +10,8 @@ import {
   HardDrivesIcon,
   LockSimpleIcon,
   PlayCircleIcon,
-  PlugsConnectedIcon,
   SparkleIcon,
   SquareIcon,
-  TerminalIcon,
   ToolboxIcon,
   TriangleIcon,
   UsersIcon,
