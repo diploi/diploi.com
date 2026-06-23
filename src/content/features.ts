@@ -95,6 +95,7 @@ export const links = [
       { title: 'Cloud IDE', href: 'https://docs.diploi.com/building/remote-development/#using-diplois-cloud-ide' },
       { title: 'Remote development overview', href: 'https://docs.diploi.com/building/remote-development/' },
     ],
+    visible: true,
   },
   {
     id: 'prod',
@@ -107,6 +108,7 @@ export const links = [
       { title: 'Deployment stages', href: 'https://docs.diploi.com/reference/deployments/deployment-lifecycle#deployment-stage' },
       { title: 'Creating a deployment', href: 'https://docs.diploi.com/deploying/creating-a-deployment' },
     ],
+    visible: true,
   },
   {
     id: 'iac',
@@ -116,6 +118,7 @@ export const links = [
     context:
       "The diploi.yaml file defines a project's full stack (components + add-ons) in code. Edit it to change infrastructure and Diploi reprovisions on push.",
     docs: [{ title: 'diploi.yaml reference', href: 'https://docs.diploi.com/reference/diploi-yaml' }],
+    visible: true,
   },
   {
     id: 'stack-builder',
@@ -128,6 +131,7 @@ export const links = [
       { title: 'Creating a project with the Stack Builder', href: 'https://docs.diploi.com/deploying/creating-a-project' },
       { title: 'Selecting components', href: 'https://docs.diploi.com/deploying/creating-a-project#selecting-components' },
     ],
+    visible: true,
   },
   {
     id: 'cicd',
@@ -140,6 +144,7 @@ export const links = [
       { title: 'GitHub Actions build & deploy', href: 'https://docs.diploi.com/reference/github-action/' },
       { title: 'Deployment lifecycle', href: 'https://docs.diploi.com/reference/deployments/deployment-lifecycle' },
     ],
+    visible: true,
   },
   {
     id: 'github',
@@ -152,6 +157,7 @@ export const links = [
       { title: 'Choosing a GitHub repository', href: 'https://docs.diploi.com/deploying/creating-a-project#choosing-a-github-repository' },
       { title: 'GitHub Actions integration', href: 'https://docs.diploi.com/reference/github-action/' },
     ],
+    visible: true,
   },
   {
     id: 'cdn',
@@ -163,6 +169,7 @@ export const links = [
     context:
       'Edge delivery for deployments via Diploi\u2019s edge network. No dedicated docs page yet; the closest reference is the edge endpoint used for custom domains and automatic TLS.',
     docs: [{ title: 'Custom domains & edge (edge.diploi.me)', href: 'https://docs.diploi.com/deploying/custom-domain/' }],
+    visible: true,
   },
   {
     id: 'security',
@@ -177,6 +184,7 @@ export const links = [
       { title: 'Architecture & deployment isolation', href: 'https://docs.diploi.com/reference/technical-deep-dive' },
       { title: 'SSH key authentication', href: 'https://docs.diploi.com/building/add-ssh-key/' },
     ],
+    visible: true,
   },
 ];
 

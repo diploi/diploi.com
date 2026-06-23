@@ -1,0 +1,146 @@
+@use 'sass:math';
+
+.links {
+  > :global(button) {
+    padding: 0;
+    font-weight: 350;
+  }
+
+  :global(.link) {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: var(--space-s);
+    padding: 12px 16px;
+    font-size: 1rem;
+    color: var(--color-text-primary);
+    text-decoration: none;
+    border-radius: var(--border-radius-button);
+    background-color: transparent !important;
+
+    &[data-selected='true'] {
+      color: var(--color-accent-primary-text);
+    }
+
+    :global(.navigation-link-icon) {
+      fill: currentColor;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      display: block;
+      inset: 0;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: inherit;
+      z-index: -1;
+
+      user-select: none;
+      pointer-events: none;
+
+      opacity: 0;
+      scale: 0.9;
+
+      transition:
+        opacity 250ms cubic-bezier(0.25, 1, 0.5, 1),
+        scale 200ms cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    &:hover:not([data-selected='true']) {
+      color: white;
+
+      &::before {
+        opacity: 1;
+        scale: 1;
+      }
+    }
+
+    @media (max-width: 899px) {
+      gap: var(--space-s);
+      width: 100%;
+
+      &::before {
+        opacity: 1;
+        scale: 1;
+      }
+    }
+  }
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 32px;
+  padding-right: 42px;
+
+  > :global(.link) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0px;
+    padding: 0;
+
+    &::before {
+      inset: -8px;
+    }
+
+    svg {
+      width: 24px;
+      height: 24px;
+      color: var(--color-text-secondary);
+    }
+  
+    > span {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+  
+      &:nth-of-type(2) {
+        padding-left: 34px;
+        color: var(--color-text-secondary);
+      }
+    }
+  }
+
+
+  &:global(.groups) {
+    > a {
+      width: 100%;
+
+      $items: 4;
+      @for $i from 1 through $items {
+        &:nth-of-type(#{$i}) {
+          svg {
+            color: color-mix(in oklch, var(--color-primary), var(--color-secondary) ($i - 1) * math.div(100%, $items));
+          }
+        }
+      }
+    }
+  }
+
+  &:global(.features) {
+    gap: 8px;
+
+    > label {
+      margin-bottom: 6px;
+    }
+
+    > a {
+      width: 100%;
+
+      svg {
+        width: auto;
+        height: auto;
+        color: var(--color-text-secondary);
+      }
+    }
+  }
+
+  &:global(.imports) {
+    gap: 8px;
+    padding: 24px 32px;
+    background-color: var(--color-accent-primary-10);
+  }
+}

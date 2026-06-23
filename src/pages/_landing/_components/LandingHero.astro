@@ -1,16 +1,8 @@
 ---
-import {
-  ArrowUpRightIcon,
-  CaretRightIcon,
-  CodeIcon,
-  DiscordLogoIcon,
-  GithubLogoIcon,
-  LinkIcon,
-  PhoneIcon,
-  UploadSimpleIcon,
-} from '@phosphor-icons/react';
+import { ArrowUpRightIcon, DiscordLogoIcon, GithubLogoIcon, PhoneIcon } from '@phosphor-icons/react';
 import { createStackBackgroundUri } from '../../features/_components/featuresUtils';
 import illustration from '../_images/hero.svg?raw';
+import LandingHeroAsk from './LandingHeroAsk.astro';
 
 const calendlyUrl = import.meta.env.VITE_CALENDLY_URL;
 
@@ -30,13 +22,7 @@ const backgroundColor = createStackBackgroundUri({ size: 32, primary: 'white', s
     <div class="title">
       <h1>Skip Setting Up.<br />Start Building</h1>
     </div>
-    <ol class="features">
-      <li><CodeIcon /> Cloud Dev</li>
-      <li inert aria-hidden class="arrow"><CaretRightIcon /></li>
-      <li><LinkIcon /> Preview Link</li>
-      <li inert aria-hidden class="arrow"><CaretRightIcon /></li>
-      <li><UploadSimpleIcon /> One-Click Prod</li>
-    </ol>
+    <LandingHeroAsk />
     <p>One platform to build, preview, and ship your app.<br />No local setup required.</p>
     <a class="button" data-event="hero_cta_click" href="#showcases">Start in 10 Seconds</a>
     <ul class="links">
@@ -114,47 +100,6 @@ const backgroundColor = createStackBackgroundUri({ size: 32, primary: 'white', s
     > p {
       margin: 0 auto;
       text-align: center;
-    }
-
-    .features {
-      display: flex;
-      justify-content: center;
-      gap: 6px;
-      margin: 0;
-      padding: 0 12px 0 8px;
-      list-style: none;
-      background-color: var(--color-bg);
-      border: 1px solid var(--color-border);
-      border-radius: 64px;
-
-      @media (max-width: 860px) {
-        display: none;
-      }
-
-      > li {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 8px;
-        color: var(--color-text-primary);
-
-        --start: 0;
-        --total: 6;
-        @for $i from 1 through 6 {
-          &:nth-child(#{$i}) {
-            > svg {
-              --percentage: calc(((#{$i} + var(--start) - 1) / (var(--total) - 1)) * 100%);
-              color: color-mix(in lab, var(--color-primary), var(--color-secondary) var(--percentage));
-            }
-          }
-        }
-
-        &.arrow {
-          > svg {
-            color: var(--color-text-secondary);
-          }
-        }
-      }
     }
 
     > .button {
@@ -257,11 +202,9 @@ const backgroundColor = createStackBackgroundUri({ size: 32, primary: 'white', s
     margin: 0 auto;
     width: 90vw;
     max-width: 1600px;
-    // min-width: 1400px;
     height: auto;
     aspect-ratio: 1/1;
     background-image: conic-gradient(from var(--rotation) in oklch, var(--color-primary), var(--color-secondary), var(--color-primary));
-    // rotate: 0.5turn;
     translate: 0 -400px;
 
     mask-image: var(--mask);
