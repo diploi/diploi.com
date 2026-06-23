@@ -209,3 +209,85 @@ export const imports = [
     ],
   },
 ] as const;
+
+export const ctas = [
+  {
+    id: 'trial',
+    href: '/#StackBuilder',
+    title: 'Start a free trial',
+    context:
+      'Low-friction default when the user wants to see how Diploi works or try it now. Launches a live, SSL-protected deployment in ~30s with no account and no credit card. The trial expires after a short time and can be claimed by signing up.',
+  },
+  {
+    id: 'build-stack',
+    href: '/#StackBuilder',
+    title: 'Pick & build your stack',
+    context:
+      'Use when the user named a specific set of frameworks and/or databases. They select those components and add-ons in the Stack Builder and launch a ready-to-run app.',
+  },
+  {
+    id: 'import-github',
+    href: '/import',
+    title: 'Import your GitHub repo',
+    context:
+      'Use when the user already has an app in a GitHub repository (their own or a public URL) they want to host on Diploi. Node-based apps are best supported.',
+  },
+  {
+    id: 'import-lovable',
+    href: '/lovable',
+    title: 'Import your Lovable app',
+    context:
+      'Use when the user built an app on Lovable (or a similar vibe-coding tool) and wants to move it to production with real version control and a full backend.',
+  },
+  {
+    id: 'starter-kits',
+    href: 'https://docs.diploi.com/building/starter-kits',
+    title: 'Browse starter kits',
+    context:
+      "Use when the user's goal matches a ready-made template: full-stack React web app, chat app, collaborative drawing app, or a self-hosted OpenClaw AI assistant.",
+  },
+  {
+    id: 'sign-up',
+    href: 'https://console.diploi.com',
+    title: 'Sign up & get \u20AC50 in credits',
+    context:
+      'Use when the user is ready to keep their work or go to production. Requires a GitHub account; includes \u20AC50 in credits for 14 days, no credit card.',
+  },
+  {
+    id: 'get-started',
+    href: 'https://docs.diploi.com/get-started/',
+    title: 'Read the Get Started guide',
+    context: 'Use when the user wants a walkthrough of how to begin before committing to a launch.',
+  },
+  {
+    id: 'supported-stacks',
+    href: 'https://docs.diploi.com/building/components',
+    title: 'See supported frameworks & databases',
+    context: 'Use when the user asks whether a specific framework, language, runtime, or database is supported.',
+  },
+  {
+    id: 'pricing',
+    href: '/pricing',
+    title: 'See pricing',
+    context: 'Use for any cost, billing, or "how much does it cost" question.',
+  },
+  {
+    id: 'roadmap',
+    href: 'https://docs.diploi.com/roadmap/',
+    title: 'Check the roadmap',
+    context:
+      "Use when the user asks about a capability that isn't available yet, or about very high-traffic / large-scale hosting (single-node clusters don't scale infinitely yet).",
+  },
+  {
+    id: 'discord',
+    href: 'https://discord.gg/vvgQxVjC8G',
+    title: 'Ask the community on Discord',
+    context: 'Use when the user wants real-time help, has an open-ended question, or wants to share feedback.',
+  },
+  {
+    id: 'contact',
+    href: 'mailto:hello@diploi.com',
+    title: 'Talk to the team',
+    context: 'Use for import help, enterprise or priority support, higher email/resource limits, data export, or compliance questions.',
+  },
+] as const;

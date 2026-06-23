@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { features, imports, links } from '../../content/features';
+import { ctas, features, imports, links } from '../../content/features';
 
 const featuresData = features.map((feature) => ({
   id: feature.id,
@@ -23,5 +23,6 @@ export const GET = (async () =>
     JSON.stringify({
       features: featuresData,
       links: linksData,
+      ctas,
     })
   )) satisfies APIRoute;
