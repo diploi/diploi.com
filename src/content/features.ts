@@ -280,13 +280,6 @@ export const ctas = [
     context: 'Use for any cost, billing, or "how much does it cost" question.',
   },
   {
-    id: 'roadmap',
-    href: 'https://docs.diploi.com/roadmap/',
-    title: 'Check the roadmap',
-    context:
-      "Use when the user asks about a capability that isn't available yet, or about very high-traffic / large-scale hosting (single-node clusters don't scale infinitely yet).",
-  },
-  {
     id: 'discord',
     href: 'https://discord.gg/vvgQxVjC8G',
     title: 'Ask the community on Discord',
@@ -297,5 +290,176 @@ export const ctas = [
     href: 'mailto:hello@diploi.com',
     title: 'Talk to the team',
     context: 'Use for import help, enterprise or priority support, higher email/resource limits, data export, or compliance questions.',
+  },
+] as const;
+
+export const docs = [
+  {
+    id: 'introduction',
+    href: 'https://docs.diploi.com/',
+    title: 'Introduction',
+    context: 'High-level overview of what Diploi is and who it is for (develop + deploy + host). Point here for "what is Diploi".',
+  },
+  {
+    id: 'diploi-way',
+    href: 'https://docs.diploi.com/the-diploi-way/',
+    title: 'The Diploi Way',
+    context:
+      'Diploi\'s philosophy: own your stack, infrastructure as code, remote development. Point here for "why Diploi / what makes it different".',
+  },
+  {
+    id: 'get-started',
+    href: 'https://docs.diploi.com/get-started/',
+    title: 'Get Started',
+    context: 'Walkthrough for launching a first app, including the no-registration trial. Point here for "how do I begin / try it".',
+  },
+  {
+    id: 'creating-a-project',
+    href: 'https://docs.diploi.com/deploying/creating-a-project',
+    title: 'Creating a Project',
+    context:
+      'How to assemble a stack in the Stack Builder and choose a repo option. Point here for "how do I create a project / pick my stack".',
+  },
+  {
+    id: 'creating-a-deployment',
+    href: 'https://docs.diploi.com/deploying/creating-a-deployment',
+    title: 'Creating a Deployment',
+    context:
+      'How to launch development/staging/production deployments and choose sizes. Point here for "how do I deploy / environments / sizing".',
+  },
+  {
+    id: 'remote-development',
+    href: 'https://docs.diploi.com/building/remote-development/',
+    title: 'Remote Development',
+    context:
+      'Coding in the cloud IDE or via your own IDE over SSH, with zero local setup. Point here for "cloud IDE / VS Code / Cursor / how do I write code".',
+  },
+  {
+    id: 'add-ssh-key',
+    href: 'https://docs.diploi.com/building/add-ssh-key/',
+    title: 'Connecting via SSH',
+    context: 'Generating an SSH key and adding it to Diploi for remote access. Point here for "SSH setup / connect my local IDE".',
+  },
+  {
+    id: 'components',
+    href: 'https://docs.diploi.com/building/components',
+    title: 'Using Components',
+    context:
+      'What components are (the app layer: frontend/backend/fullstack) and the full supported list. Point here for "what frameworks / languages are supported".',
+  },
+  {
+    id: 'add-ons',
+    href: 'https://docs.diploi.com/building/add-ons',
+    title: 'Using Add-ons',
+    context:
+      'What add-ons are (databases, cache, storage services) and how to attach them. Point here for "databases / Postgres / Redis / storage".',
+  },
+  {
+    id: 'starter-kits',
+    href: 'https://docs.diploi.com/building/starter-kits',
+    title: 'Using Starter Kits',
+    context: 'Complete one-click templates to scaffold or run a full app. Point here for "templates / starter projects / quick start app".',
+  },
+  {
+    id: 'import-from-github',
+    href: 'https://docs.diploi.com/deploying/import-from-github',
+    title: 'Hosting Existing Apps',
+    context:
+      'Importing an existing GitHub or Lovable app and what is supported. Point here for "import / migrate my existing app / Lovable".',
+  },
+  {
+    id: 'diploi-yaml',
+    href: 'https://docs.diploi.com/reference/diploi-yaml',
+    title: 'diploi.yaml (Infra as Code)',
+    context:
+      'The IaC file that defines components, add-ons, env imports, hosts, and startup commands. Point here for "config / env vars / how to change my stack in code".',
+  },
+  {
+    id: 'github-action',
+    href: 'https://docs.diploi.com/reference/github-action/',
+    title: 'GitHub Actions (CI/CD)',
+    context:
+      'How push-to-deploy builds images via the generated GitHub Actions workflow. Point here for "CI/CD / build pipeline / push to deploy / build secrets".',
+  },
+  {
+    id: 'custom-domain',
+    href: 'https://docs.diploi.com/deploying/custom-domain/',
+    title: 'Adding Custom Domains',
+    context: 'Pointing custom subdomains/root domains at Diploi with automatic SSL. Point here for "custom domain / DNS / SSL".',
+  },
+  {
+    id: 'built-in-email',
+    href: 'https://docs.diploi.com/reference/built-in-email',
+    title: 'Built-In Email',
+    context:
+      'The internal SMTP relay for development/low-volume email, with its limits. Point here for "sending email / SMTP / verification emails".',
+  },
+  {
+    id: 'deployment-lifecycle',
+    href: 'https://docs.diploi.com/reference/deployments/deployment-lifecycle',
+    title: 'Deployment Lifecycle',
+    context:
+      'Deep reference on deployment stages, settings, status, logs, and management. Point here for "dev vs staging vs production / managing a deployment".',
+  },
+  {
+    id: 'cloning-a-deployment',
+    href: 'https://docs.diploi.com/deploying/cloning-a-deployment',
+    title: 'Cloning a Deployment',
+    context:
+      'Duplicating a deployment including its data and config. Point here for "copy an environment / clone production data to a branch".',
+  },
+  {
+    id: 'resize-disk',
+    href: 'https://docs.diploi.com/deploying/resize-disk',
+    title: 'Resizing Disk Storage',
+    context: 'Increasing a deployment\u2019s persistent disk (one-way). Point here for "out of disk space / increase storage".',
+  },
+  {
+    id: 'architecture',
+    href: 'https://docs.diploi.com/reference/architecture',
+    title: 'Project Architecture',
+    context:
+      'How projects, deployments, components, and add-ons fit together. Point here for "project vs deployment / how is it structured".',
+  },
+  {
+    id: 'technical-deep-dive',
+    href: 'https://docs.diploi.com/reference/technical-deep-dive',
+    title: 'Technical Deep Dive',
+    context:
+      'How Diploi runs single-node Kubernetes clusters, Helm charts, and images, and why there is no vendor lock-in. Point here for "how does it work under the hood / Kubernetes / lock-in / migrating out".',
+  },
+  {
+    id: 'cli',
+    href: 'https://docs.diploi.com/reference/diploi-cli',
+    title: 'The Diploi CLI',
+    context:
+      'Terminal CLI for logs, exec, and deployment status from a dev environment. Point here for "CLI / command line / diploi logs".',
+  },
+  {
+    id: 'glossary',
+    href: 'https://docs.diploi.com/reference/glossary',
+    title: 'Glossary',
+    context: 'Definitions of DevOps and Diploi-specific terms. Point here when a user asks what a specific term means.',
+  },
+  {
+    id: 'faq',
+    href: 'https://docs.diploi.com/faq/',
+    title: 'FAQ',
+    context:
+      'Common questions on production use, pricing, GitHub requirement, security, data location, and limits. Point here for broad "can I / do I need / how much" questions.',
+  },
+  {
+    id: 'troubleshooting',
+    href: 'https://docs.diploi.com/troubleshooting/',
+    title: 'Troubleshooting',
+    context:
+      'Fixes for import failures, SSH, Git, builds, domains, add-ons, and performance. Point here when a user reports something broken or failing.',
+  },
+  {
+    id: 'roadmap',
+    href: 'https://docs.diploi.com/roadmap/',
+    title: 'Roadmap',
+    context:
+      'Upcoming work: improved import, custom components, vertical scaling, and more. Point here for "is X supported yet / scaling / coming soon".',
   },
 ] as const;
