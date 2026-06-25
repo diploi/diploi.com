@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { ctas, features, imports, links } from '../../content/features';
+import { ctas, docs, features, imports, links } from '../../content/features';
 
 const featuresData = features.map((feature) => ({
   id: feature.id,
@@ -10,12 +10,12 @@ const featuresData = features.map((feature) => ({
   docs: feature.docs,
 }));
 
-const linksData = [...links, ...imports].map((link) => ({
+const linksData = [...links, ...imports, ...docs].map((link) => ({
   id: link.id,
   href: link.href,
   title: link.title,
   context: link.context,
-  docs: link.docs,
+  docs: 'docs' in link ? link.docs : [],
 }));
 
 export const GET = (async () =>
