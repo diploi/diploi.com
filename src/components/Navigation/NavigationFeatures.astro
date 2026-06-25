@@ -54,13 +54,13 @@ const visibleLinks = links.filter((link) => link.visible === true);
 </button>
 
 <details class="mobile-features">
-  <summary class="button">
+  <summary class="button link">
     <ListIcon size={24} /> Features <CaretDownIcon />
   </summary>
-  <div>
+  <div class={styles.section}>
     {
       features.map((feature) => (
-        <a data-event={`${feature.id}_click`} href={feature.href}>
+        <a data-event={`${feature.id}_click`} href={feature.href} class="link">
           <span>
             {<feature.icon />} {feature.title}
           </span>
@@ -215,10 +215,16 @@ const visibleLinks = links.filter((link) => link.visible === true);
       gap: var(--space-m);
       margin-top: var(--space-m);
       width: 100%;
+      padding: 0;
       padding-left: 48px;
 
       > a {
         align-items: flex-start !important;
+        padding: 12px 16px;
+
+        &::before {
+          inset: 0;
+        }
       }
     }
   }

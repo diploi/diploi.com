@@ -76,7 +76,8 @@
   padding: 32px;
   padding-right: 42px;
 
-  > :global(.link) {
+  > :global(.link),
+  > :global(.list) > :global(.link) {
     flex-direction: column;
     align-items: flex-start;
     gap: 0px;
@@ -92,7 +93,7 @@
       color: var(--color-text-secondary);
     }
   
-    > span {
+    > :global(span) {
       display: flex;
       align-items: center;
       gap: 10px;
