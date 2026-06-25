@@ -3,18 +3,11 @@ import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { ArrowRightIcon, SparkleIcon, XIcon } from '@phosphor-icons/react';
 import styles from '../../../components/Navigation/Navigation.module.scss';
-import { ctas, features, links } from '../../../content/features';
+import { ctas, links } from '../../../content/features';
 
 const apiUrl = import.meta.env.VITE_API_URL ?? '';
 
 const catalog = JSON.stringify({
-  products: features.map((f) => ({
-    id: f.id,
-    href: f.href,
-    title: f.title,
-    description: f.description,
-    icon: renderToStaticMarkup(createElement(f.icon as any, { weight: 'duotone', size: 20 })),
-  })),
   links: links.map((l) => ({
     id: l.id,
     href: l.href,
@@ -54,6 +47,12 @@ const catalog = JSON.stringify({
     </button>
   </div>
   <div id="ask-response" class:list={[styles.links, 'ask-response']} hidden></div>
+  <div id="ask-followup-row" class="ask-followup-row" hidden>
+    <input type="text" id="ask-followup-input" placeholder="Ask a follow-up…" autocomplete="off" aria-label="Ask a follow-up question" />
+    <button type="button" id="ask-followup-submit" aria-label="Submit follow-up">
+      <ArrowRightIcon />
+    </button>
+  </div>
 </dialog>
 
 <script>
@@ -63,17 +62,39 @@ const catalog = JSON.stringify({
   const submitBtn = document.getElementById('ask-submit') as HTMLButtonElement;
   const closeBtn = document.getElementById('ask-close') as HTMLButtonElement;
   const responseEl = document.getElementById('ask-response') as HTMLDivElement;
+  const followupRow = document.getElementById('ask-followup-row') as HTMLDivElement;
+  const followupInput = document.getElementById('ask-followup-input') as HTMLInputElement;
+  const followupSubmit = document.getElementById('ask-followup-submit') as HTMLButtonElement;
   const apiUrl = dialog.dataset.apiUrl ?? '';
-  const {
-    products: productsCatalog,
-    links: linksCatalog,
-    ctas: ctasCatalog,
-  } = JSON.parse(dialog.dataset.catalog ?? '{}') as {
-    products: { id: string; href: string; title: string; description: string; icon: string }[];
+  const { links: linksCatalog, ctas: ctasCatalog } = JSON.parse(dialog.dataset.catalog ?? '{}') as {
     links: { id: string; href: string; title: string; icon: string }[];
     ctas: { id: string; href: string; title: string }[];
   };
   const sectionClass = dialog.dataset.sectionClass ?? '';
+
+  let history: { role: 'user' | 'assistant'; content: string }[] = [];
+
+  async function createStarterKitCta({ componentId }: { componentId: number }) {
+    const { launchStack } = await import('../../../components/StackBuilder/launchStack');
+
+    return {
+      title: 'Launch suggested starter-kit',
+      onClick: (event: PointerEvent) => {
+        launchStack({ button: event.currentTarget as HTMLButtonElement, componentIds: [componentId], apiUrl });
+      },
+    };
+  }
+
+  async function createSuggestedStackCta({ componentIds }: { componentIds: number[] }) {
+    const { launchStack } = await import('../../../components/StackBuilder/launchStack');
+
+    return {
+      title: 'Launch suggested stack',
+      onClick: (event: PointerEvent) => {
+        launchStack({ button: event.currentTarget as HTMLButtonElement, componentIds, apiUrl });
+      },
+    };
+  }
 
   function positionDialog() {
     const rect = trigger.getBoundingClientRect();
@@ -98,42 +119,84 @@ const catalog = JSON.stringify({
     inputEl.value = '';
     inputEl.disabled = false;
     submitBtn.disabled = false;
+    followupRow.hidden = true;
+    followupInput.value = '';
+    history = [];
   }
 
-  async function handleSubmit() {
-    const query = inputEl.value.trim();
+  async function handleSubmit(query: string) {
     if (!query) return;
 
-    inputEl.disabled = true;
-    submitBtn.disabled = true;
+    const isFollowup = history.length > 0;
+
+    if (isFollowup) {
+      followupInput.disabled = true;
+      followupSubmit.disabled = true;
+    } else {
+      inputEl.disabled = true;
+      submitBtn.disabled = true;
+    }
 
     responseEl.hidden = false;
     dialog.classList.add('has-response');
-    responseEl.innerHTML = '';
+
+    let turnEl: HTMLElement;
+    if (isFollowup) {
+      const userMsg = document.createElement('p');
+      userMsg.className = 'ask-user-followup';
+      userMsg.textContent = query;
+      responseEl.appendChild(userMsg);
+      turnEl = responseEl;
+    } else {
+      responseEl.innerHTML = '';
+      turnEl = responseEl;
+    }
+
     const loading = document.createElement('div');
     loading.className = 'ask-loading';
     for (let i = 0; i < 3; i++) loading.appendChild(document.createElement('span'));
-    responseEl.appendChild(loading);
+    turnEl.appendChild(loading);
+    responseEl.scrollTop = responseEl.scrollHeight;
 
+    let succeeded = false;
     try {
       const res = await fetch(`${apiUrl}/api/trpc/ai.ask`, {
         method: 'POST',
         headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: query }),
+        body: JSON.stringify({ message: query, history }),
       });
       if (!res.ok) throw new Error();
       const { result } = await res.json();
       if (result.data?.status !== 'ok') throw new Error();
-      renderResponse(result.data);
+
+      history.push({ role: 'user', content: query });
+      history.push({ role: 'assistant', content: result.data.answer ?? '' });
+
+      loading.remove();
+      renderResponse(result.data, turnEl);
+      succeeded = true;
+
+      if (!isFollowup) {
+        followupRow.hidden = false;
+      }
     } catch {
-      responseEl.innerHTML = '';
+      loading.remove();
       const p = document.createElement('p');
       p.className = 'ask-error';
       p.textContent = 'Something went wrong. Please try again.';
-      responseEl.appendChild(p);
+      turnEl.appendChild(p);
     } finally {
-      inputEl.disabled = false;
-      submitBtn.disabled = false;
+      if (isFollowup) {
+        followupInput.disabled = false;
+        followupSubmit.disabled = false;
+        if (succeeded) {
+          followupInput.value = '';
+        }
+      } else if (!succeeded) {
+        inputEl.disabled = false;
+        submitBtn.disabled = false;
+      }
+      responseEl.scrollTop = responseEl.scrollHeight;
     }
   }
 
@@ -143,99 +206,160 @@ const catalog = JSON.stringify({
     return tpl.content.firstElementChild!;
   }
 
-  function renderResponse(data: {
-    answer?: string;
-    products?: { slug: string; why_relevant: string }[];
-    features?: { slug: string; why_relevant: string }[];
-    cta?: { slug: string };
-  }) {
-    responseEl.innerHTML = '';
+  function componentIconUrl(url: string): string {
+    const match = /github\.com\/([^/]+)\/([^/.]+)/.exec(url);
+    if (!match) return '';
+    return `https://diploi.b-cdn.net/component/${match[1]}/${match[2]}/icon.svg?ref=main`;
+  }
 
+  type ComponentItem = { componentID: number; name: string; url: string };
+
+  function renderComponentCard(item: ComponentItem, cls: string): HTMLElement {
+    const div = document.createElement('div');
+    div.className = cls;
+    const img = document.createElement('img');
+    img.src = componentIconUrl(item.url);
+    img.alt = item.name;
+    img.width = 24;
+    img.height = 24;
+    const name = document.createElement('span');
+    name.textContent = item.name;
+    div.append(img, name);
+    return div;
+  }
+
+  async function renderResponse(
+    data: {
+      answer?: string;
+      products?: { slug: string; why_relevant: string }[];
+      features?: { slug: string; why_relevant: string }[];
+      starter_kit?: ComponentItem | null;
+      suggested_stack?: ComponentItem[] | null;
+      ctas?: { slug: string }[];
+    },
+    target: HTMLElement
+  ) {
     if (data.answer) {
       const p = document.createElement('p');
       p.className = 'ask-message';
       p.textContent = data.answer;
-      responseEl.appendChild(p);
+      target.appendChild(p);
     }
 
-    const resolvedProducts = (data.products ?? [])
-      .map((p) => ({ entry: productsCatalog.find((f) => f.id === p.slug), why: p.why_relevant }))
-      .filter((p) => p.entry != null) as { entry: (typeof productsCatalog)[number]; why: string }[];
+    let isStarterKit = false;
+    if (data.starter_kit) {
+      const wrapper = document.createElement('fieldset');
+      wrapper.className = 'ask-suggested-stack';
+      const legend = document.createElement('legend');
+      legend.textContent = 'Starter-Kit Suggestion';
+      wrapper.appendChild(legend);
+      wrapper.appendChild(renderComponentCard(data.starter_kit, 'ask-component-card'));
+      target.appendChild(wrapper);
+      isStarterKit = true;
+    }
+
+    let isSuggestedStack = false;
+    if (!isStarterKit && data.suggested_stack?.length) {
+      const wrapper = document.createElement('fieldset');
+      wrapper.className = 'ask-suggested-stack';
+      const legend = document.createElement('legend');
+      legend.textContent = 'Stack Suggestion';
+      wrapper.appendChild(legend);
+      for (const item of data.suggested_stack) {
+        wrapper.appendChild(renderComponentCard(item, 'ask-component-card'));
+      }
+      target.appendChild(wrapper);
+      isSuggestedStack = true;
+    }
+
+    let ctas = [
+      ...(data.ctas || [])
+        .map((cta) => {
+          const ctaEntry = ctasCatalog.find((c) => c.id === cta.slug);
+          return ctaEntry || false;
+        })
+        .filter(Boolean),
+    ] as {
+      id?: string;
+      title: string;
+      href?: string;
+      onClick?: (event: PointerEvent) => void;
+    }[];
+    if (isStarterKit) {
+      ctas.unshift(await createStarterKitCta({ componentId: data.starter_kit?.componentID as number }));
+    }
+    if (isSuggestedStack) {
+      ctas.unshift(
+        await createSuggestedStackCta({ componentIds: data.suggested_stack?.map((component) => component.componentID) as number[] })
+      );
+    }
+
+    if (ctas?.length) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'ask-ctas';
+
+      for (const { title, href, onClick } of ctas.slice(0, 2)) {
+        const a = document.createElement('a');
+        if (href) a.href = href;
+        if (onClick) a.addEventListener('click', onClick);
+        a.className = 'ask-cta button';
+        a.textContent = title;
+        wrapper.appendChild(a);
+      }
+
+      target.appendChild(wrapper);
+    }
 
     const resolvedFeatures = (data.features ?? [])
-      .map((f) => linksCatalog.find((l) => l.id === f.slug))
-      .filter(Boolean) as (typeof linksCatalog)[number][];
+      .map((feature) => ({ entry: linksCatalog.find((link) => link.id === feature.slug), why: feature.why_relevant }))
+      .filter((feature) => feature.entry != null) as { entry: (typeof linksCatalog)[number]; why: string }[];
 
-    if (resolvedProducts.length || resolvedFeatures.length) {
+    if (resolvedFeatures.length) {
       const results = document.createElement('div');
       results.className = 'ask-results';
 
-      if (resolvedProducts.length) {
-        const section = document.createElement('section');
-        section.className = `${sectionClass} groups`;
-        for (const { entry, why } of resolvedProducts) {
-          const a = document.createElement('a');
-          a.href = entry.href;
-          a.className = 'link';
-
-          const title = document.createElement('span');
-          title.append(makeIcon(entry.icon), entry.title);
-
-          const desc = document.createElement('span');
-          desc.textContent = why;
-
-          a.append(title, desc);
-          section.appendChild(a);
-        }
-        results.appendChild(section);
-      }
-
-      if (resolvedFeatures.length) {
-        const section = document.createElement('section');
-        section.className = `${sectionClass} features`;
-        for (const link of resolvedFeatures) {
-          const a = document.createElement('a');
-          a.href = link.href;
-          a.className = 'link';
-
-          const title = document.createElement('span');
-          title.append(makeIcon(link.icon), link.title);
-
-          a.appendChild(title);
-          section.appendChild(a);
-        }
-        results.appendChild(section);
-      }
-
-      responseEl.appendChild(results);
-    }
-
-    if (data.cta) {
-      const ctaEntry = ctasCatalog.find((c) => c.id === data.cta!.slug);
-      if (ctaEntry) {
+      const section = document.createElement('section');
+      section.className = `${sectionClass} groups`;
+      for (const { entry, why } of resolvedFeatures.slice(0, 3)) {
         const a = document.createElement('a');
-        a.href = ctaEntry.href;
-        a.className = 'ask-cta button';
-        a.textContent = ctaEntry.title;
-        responseEl.appendChild(a);
+        a.href = entry.href;
+        a.className = 'link';
+
+        const title = document.createElement('span');
+        title.append(makeIcon(entry.icon), entry.title);
+
+        const desc = document.createElement('span');
+        desc.textContent = why;
+
+        a.append(title, desc);
+        section.appendChild(a);
       }
+      results.appendChild(section);
+
+      target.appendChild(results);
     }
   }
 
   trigger.addEventListener('click', openDialog);
   closeBtn.addEventListener('click', closeDialog);
-  submitBtn.addEventListener('click', handleSubmit);
+  submitBtn.addEventListener('click', () => handleSubmit(inputEl.value.trim()));
+  followupSubmit.addEventListener('click', () => handleSubmit(followupInput.value.trim()));
 
   document.querySelectorAll<HTMLButtonElement>('.ask-options button').forEach((btn) => {
     btn.addEventListener('click', () => {
-      inputEl.value = btn.textContent?.trim() ?? '';
+      const text = btn.textContent?.trim() ?? '';
+      inputEl.value = text;
       openDialog();
-      handleSubmit();
+      handleSubmit(text);
     });
   });
 
   inputEl.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') handleSubmit();
+    if (e.key === 'Enter') handleSubmit(inputEl.value.trim());
+  });
+
+  followupInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') handleSubmit(followupInput.value.trim());
   });
 
   document.addEventListener('keydown', (e) => {
@@ -385,9 +509,12 @@ const catalog = JSON.stringify({
     }
 
     .ask-response {
-      border-top: 1px solid var(--color-border);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
       padding: 10px 12px 12px;
       max-height: 600px;
+      border-top: 1px solid var(--color-border);
       overflow-y: auto;
 
       &[hidden] {
@@ -420,11 +547,10 @@ const catalog = JSON.stringify({
 
       :global(.ask-message) {
         padding: 8px;
+        max-width: none;
         font-size: 1.25rem;
         font-weight: 350;
         color: var(--color-text-secondary);
-        max-width: none;
-        margin-bottom: 10px;
       }
 
       :global(.ask-error) {
@@ -438,8 +564,8 @@ const catalog = JSON.stringify({
         display: flex;
         flex-direction: column;
         gap: 8px;
-        margin-bottom: 10px;
-        padding: 8px;
+        margin-top: 8px;
+        padding: 0 8px;
 
         > :global(.groups),
         > :global(.features) {
@@ -450,10 +576,86 @@ const catalog = JSON.stringify({
       :global(.ask-cta) {
         display: flex;
         justify-content: center;
-        margin-top: 8px;
-        font-size: 1rem;
         padding: 10px 20px;
         width: 100%;
+        font-size: 1rem;
+      }
+
+      :global(.ask-user-followup) {
+        align-self: flex-end;
+        margin-top: 16px;
+        margin-bottom: 8px;
+        padding: 10px 16px;
+        max-width: none;
+        font-size: 1rem;
+        background-color: var(--color-primary);
+        border-radius: var(--border-radius-button);
+        border-top-right-radius: 0;
+        color: white;
+      }
+    }
+
+    .ask-followup-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 8px 8px 14px;
+      border-top: 1px solid var(--color-border);
+
+      &[hidden] {
+        display: none;
+      }
+
+      > #ask-followup-input {
+        flex: 1;
+        min-width: 0;
+        padding: 0;
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        font-size: 1rem;
+        font-family: var(--font-body);
+        color: var(--color-text-primary);
+
+        &::placeholder {
+          color: var(--color-text-tertiary);
+        }
+
+        &:focus {
+          outline: none;
+        }
+
+        &:disabled {
+          opacity: 0.5;
+        }
+      }
+
+      > #ask-followup-submit {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px;
+        background: transparent;
+        border-radius: 6px;
+        color: var(--color-text-secondary);
+        font-size: inherit;
+
+        > :global(svg) {
+          width: 18px;
+          height: 18px;
+        }
+
+        &:hover:not(:disabled),
+        &:active:not(:disabled) {
+          background: var(--color-bg-secondary-hover);
+          color: var(--color-text-primary);
+        }
+
+        &:disabled {
+          opacity: 0.4;
+          cursor: default;
+        }
       }
     }
   }
@@ -484,6 +686,45 @@ const catalog = JSON.stringify({
       font-size: 1rem;
       background-color: transparent;
       border: 1px solid var(--color-border);
+    }
+  }
+
+  :global(.ask-suggested-stack) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-medium);
+
+    > :global(legend) {
+      margin-left: -7px;
+      padding: 0 8px;
+      font-size: 1rem;
+      translate: 0 1px;
+    }
+
+    > :global(.ask-component-card) {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 1rem;
+    }
+  }
+
+  :global(.ask-ctas) {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    // padding: 0 8px;
+
+    > :global(a),
+    > :global(button) {
+      &:not(:first-child) {
+        padding: 8px 18px !important;
+        background-color: transparent;
+        border: 1px solid var(--color-border);
+      }
     }
   }
 </style>
