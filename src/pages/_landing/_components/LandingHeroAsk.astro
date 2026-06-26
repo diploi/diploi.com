@@ -391,15 +391,19 @@ const docsIcon = renderToStaticMarkup(createElement(FileTextIcon, { weight: 'reg
     font-weight: 400;
     font-family: var(--font-body);
     width: min(580px, calc(100vw - 32px));
+    text-wrap: nowrap;
     cursor: text;
     transition:
       border-color 150ms ease,
-      color 150ms ease,
-      opacity 200ms ease;
+      color 150ms ease;
 
     > span {
       flex: 1;
+      min-width: 0;
       text-align: left;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
 
     > :global(svg) {
@@ -434,7 +438,6 @@ const docsIcon = renderToStaticMarkup(createElement(FileTextIcon, { weight: 'reg
       0 4px 20px rgba(0, 0, 0, 0.5),
       0 1px 4px rgba(0, 0, 0, 0.3);
     z-index: 100;
-    transition: border-radius 250ms ease;
 
     &.has-response {
       border-radius: 16px;
@@ -588,6 +591,12 @@ const docsIcon = renderToStaticMarkup(createElement(FileTextIcon, { weight: 'reg
               translate: -4px -1px;
             }
           }
+
+          @media (max-width: 899px) {
+            &::before {
+              display: none;
+            }
+          }
         }
       }
 
@@ -694,6 +703,7 @@ const docsIcon = renderToStaticMarkup(createElement(FileTextIcon, { weight: 'reg
 
   .ask-options {
     display: flex;
+    justify-content: center;
     gap: 8px;
     margin: 0;
     padding: 0;
@@ -704,6 +714,17 @@ const docsIcon = renderToStaticMarkup(createElement(FileTextIcon, { weight: 'reg
       font-size: 1rem;
       background-color: transparent;
       border: 1px solid var(--color-border);
+    }
+
+    @media (max-width: 600px) {
+      > li {
+        display: none;
+
+        &:nth-child(1),
+        &:nth-child(2) {
+          display: unset;
+        }
+      }
     }
   }
 
