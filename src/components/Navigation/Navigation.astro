@@ -1,6 +1,7 @@
 ---
 import Icon from '../Icon.astro';
 import Logo from '../Logo.astro';
+import styles from './Navigation.module.scss';
 import NavigationFeatures from './NavigationFeatures.astro';
 
 interface Props {
@@ -28,23 +29,23 @@ const isJobs = selected === 'jobs';
       <input aria-label="is menu open" id="menu" type="checkbox" />
       <label aria-hidden for="menu" id="menu-label"></label>
 
-      <div class="links">
+      <div class:list={[styles.links, 'links']}>
         <a class="logo-mobile" href="/" data-selected={`${isHome}`}>
           <Logo width={96} />
         </a>
         <NavigationFeatures />
-        <a data-event="pricing_click" href="/pricing" data-selected={`${isPricing}`}>
+        <a class="link" data-event="pricing_click" href="/pricing" data-selected={`${isPricing}`}>
           <Icon name="CreditCard" weight={isPricing ? 'duotone' : 'regular'} class="navigation-link-icon" /> Pricing
         </a>
-        <a data-event="blog_click" href="/blog" data-selected={`${isBlog}`}>
+        <a class="link" data-event="blog_click" href="/blog" data-selected={`${isBlog}`}>
           <Icon name="Newspaper" weight={isBlog ? 'duotone' : 'regular'} class="navigation-link-icon" />
           Blog
         </a>
-        <a data-event="documentation_click" href="https://docs.diploi.com/">
+        <a class="link" data-event="documentation_click" href="https://docs.diploi.com/">
           <Icon name="BookBookmark" weight="regular" class="navigation-link-icon" />
           Documentation
         </a>
-        <a data-link="login" data-event="login_click" href="https://console.diploi.com">
+        <a class="link" data-link="login" data-event="login_click" href="https://console.diploi.com">
           <Icon name="SignIn" weight="regular" class="navigation-link-icon" />
           Login / Sign Up
         </a>
@@ -170,79 +171,6 @@ const isJobs = selected === 'jobs';
       gap: var(--space-m);
       overflow-x: hidden;
       overflow-y: scroll;
-    }
-
-    > button,
-    > :global(button) {
-      padding: 0;
-      font-weight: 350;
-    }
-
-    > a,
-    > button,
-    > :global(button),
-    > :global(button) > :global([popover]) > :global(section) > :global(a),
-    > :global(details) > :global(div) > :global(a),
-    > :global(details) > :global(summary),
-    > :global(button) > :global([popover]) > :global(section) > :global(.list) > :global(a) {
-      position: relative;
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      gap: var(--space-s);
-      padding: 12px 16px;
-      font-size: 1rem;
-      color: var(--color-text-primary);
-      text-decoration: none;
-      border-radius: var(--border-radius-button);
-      background-color: transparent !important;
-
-      &[data-selected='true'] {
-        color: var(--color-accent-primary-text);
-      }
-
-      :global(.navigation-link-icon) {
-        fill: currentColor;
-      }
-
-      &::before {
-        content: '';
-        position: absolute;
-        display: block;
-        inset: 0;
-        background-color: rgba(255, 255, 255, 0.1);
-        border-radius: inherit;
-        z-index: -1;
-
-        user-select: none;
-        pointer-events: none;
-
-        opacity: 0;
-        scale: 0.9;
-
-        transition:
-          opacity 250ms cubic-bezier(0.25, 1, 0.5, 1),
-          scale 200ms cubic-bezier(0.25, 1, 0.5, 1);
-      }
-
-      &:hover:not([data-selected='true']) {
-        color: white;
-
-        &::before {
-          opacity: 1;
-          scale: 1;
-        }
-      }
-
-      @media (max-width: 899px) {
-        gap: var(--space-s);
-        width: 100%;
-
-        &::before {
-          opacity: 1;
-          scale: 1;
-        }
-      }
     }
   }
 

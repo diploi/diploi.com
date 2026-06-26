@@ -3,7 +3,7 @@ name: Build Components
 on:
   push:
     branches:
-      - '*'
+      - '**'
 
 jobs:
   define-components:

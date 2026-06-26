@@ -1,0 +1,769 @@
+---
+import { createElement } from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
+import { ArrowRightIcon, FileTextIcon, SparkleIcon, XIcon } from '@phosphor-icons/react';
+import styles from '../../../components/Navigation/Navigation.module.scss';
+import { ctas, docs, links } from '../../../content/features';
+
+const apiUrl = import.meta.env.VITE_API_URL ?? '';
+
+const catalog = JSON.stringify({
+  links: [...links, ...docs].map((l) => ({
+    id: l.id,
+    href: l.href,
+    title: l.title,
+    icon: 'icon' in l ? renderToStaticMarkup(createElement(l.icon as any, { weight: 'regular', size: 13 })) : null,
+  })),
+  ctas: ctas.map((c) => ({ id: c.id, href: c.href, title: c.title })),
+});
+
+const docsIcon = renderToStaticMarkup(createElement(FileTextIcon, { weight: 'regular', size: 13 }));
+---
+
+<button id="ask-trigger" class="ask-trigger" aria-haspopup="dialog">
+  <SparkleIcon weight="duotone" />
+  <span>What are you looking to achieve?</span>
+  <ArrowRightIcon />
+</button>
+<ul class="ask-options">
+  <li><button>Deploy my app</button></li>
+  <li><button>Host a blog</button></li>
+  <li><button>Build a website</button></li>
+  <li><button>Try out remote dev</button></li>
+</ul>
+<dialog id="ask-dialog" data-api-url={apiUrl} data-catalog={catalog} data-section-class={styles.section} data-docs-icon={docsIcon}>
+  <div class="ask-input-row">
+    <SparkleIcon weight="duotone" />
+    <input
+      type="text"
+      id="ask-input"
+      placeholder="e.g. I want to deploy a Node.js app…"
+      autocomplete="off"
+      aria-label="What are you looking to achieve?"
+    />
+    <button type="button" id="ask-submit" aria-label="Submit">
+      <ArrowRightIcon />
+    </button>
+    <button type="button" id="ask-close" aria-label="Close">
+      <XIcon />
+    </button>
+  </div>
+  <div id="ask-response" class:list={[styles.links, 'ask-response']} hidden></div>
+  <div id="ask-followup-row" class="ask-followup-row" hidden>
+    <input type="text" id="ask-followup-input" placeholder="Ask a follow-up…" autocomplete="off" aria-label="Ask a follow-up question" />
+    <button type="button" id="ask-followup-submit" aria-label="Submit follow-up">
+      <ArrowRightIcon />
+    </button>
+  </div>
+</dialog>
+
+<script>
+  const trigger = document.getElementById('ask-trigger') as HTMLButtonElement;
+  const dialog = document.getElementById('ask-dialog') as HTMLDialogElement;
+  const inputEl = document.getElementById('ask-input') as HTMLInputElement;
+  const submitBtn = document.getElementById('ask-submit') as HTMLButtonElement;
+  const closeBtn = document.getElementById('ask-close') as HTMLButtonElement;
+  const responseEl = document.getElementById('ask-response') as HTMLDivElement;
+  const followupRow = document.getElementById('ask-followup-row') as HTMLDivElement;
+  const followupInput = document.getElementById('ask-followup-input') as HTMLInputElement;
+  const followupSubmit = document.getElementById('ask-followup-submit') as HTMLButtonElement;
+  const apiUrl = dialog.dataset.apiUrl ?? '';
+  const { links: linksCatalog, ctas: ctasCatalog } = JSON.parse(dialog.dataset.catalog ?? '{}') as {
+    links: { id: string; href: string; title: string; icon: string }[];
+    ctas: { id: string; href: string; title: string }[];
+  };
+  const sectionClass = dialog.dataset.sectionClass ?? '';
+  const docsIcon = dialog.dataset.docsIcon ?? '';
+
+  let history: { role: 'user' | 'assistant'; content: string }[] = [];
+
+  async function createStarterKitCta({ componentId }: { componentId: number }) {
+    const { launchStack } = await import('../../../components/StackBuilder/launchStack');
+
+    return {
+      title: 'Launch suggested starter-kit',
+      onClick: (event: PointerEvent) => {
+        launchStack({ button: event.currentTarget as HTMLButtonElement, componentIds: [componentId], apiUrl });
+      },
+    };
+  }
+
+  async function createSuggestedStackCta({ componentIds }: { componentIds: number[] }) {
+    const { launchStack } = await import('../../../components/StackBuilder/launchStack');
+
+    return {
+      title: 'Launch suggested stack',
+      onClick: (event: PointerEvent) => {
+        launchStack({ button: event.currentTarget as HTMLButtonElement, componentIds, apiUrl });
+      },
+    };
+  }
+
+  function positionDialog() {
+    const rect = trigger.getBoundingClientRect();
+    dialog.style.top = `${rect.top + window.scrollY}px`;
+    dialog.style.left = '50%';
+    dialog.style.transform = 'translateX(-50%)';
+  }
+
+  function openDialog() {
+    positionDialog();
+    dialog.show();
+    trigger.classList.add('is-open');
+    requestAnimationFrame(() => inputEl.focus());
+  }
+
+  function closeDialog() {
+    dialog.close();
+    trigger.classList.remove('is-open');
+    dialog.classList.remove('has-response');
+    responseEl.hidden = true;
+    responseEl.innerHTML = '';
+    inputEl.value = '';
+    inputEl.disabled = false;
+    submitBtn.disabled = false;
+    followupRow.hidden = true;
+    followupInput.value = '';
+    history = [];
+  }
+
+  async function handleSubmit(query: string) {
+    if (!query) return;
+
+    const isFollowup = history.length > 0;
+
+    if (isFollowup) {
+      followupInput.disabled = true;
+      followupSubmit.disabled = true;
+    } else {
+      inputEl.disabled = true;
+      submitBtn.disabled = true;
+    }
+
+    responseEl.hidden = false;
+    dialog.classList.add('has-response');
+
+    let turnEl: HTMLElement;
+    if (isFollowup) {
+      const userMsg = document.createElement('p');
+      userMsg.className = 'ask-user-followup';
+      userMsg.textContent = query;
+      responseEl.appendChild(userMsg);
+      turnEl = responseEl;
+    } else {
+      responseEl.innerHTML = '';
+      turnEl = responseEl;
+    }
+
+    const loading = document.createElement('div');
+    loading.className = 'ask-loading';
+    for (let i = 0; i < 3; i++) loading.appendChild(document.createElement('span'));
+    turnEl.appendChild(loading);
+    responseEl.scrollTop = responseEl.scrollHeight;
+
+    let succeeded = false;
+    try {
+      const res = await fetch(`${apiUrl}/api/trpc/ai.ask`, {
+        method: 'POST',
+        headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: query, history }),
+      });
+      if (!res.ok) throw new Error();
+      const { result } = await res.json();
+      if (result.data?.status !== 'ok') throw new Error();
+
+      history.push({ role: 'user', content: query });
+      history.push({ role: 'assistant', content: result.data.answer ?? '' });
+
+      loading.remove();
+      renderResponse(result.data, turnEl);
+      succeeded = true;
+
+      if (!isFollowup) {
+        followupRow.hidden = false;
+      }
+    } catch {
+      loading.remove();
+      const p = document.createElement('p');
+      p.className = 'ask-error';
+      p.textContent = 'Something went wrong. Please try again.';
+      turnEl.appendChild(p);
+    } finally {
+      if (isFollowup) {
+        followupInput.disabled = false;
+        followupSubmit.disabled = false;
+        if (succeeded) {
+          followupInput.value = '';
+        }
+      } else if (!succeeded) {
+        inputEl.disabled = false;
+        submitBtn.disabled = false;
+      }
+      responseEl.scrollTop = responseEl.scrollHeight;
+    }
+  }
+
+  function makeIcon(svg: string | null): Element {
+    const tpl = document.createElement('template');
+    tpl.innerHTML = svg ?? docsIcon;
+    return tpl.content.firstElementChild!;
+  }
+
+  function componentIconUrl(url: string): string {
+    const match = /github\.com\/([^/]+)\/([^/.]+)/.exec(url);
+    if (!match) return '';
+    return `https://diploi.b-cdn.net/component/${match[1]}/${match[2]}/icon.svg?ref=main`;
+  }
+
+  type ComponentItem = { componentID: number; name: string; url: string };
+
+  function renderComponentCard(item: ComponentItem, cls: string): HTMLElement {
+    const div = document.createElement('div');
+    div.className = cls;
+    const img = document.createElement('img');
+    img.src = componentIconUrl(item.url);
+    img.alt = item.name;
+    img.width = 24;
+    img.height = 24;
+    const name = document.createElement('span');
+    name.textContent = item.name;
+    div.append(img, name);
+    return div;
+  }
+
+  async function renderResponse(
+    data: {
+      answer?: string;
+      products?: { slug: string; why_relevant: string }[];
+      features?: { slug: string; why_relevant: string }[];
+      starter_kit?: ComponentItem | null;
+      suggested_stack?: ComponentItem[] | null;
+      ctas?: { slug: string }[];
+    },
+    target: HTMLElement
+  ) {
+    if (data.answer) {
+      const p = document.createElement('p');
+      p.className = 'ask-message';
+      p.textContent = data.answer;
+      target.appendChild(p);
+    }
+
+    let isStarterKit = false;
+    if (data.starter_kit) {
+      const wrapper = document.createElement('fieldset');
+      wrapper.className = 'ask-suggested-stack';
+      const legend = document.createElement('legend');
+      legend.textContent = 'Starter-Kit Suggestion';
+      wrapper.appendChild(legend);
+      wrapper.appendChild(renderComponentCard(data.starter_kit, 'ask-component-card'));
+      target.appendChild(wrapper);
+      isStarterKit = true;
+    }
+
+    let isSuggestedStack = false;
+    if (!isStarterKit && data.suggested_stack?.length) {
+      const wrapper = document.createElement('fieldset');
+      wrapper.className = 'ask-suggested-stack';
+      const legend = document.createElement('legend');
+      legend.textContent = 'Stack Suggestion';
+      wrapper.appendChild(legend);
+      for (const item of data.suggested_stack) {
+        wrapper.appendChild(renderComponentCard(item, 'ask-component-card'));
+      }
+      target.appendChild(wrapper);
+      isSuggestedStack = true;
+    }
+
+    let ctas = [
+      ...(data.ctas || [])
+        .map((cta) => {
+          const ctaEntry = ctasCatalog.find((c) => c.id === cta.slug);
+          return ctaEntry || false;
+        })
+        .filter(Boolean),
+    ] as {
+      id?: string;
+      title: string;
+      href?: string;
+      onClick?: (event: PointerEvent) => void;
+    }[];
+    if (isStarterKit) {
+      ctas.unshift(await createStarterKitCta({ componentId: data.starter_kit?.componentID as number }));
+    }
+    if (isSuggestedStack) {
+      ctas.unshift(
+        await createSuggestedStackCta({ componentIds: data.suggested_stack?.map((component) => component.componentID) as number[] })
+      );
+    }
+
+    if (ctas?.length) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'ask-ctas';
+
+      for (const { title, href, onClick } of ctas.slice(0, 2)) {
+        const a = document.createElement('a');
+        if (href) a.href = href;
+        if (onClick) a.addEventListener('click', onClick);
+        a.className = 'ask-cta button';
+        a.textContent = title;
+        wrapper.appendChild(a);
+      }
+
+      target.appendChild(wrapper);
+    }
+
+    const resolvedFeatures = (data.features ?? [])
+      .map((feature) => ({ entry: linksCatalog.find((link) => link.id === feature.slug), why: feature.why_relevant }))
+      .filter((feature) => feature.entry != null) as { entry: (typeof linksCatalog)[number]; why: string }[];
+
+    if (resolvedFeatures.length) {
+      const results = document.createElement('div');
+      results.className = 'ask-results';
+
+      const section = document.createElement('section');
+      section.className = `${sectionClass} groups`;
+      for (const { entry, why } of resolvedFeatures.slice(0, 3)) {
+        const a = document.createElement('a');
+        a.href = entry.href;
+        a.className = 'link';
+
+        const title = document.createElement('span');
+        title.append(makeIcon(entry.icon), entry.title);
+
+        const desc = document.createElement('span');
+        desc.textContent = why;
+
+        a.append(title, desc);
+        section.appendChild(a);
+      }
+      results.appendChild(section);
+
+      target.appendChild(results);
+    }
+  }
+
+  trigger.addEventListener('click', openDialog);
+  closeBtn.addEventListener('click', closeDialog);
+  submitBtn.addEventListener('click', () => handleSubmit(inputEl.value.trim()));
+  followupSubmit.addEventListener('click', () => handleSubmit(followupInput.value.trim()));
+
+  document.querySelectorAll<HTMLButtonElement>('.ask-options button').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const text = btn.textContent?.trim() ?? '';
+      inputEl.value = text;
+      openDialog();
+      handleSubmit(text);
+    });
+  });
+
+  inputEl.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') handleSubmit(inputEl.value.trim());
+  });
+
+  followupInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') handleSubmit(followupInput.value.trim());
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && dialog.open) closeDialog();
+  });
+
+  document.addEventListener('pointerdown', (e) => {
+    if (dialog.open && !dialog.contains(e.target as Node) && e.target !== trigger) {
+      closeDialog();
+    }
+  });
+</script>
+
+<style lang="scss">
+  .ask-trigger {
+    display: flex;
+    align-items: center;
+    align-self: center;
+    gap: 8px;
+    padding: 10px 12px 10px 14px;
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-button);
+    color: var(--color-text-tertiary);
+    font-size: 1.25rem;
+    font-weight: 400;
+    font-family: var(--font-body);
+    width: min(580px, calc(100vw - 32px));
+    text-wrap: nowrap;
+    cursor: text;
+    transition:
+      border-color 150ms ease,
+      color 150ms ease;
+
+    > span {
+      flex: 1;
+      min-width: 0;
+      text-align: left;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    > :global(svg) {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    &:hover:not(:disabled),
+    &:active:not(:disabled) {
+      background-color: var(--color-bg-secondary);
+      border-color: var(--color-border-hover);
+      color: var(--color-text-secondary);
+    }
+
+    &.is-open {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+
+  #ask-dialog {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-button);
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
+    width: min(580px, calc(100vw - 32px));
+    box-shadow:
+      0 4px 20px rgba(0, 0, 0, 0.5),
+      0 1px 4px rgba(0, 0, 0, 0.3);
+    z-index: 100;
+
+    &.has-response {
+      border-radius: 16px;
+    }
+
+    &::backdrop {
+      display: none;
+    }
+
+    .ask-input-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 8px 10px 14px;
+
+      > :global(svg) {
+        width: 18px;
+        height: 18px;
+        color: color-mix(in srgb, var(--color-primary), var(--color-secondary) 50%);
+        flex-shrink: 0;
+      }
+
+      > #ask-input {
+        flex: 1;
+        min-width: 0;
+        padding: 0;
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        font-size: 1.25rem;
+        font-family: var(--font-body);
+        color: var(--color-text-primary);
+
+        &::placeholder {
+          color: var(--color-text-tertiary);
+        }
+
+        &:focus {
+          outline: none;
+        }
+
+        &:disabled {
+          opacity: 0.5;
+        }
+      }
+
+      > #ask-submit,
+      > #ask-close {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px;
+        background: transparent;
+        border-radius: 6px;
+        color: var(--color-text-secondary);
+        font-size: inherit;
+
+        > :global(svg) {
+          width: 18px;
+          height: 18px;
+        }
+
+        &:hover:not(:disabled),
+        &:active:not(:disabled) {
+          background: var(--color-bg-secondary-hover);
+          color: var(--color-text-primary);
+        }
+
+        &:disabled {
+          opacity: 0.4;
+          cursor: default;
+        }
+      }
+    }
+
+    .ask-response {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 10px 12px 16px;
+      max-height: 600px;
+      border-top: 1px solid var(--color-border);
+      overflow-y: auto;
+
+      &[hidden] {
+        display: none;
+      }
+
+      :global(.ask-loading) {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        padding: 4px 2px;
+      }
+
+      :global(.ask-loading span) {
+        display: block;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--color-text-secondary);
+        animation: ask-bounce 1s ease infinite;
+
+        &:nth-child(2) {
+          animation-delay: 0.15s;
+        }
+
+        &:nth-child(3) {
+          animation-delay: 0.3s;
+        }
+      }
+
+      :global(.ask-message) {
+        padding: 8px;
+        max-width: none;
+        font-size: 1.25rem;
+        font-weight: 350;
+        color: var(--color-text-secondary);
+      }
+
+      :global(.ask-error) {
+        font-size: 1rem;
+        font-weight: 350;
+        color: var(--color-text-secondary);
+        max-width: none;
+      }
+
+      :global(.ask-results) {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 8px;
+        padding: 0 8px;
+
+        > :global(.groups),
+        > :global(.features) {
+          padding: 0;
+        }
+
+        :global(.link) {
+          > :global(span):first-child {
+            &::after {
+              content: '';
+              display: block;
+              width: 16px;
+              height: 16px;
+              mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="%23000000" viewBox="0 0 256 256"><path d="M224,104a8,8,0,0,1-16,0V59.32l-66.33,66.34a8,8,0,0,1-11.32-11.32L196.68,48H152a8,8,0,0,1,0-16h64a8,8,0,0,1,8,8Zm-40,24a8,8,0,0,0-8,8v72H48V80h72a8,8,0,0,0,0-16H48A16,16,0,0,0,32,80V208a16,16,0,0,0,16,16H176a16,16,0,0,0,16-16V136A8,8,0,0,0,184,128Z"></path></svg>');
+              mask-size: 100%;
+              background-color: var(--color-text-tertiary);
+              translate: -4px -1px;
+            }
+          }
+
+          @media (max-width: 899px) {
+            &::before {
+              display: none;
+            }
+          }
+        }
+      }
+
+      :global(.ask-cta) {
+        display: flex;
+        justify-content: center;
+        padding: 10px 20px;
+        width: 100%;
+        font-size: 1rem;
+      }
+
+      :global(.ask-user-followup) {
+        align-self: flex-end;
+        margin-top: 16px;
+        margin-bottom: 8px;
+        padding: 10px 16px;
+        max-width: none;
+        font-size: 1rem;
+        background-color: var(--color-primary);
+        border-radius: var(--border-radius-button);
+        border-top-right-radius: 0;
+        color: white;
+      }
+    }
+
+    .ask-followup-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 8px 8px 14px;
+      border-top: 1px solid var(--color-border);
+
+      &[hidden] {
+        display: none;
+      }
+
+      > #ask-followup-input {
+        flex: 1;
+        min-width: 0;
+        padding: 0;
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        font-size: 1rem;
+        font-family: var(--font-body);
+        color: var(--color-text-primary);
+
+        &::placeholder {
+          color: var(--color-text-tertiary);
+        }
+
+        &:focus {
+          outline: none;
+        }
+
+        &:disabled {
+          opacity: 0.5;
+        }
+      }
+
+      > #ask-followup-submit {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px;
+        background: transparent;
+        border-radius: 6px;
+        color: var(--color-text-secondary);
+        font-size: inherit;
+
+        > :global(svg) {
+          width: 18px;
+          height: 18px;
+        }
+
+        &:hover:not(:disabled),
+        &:active:not(:disabled) {
+          background: var(--color-bg-secondary-hover);
+          color: var(--color-text-primary);
+        }
+
+        &:disabled {
+          opacity: 0.4;
+          cursor: default;
+        }
+      }
+    }
+  }
+
+  @keyframes ask-bounce {
+    0%,
+    60%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.4;
+    }
+
+    30% {
+      transform: translateY(-4px);
+      opacity: 1;
+    }
+  }
+
+  .ask-options {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    > li > :global(button) {
+      padding: 5px 11px;
+      font-size: 1rem;
+      background-color: transparent;
+      border: 1px solid var(--color-border);
+    }
+
+    @media (max-width: 600px) {
+      > li {
+        display: none;
+
+        &:nth-child(1),
+        &:nth-child(2) {
+          display: unset;
+        }
+      }
+    }
+  }
+
+  :global(.ask-suggested-stack) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-medium);
+
+    > :global(legend) {
+      margin-left: -7px;
+      padding: 0 8px;
+      font-size: 1rem;
+      translate: 0 1px;
+    }
+
+    > :global(.ask-component-card) {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 1rem;
+    }
+  }
+
+  :global(.ask-ctas) {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    // padding: 0 8px;
+
+    > :global(a),
+    > :global(button) {
+      &:not(:first-child) {
+        padding: 8px 18px !important;
+        background-color: transparent;
+        border: 1px solid var(--color-border);
+      }
+    }
+  }
+</style>
