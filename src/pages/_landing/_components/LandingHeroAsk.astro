@@ -377,14 +377,31 @@ const docsIcon = renderToStaticMarkup(createElement(FileTextIcon, { weight: 'reg
 </script>
 
 <style lang="scss">
+  @property --position {
+    initial-value: 0;
+    inherits: false;
+    syntax: '<number>';
+  }
+
+  @keyframes shimmer-animation {
+    0%,
+    20% {
+      --position: 0;
+    }
+    50%,
+    100% {
+      --position: 1;
+    }
+  }
+
   .ask-trigger {
     display: flex;
     align-items: center;
     align-self: center;
     gap: 8px;
     padding: 10px 12px 10px 14px;
-    background-color: var(--color-bg);
-    border: 1px solid var(--color-border);
+    background-color: transparent;
+    border: 1px solid transparent;
     border-radius: var(--border-radius-button);
     color: var(--color-text-tertiary);
     font-size: 1.25rem;
@@ -410,6 +427,7 @@ const docsIcon = renderToStaticMarkup(createElement(FileTextIcon, { weight: 'reg
       width: 18px;
       height: 18px;
       flex-shrink: 0;
+      color: var(--color-text-primary);
     }
 
     &:hover:not(:disabled),
@@ -419,9 +437,25 @@ const docsIcon = renderToStaticMarkup(createElement(FileTextIcon, { weight: 'reg
       color: var(--color-text-secondary);
     }
 
+    --length: 100px;
+    --width: sin(calc(var(--position) * 3.14159));
+
+    background:
+      linear-gradient(var(--color-bg), var(--color-bg)) padding-box,
+      linear-gradient(
+          110deg,
+          var(--color-border) calc((var(--position) * 100%) - var(--length) * var(--width)),
+          white calc(var(--position) * 100%),
+          var(--color-border) calc((var(--position) * 100%) + var(--length) * var(--width))
+        )
+        border-box;
+
+    animation: shimmer-animation 4s infinite cubic-bezier(0.65, 0, 0.35, 1);
+
     &.is-open {
       opacity: 0;
       pointer-events: none;
+      animation: none;
     }
   }
 
