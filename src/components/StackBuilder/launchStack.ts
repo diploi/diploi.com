@@ -4,10 +4,12 @@ export const launchStack = async ({
   button,
   componentIds,
   apiUrl,
+  prompt,
 }: {
   button: HTMLButtonElement;
   componentIds: number[];
   apiUrl: string;
+  prompt?: string;
 }) => {
   button.disabled = true;
 
@@ -23,6 +25,7 @@ export const launchStack = async ({
     body: JSON.stringify({
       componentIds,
       utm,
+      ...(prompt ? { prompt } : {}),
     }),
   });
 

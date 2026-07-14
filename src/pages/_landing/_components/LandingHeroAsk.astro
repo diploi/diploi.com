@@ -99,6 +99,17 @@ const docsIcon = renderToStaticMarkup(createElement(FileTextIcon, { weight: 'reg
     };
   }
 
+  async function createBuildPromptCta({ componentIds, prompt }: { componentIds: number[]; prompt: string }) {
+    const { launchStack } = await import('../../../components/StackBuilder/launchStack');
+
+    return {
+      title: 'Start building this',
+      onClick: (event: PointerEvent) => {
+        launchStack({ button: event.currentTarget as HTMLButtonElement, componentIds, apiUrl, prompt });
+      },
+    };
+  }
+
   function positionDialog() {
     const rect = trigger.getBoundingClientRect();
     dialog.style.top = `${rect.top + window.scrollY}px`;
@@ -239,6 +250,7 @@ const docsIcon = renderToStaticMarkup(createElement(FileTextIcon, { weight: 'reg
       starter_kit?: ComponentItem | null;
       suggested_stack?: ComponentItem[] | null;
       ctas?: { slug: string }[];
+      build_prompt?: string | null;
     },
     target: HTMLElement
   ) {
@@ -288,13 +300,24 @@ const docsIcon = renderToStaticMarkup(createElement(FileTextIcon, { weight: 'reg
       href?: string;
       onClick?: (event: PointerEvent) => void;
     }[];
-    if (isStarterKit) {
-      ctas.unshift(await createStarterKitCta({ componentId: data.starter_kit?.componentID as number }));
-    }
-    if (isSuggestedStack) {
-      ctas.unshift(
-        await createSuggestedStackCta({ componentIds: data.suggested_stack?.map((component) => component.componentID) as number[] })
-      );
+    if (data.build_prompt) {
+      const buildComponentIds = data.suggested_stack?.length
+        ? data.suggested_stack.map((c) => c.componentID)
+        : data.starter_kit
+          ? [data.starter_kit.componentID]
+          : null;
+      if (buildComponentIds) {
+        ctas.unshift(await createBuildPromptCta({ componentIds: buildComponentIds, prompt: data.build_prompt }));
+      }
+    } else {
+      if (isStarterKit) {
+        ctas.unshift(await createStarterKitCta({ componentId: data.starter_kit?.componentID as number }));
+      }
+      if (isSuggestedStack) {
+        ctas.unshift(
+          await createSuggestedStackCta({ componentIds: data.suggested_stack?.map((component) => component.componentID) as number[] })
+        );
+      }
     }
 
     if (ctas?.length) {
