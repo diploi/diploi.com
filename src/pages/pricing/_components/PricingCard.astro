@@ -86,6 +86,10 @@ const { trial, primary } = Astro.props;
         -webkit-mask-composite: xor;
         mask-composite: exclude;
       }
+
+      > :global(section) {
+        margin-bottom: 0;
+      }
     }
 
     > :global(header) {
@@ -120,6 +124,8 @@ const { trial, primary } = Astro.props;
     }
 
     > :global(section) {
+      margin-bottom: 32px;
+
       > :global(ul) {
         margin-top: 18px;
 

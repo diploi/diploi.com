@@ -1,0 +1,208 @@
+---
+import {
+  ArrowsClockwiseIcon,
+  CheckCircleIcon,
+  CircleIcon,
+  CloudIcon,
+  CoinsIcon,
+  GlobeIcon,
+  InfinityIcon,
+  InfoIcon,
+  LightningIcon,
+  LinkSimpleIcon,
+  LockSimpleIcon,
+  MagicWandIcon,
+  PercentIcon,
+  PlusIcon,
+  SquareIcon,
+  TriangleIcon,
+  WalletIcon,
+} from '@phosphor-icons/react';
+import Tag from '../../../components/Tag.astro';
+import PricingCard from './PricingCard.astro';
+
+/*
+ * TODO: Exact AI daily limits and the full Pro / Ultra feature lists are
+ * still being finalized — update the placeholder bullets below when ready.
+ */
+---
+
+<div class="plans">
+  <PricingCard>
+    <SquareIcon weight="thin" className="bg" />
+
+    <header slot="header">
+      <section>
+        <h3>Pay as you go</h3>
+      </section>
+      <p>Top up your balance whenever you like, no monthly commitment.</p>
+    </header>
+
+    <section slot="content" class="content">
+      <ul>
+        <li><CoinsIcon /> Manual & automatic top-up</li>
+        <li><LinkSimpleIcon /> Custom domains & automatic SSL</li>
+        <li><CloudIcon /> Cloud IDE & SSH</li>
+        <li><GlobeIcon /> Global CDN</li>
+        <li><PlusIcon /> And all other platform features</li>
+      </ul>
+    </section>
+
+    <footer slot="footer">
+      <section class="price">
+        <strong>0<abbr>€</abbr></strong>
+        <label>/ month, pay for what you use</label>
+      </section>
+      <a class="button secondary" data-event="plan_payg_click" data-link="login" href="https://console.diploi.com/sign-up">Get Started</a>
+    </footer>
+  </PricingCard>
+
+  <PricingCard primary>
+    <TriangleIcon weight="thin" className="bg" />
+
+    <header slot="header">
+      <section>
+        <h3>Pro</h3>
+        <Tag primary>Popular</Tag>
+      </section>
+      <p>An automatic monthly top-up, plus higher limits and Pro features.</p>
+    </header>
+
+    <section slot="content" class="content">
+      <ul>
+        <li><CheckCircleIcon /> Everything in Pay as you go</li>
+        <li><WalletIcon /> 20 € added to your balance every month</li>
+        <li><LightningIcon /> Increased daily AI usage limit</li>
+      </ul>
+    </section>
+
+    <footer slot="footer">
+      <section class="price">
+        <strong>20<abbr>€</abbr></strong>
+        <label>/ month, credited to your balance</label>
+      </section>
+      <a class="button" data-event="plan_pro_click" data-link="login" href="https://console.diploi.com/sign-up">Choose Pro</a>
+    </footer>
+  </PricingCard>
+
+  <PricingCard>
+    <CircleIcon weight="thin" className="bg" />
+
+    <header slot="header">
+      <section>
+        <h3>Ultra</h3>
+        <Tag>For power users</Tag>
+      </section>
+      <p>For heavy AI use and serious workloads.</p>
+    </header>
+
+    <section slot="content" class="content">
+      <ul>
+        <li><CheckCircleIcon /> Everything in Pro</li>
+        <li><WalletIcon /> 100 € added to your balance every month</li>
+        <li><PercentIcon /> -10% on AI usage costs</li>
+        <li><InfinityIcon /> No daily AI usage limit</li>
+      </ul>
+    </section>
+
+    <footer slot="footer">
+      <section class="price">
+        <strong>100<abbr>€</abbr></strong>
+        <label>/ month, credited to your balance</label>
+      </section>
+      <a class="button secondary" data-event="plan_ultra_click" data-link="login" href="https://console.diploi.com/sign-up">Choose Ultra</a>
+    </footer>
+  </PricingCard>
+
+  <p class="help footer">
+    <InfoIcon /> Your balance pays for both deployments and AI usage. Topped-up balance never expires. Taxes / VAT not included.
+  </p>
+</div>
+
+<style lang="scss">
+  .plans {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+
+    @media (max-width: 1100px) {
+      grid-template-columns: 1fr;
+    }
+
+    .bg {
+      position: absolute;
+      top: -110px;
+      right: -100px;
+      width: 320px;
+      height: 320px;
+      color: var(--color-border);
+      opacity: 0.15;
+      pointer-events: none;
+    }
+
+    :global(header) {
+      flex: unset;
+    }
+
+    .content {
+      flex: 1;
+    }
+
+    :global(footer) {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 20px;
+      margin-top: 28px;
+    }
+
+    :global(footer) > .button {
+      justify-content: center;
+    }
+
+    .price {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+
+      strong {
+        font-size: 54px;
+        line-height: 0.8;
+        color: var(--color-text-primary);
+
+        > abbr {
+          font-size: 2rem;
+        }
+      }
+
+      label {
+        font-size: 1rem;
+        color: var(--color-text-secondary);
+      }
+    }
+
+    p.help {
+      display: flex;
+      align-items: flex-start;
+      gap: 4px;
+      grid-column: 1 / -1;
+      padding-left: 32px;
+      font-size: 0.875rem;
+      opacity: 0.5;
+
+      > svg {
+        flex-shrink: 0;
+        translate: 0 2px;
+      }
+
+      @media (max-width: 1100px) {
+        grid-column: auto;
+      }
+    }
+  }
+</style>

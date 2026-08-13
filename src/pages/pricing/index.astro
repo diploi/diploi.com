@@ -6,6 +6,7 @@ import Layout from '../../layouts/Layout.astro';
 import PricingDeployments from './_components/PricingDeployments.astro';
 import PricingEnterpriceBanner from './_components/PricingEnterpriceBanner.astro';
 import PricingFair from './_components/PricingFair.astro';
+import PricingPlans from './_components/PricingPlans.astro';
 import PricingTrialBanner from './_components/PricingTrialBanner.astro';
 
 const { pricing } = await fetch('https://console.diploi.com/api/business/pricing').then((response) => response.json());
@@ -15,18 +16,18 @@ if (!pricing) {
 ---
 
 <Layout
-  title="Pricing - Diploi Cloud Costs"
-  description="Usage-based pricing for cloud app hosting. Pay only for what you use, starting at €0.026/hour for a full environment."
+  title="Pricing - Diploi Plans & Cloud Costs"
+  description="Top-up based pricing for cloud development, hosting, and AI. One balance pays for everything. Pay as you go, or pick Pro or Ultra."
   ogUrlMatchCanonical={true}
 >
   <Navigation selected="pricing" />
   <main>
     <Section>
       <div class="pricing-cards">
-        <PageTitle tagText="Pricing" title="Simple, Predictable Pricing" />
+        <PageTitle tagText="Pricing" title="Pricing You Control" />
         <section>
           <PricingTrialBanner />
-          <PricingDeployments />
+          <PricingPlans />
         </section>
         <hr />
         <PricingEnterpriceBanner />
@@ -40,9 +41,10 @@ if (!pricing) {
         <SectionHeader
           title="Cluster Costs"
           highlightedText="Cluster"
-          description="A running Diploi deployment spins up a cluster that runs everything to do with your stack."
-          descriptionSuffix="You will only be charged for the hours your cluster is running."
+          description="A running Diploi deployment spins up a cluster that runs everything to do with your stack. Cluster costs are paid from your balance, you are only charged for the hours your cluster is running."
         />
+
+        <PricingDeployments />
 
         <PricingType pricing={pricing} />
         <PricingTable pricing={pricing} />

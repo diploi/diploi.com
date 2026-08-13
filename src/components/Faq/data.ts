@@ -68,7 +68,7 @@ export const faqItems: FaqItem[] = [
     page: 'homepage',
     question: 'Is there a free trial or credits?',
     answer:
-      'When you sign up with GitHub, you receive €50 in free credits valid for 14 days. These credits let you explore Diploi fully without a credit card. After the trial, you only pay for the time that your application is online and the storage utilized. There are no additional costs or fees for extra services.',
+      'When you sign up with GitHub, you receive €50 in free credits valid for 14 days. These credits let you explore Diploi fully without a credit card. After the trial, you top up a balance that pays for your deployments and AI usage, you only pay for what you actually use.',
   },
   {
     id: 'homepage-stack-builder',
@@ -82,14 +82,34 @@ export const faqItems: FaqItem[] = [
     page: 'pricing',
     question: 'What is the pricing model of Diploi?',
     answer:
-      'Diploi has a usage-based pricing model, where you only pay for the hours that your deployment is running and the storage used. This applies to development, testing, and production environments alike.',
+      'Diploi uses a prepaid, usage-based pricing model. You top up a balance, and that balance pays for everything: the hours your deployments are running, the storage they use, and your AI usage. This applies to development, testing, and production environments alike. There is no bill at the end of the month, you only ever spend the balance you have topped up.',
+  },
+  {
+    id: 'pricing-topup',
+    page: 'pricing',
+    question: 'How does topping up my balance work?',
+    answer:
+      'You can top up your balance manually at any time, or enable auto top-up so your balance is refilled automatically when it runs low. The Pro and Ultra plans additionally add a fixed amount to your balance every month, and come with increased limits and extra features.',
+  },
+  {
+    id: 'pricing-plans-difference',
+    page: 'pricing',
+    question: 'What is the difference between Pay as you go, Pro, and Ultra?',
+    answer:
+      'All plans use the same balance and the same usage-based rates. Pay as you go has no monthly charge, you top up whenever you like. Pro and Ultra automatically credit their full monthly price to your balance.',
+  },
+  {
+    id: 'pricing-ai',
+    page: 'pricing',
+    question: 'How is AI usage billed?',
+    answer: 'AI usage is metered and drawn from the same balance as your deployments, there is no separate AI subscription.',
   },
   {
     id: 'pricing-free',
     page: 'pricing',
     question: 'Can I use Diploi for free?',
     answer:
-      'Yes, you can use Diploi free for 14 days when you register for the first time. There are no upfront fees or credit card requirements. After that, you need to add a valid payment method, because Diploi does not offer a free tier.',
+      'Yes, you can use Diploi free for 14 days when you register for the first time, with 50 € of free credits and no credit card required.',
   },
   {
     id: 'pricing-enterprise',
@@ -302,7 +322,7 @@ export const faqItems: FaqItem[] = [
     page: 'faq',
     question: 'Is there a free trial or credits?',
     answer:
-      'When you sign up with GitHub, you receive €50 in free credits valid for 14 days. These credits let you explore Diploi fully without a credit card. After the trial, you only pay for the time that your application is online and the storage utilized. There are no additional costs or fees for extra services.',
+      'When you sign up with GitHub, you receive 50 € in free credits valid for 14 days. These credits let you explore Diploi fully without a credit card. After the trial, you top up a balance that pays for your deployments and AI usage, you only pay for what you actually use.',
   },
   {
     id: 'faq-try-without-registering',
@@ -464,7 +484,7 @@ export const faqItems: FaqItem[] = [
     page: 'faq',
     question: 'What is the pricing model of Diploi?',
     answer:
-      "Diploi has a usage-based pricing model, where you only pay for the time that your deployment is running and the storage that your deployments use. There's no pricing difference between the deployment stages you create. Pricing depends on the size of the cluster that your deployments use, while storage is charged at a flat rate based on the amount used, regardless of the cluster types you are using.",
+      "Diploi has a prepaid, usage-based pricing model. You top up a balance (manually, via auto top-up, or through the Pro and Ultra monthly plans), and that balance pays for the time your deployments are running, the storage they use, and your AI usage. There's no pricing difference between the deployment stages you create. Pricing depends on the size of the cluster that your deployments use, while storage is charged at a flat rate based on the amount used, regardless of the cluster types you are using.",
   },
   {
     id: 'faq-is-diploi-expensive',
