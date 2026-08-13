@@ -1,8 +1,12 @@
 ---
+import { HardDrivesIcon } from '@phosphor-icons/react';
 import { ContactUsCard, Footer, GetStarted, PageTitle, Plans, PricingTable, PricingType, Section, SectionHeader } from '../../components';
 import { Faq } from '../../components/Faq';
 import Navigation from '../../components/Navigation/Navigation.astro';
 import Layout from '../../layouts/Layout.astro';
+import FeaturesSectionHeader from '../features/_components/FeaturesSectionHeader.astro';
+import LovableHr from '../lovable/_components/LovableHr.astro';
+import PricingAiCosts from './_components/PricingAiCosts.astro';
 import PricingDeployments from './_components/PricingDeployments.astro';
 import PricingEnterpriceBanner from './_components/PricingEnterpriceBanner.astro';
 import PricingFair from './_components/PricingFair.astro';
@@ -38,17 +42,27 @@ if (!pricing) {
       <hr />
 
       <Section>
-        <SectionHeader
-          title="Cluster Costs"
-          highlightedText="Cluster"
-          description="A running Diploi deployment spins up a cluster that runs everything to do with your stack. Cluster costs are paid from your balance, you are only charged for the hours your cluster is running."
-        />
+        <FeaturesSectionHeader>
+          <HardDrivesIcon />
+          <h2>Cluster Costs</h2>
+          <p>
+            A running Diploi deployment spins up a cluster that runs everything to do with your stack. Cluster costs are paid from your
+            balance, you are only charged for the hours your cluster is running.
+          </p>
+        </FeaturesSectionHeader>
 
         <PricingDeployments />
 
         <PricingType pricing={pricing} />
         <PricingTable pricing={pricing} />
       </Section>
+
+      <LovableHr />
+
+      <PricingAiCosts />
+
+      <LovableHr />
+
       <Section>
         <SectionHeader title="FAQ" highlightedText="FAQ" description="Common questions about Diploi's pricing" />
         <Faq page="pricing" />

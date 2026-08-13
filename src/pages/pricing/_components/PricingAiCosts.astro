@@ -1,0 +1,240 @@
+---
+import {
+  ChatCircleDotsIcon,
+  CircleIcon,
+  CloudIcon,
+  InfoIcon,
+  LinkSimpleIcon,
+  PlugsConnectedIcon,
+  SparkleIcon,
+  SquareIcon,
+  TerminalWindowIcon,
+  TriangleIcon,
+  WalletIcon,
+} from '@phosphor-icons/react';
+import Bullets from '../../../components/Bullets';
+import Tag from '../../../components/Tag.astro';
+import FeaturesHr from '../../features/_components/FeaturesHr.astro';
+import FeaturesSection from '../../features/_components/FeaturesSection.astro';
+import FeaturesSectionHeader from '../../features/_components/FeaturesSectionHeader.astro';
+
+/*
+ * TODO: Replace with data from the pricing API once the model list endpoint
+ * is available.
+ */
+const models = [
+  { name: 'Claude Opus 4.8', provider: 'Anthropic' },
+  { name: 'Claude Sonnet 5', provider: 'Anthropic' },
+  { name: 'GPT-5.6 Sol', provider: 'OpenAI' },
+  { name: 'GPT-5.6 Terra', provider: 'OpenAI' },
+];
+---
+
+<FeaturesSection>
+  <FeaturesSectionHeader slot="header">
+    <SparkleIcon />
+    <h2 id="ai">AI Costs</h2>
+    <p>Use AI anywhere in your workflow, all metered from the same balance as your deployments.</p>
+  </FeaturesSectionHeader>
+  <ul class="features">
+    <li>
+      <SquareIcon weight="thin" className="bg" aria-hidden />
+      <ChatCircleDotsIcon />
+      <h3>Prompt <Tag>Built-in</Tag></h3>
+      <p>Message your app's codebase using the Prompt view in the console.</p>
+      <Bullets total={6}>
+        <Bullets.Item>
+          <SparkleIcon weight="bold" /> No API keys or installations
+        </Bullets.Item>
+        <Bullets.Item>
+          <CloudIcon weight="bold" /> Works in every project
+        </Bullets.Item>
+      </Bullets>
+    </li>
+    <FeaturesHr vertical />
+    <li>
+      <TriangleIcon weight="thin" className="bg" aria-hidden />
+      <TerminalWindowIcon />
+      <h3>OpenCode <Tag>Built-in</Tag></h3>
+      <p>Prefer a CLI? OpenCode comes preconfigured in your dev deployments.</p>
+      <Bullets start={2} total={6}>
+        <Bullets.Item>
+          <TerminalWindowIcon weight="bold" /> Ready in every dev deployment
+        </Bullets.Item>
+        <Bullets.Item>
+          <PlugsConnectedIcon weight="bold" /> Zero configuration
+        </Bullets.Item>
+      </Bullets>
+    </li>
+    <FeaturesHr vertical />
+    <li>
+      <CircleIcon weight="thin" className="bg" aria-hidden />
+      <LinkSimpleIcon />
+      <h3>Your Own Tools</h3>
+      <p>Point the AI tools you already use at Diploi's custom AI model endpoint.</p>
+      <Bullets start={4} total={6}>
+        <Bullets.Item>
+          <LinkSimpleIcon weight="bold" /> Custom model endpoint
+        </Bullets.Item>
+        <Bullets.Item>
+          <WalletIcon weight="bold" /> Billed from your balance
+        </Bullets.Item>
+      </Bullets>
+    </li>
+  </ul>
+
+  <div class="models">
+    <h3>Supported Models</h3>
+    <table>
+      <colgroup>
+        <col span="1" style="width: 60%" />
+        <col span="1" style="width: 40%;" />
+      </colgroup>
+      <thead>
+        <tr>
+          <th>Model</th>
+          <th>Provider</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          models.map((model) => (
+            <tr>
+              <td>{model.name}</td>
+              <td>
+                <Tag>{model.provider}</Tag>
+              </td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+    <p class="help">
+      <InfoIcon /> AI usage is billed per use at model rates from your balance.
+    </p>
+  </div>
+</FeaturesSection>
+
+<style lang="scss">
+  .features {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr 1px 1fr;
+    gap: 32px;
+
+    @media (max-width: 860px) {
+      grid-template-columns: 1fr;
+      gap: 48px;
+
+      :global(hr) {
+        display: none;
+      }
+    }
+
+    li {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      min-width: 0;
+
+      &:nth-of-type(2) .bg {
+        translate: -10% 2%;
+      }
+
+      &:nth-of-type(3) .bg {
+        translate: -5% -30%;
+      }
+    }
+
+    li > svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    li > h3 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+
+      :global(span) {
+        transform: translateY(1px);
+      }
+    }
+
+    .bg {
+      position: absolute;
+      width: 150% !important;
+      height: 150% !important;
+      aspect-ratio: 1/1;
+      translate: -35% -22%;
+      color: white;
+      opacity: 0.02;
+      z-index: -1;
+
+      @media (max-width: 860px) {
+        display: none;
+      }
+    }
+  }
+
+  .models {
+    display: flex;
+    flex-direction: column;
+    margin-top: 48px;
+    width: 100%;
+
+    > h3 {
+      margin-bottom: 16px;
+    }
+
+    table {
+      width: 100%;
+      table-layout: fixed;
+      color: var(--color-text-primary);
+      border-collapse: collapse;
+    }
+
+    table th {
+      text-align: left;
+      font-weight: 400;
+      color: var(--color-text-secondary);
+      padding: var(--space-s) var(--space-l);
+      font-size: 1rem;
+    }
+
+    td {
+      padding: var(--space-l);
+      font-size: 1rem;
+    }
+
+    table tbody tr:nth-of-type(odd) {
+      > td {
+        background-color: var(--color-bg-secondary);
+      }
+
+      td:first-of-type {
+        border-top-left-radius: var(--border-radius-medium);
+        border-bottom-left-radius: var(--border-radius-medium);
+      }
+      td:last-of-type {
+        border-top-right-radius: var(--border-radius-medium);
+        border-bottom-right-radius: var(--border-radius-medium);
+      }
+    }
+
+    .help {
+      display: flex;
+      align-items: flex-start;
+      gap: 4px;
+      margin-top: 16px;
+      font-size: 0.875rem;
+      color: var(--color-text-secondary);
+
+      > svg {
+        flex-shrink: 0;
+        translate: 0 2px;
+      }
+    }
+  }
+</style>

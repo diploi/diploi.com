@@ -102,7 +102,8 @@ export const faqItems: FaqItem[] = [
     id: 'pricing-ai',
     page: 'pricing',
     question: 'How is AI usage billed?',
-    answer: 'AI usage is metered and drawn from the same balance as your deployments, there is no separate AI subscription.',
+    answer:
+      'AI usage is metered and drawn from the same balance as your deployments, there is no separate AI subscription. This covers all the ways you can use AI on Diploi: the Prompt view, the preinstalled Opencode CLI, and the custom AI model endpoint for your own tools.',
   },
   {
     id: 'pricing-free',
