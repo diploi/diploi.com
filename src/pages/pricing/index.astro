@@ -1,22 +1,16 @@
 ---
-import { HardDrivesIcon } from '@phosphor-icons/react';
-import { ContactUsCard, Footer, GetStarted, PageTitle, Plans, PricingTable, PricingType, Section, SectionHeader } from '../../components';
-import { Faq } from '../../components/Faq';
+import { Footer, PageTitle, Section } from '../../components';
 import Navigation from '../../components/Navigation/Navigation.astro';
 import Layout from '../../layouts/Layout.astro';
-import FeaturesSectionHeader from '../features/_components/FeaturesSectionHeader.astro';
+import FeaturesCallouts from '../features/_components/FeaturesCallouts.astro';
 import LovableHr from '../lovable/_components/LovableHr.astro';
 import PricingAiCosts from './_components/PricingAiCosts.astro';
-import PricingDeployments from './_components/PricingDeployments.astro';
+import PricingClusterCosts from './_components/PricingClusterCosts.astro';
 import PricingEnterpriceBanner from './_components/PricingEnterpriceBanner.astro';
 import PricingFair from './_components/PricingFair.astro';
+import PricingFaq from './_components/PricingFaq.astro';
 import PricingPlans from './_components/PricingPlans.astro';
 import PricingTrialBanner from './_components/PricingTrialBanner.astro';
-
-const { pricing } = await fetch('https://console.diploi.com/api/business/pricing').then((response) => response.json());
-if (!pricing) {
-  throw new Error(`Failed to load pricing (${pricing.status})`);
-}
 ---
 
 <Layout
@@ -38,42 +32,13 @@ if (!pricing) {
       </div>
 
       <PricingFair />
-
-      <hr />
-
-      <Section>
-        <FeaturesSectionHeader>
-          <HardDrivesIcon />
-          <h2>Cluster Costs</h2>
-          <p>
-            A running Diploi deployment spins up a cluster that runs everything to do with your stack. Cluster costs are paid from your
-            balance, you are only charged for the hours your cluster is running.
-          </p>
-        </FeaturesSectionHeader>
-
-        <PricingDeployments />
-
-        <PricingType pricing={pricing} />
-        <PricingTable pricing={pricing} />
-      </Section>
-
       <LovableHr />
-
+      <PricingClusterCosts />
+      <LovableHr />
       <PricingAiCosts />
-
       <LovableHr />
-
-      <Section>
-        <SectionHeader title="FAQ" highlightedText="FAQ" description="Common questions about Diploi's pricing" />
-        <Faq page="pricing" />
-      </Section>
-      <hr />
-      <Section>
-        <div class="callout">
-          <GetStarted />
-          <ContactUsCard />
-        </div>
-      </Section>
+      <PricingFaq />
+      <FeaturesCallouts />
     </Section>
   </main>
   <Footer />
