@@ -25,7 +25,7 @@ export function blogLoader({ apiKey }: { apiKey: string }): Loader {
       }
 
       // FIXME: Pagination!
-      const blogsResponse = await fetch(`https://dev.to/api/articles?username=diploi&state=all&page=1&per_page=20`, {
+      const blogsResponse = await fetch(`https://dev.to/api/articles?username=diploi&state=all&page=1&per_page=30`, {
         headers: {
           'api-key': apiKey,
         },
