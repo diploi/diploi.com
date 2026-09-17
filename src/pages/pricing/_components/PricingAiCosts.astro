@@ -18,16 +18,19 @@ import FeaturesHr from '../../features/_components/FeaturesHr.astro';
 import FeaturesSection from '../../features/_components/FeaturesSection.astro';
 import FeaturesSectionHeader from '../../features/_components/FeaturesSectionHeader.astro';
 
-/*
- * TODO: Replace with data from the pricing API once the model list endpoint
- * is available.
- */
-const models = [
-  { name: 'Claude Opus 4.8', provider: 'Anthropic' },
-  { name: 'Claude Sonnet 5', provider: 'Anthropic' },
-  { name: 'GPT-5.6 Sol', provider: 'OpenAI' },
-  { name: 'GPT-5.6 Terra', provider: 'OpenAI' },
-];
+const apiUrl = import.meta.env.VITE_API_URL ?? '';
+
+const modelsResponse = (
+  await fetch(`${apiUrl}/api/trpc/ai.models`, {
+    method: 'GET',
+    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+  }).then((res) => res.json())
+).result?.data;
+if (!modelsResponse || modelsResponse.status !== 'ok') {
+  throw new Error(`Failed to load models (${modelsResponse.status})`);
+}
+
+const models = modelsResponse.models as { id: string; label: string }[];
 ---
 
 <FeaturesSection>
@@ -85,7 +88,7 @@ const models = [
 
   <div class="models">
     <h3>Supported Models</h3>
-    <table>
+    <table id="ai-models-table">
       <colgroup>
         <col span="1" style="width: 60%" />
         <col span="1" style="width: 40%;" />
@@ -93,16 +96,16 @@ const models = [
       <thead>
         <tr>
           <th>Model</th>
-          <th>Provider</th>
+          <th>Identifier</th>
         </tr>
       </thead>
       <tbody>
         {
           models.map((model) => (
             <tr>
-              <td>{model.name}</td>
+              <td>{model.label}</td>
               <td>
-                <Tag>{model.provider}</Tag>
+                <Tag>{model.id}</Tag>
               </td>
             </tr>
           ))
@@ -114,6 +117,37 @@ const models = [
     </p>
   </div>
 </FeaturesSection>
+
+<script>
+  import { VITE_API_URL } from 'astro:env/client';
+
+  const modelsResponse = (
+    await fetch(`${VITE_API_URL}/api/trpc/ai.models`, {
+      method: 'GET',
+      headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+    }).then((res) => res.json())
+  ).result?.data;
+  if (!modelsResponse || modelsResponse.status !== 'ok') {
+    throw new Error(`Failed to load models (${modelsResponse?.status})`);
+  }
+
+  const models = modelsResponse.models as { id: string; label: string }[];
+
+  const tbody = document.querySelector('#ai-models-table tbody');
+  const template = tbody?.querySelector('tr');
+  if (tbody && template) {
+    tbody.replaceChildren(
+      ...models.map((model) => {
+        const row = template.cloneNode(true) as HTMLTableRowElement;
+        const [labelCell, idCell] = row.querySelectorAll('td');
+        labelCell.textContent = model.label;
+        const tag = idCell.querySelector('span');
+        if (tag) tag.textContent = model.id;
+        return row;
+      })
+    );
+  }
+</script>
 
 <style lang="scss">
   .features {
@@ -183,9 +217,6 @@ const models = [
     flex-direction: column;
     margin-top: 48px;
     width: 100%;
-
-    /* Disabled for now */
-    display: none;
 
     > h3 {
       margin-bottom: 16px;
