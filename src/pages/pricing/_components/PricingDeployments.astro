@@ -7,6 +7,33 @@ import kubernetesSticker from '../../../images/kubernetes-sticker.svg';
 import postgresSticker from '../../../images/postgres-sticker.svg';
 import reactSticker from '../../../images/react-sticker.svg';
 import PricingCard from './PricingCard.astro';
+
+interface Props {
+  pricing: {
+    averageDaysInMonth: number;
+    averageWorkingDaysInMonth: number;
+    averageWorkingHoursInDay: number;
+    storagePerGiB: number;
+    coreInstancePrice: { name: string; price: number }[];
+  };
+}
+
+const { pricing } = Astro.props;
+
+const storageGiB = 5;
+
+const getMonthlyEstimate = (clusterSize: string, clusterHours: number) => {
+  const core = pricing.coreInstancePrice.find((core) => core.name === clusterSize);
+  if (!core) {
+    throw new Error(`Missing pricing for cluster size ${clusterSize}`);
+  }
+  const storageHours = pricing.averageDaysInMonth * 24;
+  const [whole, fraction] = (core.price * clusterHours + pricing.storagePerGiB * storageGiB * storageHours).toFixed(2).split('.');
+  return { whole, fraction };
+};
+
+const development = getMonthlyEstimate('M', pricing.averageWorkingDaysInMonth * pricing.averageWorkingHoursInDay);
+const production = getMonthlyEstimate('XS', pricing.averageDaysInMonth * 24);
 ---
 
 <div>
@@ -51,9 +78,9 @@ import PricingCard from './PricingCard.astro';
     </section>
 
     <footer slot="footer">
-      <p class="help"><Info /> Estimate, assuming use of the size M cluster with 5 GB storage for 7 hours / workday</p>
+      <p class="help"><Info /> Estimate, assuming use of the size M cluster with {storageGiB} GB storage for {pricing.averageWorkingHoursInDay} hours / workday</p>
       <section class="price">
-        <strong>2<small>.90</small><abbr>€</abbr></strong>
+        <strong>{development.whole}<small>.{development.fraction}</small><abbr>€</abbr></strong>
         <label>/ month</label>
       </section>
     </footer>
@@ -78,9 +105,9 @@ import PricingCard from './PricingCard.astro';
     </section>
 
     <footer slot="footer">
-      <p class="help"><Info /> Estimate, using size XS cluster with 5 GB storage</p>
+      <p class="help"><Info /> Estimate, using size XS cluster with {storageGiB} GB storage</p>
       <section class="price">
-        <strong>4<small>.99</small><abbr>€</abbr></strong>
+        <strong>{production.whole}<small>.{production.fraction}</small><abbr>€</abbr></strong>
         <label>/ month</label>
       </section>
     </footer>
